@@ -1,0 +1,26 @@
+.fourZerofour {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-6xl) 0;
+
+  .small-container {
+    max-width: 830px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3xl);
+
+    .fourImage {
+      width: 100%;
+      border-radius: var(--spacing-md);
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+  }
+}

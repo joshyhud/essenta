@@ -1,0 +1,886 @@
+.group {
+  background: url(/wp-content/themes/b9-boilerplate/src/images/base-icons.png)
+    no-repeat;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+.activity {
+  background-position: 0 0;
+}
+.airplay {
+  background-position: -56px 0;
+}
+.alert-circle {
+  background-position: -112px 0;
+}
+.alert-octagon {
+  background-position: -168px 0;
+}
+.alert-triangle {
+  background-position: -224px 0;
+}
+.align-center {
+  background-position: -280px 0;
+}
+.align-justify {
+  background-position: -336px 0;
+}
+.align-left {
+  background-position: -392px 0;
+}
+.align-right {
+  background-position: -448px 0;
+}
+.anchor {
+  background-position: -504px 0;
+}
+.aperture {
+  background-position: -560px 0;
+}
+.archive {
+  background-position: -616px 0;
+}
+.arrow-down-circle {
+  background-position: -672px 0;
+}
+.arrow-down-left {
+  background-position: -728px 0;
+}
+.arrow-down-right {
+  background-position: -784px 0;
+}
+.arrow-down {
+  background-position: -840px 0;
+}
+.arrow-left-circle {
+  background-position: -896px 0;
+}
+.arrow-left {
+  background-position: -952px 0;
+}
+.arrow-right-circle {
+  background-position: 0 -56px;
+}
+.arrow-right {
+  background-position: -56px -56px;
+}
+.arrow-up-circle {
+  background-position: -112px -56px;
+}
+.arrow-up-left {
+  background-position: -168px -56px;
+}
+.arrow-up-right {
+  background-position: -224px -56px;
+}
+.arrow-up {
+  background-position: -280px -56px;
+}
+.at-sign {
+  background-position: -336px -56px;
+}
+.award {
+  background-position: -392px -56px;
+}
+.bar-chart-2 {
+  background-position: -448px -56px;
+}
+.bar-chart {
+  background-position: -504px -56px;
+}
+.battery-charging {
+  background-position: -560px -56px;
+}
+.battery {
+  background-position: -616px -56px;
+}
+.bell-off {
+  background-position: -672px -56px;
+}
+.bell {
+  background-position: -728px -56px;
+}
+.bluetooth {
+  background-position: -784px -56px;
+}
+.bold {
+  background-position: -840px -56px;
+}
+.book-open {
+  background-position: -896px -56px;
+}
+.book {
+  background-position: -952px -56px;
+}
+.bookmark {
+  background-position: 0 -112px;
+}
+.box {
+  background-position: -56px -112px;
+}
+.briefcase {
+  background-position: -112px -112px;
+}
+.calendar {
+  background-position: -168px -112px;
+}
+.camera-off {
+  background-position: -224px -112px;
+}
+.camera {
+  background-position: -280px -112px;
+}
+.cast {
+  background-position: -336px -112px;
+}
+.check-circle {
+  background-position: -392px -112px;
+}
+.check-square {
+  background-position: -448px -112px;
+}
+.check {
+  background-position: -504px -112px;
+}
+.chevron-down {
+  background-position: -560px -112px;
+}
+.chevron-left {
+  background-position: -616px -112px;
+}
+.chevron-right {
+  background-position: -672px -112px;
+}
+.chevron-up {
+  background-position: -728px -112px;
+}
+.chevrons-down {
+  background-position: -784px -112px;
+}
+.chevrons-left {
+  background-position: -840px -112px;
+}
+.chevrons-right {
+  background-position: -896px -112px;
+}
+.chevrons-up {
+  background-position: -952px -112px;
+}
+.chrome {
+  background-position: 0 -168px;
+}
+.circle {
+  background-position: -56px -168px;
+}
+.clipboard {
+  background-position: -112px -168px;
+}
+.clock {
+  background-position: -168px -168px;
+}
+.cloud-drizzle {
+  background-position: -224px -168px;
+}
+.cloud-lightning {
+  background-position: -280px -168px;
+}
+.cloud-off {
+  background-position: -336px -168px;
+}
+.cloud-rain {
+  background-position: -392px -168px;
+}
+.cloud-snow {
+  background-position: -448px -168px;
+}
+.cloud {
+  background-position: -504px -168px;
+}
+.code {
+  background-position: -560px -168px;
+}
+.codepen {
+  background-position: -616px -168px;
+}
+.codesandbox {
+  background-position: -672px -168px;
+}
+.coffee {
+  background-position: -728px -168px;
+}
+.columns {
+  background-position: -784px -168px;
+}
+.command {
+  background-position: -840px -168px;
+}
+.compass {
+  background-position: -896px -168px;
+}
+.copy {
+  background-position: -952px -168px;
+}
+.corner-down-left {
+  background-position: 0 -224px;
+}
+.corner-down-right {
+  background-position: -56px -224px;
+}
+.corner-left-down {
+  background-position: -112px -224px;
+}
+.corner-left-up {
+  background-position: -168px -224px;
+}
+.corner-right-down {
+  background-position: -224px -224px;
+}
+.corner-right-up {
+  background-position: -280px -224px;
+}
+.corner-up-left {
+  background-position: -336px -224px;
+}
+.corner-up-right {
+  background-position: -392px -224px;
+}
+.cpu {
+  background-position: -448px -224px;
+}
+.credit-card {
+  background-position: -504px -224px;
+}
+.crop {
+  background-position: -560px -224px;
+}
+.crosshair {
+  background-position: -616px -224px;
+}
+.database {
+  background-position: -672px -224px;
+}
+.delete {
+  background-position: -728px -224px;
+}
+.disc {
+  background-position: -784px -224px;
+}
+.divide-circle {
+  background-position: -840px -224px;
+}
+.divide-square {
+  background-position: -896px -224px;
+}
+.divide {
+  background-position: -952px -224px;
+}
+.dollar-sign {
+  background-position: 0 -280px;
+}
+.download-cloud {
+  background-position: -56px -280px;
+}
+.download {
+  background-position: -112px -280px;
+}
+.dribbble {
+  background-position: -168px -280px;
+}
+.droplet {
+  background-position: -224px -280px;
+}
+.edit-2 {
+  background-position: -280px -280px;
+}
+.edit-3 {
+  background-position: -336px -280px;
+}
+.edit {
+  background-position: -392px -280px;
+}
+.external-link {
+  background-position: -448px -280px;
+}
+.eye-off {
+  background-position: -504px -280px;
+}
+.eye {
+  background-position: -560px -280px;
+}
+.facebook {
+  background-position: -616px -280px;
+}
+.fast-forward {
+  background-position: -672px -280px;
+}
+.feather {
+  background-position: -728px -280px;
+}
+.figma {
+  background-position: -784px -280px;
+}
+.file-minus {
+  background-position: -840px -280px;
+}
+.file-plus {
+  background-position: -896px -280px;
+}
+.file-text {
+  background-position: -952px -280px;
+}
+.file {
+  background-position: 0 -336px;
+}
+.film {
+  background-position: -56px -336px;
+}
+.filter {
+  background-position: -112px -336px;
+}
+.flag {
+  background-position: -168px -336px;
+}
+.folder-minus {
+  background-position: -224px -336px;
+}
+.folder-plus {
+  background-position: -280px -336px;
+}
+.folder {
+  background-position: -336px -336px;
+}
+.framer {
+  background-position: -392px -336px;
+}
+.frown {
+  background-position: -448px -336px;
+}
+.gift {
+  background-position: -504px -336px;
+}
+.git-branch {
+  background-position: -560px -336px;
+}
+.git-commit {
+  background-position: -616px -336px;
+}
+.git-merge {
+  background-position: -672px -336px;
+}
+.git-pull-request {
+  background-position: -728px -336px;
+}
+.github {
+  background-position: -784px -336px;
+}
+.gitlab {
+  background-position: -840px -336px;
+}
+.globe {
+  background-position: -896px -336px;
+}
+.grid {
+  background-position: -952px -336px;
+}
+.hard-drive {
+  background-position: 0 -392px;
+}
+.hash {
+  background-position: -56px -392px;
+}
+.headphones {
+  background-position: -112px -392px;
+}
+.heart {
+  background-position: -168px -392px;
+}
+.help-circle {
+  background-position: -224px -392px;
+}
+.hexagon {
+  background-position: -280px -392px;
+}
+.home {
+  background-position: -336px -392px;
+}
+.image {
+  background-position: -392px -392px;
+}
+.inbox {
+  background-position: -448px -392px;
+}
+.info {
+  background-position: -504px -392px;
+}
+.instagram {
+  background-position: -560px -392px;
+}
+.italic {
+  background-position: -616px -392px;
+}
+.key {
+  background-position: -672px -392px;
+}
+.menu-2 {
+  background-position: -728px -392px;
+}
+.layout {
+  background-position: -784px -392px;
+}
+.life-buoy {
+  background-position: -840px -392px;
+}
+.link-2 {
+  background-position: -896px -392px;
+}
+.link {
+  background-position: -952px -392px;
+}
+.linkedin {
+  background-position: 0 -448px;
+}
+.list {
+  background-position: -56px -448px;
+}
+.loader {
+  background-position: -112px -448px;
+}
+.lock {
+  background-position: -168px -448px;
+}
+.log-in {
+  background-position: -224px -448px;
+}
+.log-out {
+  background-position: -280px -448px;
+}
+.mail {
+  background-position: -336px -448px;
+}
+.map-pin {
+  background-position: -392px -448px;
+}
+.map {
+  background-position: -448px -448px;
+}
+.maximize-2 {
+  background-position: -504px -448px;
+}
+.maximize {
+  background-position: -560px -448px;
+}
+.meh {
+  background-position: -616px -448px;
+}
+.menu {
+  background-position: -672px -448px;
+}
+.message-circle {
+  background-position: -728px -448px;
+}
+.message-square {
+  background-position: -784px -448px;
+}
+.mic-off {
+  background-position: -840px -448px;
+}
+.mic {
+  background-position: -896px -448px;
+}
+.minimize-2 {
+  background-position: -952px -448px;
+}
+.minimize {
+  background-position: 0 -504px;
+}
+.minus-circle {
+  background-position: -56px -504px;
+}
+.minus-square {
+  background-position: -112px -504px;
+}
+.minus {
+  background-position: -168px -504px;
+}
+.monitor {
+  background-position: -224px -504px;
+}
+.moon {
+  background-position: -280px -504px;
+}
+.more-horizontal {
+  background-position: -336px -504px;
+}
+.more-vertical {
+  background-position: -392px -504px;
+}
+.mouse-pointer {
+  background-position: -448px -504px;
+}
+.move {
+  background-position: -504px -504px;
+}
+.music {
+  background-position: -560px -504px;
+}
+.navigation-2 {
+  background-position: -616px -504px;
+}
+.navigation {
+  background-position: -672px -504px;
+}
+.octagon {
+  background-position: -728px -504px;
+}
+.package {
+  background-position: -784px -504px;
+}
+.paperclip {
+  background-position: -840px -504px;
+}
+.pause-circle {
+  background-position: -896px -504px;
+}
+.pause {
+  background-position: -952px -504px;
+}
+.pen-tool {
+  background-position: 0 -560px;
+}
+.percent {
+  background-position: -56px -560px;
+}
+.phone-call {
+  background-position: -112px -560px;
+}
+.phone-forwarded {
+  background-position: -168px -560px;
+}
+.phone-incoming {
+  background-position: -224px -560px;
+}
+.phone-missed {
+  background-position: -280px -560px;
+}
+.phone-off {
+  background-position: -336px -560px;
+}
+.phone-outgoing {
+  background-position: -392px -560px;
+}
+.phone {
+  background-position: -448px -560px;
+}
+.pie-chart {
+  background-position: -504px -560px;
+}
+.play-circle {
+  background-position: -560px -560px;
+}
+.play {
+  background-position: -616px -560px;
+}
+.plus-circle {
+  background-position: -672px -560px;
+}
+.plus-square {
+  background-position: -728px -560px;
+}
+.plus {
+  background-position: -784px -560px;
+}
+.pocket {
+  background-position: -840px -560px;
+}
+.power {
+  background-position: -896px -560px;
+}
+.printer {
+  background-position: -952px -560px;
+}
+.radio {
+  background-position: 0 -616px;
+}
+.refresh-ccw {
+  background-position: -56px -616px;
+}
+.refresh-cw {
+  background-position: -112px -616px;
+}
+.repeat {
+  background-position: -168px -616px;
+}
+.rewind {
+  background-position: -224px -616px;
+}
+.rotate-ccw {
+  background-position: -280px -616px;
+}
+.rotate-cw {
+  background-position: -336px -616px;
+}
+.rss {
+  background-position: -392px -616px;
+}
+.save {
+  background-position: -448px -616px;
+}
+.scissors {
+  background-position: -504px -616px;
+}
+.search {
+  background-position: -560px -616px;
+}
+.send {
+  background-position: -616px -616px;
+}
+.server {
+  background-position: -672px -616px;
+}
+.settings {
+  background-position: -728px -616px;
+}
+.share-2 {
+  background-position: -784px -616px;
+}
+.share {
+  background-position: -840px -616px;
+}
+.shield-off {
+  background-position: -896px -616px;
+}
+.shield {
+  background-position: -952px -616px;
+}
+.shopping-bag {
+  background-position: 0 -672px;
+}
+.shopping-cart {
+  background-position: -56px -672px;
+}
+.shuffle {
+  background-position: -112px -672px;
+}
+.sidebar {
+  background-position: -168px -672px;
+}
+.skip-back {
+  background-position: -224px -672px;
+}
+.skip-forward {
+  background-position: -280px -672px;
+}
+.slack {
+  background-position: -336px -672px;
+}
+.slash {
+  background-position: -392px -672px;
+}
+.sliders {
+  background-position: -448px -672px;
+}
+.smartphone {
+  background-position: -504px -672px;
+}
+.smile {
+  background-position: -560px -672px;
+}
+.speaker {
+  background-position: -616px -672px;
+}
+.square {
+  background-position: -672px -672px;
+}
+.star {
+  background-position: -728px -672px;
+}
+.stop-circle {
+  background-position: -784px -672px;
+}
+.sun {
+  background-position: -840px -672px;
+}
+.sunrise {
+  background-position: -896px -672px;
+}
+.sunset {
+  background-position: -952px -672px;
+}
+.tablet {
+  background-position: 0 -728px;
+}
+.tag {
+  background-position: -56px -728px;
+}
+.target {
+  background-position: -112px -728px;
+}
+.terminal {
+  background-position: -168px -728px;
+}
+.thermometer {
+  background-position: -224px -728px;
+}
+.thumbs-down {
+  background-position: -280px -728px;
+}
+.thumbs-up {
+  background-position: -336px -728px;
+}
+.toggle-left {
+  background-position: -392px -728px;
+}
+.toggle-right {
+  background-position: -448px -728px;
+}
+.tool {
+  background-position: -504px -728px;
+}
+.trash-2 {
+  background-position: -560px -728px;
+}
+.trash {
+  background-position: -616px -728px;
+}
+.trello {
+  background-position: -672px -728px;
+}
+.trending-down {
+  background-position: -728px -728px;
+}
+.trending-up {
+  background-position: -784px -728px;
+}
+.triangle {
+  background-position: -840px -728px;
+}
+.truck {
+  background-position: -896px -728px;
+}
+.tv {
+  background-position: -952px -728px;
+}
+.twitch {
+  background-position: 0 -784px;
+}
+.twitter {
+  background-position: -56px -784px;
+}
+.type {
+  background-position: -112px -784px;
+}
+.umbrella {
+  background-position: -168px -784px;
+}
+.underline {
+  background-position: -224px -784px;
+}
+.unlock {
+  background-position: -280px -784px;
+}
+.upload-cloud {
+  background-position: -336px -784px;
+}
+.upload {
+  background-position: -392px -784px;
+}
+.user-check {
+  background-position: -448px -784px;
+}
+.user-minus {
+  background-position: -504px -784px;
+}
+.user-plus {
+  background-position: -560px -784px;
+}
+.user-x {
+  background-position: -616px -784px;
+}
+.user {
+  background-position: -672px -784px;
+}
+.users {
+  background-position: -728px -784px;
+}
+.video-off {
+  background-position: -784px -784px;
+}
+.video {
+  background-position: -840px -784px;
+}
+.voicemail {
+  background-position: -896px -784px;
+}
+.volume-1 {
+  background-position: -952px -784px;
+}
+.volume-2 {
+  background-position: 0 -840px;
+}
+.volume-x {
+  background-position: -56px -840px;
+}
+.volume {
+  background-position: -112px -840px;
+}
+.watch {
+  background-position: -168px -840px;
+}
+.wifi-off {
+  background-position: -224px -840px;
+}
+.wifi {
+  background-position: -280px -840px;
+}
+.wind {
+  background-position: -336px -840px;
+}
+.x-circle {
+  background-position: -392px -840px;
+}
+.x-octagon {
+  background-position: -448px -840px;
+}
+.x-square {
+  background-position: -504px -840px;
+}
+.x {
+  background-position: -560px -840px;
+}
+.youtube {
+  background-position: -616px -840px;
+}
+.zap-off {
+  background-position: -672px -840px;
+}
+.zap {
+  background-position: -728px -840px;
+}
+.zoom-in {
+  background-position: -784px -840px;
+}
+.zoom-out {
+  background-position: -840px -840px;
+}
+.slash-divider {
+  background-position: -896px -840px;
+}
+.two-layers {
+  background-position: -952px -840px;
+}
+.three-layers {
+  background-position: 0 -896px;
+}
+.filters_lines {
+  background-position: -56px -896px;
+}
+.coins {
+  background-position: -112px -896px;
+}
+.coin-stack {
+  background-position: -168px -896px;
+}
+.rocket {
+  background-position: -224px -896px;
+}

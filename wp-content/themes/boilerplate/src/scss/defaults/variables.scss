@@ -1,0 +1,104 @@
+/* Pull in font files and set vairables for fonts and colors */
+
+@font-face {
+  font-family: "HostGrotesk-Variable";
+  src: url("/wp-content/themes/boilerplate/src/fonts/host-grotesk/HostGrotesk-VariableFont_wght.ttf")
+    format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HostGrotesk-Italic-Variable";
+  src: url("/wp-content/themes/boilerplate/src/fonts/host-grotesk/HostGrotesk-Italic-VariableFont_wght.ttf")
+    format("truetype");
+  font-display: swap;
+}
+
+:root {
+  /* Fonts */
+  --font-host-grotesk: "HostGrotesk-Variable", sans-serif;
+  --font-new-kansas: "new-kansas", serif;
+  --font-size-base: 1rem;
+
+  /* Colors */
+
+  /* Primary Colors */
+  --color-primary-500: #662cb7;
+  --color-primary-600: #471c82;
+  --color-primary-700: #280d4d;
+
+  /* Secondary Colors */
+  --color-secondary-400: #0b7963;
+  --color-secondary-500: #05604e;
+  --color-secondary-600: #024134;
+  --color-secondary-700: #01251d;
+
+  /* Tertiary Colors */
+  --color-tertiary-400: #686560;
+  --color-tertiary-500: #1d1c1a;
+
+  /* Accent Colors */
+  --color-accent-500: #efe1d1;
+
+  /* Status Colors */
+  --color-success-lightest: #ecfdf3;
+  --color-success-lighter: #d1fadf;
+  --color-success-light: #6ce9a6;
+  --color-success: #12b76a;
+  --color-success-dark: #027a48;
+  --color-success-darker: #054f31;
+
+  --color-warning-lightest: #fffaeb;
+  --color-warning-lighter: #fef0c7;
+  --color-warning-light: #fec84b;
+  --color-warning: #f79009;
+  --color-warning-dark: #b54708;
+  --color-warning-darker: #7a2e0e;
+
+  --color-error-lightest: #fef3f2;
+  --color-error-lighter: #fee4e2;
+  --color-error-light: #fda29b;
+  --color-error: #f04438;
+  --color-error-dark: #b42318;
+  --color-error-darker: #7a271a;
+
+  /* Other */
+  --color-inactive: #d0d5dd;
+  --color-background: #eff2f4;
+
+  --color-white: #efe1d1;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.5rem;
+  --spacing-ms: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-ml: 1.25rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 2.5rem;
+  --spacing-3xl: 3rem;
+  --spacing-4xl: 4rem;
+  --spacing-5xl: 5rem;
+  --spacing-6xl: 6rem;
+  --spacing-7xl: 8rem;
+  --spacing-8xl: 11rem;
+
+  /* Radius System */
+  --radius-none: 0;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Containers */
+
+  --container-sm: 42.188rem;
+  --container-md: 51rem;
+  --container-lg: 68.625rem;
+  --container-xl: 108rem;
+
+  --max-width: 1920px;
+}

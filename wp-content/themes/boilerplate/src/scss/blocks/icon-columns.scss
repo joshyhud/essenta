@@ -1,0 +1,42 @@
+.icons {
+  background-color: var(--color-primary-blue);
+}
+.icon-column-block {
+  display: grid;
+  gap: var(--grid-gaps);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  .icon-column-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    color: var(--color-white);
+
+    .icon {
+      display: inline-block;
+      width: 52px;
+      height: 52px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .icon-text {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .icon-column {
+      .icon {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+/* Hide the label for fields with data-name="separator" */
+.acf-fields > .acf-field-separator[data-name="separator"] {
+    padding: 0;
+    border-bottom: none;
+}
+.acf-field[data-name="separator"] > .acf-label {
+    display: none;
+}

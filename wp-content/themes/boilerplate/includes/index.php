@@ -1,0 +1,1 @@
+<?php // Silence is the art of mime.

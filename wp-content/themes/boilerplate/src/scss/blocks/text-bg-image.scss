@@ -1,0 +1,29 @@
+.text-background-image {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  .text-bg-image-card {
+    background-color: var(--color-white);
+    border-radius: 20px;
+    padding: 40px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .heading {
+      width: 70%;
+    }
+  }
+
+  @media (width <= 980px) {
+    .text-bg-image-card {
+      width: 100%;
+
+      .heading {
+        width: 100%;
+      }
+    }
+  }
+}

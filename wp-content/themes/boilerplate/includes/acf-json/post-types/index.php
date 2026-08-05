@@ -1,0 +1,1 @@
+<?php // Silence is a shadow speaking.

@@ -1,0 +1,151 @@
+.active-raffle-block {
+  margin: var(--spacing-5xl) 2rem;
+  .raffle-row {
+    .raffle-cards,
+    .lty-predefined-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--spacing-lg);
+
+      .raffle-card,
+      .lty-predefined-button {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex: 1 1 300px;
+        max-width: 300px;
+        flex-direction: column;
+        justify-content: center;
+        background: var(--color-background);
+        border: 1px solid var(--color-border);
+        padding: 90px 0;
+        background-color: var(--color-secondary-500);
+        text-align: center;
+        transition: box-shadow 0.3s ease;
+
+        &.bn-raffle-card--postal {
+          .card--inner {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+
+            .postal-title {
+              font-family: var(--font-new-kansas);
+              font-style: medium;
+              font-weight: 500;
+              font-size: clamp(2.25rem, 5vw, 2.5rem);
+              line-height: clamp(2.5rem, 5vw, 2.875rem);
+            }
+
+            .postal-details {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              gap: var(--spacing-sm);
+              span {
+                font-family: var(--font-host-grotesk);
+                font-weight: 300;
+                font-size: 18px;
+                line-height: 26px;
+              }
+            }
+
+            .btn.primary {
+              background-color: var(--color-accent-500);
+              color: var(--color-secondary-500);
+
+              &:after {
+                background-image: url(../images/chevron-right-green.svg);
+              }
+            }
+          }
+        }
+
+        .card--inner {
+          display: flex;
+          flex-direction: column;
+          color: var(--color-accent-500);
+
+          .postal-title,
+          .postal-details,
+          .raffle-card__top {
+            padding: 0 var(--spacing-lg);
+          }
+
+          .btn.primary,
+          .btn.ticket {
+            margin: 0 var(--spacing-lg);
+          }
+
+          .ticket-divider {
+            width: 100%;
+            height: 0;
+            border: 0;
+            border-top: 1px solid transparent;
+            border-image: repeating-linear-gradient(
+                to right,
+                var(--color-accent-500) 0 6px,
+                transparent 6px 12px
+              )
+              1;
+            margin: 24px 0;
+          }
+
+          .raffle-card__top {
+            text-align: left;
+            .raffle-card__tickets {
+              font-family: var(--font-host-grotesk);
+              font-style: medium;
+              font-weight: 300;
+              font-size: clamp(1.125rem, 2vw, 1.3125rem);
+              line-height: clamp(1.3125rem, 2vw, 1.5rem);
+            }
+            .raffle-card__price {
+              font-family: var(--font-new-kansas);
+              font-style: medium;
+              font-weight: 500;
+              font-size: clamp(2.25rem, 5vw, 2.5rem);
+              line-height: clamp(2.5rem, 5vw, 2.875rem);
+            }
+          }
+        }
+
+        &:hover {
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        a {
+          color: var(--color-primary);
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 1.2em;
+          span {
+            display: block;
+            margin-top: var(--spacing-sm);
+          }
+        }
+
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+          width: 110px;
+          height: 110px;
+          border-radius: 50%;
+          background-color: var(--color-accent-500);
+        }
+        &::before {
+          top: -50px;
+          left: 50%;
+          transform: translatex(-50%);
+        }
+        &::after {
+          bottom: -50px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+}

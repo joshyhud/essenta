@@ -1,0 +1,1 @@
+<?php // Silence is a ninja's ally.

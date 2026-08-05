@@ -1,0 +1,62 @@
+/* Base Styles for Desktop Menu */
+.desktop-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: clamp(10px, calc((100vw - 320px) / 48), 40px);
+  text-wrap: nowrap;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.desktop-menu li {
+  position: relative; /* Needed for positioning the submenu */
+  margin: 0;
+}
+
+.desktop-menu a {
+  text-decoration: none;
+  display: block;
+  transition: opacity 0.5s ease;
+}
+
+.desktop-menu a:hover,
+.desktop-menu .sub-menu a:hover {
+  color: var(--color-secondary-red);
+  transition: opacity 0.5s ease;
+}
+
+/* Sub-menu Styling for Desktop */
+.desktop-menu .sub-menu {
+  display: none; /* Default hidden state */
+  position: absolute;
+  border-radius: 20px;
+  padding: 20px 16px;
+  top: 220%;
+  left: 0;
+  list-style: none;
+  background: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.desktop-menu .sub-menu.open {
+  display: flex; /* Show submenu when parent is toggled */
+  flex-direction: column;
+  gap: 16px;
+}
+
+.desktop-menu .sub-menu li {
+  width: auto; /* Optional: Set a width for dropdown items */
+  margin: 0;
+}
+
+.desktop-menu .sub-menu a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  white-space: nowrap; /* Prevent text wrapping */
+}

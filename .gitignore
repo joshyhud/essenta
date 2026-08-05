@@ -1,0 +1,87 @@
+# Wordpress - ignore core, configuration, examples, uploads and logs.
+# https://github.com/github/gitignore/blob/main/WordPress.gitignore
+
+# Core
+
+# Note: if you want to stage/commit WP core files
+# you can delete this whole section/until Configuration.
+/wp-admin/
+/wp-content/index.php
+/wp-content/languages
+/wp-content/plugins/index.php
+/wp-content/themes/index.php
+/wp-includes/
+/index.php
+/license.txt
+/readme.html
+/wp-*.php
+/xmlrpc.php
+
+# htaccess
+.htaccess
+
+# Configuration
+wp-config.php
+local-xdebuginfo.php
+
+# Exclude Twenty* themes
+/wp-content/themes/twenty*/
+
+# Theme Related
+/wp-content/themes/bamboostarter/node_modules/
+/wp-content/themes/bamboostarter/package-lock.json
+
+# Ignore all plugins
+/wp-content/plugins/*
+
+# Ignore specific known "unwanted" plugins
+/wp-content/plugins/hello.php
+/wp-content/plugins/akismet/
+/wp-content/plugins/wordpress-importer/
+/wp-content/plugins/wp-migrate-db-pro/
+
+# Include specific plugin directories:
+!/wp-content/plugins/advanced-custom-fields-pro/
+!/wp-content/plugins/advanced-custom-fields-pro/**
+
+# Databases
+*.sql
+*.sql.gz
+
+# Uploads
+
+# (Optional) Include specific year directories from 2000 to 2024 and their contents. Uncomment if required.
+# !/wp-content/uploads/20[0-9][0-9]/
+# !/wp-content/uploads/20[0-9][0-9]/**
+
+# Ignore everything in the "uploads" directory
+/wp-content/uploads/*
+
+# Ignore the "upgrade" folder
+/wp-content/upgrade/
+/wp-content/upgrade-temp-backup/
+
+# Log files
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/wp-content/wflogs/
+
+# Exclude Node Modules
+node_modules/
+
+# Node.js runtime files
+pids
+*.pid
+*.seed
+*.pid.lock
+yarn.lock
+/wp-content/wflogs/
+
+# Files
+.DS_Store
+.sass-cache
+Thumbs.db
+/*.png

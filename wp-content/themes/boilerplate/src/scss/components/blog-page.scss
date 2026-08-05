@@ -1,0 +1,324 @@
+.single {
+  .container.contained {
+    max-width: 830px;
+    margin: var(--spacing-6xl) auto;
+
+    // Headings
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      margin-top: 2.5rem;
+    }
+
+    h2 {
+      margin-top: 2.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    h3 {
+      margin-top: 2rem;
+    }
+
+    h4 {
+      margin-top: 1.75rem;
+    }
+
+    h5 {
+      margin-top: 1.5rem;
+    }
+
+    h6 {
+      margin-top: 1.5rem;
+    }
+
+    // Paragraphs
+    p {
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    // Images
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      max-height: 420px;
+      border-radius: var(--radius-lg);
+      margin: 2rem 0;
+      display: block;
+    }
+
+    figure {
+      margin: 2.5rem 0;
+      max-width: 100%;
+
+      img {
+        margin: 0 0 0.75rem;
+        width: 100%;
+      }
+
+      figcaption {
+        font-family: var(--font-lato-light);
+        font-size: 0.85rem;
+        line-height: 1.4;
+        color: var(--color-neutral-dark);
+        text-align: center;
+        font-style: italic;
+      }
+    }
+
+    // WordPress alignment classes
+    .alignwide {
+      margin-left: -4rem;
+      margin-right: -4rem;
+      max-width: calc(100% + 8rem);
+
+      @media (max-width: 860px) {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+      }
+    }
+
+    .alignfull {
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      max-width: 100vw;
+      width: 100vw;
+
+      img {
+        border-radius: 0;
+        width: 100%;
+      }
+    }
+
+    // Blockquotes
+    blockquote {
+      margin: 2.5rem 0;
+      padding: 1.5rem 2rem;
+      border-left: 4px solid var(--color-primary);
+      background: var(--color-primary-ultralight);
+      border-radius: 0 6px 6px 0;
+
+      p {
+        font-family: var(--font-lato-light);
+        font-size: clamp(1.1rem, 2vw, 1.35rem);
+        line-height: 1.7;
+        color: var(--color-primary-dark);
+        margin-bottom: 0.75rem;
+        font-style: italic;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      cite {
+        display: block;
+        margin-top: 0.75rem;
+        font-family: var(--font-lato-semibold);
+        font-size: 0.875rem;
+        color: var(--color-primary);
+        font-style: normal;
+
+        &::before {
+          content: "— ";
+        }
+      }
+
+      &::before,
+      &::after {
+        content: none;
+      }
+    }
+
+    // Horizontal rule / separator
+    hr {
+      border: none;
+      border-top: 1px solid var(--color-neutral-light);
+      margin: 3rem 0;
+    }
+
+    // Preformatted / code
+    pre {
+      background: var(--color-neutral-lighter);
+      border: 1px solid var(--color-neutral-light);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.6;
+
+      code {
+        background: none;
+        padding: 0;
+        font-size: inherit;
+      }
+    }
+
+    code {
+      font-size: 0.9em;
+      background: var(--color-neutral-lighter);
+      padding: 0.15em 0.4em;
+      border-radius: 3px;
+    }
+
+    // Tables
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.95rem;
+
+      th,
+      td {
+        font-family: var(--font-lato-light);
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--color-neutral-light);
+      }
+
+      th {
+        font-family: var(--font-lato-semibold);
+        font-weight: 600;
+        background: var(--color-neutral-lighter);
+        color: var(--color-primary-darkest);
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+    }
+
+    // Masonry grid for consecutive images
+    .image-masonry-grid {
+      columns: 2;
+      column-gap: 1rem;
+      margin: 2.5rem 0;
+
+      .wp-block-image,
+      figure {
+        break-inside: avoid;
+        margin: 0 0 1rem;
+        display: inline-block;
+        width: 100%;
+
+        img {
+          margin: 0;
+          width: 100%;
+          display: block;
+        }
+
+        figcaption {
+          margin-top: 0.5rem;
+        }
+      }
+
+      // 3+ images get 3 columns on wider viewports
+      &.masonry-3-plus {
+        columns: 3;
+      }
+
+      @media (max-width: 600px) {
+        columns: 1;
+
+        &.masonry-3-plus {
+          columns: 2;
+        }
+      }
+    }
+
+    // WordPress gallery / columns
+    .wp-block-gallery {
+      margin: 2.5rem 0;
+      gap: 1rem;
+
+      .wp-block-image {
+        margin: 0;
+
+        img {
+          margin: 0;
+        }
+      }
+    }
+
+    .wp-block-columns {
+      margin: 2rem 0;
+      gap: 2rem;
+    }
+
+    // Video / embeds
+    .wp-block-embed,
+    .wp-block-video {
+      margin: 2.5rem 0;
+
+      .wp-block-embed__wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+
+        iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 6px;
+        }
+      }
+    }
+
+    // Clear floats
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+
+  // Blog meta section
+  .blog-meta {
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--color-neutral-light);
+
+    .container.contained {
+      max-width: 780px;
+      padding-top: 0;
+      padding-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+
+      @media (max-width: 600px) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .container.contained {
+      padding: 2rem 1.25rem 3rem;
+
+      .alignleft,
+      .alignright {
+        float: none;
+        max-width: 100%;
+        margin: 1.5rem 0;
+      }
+    }
+  }
+}

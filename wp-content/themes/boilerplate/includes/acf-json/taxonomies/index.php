@@ -1,0 +1,1 @@
+<?php // Silence has no voice.

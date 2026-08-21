@@ -1,0 +1,427 @@
+{
+    "key": "group_692051b57b7c6",
+    "title": "Company Info",
+    "fields": [
+        {
+            "key": "field_6936948a58947",
+            "label": "Company Address",
+            "name": "company_address",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "admin_only": 0
+        },
+        {
+            "key": "field_692053071ebf8",
+            "label": "Email Enquiries",
+            "name": "email_enquiries",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "admin_only": 0
+        },
+        {
+            "key": "field_692053271ebf9",
+            "label": "Company Phone",
+            "name": "company_phone",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "step": "",
+            "prepend": "",
+            "append": "",
+            "admin_only": 0
+        },
+        {
+            "key": "field_692051b537f6f",
+            "label": "Social Media",
+            "name": "social_media",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "admin_only": 0,
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_692051d337f70",
+                    "label": "Social Name",
+                    "name": "social_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "admin_only": 0,
+                    "parent_repeater": "field_692051b537f6f"
+                },
+                {
+                    "key": "field_692051e437f71",
+                    "label": "Social URL",
+                    "name": "social_url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "admin_only": 0,
+                    "parent_repeater": "field_692051b537f6f"
+                }
+            ]
+        },
+        {
+            "key": "field_692052d81ebf7",
+            "label": "Company Location",
+            "name": "company_location",
+            "aria-label": "",
+            "type": "google_map",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "center_lat": "",
+            "center_lng": "",
+            "zoom": "",
+            "height": "",
+            "allow_in_bindings": 0,
+            "admin_only": 0
+        },
+        {
+            "key": "field_693027c865784",
+            "label": "Opening Hours",
+            "name": "opening_hours",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "admin_only": 0
+        },
+        {
+            "key": "field_6920535efb25b",
+            "label": "Company Features",
+            "name": "company_features",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "admin_only": 0,
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_69205371fb25c",
+                    "label": "Feature",
+                    "name": "feature",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "admin_only": 0,
+                    "parent_repeater": "field_6920535efb25b"
+                }
+            ]
+        },
+        {
+            "key": "field_6925c696c41cf",
+            "label": "Footer Logos",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "admin_only": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6925c6a30f772",
+            "label": "Accreditation Logo",
+            "name": "accreditation_logo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium",
+            "admin_only": 0
+        },
+        {
+            "key": "field_69a946aaf99b0",
+            "label": "Footer Logo Link",
+            "name": "footer_logo_link",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "admin_only": 0
+        },
+        {
+            "key": "field_698b5d714588e",
+            "label": "404",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "admin_only": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_698b5d7b4588f",
+            "label": "404 Message",
+            "name": "404_message",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "admin_only": 0
+        },
+        {
+            "key": "field_698b5d8545890",
+            "label": "404 image",
+            "name": "404_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium",
+            "admin_only": 0
+        },
+        {
+            "key": "field_69dfb2f43c1c1",
+            "label": "Announcement",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "admin_only": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_69dfb2fe3c1c2",
+            "label": "Announcement",
+            "name": "announcement",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "admin_only": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "company-info"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1776268038
+}

@@ -1,0 +1,13 @@
+.pagepost-grid-block {
+  .container {
+    padding: 5rem 0;
+  }
+}
+
+@media (width <= 980px) {
+  .pagepost-grid-block {
+    .container {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+}

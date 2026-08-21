@@ -1,0 +1,32 @@
+.wpcf7-not-valid {
+  border-color: var(--color-error);
+}
+
+.cf7-row {
+  width: 100%;
+
+  &.cf7-row--2col {
+    display: flex;
+    gap: 1.5rem;
+
+    .cf7-col {
+      width: 50%;
+    }
+  }
+
+  input,
+  textarea {
+    width: 100%;
+  }
+}
+
+@media (width <= 980px) {
+  .cf7-row {
+    &.cf7-row--2col {
+      flex-direction: column;
+      .cf7-col {
+        width: 100%;
+      }
+    }
+  }
+}

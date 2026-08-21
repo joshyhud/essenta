@@ -1,0 +1,21 @@
+.tabled-content-block {
+  .container {
+    padding: 5rem 0;
+    .tabled-content-wrapper {
+      .tabled-content-item {
+        grid-column: span 4;
+        border: 1px solid var(--color-neutral);
+        margin: -1px -1px 0 0;
+
+        .content-heading {
+          border-bottom: 1px solid var(--color-neutral);
+          margin: -1px -1px 0 0;
+          padding: 1.25rem;
+        }
+        .content-body {
+          padding: 1.25rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+// Base grid container styles
+.grid {
+  display: grid;
+  // Create 12 equal-width columns
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  // Set the gap between grid items
+  gap: var(--base-spacing);
+
+  &.no-space {
+    // Remove gaps between grid items
+    gap: 0;
+  }
+}
+
+@media (width >= 1440px) {
+  .grid {
+    // On desktop, use full 12-column layout with equal columns
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--base-spacing);
+  }
+}
+
+@media (width <= 980px) {
+  .grid {
+    // On mobile, switch to a single-column layout
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--base-spacing);
+  }
+}

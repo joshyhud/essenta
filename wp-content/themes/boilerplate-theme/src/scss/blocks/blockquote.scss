@@ -1,0 +1,46 @@
+.blockquote-block {
+  .container {
+    display: flex;
+    flex-direction: column;
+    &.left-aligned-blockquote {
+      text-align: left;
+      width: 70%;
+      margin-left: 20%;
+      gap: 40px;
+
+      .left-aligned-heading {
+        margin-bottom: 2.5rem;
+      }
+    }
+
+    &.centered-blockquote {
+      gap: 40px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+
+      .blockquote-citation {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  }
+}
+
+@media (width <= 980px) {
+  .blockquote-block {
+    .container {
+      &.left-aligned-blockquote {
+        width: 100%;
+        margin: 0;
+        .left-aligned-heading {
+          margin-bottom: 1.5rem;
+        }
+      }
+      &.centered-blockquote {
+        text-align: left;
+      }
+    }
+  }
+}

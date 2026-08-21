@@ -1,0 +1,42 @@
+.map-block__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.map-block__map {
+  grid-column: 1/10;
+  width: 100%;
+  height: 80vh;
+
+  iframe {
+    height: 100%;
+  }
+}
+.map-block__hours {
+  grid-column: 10/13;
+  .hours-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (width <= 980px) {
+  .map-block__grid {
+    grid-template-columns: 1fr;
+
+    .map-block__map,
+    .map-block__hours {
+      grid-column: 1/-1;
+    }
+
+    .map-block__hours {
+      .hours-content {
+        padding: 1rem 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.text-carousel-block {
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+
+    @media (width <= 980px) {
+      gap: 40px;
+    }
+
+    .text-carousel-header {
+      display: flex;
+      justify-content: space-between;
+
+      @media (width <= 768px) {
+        .slider-nav {
+          display: none;
+        }
+      }
+    }
+
+    .text-carousel-slider {
+      .slick-slide {
+        opacity: 0.6;
+        transition: opacity 0.5s ease-in-out;
+        padding-right: 2rem;
+
+        &.slick-current {
+          opacity: 1;
+          transition: opacity 0.5s ease-in-out;
+        }
+      }
+
+      @media (width <= 768px) {
+        .slick-slide {
+          margin-bottom: 24px;
+        }
+      }
+    }
+  }
+}

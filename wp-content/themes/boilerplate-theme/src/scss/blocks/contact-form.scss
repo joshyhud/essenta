@@ -1,0 +1,60 @@
+.contact-form {
+  .form-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 110px;
+
+    .contact-half {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      width: 50%;
+
+      &.form {
+        background-color: var(--color-white);
+        border-radius: 20px;
+        padding: 40px;
+
+        .wpcf7-acceptance {
+          span {
+            margin: 0;
+            label {
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
+
+        .wpcf7-submit {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  @media (width <= 980px) {
+    .form-section {
+      gap: 40px;
+      flex-direction: column;
+      .contact-half {
+        width: 100%;
+
+        &.form {
+          padding: 64px 20px;
+
+          .wpcf7-acceptance {
+            span {
+              margin: 0;
+              width: 100%;
+              font-weight: 400;
+              label {
+                display: flex;
+                align-items: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

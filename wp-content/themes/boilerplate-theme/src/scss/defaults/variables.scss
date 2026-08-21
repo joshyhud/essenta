@@ -1,0 +1,89 @@
+:root {
+  /* Fonts */
+  --font-larken-regular: "larken", sans-serif;
+  --font-larken-light: "Lato-Light", sans-serif;
+  --font-larken-light: "Lato-SemiBold", sans-serif;
+  --font-plus-jakarta-sans: "Plus Jakarta Sans", sans-serif;
+  
+  --font-size-base: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-large: 1.25rem;
+  --font-weight-thin: 100;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 600;
+  --font-weight-semibold: 700;
+  --font-weight-bold: 800;
+  --line-height-base: 1.5rem;
+
+  /* Colors */
+
+  /* Primary Colors */
+  --color-primary-ultralight: #e4f2e8;
+  --color-primary-lightest: #cce6d5;
+  --color-primary-lighter: #95cba7;
+  --color-primary-light: #62b17d;
+  --color-primary: #285136;
+  --color-primary-dark: #20412b;
+  --color-primary-darker: #183020;
+  --color-primary-darkest: #0f1f14;
+  --color-primary-ultradark: #08110b;
+
+  /* Secondary Colors */
+  --color-secondary-green: #cbf2b8;
+  --color-secondary-yellow: #f2eab8;
+  --color-secondary-red: #f2cab8;
+
+  /* Neutral Colors */
+  --color-neutral-lighter: #f7f7f7;
+  --color-neutral-light: #eeeeee;
+  --color-neutral: #d9d9d9;
+  --color-neutral-dark: #bababa;
+  --color-neutral-darker: #222222;
+
+  /* Status Colors */
+  --color-success-lightest: #ecfdf3;
+  --color-success-lighter: #d1fadf;
+  --color-success-light: #6ce9a6;
+  --color-success: #12b76a;
+  --color-success-dark: #027a48;
+  --color-success-darker: #054f31;
+
+  --color-warning-lightest: #fffaeb;
+  --color-warning-lighter: #fef0c7;
+  --color-warning-light: #fec84b;
+  --color-warning: #f79009;
+  --color-warning-dark: #b54708;
+  --color-warning-darker: #7a2e0e;
+
+  --color-error-lightest: #fef3f2;
+  --color-error-lighter: #fee4e2;
+  --color-error-light: #fda29b;
+  --color-error: #f04438;
+  --color-error-dark: #b42318;
+  --color-error-darker: #7a271a;
+
+  /* Other */
+  --color-inactive: #d0d5dd;
+  --color-background: #fbfcfb;
+  --color-white: #ffffff;
+  --footer-background: #3b3b3a;
+
+  /* Spacing */
+  --base-spacing: 1rem;
+  --small-spacing: 1rem;
+  --large-spacing: 2.5rem;
+  --padding-base: 8rem 2rem;
+  --padding-base-tablet: 4rem 2rem;
+  --padding-base-mobile: 3rem 1rem;
+  --grid-gaps: 1rem;
+  --card-padding: 24px 24px 40px 24px;
+
+  /* Containers */
+  --max-width: 1440px;
+  --contained-width: 1100px;
+  --xl: 108rem;
+  --lg: 68.625rem;
+  --md: 51rem;
+  --sm: 42.188rem;
+}

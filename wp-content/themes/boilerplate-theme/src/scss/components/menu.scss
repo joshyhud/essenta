@@ -1,0 +1,195 @@
+/* Base Styles for Desktop Menu */
+.desktop-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: clamp(10px, calc((100vw - 320px) / 48), 40px);
+  text-wrap: nowrap;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.desktop-menu li {
+  position: relative; /* Needed for positioning the submenu */
+  margin: 0;
+}
+
+.desktop-menu a {
+  text-decoration: none;
+  display: block;
+  transition: color 0.5s ease;
+}
+
+.desktop-menu a:hover,
+.desktop-menu .sub-menu a:hover {
+  color: var(--color-secondary-red);
+  transition: color 0.5s ease;
+}
+
+/* Sub-menu Styling for Desktop */
+.desktop-menu .sub-menu {
+  display: none; /* Default hidden state */
+  position: absolute;
+  border-radius: 20px;
+  padding: 20px 16px;
+  top: 220%;
+  left: 0;
+  list-style: none;
+  background: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.desktop-menu .sub-menu.open {
+  display: flex; /* Show submenu when parent is toggled */
+  flex-direction: column;
+  gap: 16px;
+}
+
+.desktop-menu .sub-menu li {
+  width: auto; /* Optional: Set a width for dropdown items */
+  margin: 0;
+}
+
+.desktop-menu .sub-menu a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Responsive Mobile Styles */
+@media (max-width: 1280px) {
+  .desktop-menu {
+    display: none; /* Hide desktop menu on mobile */
+  }
+
+  .mobile-menu {
+    display: block; /* Show mobile menu */
+  }
+
+  .mobile-menu #menu-toggle {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: space-between;
+    background: transparent;
+    cursor: pointer;
+    font-size: 22px;
+    z-index: 999;
+  }
+
+  .mobile-menu #menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    position: relative;
+    background: var(--color-primary-darkgrey);
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+  }
+
+  .mobile-menu #menuToggle span:first-child {
+    transform-origin: 0% 0%;
+  }
+
+  .mobile-menu #menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+  }
+
+  .mobile-menu .activeToggle span {
+    opacity: 1;
+    transform: rotate(45deg) translate(4px, 0px);
+    background: #232323;
+  }
+
+  .mobile-menu .activeToggle span:nth-child(2) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
+
+  .mobile-menu .activeToggle span:nth-child(3) {
+    transform: rotate(-45deg) translate(2px, 0);
+  }
+
+  .mobile-menu .menu-list {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-menu .menu-list.active {
+    display: flex; /* Show menu when toggled */
+    position: fixed;
+    top: -40px;
+    left: -20px;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .mobile-menu .menu-list .mobile-menu-list {
+    display: flex;
+    flex-direction: column;
+    padding: 120px 16px 0;
+  }
+
+  .mobile-menu .menu-list li {
+    padding: 8px 15px;
+  }
+
+  .mobile-menu .dropdown-toggle {
+    position: absolute;
+    right: 26px;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 50px;
+    background-image: url("./src/icons/chevron.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+    border: none;
+    background-color: transparent;
+    transform: rotate(-90deg);
+    transition: transform 0.5s ease;
+  }
+
+  .mobile-menu .dropdown-toggle.open {
+    transform: rotate(0deg);
+    transition: all 0.5s ease;
+  }
+
+  /* Submenu Styles for Mobile */
+  /* Default state: Submenu is hidden */
+  .mobile-menu .menu-item-has-children > .sub-menu {
+    overflow: hidden;
+    margin: 0; /* Remove margin in closed state */
+    max-height: 0; /* Ensure hidden height */
+    transition: margin 0.1s, max-height 0.5s ease-out; /* Animate all relevant properties */
+  }
+
+  /* Submenu items */
+  .mobile-menu .menu-item-has-children > .sub-menu li {
+    padding: 0;
+  }
+
+  /* Open state: Submenu is visible */
+  .mobile-menu .menu-item-has-children.open > .sub-menu {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px; /* Adjust this based on content height */
+    margin: 20px 0 0; /* Apply margin only when open */
+    transition: margin 0.1s, max-height 0.5s ease-in; /* Smooth transition for padding and margin */
+  }
+}

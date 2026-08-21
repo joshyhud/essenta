@@ -1,0 +1,18 @@
+.minimal-header {
+  .container {
+    max-width: 688px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .minimal-content {
+      margin-top: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+    }
+  }
+}

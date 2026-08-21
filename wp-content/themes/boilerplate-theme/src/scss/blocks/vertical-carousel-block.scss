@@ -1,0 +1,288 @@
+.vertical-carousel-section {
+  background-color: #f8f9fa;
+
+  .container {
+    padding: 5rem 141px;
+
+    @media (width <= 980px) {
+      padding: 2.5rem 1rem;
+    }
+  }
+
+  .vertical-carousel-header {
+    text-align: center;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .vertical-carousel-heading-content {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  .vertical-carousel-content {
+    .vertical-carousel-split {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .vertical-carousel-image-column {
+      width: 35%;
+      .vertical-carousel-image {
+        width: 100%;
+        height: auto;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .vertical-carousel-items-column {
+      width: 50%;
+      height: 500px; // Set a fixed height for the carousel container
+
+      .vertical-carousel-wrapper {
+        height: 100%;
+        overflow: hidden;
+        /* Ensure slides don't show outside container */
+
+        @media (width <= 980px) {
+          margin-bottom: 0 !important; // Smaller height for mobile
+        }
+
+        .slick-track {
+          height: 100%;
+        }
+
+        .slick-slide {
+          height: 500px; // Match container height
+
+          > div {
+            height: 100%;
+          }
+        }
+
+        .slick-dots {
+          gap: 1rem;
+        }
+
+        .vertical-carousel-item {
+          padding: 0 0 0 113px;
+          height: 100%;
+
+          display: flex !important;
+          flex-direction: column;
+          justify-content: center;
+          margin-bottom: 0; // Remove margin for full height
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          .carousel-item-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+          }
+
+          .carousel-item-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666;
+
+            p {
+              margin-bottom: 15px;
+
+              &:last-child {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+
+      .slick-dots-container {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex !important;
+        flex-direction: column;
+        width: auto;
+        height: 200px;
+        gap: 10px;
+
+        @media (max-width: 980px) {
+          position: relative;
+          left: 0;
+          top: auto;
+          transform: none;
+          flex-direction: row;
+          height: auto;
+          justify-content: center;
+          margin-top: 20px;
+          width: 100%;
+        }
+
+        .slick-dots {
+          position: relative !important;
+          top: 0;
+          display: flex !important;
+          flex-direction: column;
+          gap: 8px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+
+          @media (max-width: 980px) {
+            flex-direction: row;
+            justify-content: flex-start;
+          }
+
+          li {
+            display: block;
+            margin: 0;
+            flex: none;
+
+            &.slick-active {
+            }
+
+            button {
+              width: auto !important;
+              height: auto !important;
+              margin: 0 !important;
+              padding: 0;
+              background: none;
+              border: none;
+              cursor: pointer;
+
+              .slick-dot-icon {
+                &:before {
+                  position: relative !important;
+                  content: "" !important;
+                  width: 1px;
+                  height: 2rem;
+                  display: block;
+                  background-color: black;
+                  transition: height 0.3s ease;
+                  margin-top: 0 !important;
+
+                  @media (max-width: 980px) {
+                    width: 30px;
+                    height: 2px;
+                  }
+                }
+              }
+            }
+
+            &.slick-active {
+              button {
+                .slick-dot-icon {
+                  &:before {
+                    width: 1px;
+                    height: 2.5rem;
+                    margin-left: 0 !important;
+                    transition: height 0.3s ease;
+
+                    @media (max-width: 980px) {
+                      width: 60px;
+                      height: 2px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &.vertical-carousel-items-column {
+        position: relative;
+      }
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  .vertical-carousel-section {
+    padding: 0;
+
+    .vertical-carousel-header {
+      margin-bottom: 40px;
+
+      .vertical-carousel-heading-content {
+        font-size: 16px;
+      }
+    }
+
+    .vertical-carousel-content {
+      .vertical-carousel-split {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+      }
+
+      .vertical-carousel-items-column {
+        width: 100%;
+        height: 400px; // Smaller height for mobile
+
+        .vertical-carousel-wrapper {
+          .slick-slide {
+            height: 400px; // Match mobile container height
+          }
+
+          .vertical-carousel-item {
+            padding: 20px 0;
+            height: auto;
+
+            .carousel-item-title {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+      .vertical-carousel-image-column {
+        width: 100%;
+      }
+
+      .slick-dots-container {
+        .slick-dots {
+          position: relative;
+          left: 0;
+          top: auto;
+          bottom: auto;
+          flex-direction: row;
+          height: auto;
+          justify-content: center;
+          margin-top: 20px;
+          width: 100%;
+
+          li {
+            margin: 0 10px;
+            flex: none;
+
+            button {
+              width: 30px;
+              height: 2px;
+            }
+
+            &.slick-active button {
+              width: 60px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

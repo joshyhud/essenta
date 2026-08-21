@@ -1,0 +1,57 @@
+/* Browser Reset */
+@import "assets/scss/defaults/browserReset.scss";
+
+/* Styleguide Styling (Frontend and Backend) */
+@import "assets/scss/defaults/styleGuide.scss";
+
+/* Variables */
+@import "assets/scss/defaults/variables.scss";
+
+/* Typography */
+@import "assets/scss/defaults/typography.scss";
+
+/* Grid Layout */
+@import "assets/scss/defaults/grid-layout.scss";
+
+/*CF7*/
+@import "assets/scss/defaults/contact-form-seven.scss";
+
+/* Components */
+@import "assets/scss/components/header.scss";
+@import "assets/scss/components/footer.scss";
+@import "assets/scss/components/breadcrumbs.scss";
+@import "assets/scss/components/buttons.scss";
+@import "assets/scss/components/inputs.scss";
+@import "assets/scss/components/menu.scss";
+@import "assets/scss/components/cards.scss";
+@import "assets/scss/components/blog-header.scss";
+@import "assets/scss/components/blog-grid.scss";
+@import "assets/scss/components/archive-header.scss";
+@import "assets/scss/components/icon-sprites.scss";
+@import "assets/scss/components/404.scss";
+
+/* Blocks/patterns */
+@import "assets/scss/blocks/hero.scss";
+@import "assets/scss/blocks/media-text.scss";
+@import "assets/scss/blocks/page-post-grid.scss";
+@import "assets/scss/blocks/icon-columns.scss";
+@import "assets/scss/blocks/testimonial-slider.scss";
+@import "assets/scss/blocks/testimonial-grid.scss";
+@import "assets/scss/blocks/two-column-text.scss";
+@import "assets/scss/blocks/contact-form.scss";
+@import "assets/scss/blocks/card-grid.scss";
+@import "assets/scss/blocks/card-grid-links.scss";
+@import "assets/scss/blocks/content-switcher.scss";
+@import "assets/scss/blocks/single-column-text.scss";
+@import "assets/scss/blocks/product-collections.scss";
+
+/* Hero Headers */
+@import "assets/scss/blocks/hero-headers/contact-form-hero.scss";
+@import "assets/scss/blocks/hero-headers/homepage-hero.scss";
+@import "assets/scss/blocks/hero-headers/full-hero.scss";
+@import "assets/scss/blocks/hero-headers/cta-hero.scss";
+
+/* WooCommerce */
+@import "assets/scss/woocommerce/archive-product.scss";
+@import "assets/scss/woocommerce/single-product.scss";
+@import "assets/scss/woocommerce/woocommerce-additions.scss";

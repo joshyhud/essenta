@@ -1,0 +1,273 @@
+footer {
+  background-color: var(--footer-background);
+  color: var(--color-neutral);
+
+  .footer-newsletter {
+    margin-top: 5rem;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+
+    .newsletter-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .newsletter-form {
+      form {
+        flex-direction: row;
+        align-items: flex-end;
+        p {
+          width: 100%;
+        }
+        .input-submit-wrapper {
+          width: fit-content;
+          p {
+            width: auto;
+            input[type="submit"] {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .container {
+    padding: 5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 127px;
+
+    .footer-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+
+      > * {
+        flex: 1;
+      }
+
+      .footer-header {
+        p {
+          font-family: var(--font-larken-light);
+          font-size: 0.875rem;
+          line-height: 1.125rem;
+          text-transform: uppercase;
+          letter-spacing: 10%;
+          padding: 0 0 8px 0;
+        }
+        border-bottom: 1px solid var(--color-neutral);
+      }
+
+      // Desktop: Always open, no icons
+      .footer-details-wrapper {
+        summary {
+          list-style: none; // Hide default arrow
+          cursor: default; // Remove pointer cursor
+
+          &::-webkit-details-marker {
+            display: none; // Hide webkit arrow
+          }
+
+          &::after {
+            display: none; // Hide custom arrow
+          }
+        }
+
+        // Ensure details are always open on desktop
+        &:not([open]) .footer-details {
+          display: block;
+        }
+      }
+
+      .footer-details {
+        padding-top: 33px;
+
+        .footer-contact-detail {
+          display: flex;
+          gap: 0.5rem;
+          margin-bottom: 8px;
+          align-items: baseline;
+        }
+
+        .menu {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          li {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-logos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .footer-socials {
+      display: flex;
+      gap: 1rem;
+      .social-link-item {
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+      }
+
+      i {
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: block;
+      }
+      .icon-facebook {
+        background-image: url("../images/facebook-white.svg");
+      }
+      .icon-instagram {
+        background-image: url("../images/instagram-white.svg");
+      }
+      .icon-pinterest {
+        background-image: url("../images/pinterest-white.svg");
+      }
+    }
+  }
+  .footer-copyright {
+    position: relative;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding-top: 30px;
+    a {
+      color: var(--color-white);
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      width: calc(100% - (1.5rem * 2));
+      height: 1px; /* Adjust border thickness */
+      background-color: var(--color-neutral); /* Change color as needed */
+      position: absolute;
+      top: 0;
+      left: 1.5rem; /* Moves it 1.5rem from the left */
+    }
+  }
+
+  @media (width <= 960px) {
+    .footer-newsletter {
+      margin-top: 3rem;
+      .newsletter-form {
+        form {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 40px;
+        }
+      }
+    }
+
+    .container {
+      padding: 64px 20px;
+      width: 100%;
+      margin: 0;
+      gap: 30px;
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 30px;
+
+        > * {
+          width: 100%;
+        }
+
+        .half {
+          width: 100%;
+        }
+
+        .footer-left {
+          text-align: center;
+        }
+
+        .footer-right {
+          .menu {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  @media (width <= 768px) {
+    .container {
+      .footer-inner {
+        .footer-right {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0;
+        }
+
+        // Mobile: Show icons, allow collapsing
+        .footer-details-wrapper {
+          summary {
+            list-style: none;
+            cursor: pointer;
+            position: relative;
+
+            &::-webkit-details-marker {
+              display: none;
+            }
+
+            // Add custom arrow icon
+            &::after {
+              content: "›";
+              display: block;
+              position: absolute;
+              right: 0.5rem;
+              top: 50%;
+              font-size: 2rem;
+              transform: translateY(-50%) rotate(90deg);
+              transition: transform 0.3s ease;
+              transform-origin: center;
+            }
+          }
+
+          // When open, rotate arrow
+          &[open] summary::after {
+            transform: translateY(-50%) rotate(270deg);
+            transform-origin: center;
+          }
+
+          // Reset desktop behavior - allow normal open/close
+          &:not([open]) .footer-details {
+            display: none;
+          }
+        }
+      }
+
+      .footer-logos {
+        justify-content: center;
+        flex-direction: column;
+        gap: 40px;
+
+        .footer-socials {
+          display: none;
+        }
+      }
+    }
+
+    .footer-copyright {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+  }
+}

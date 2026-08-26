@@ -28,8 +28,8 @@ local-xdebuginfo.php
 /wp-content/themes/twenty*/
 
 # Theme Related
-/wp-content/themes/bamboostarter/node_modules/
-/wp-content/themes/bamboostarter/package-lock.json
+/wp-content/themes/boilerplate-theme/node_modules/
+/wp-content/themes/boilerplate-theme/package-lock.json
 
 # Ignore all plugins
 /wp-content/plugins/*

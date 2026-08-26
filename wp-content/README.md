@@ -50,9 +50,7 @@ This is a Wordpress boilerplate theme designed for developers to kickstart websi
 ## Initial Installation
 
 1. Start with a fresh WordPress installation.
-
 2. Create a .gitignore file locally and copy and paste the example from the repo.
-
 3. Create a Git remote with the following commands:
 
    ```bash
@@ -90,7 +88,7 @@ This is a Wordpress boilerplate theme designed for developers to kickstart websi
 1. Navigate to the theme directory:
 
    ```bash
-   cd wp-content/themes/boilerplate
+   cd wp-content/themes/boilerplate-theme
    ```
 
 2. Install Node.js dependencies:
@@ -98,44 +96,6 @@ This is a Wordpress boilerplate theme designed for developers to kickstart websi
    ```bash
    npm install
    ```
-
----
-
-## Creating Default Pages using WP CLI
-
-To create default pages for the project, amend the "create-pages.sh" bash file script titles. The script will also set the default "Home" and "Blog" pages, as well as set the permalink structure for the local install.
-
-1. Start DevKinsta & Docker.
-
-2. Open a New Mac Terminal window.
-
-3. Run the following command to use WP-CLI in the Docker container:
-
-   ```bash
-   docker exec -it --user www-data devkinsta_fpm bash
-   ```
-
-4. Navigate to the folder with the DevKinsta site installation:
-
-   ```bash
-   cd public/{sitename}
-   ```
-
-5. Run the following command to execute the script:
-
-   ```bash
-   bash create-pages.sh
-   ```
-
-6. Log into the site and check the new pages have been created.
-
-_Important_ Only run this script once.
-_Notes_ 
-
-   - The script will do checks if run a second time. 
-   - Ignore the "Error: Invalid User ID" message. This is a check to see if the User already exists.
-
-7. To exit the docker container type exit
 
 ---
 
@@ -159,7 +119,7 @@ This theme uses Gulp to manage assets. The following tasks are included:
 2. Navigate to the theme directory:
 
    ```bash
-   cd wp-content/themes/boilerplate
+   cd wp-content/themes/boilerplate-theme
    ```
 
 3. Run the default Gulp task:
@@ -215,13 +175,3 @@ This theme uses Gulp to manage assets. The following tasks are included:
    - Commit the JSON files to version control.
 
 ---
-
-## Contributions
-
-Feel free to contribute to this boilerplate theme by submitting issues or pull requests. Ensure all code follows WordPress coding standards.
-
----
-
-## License
-
-This theme is open-source and distributed under the MIT license.

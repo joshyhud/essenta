@@ -49,9 +49,10 @@ This is a Wordpress boilerplate theme designed for developers to kickstart websi
 
 ## Initial Installation
 
-1. Start with a fresh WordPress installation.
-2. Create a .gitignore file locally and copy and paste the example from the repo.
-3. Create a Git remote with the following commands:
+1. Start with a fresh blank WordPress installation either in WPLocal or on a local server.
+2. Navigate to the `wp-content` directory
+3. Create a .gitignore file locally and copy and paste the example from the repo.
+4. Create a Git remote with the following commands:
 
    ```bash
    git init
@@ -60,26 +61,26 @@ This is a Wordpress boilerplate theme designed for developers to kickstart websi
    ```bash
    git remote add origin 
    ```
-
-4. Once remote added use Git fetch to pull all repo data. There will be multiple branches available (main, staging, etc.).
+   
+5. Once remote added use Git fetch to pull all repo data. There will be multiple branches available (main, staging, etc.).
 
    ```bash
    git fetch
    ```
 
-5. Pull the main branch:
+6. Pull the main branch:
 
    ```bash
    git pull origin main
    ```
 
-6. Make sure all code is correct and create a new branch to begin development:
+7. Make sure all code is correct and create a new branch to begin development:
 
    ```bash
    git checkout -b NEW-BRANCH-NAME
    ```
 
-7. Activate the theme from the WordPress admin dashboard.
+8. Activate the theme from the WordPress admin dashboard.
 
 ---
 

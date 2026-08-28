@@ -35,7 +35,7 @@ $media_text_content = get_sub_field('media_text_content');
     <?php endif; ?>
     <div class="media-text">
       <div class="media-text-inner">
-        <p class="subheading"><?php echo esc_html($media_sub_header); ?></p>
+        <p class="eyebrow"><?php echo esc_html($media_sub_header); ?></p>
         <h2><?php echo esc_html($media_heading); ?></h2>
         <?php echo wp_kses_post($media_content); ?>
         <?php if ($media_cta) { ?>

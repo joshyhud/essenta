@@ -16,7 +16,7 @@ $vertical_carousel_items = get_sub_field('vertical_carousel_items');
     <!-- Header Content -->
     <div class="vertical-carousel-header">
       <?php if ($vertical_carousel_subheading): ?>
-        <p class="subheading"><?php echo esc_html($vertical_carousel_subheading); ?></p>
+        <p class="eyebrow"><?php echo esc_html($vertical_carousel_subheading); ?></p>
         <h2><?php echo esc_html($vertical_carousel_heading); ?></h2>
       <?php endif; ?>
 

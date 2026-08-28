@@ -13,7 +13,7 @@ $selected_articles = get_sub_field('selected_posts');
 <section class="articles-block">
   <div class="container">
     <div class="section-header">
-      <p class="subheading"><?php echo esc_html($articles_subheading); ?></p>
+      <p class="eyebrow"><?php echo esc_html($articles_subheading); ?></p>
       <h2 class="heading"><?php echo esc_html($articles_heading); ?></h2>
     </div>
 

@@ -12,7 +12,7 @@ $page_post_items = get_sub_field('pages_and_posts');
 <section class="page-post-links-block">
   <div class="container">
     <div class="section-header">
-      <p class="subheading"><?php echo esc_html($page_post_subheading); ?></p>
+      <p class="eyebrow"><?php echo esc_html($page_post_subheading); ?></p>
       <h2 class="heading"><?php echo esc_html($page_post_heading); ?></h2>
     </div>
     <?php if ($page_post_items) : ?>

@@ -1,6 +1,6 @@
 footer {
-  background-color: var(--footer-background);
-  color: var(--color-neutral);
+  background-color: var(--color-navy-900);
+  color: var(--color-white);
 
   .footer-newsletter {
     margin-top: 5rem;
@@ -49,21 +49,24 @@ footer {
 
       .footer-header {
         p {
-          font-family: var(--font-larken-light);
+          font-family: var(--font-circular-std);
           font-size: 0.875rem;
           line-height: 1.125rem;
           text-transform: uppercase;
           letter-spacing: 10%;
-          padding: 0 0 8px 0;
         }
         border-bottom: 1px solid var(--color-neutral);
       }
 
       // Desktop: Always open, no icons
       .footer-details-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
         summary {
           list-style: none; // Hide default arrow
           cursor: default; // Remove pointer cursor
+          padding: 0;
 
           &::-webkit-details-marker {
             display: none; // Hide webkit arrow
@@ -81,14 +84,7 @@ footer {
       }
 
       .footer-details {
-        padding-top: 33px;
-
-        .footer-contact-detail {
-          display: flex;
-          gap: 0.5rem;
-          margin-bottom: 8px;
-          align-items: baseline;
-        }
+        padding: 0;
 
         .menu {
           list-style: none;

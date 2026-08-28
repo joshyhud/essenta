@@ -18,7 +18,7 @@ $scrolling_contents = get_sub_field('scrolling_contents');
     <div class="sticky-left">
       <div class="sticky-left-content">
         <?php if ($sitcky_left_subheading): ?>
-          <p class="subheading"><?php echo esc_html($sitcky_left_subheading); ?></p>
+          <p class="eyebrow"><?php echo esc_html($sitcky_left_subheading); ?></p>
         <?php endif; ?>
 
         <?php if ($sitcky_left_heading): ?>

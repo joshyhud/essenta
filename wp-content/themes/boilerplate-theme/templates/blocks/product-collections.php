@@ -16,7 +16,7 @@ $collections = get_sub_field('collections');
   <div class="container">
     <div class="product-collections-header">
       <?php if ($product_collection_subheading) : ?>
-        <p class="subheading"><?php echo esc_html($product_collection_subheading); ?></p>
+        <p class="eyebrow"><?php echo esc_html($product_collection_subheading); ?></p>
       <?php endif; ?>
       <?php if ($product_collection_heading) : ?>
         <h2 class="heading"><?php echo esc_html($product_collection_heading); ?></h2>

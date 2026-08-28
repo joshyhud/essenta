@@ -11,7 +11,7 @@ $two_col_content = get_sub_field('two_col_content');
 <section class="two-column-text">
   <div class="content-half">
     <div class="content-half-inner">
-      <p class="subheading"><?php echo esc_html($two_col_sub_heading); ?></p>
+      <p class="eyebrow"><?php echo esc_html($two_col_sub_heading); ?></p>
       <h2><?php echo esc_html($two_col_heading); ?></h2>
     </div>
   </div>

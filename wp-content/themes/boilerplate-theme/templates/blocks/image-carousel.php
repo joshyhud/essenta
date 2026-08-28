@@ -14,7 +14,7 @@ $image_carousel_images = get_sub_field('image_carousel_images');
   <div class="container">
     <div class="image-carousel-header">
       <?php if ($image_carousel_subheading): ?>
-        <p class="subheading"><?php echo esc_html($image_carousel_subheading); ?></p>
+        <p class="eyebrow"><?php echo esc_html($image_carousel_subheading); ?></p>
       <?php endif; ?>
       <?php if ($image_carousel_heading): ?>
         <h2 class="heading"><?php echo esc_html($image_carousel_heading); ?></h2>

@@ -14,7 +14,7 @@ $bordered_contents = get_sub_field('bordered_contents');
   <div class="container">
     <div class="section-header text-center">
       <?php if ($bordered_subheading): ?>
-        <p class="subheading"><?php echo esc_html($bordered_subheading); ?></p>
+        <p class="eyebrow"><?php echo esc_html($bordered_subheading); ?></p>
       <?php endif; ?>
 
       <?php if ($bordered_heading): ?>

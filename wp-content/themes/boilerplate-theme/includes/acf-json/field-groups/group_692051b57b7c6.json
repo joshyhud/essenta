@@ -3,11 +3,11 @@
     "title": "Company Info",
     "fields": [
         {
-            "key": "field_6936948a58947",
-            "label": "Company Address",
-            "name": "company_address",
+            "key": "field_6a9173f5b67b0",
+            "label": "Company Name",
+            "name": "company_name",
             "aria-label": "",
-            "type": "wysiwyg",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -17,12 +17,102 @@
                 "id": ""
             },
             "default_value": "",
+            "maxlength": "",
             "allow_in_bindings": 0,
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
-            "delay": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
             "admin_only": 0
+        },
+        {
+            "key": "field_6a916ff9a54c8",
+            "label": "Company footer Locations",
+            "name": "company_footer_locations",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "admin_only": 0,
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6a917006a54c9",
+                    "label": "Location title",
+                    "name": "location_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "admin_only": 0,
+                    "parent_repeater": "field_6a916ff9a54c8"
+                },
+                {
+                    "key": "field_6a91700fa54ca",
+                    "label": "Location phone",
+                    "name": "location_phone",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "allow_in_bindings": 0,
+                    "admin_only": 0,
+                    "parent_repeater": "field_6a916ff9a54c8"
+                },
+                {
+                    "key": "field_6a917021a54cb",
+                    "label": "Location address",
+                    "name": "location_address",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
+                    "admin_only": 0,
+                    "parent_repeater": "field_6a916ff9a54c8"
+                }
+            ]
         },
         {
             "key": "field_692053071ebf8",
@@ -423,5 +513,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1776268038
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1787917325
 }

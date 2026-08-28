@@ -44,7 +44,7 @@ get_template_part('templates/components/blog-header', 'single');
 <section class="articles-block">
     <div class="container">
         <div class="section-header">
-            <p class="subheading">Related Posts</p>
+            <p class="eyebrow">Related Posts</p>
             <h2 class="heading">More from our Blog</h2>
         </div>
 

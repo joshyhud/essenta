@@ -384,4 +384,37 @@ jQuery(document).ready(function ($) {
   });
 
   // End of jQuery Ready
+
+  
+});
+
+// Ensure the DOM is fully loaded before running the hero video script
+document.addEventListener('DOMContentLoaded', () => {
+
+  document.querySelectorAll('.homepage-hero-image').forEach((hero) => {
+    const video = hero.querySelector('.homepage-hero-video');
+    const playButton = hero.querySelector('.homepage-hero-play');
+
+    if (!video || !playButton) {
+      return;
+    }
+
+    playButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+
+      video.play();
+    });
+
+    video.addEventListener('play', () => {
+      playButton.style.display = 'none';
+    });
+
+    video.addEventListener('pause', () => {
+      playButton.style.display = 'flex';
+    });
+
+    video.addEventListener('ended', () => {
+      playButton.style.display = 'flex';
+    });
+  });
 });

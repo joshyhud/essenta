@@ -22,44 +22,44 @@ h3 {
 }
 
 h4 {
-  font-family: var(--font-larken-light);
-  font-size: 1rem;
-  line-height: 1.125rem;
+  font-family: var(--font-circular-std);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 700;
 }
 
 h5 {
-  font-family: var(--font-larken-light);
-  font-size: 0.875rem;
-  line-height: 1.125rem;
+  font-family: var(--font-circular-std);
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-weight: 700;
 }
 
 h6 {
-  font-family: var(--font-larken-light);
-  font-size: 0.875rem;
-  line-height: 1.125rem;
+  font-family: var(--font-circular-std);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 400;
 }
+
 
 p {
   font-family: var(--font-circular-std);
   font-size: var(--font-size-base);
-  line-height: var(--line-height-base);
-  font-weight: 300;
-  margin-bottom: 1rem;
+  font-weight: 400;
 
-  &.subheading {
+  &.eyebrow {
     font-family: var(--font-circular-std);
-    font-size: 0.875rem;
-    line-height: 1.125rem;
-    font-weight: 600;
-    letter-spacing: 10%;
+    font-size: clamp(0.625rem, 2vw, 0.688rem);
+    line-height: 1rem;
+    font-weight: 700;
+    letter-spacing: 1.54px;
     text-transform: uppercase;
-    color: var(--color-navy-500);
+    color: var(--color-sand-700);
   }
 
   em {
     font-style: italic;
   }
 }
+
 
 a {
   font-family: var(--font-circular-std);
@@ -99,31 +99,3 @@ cite {
   font-size: 12px;
   line-height: 1rem;
 }
-
-/* Media Queries for mobile font sizes */
-// @media (width <= 768px) {
-//   h1 {
-//     font-size: 52px;
-//     line-height: 1.2;
-//   }
-
-//   h2 {
-//     font-size: 40px;
-//     line-height: 60px;
-//   }
-
-//   h3 {
-//     font-size: 27px;
-//     line-height: 38px;
-//   }
-
-//   h4 {
-//     font-size: 21px;
-//     line-height: 33px;
-//   }
-
-//   h5 {
-//     font-size: 18px;
-//     line-height: 32px;
-//   }
-// }

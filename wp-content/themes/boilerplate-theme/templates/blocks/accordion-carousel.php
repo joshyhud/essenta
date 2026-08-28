@@ -18,7 +18,7 @@ $carousel_item_count = 0;
 <section class="carousel-accordion-block">
   <div class="container">
     <div class="section-header text-center">
-      <p class="subheading"><?php echo esc_html($accordion_carousel_subheading); ?></p>
+      <p class="eyebrow"><?php echo esc_html($accordion_carousel_subheading); ?></p>
       <h2 class="heading"><?php echo esc_html($accordion_carousel_heading); ?></h2>
     </div>
 

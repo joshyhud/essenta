@@ -22,7 +22,7 @@ if ($testimonials->have_posts()) : ?>
 
       <div class="testimonial-slider-header">
         <?php if ($testimonial_slider_subheading) : ?>
-          <p class="subheading"><?php echo esc_html($testimonial_slider_subheading); ?></p>
+          <p class="eyebrow"><?php echo esc_html($testimonial_slider_subheading); ?></p>
         <?php endif; ?>
         <?php if ($testimonial_slider_heading) : ?>
           <h2 class="heading"><?php echo esc_html($testimonial_slider_heading); ?></h2>

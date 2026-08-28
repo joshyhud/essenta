@@ -1,10 +1,14 @@
-<?php wp_footer(); ?>
+<?php wp_footer(); 
+
+$footer_locations = get_field('company_footer_locations', 'option');
+
+?>
 
 <footer>
     <section class="footer-newsletter">
         <div class="container">
             <div class="newsletter-header">
-                <p class="subheading">Subscribe & save</p>
+                <p class="eyebrow">Subscribe & save</p>
                 <h2><?php echo get_field('subscription_text', 'option'); ?></h2>
             </div>
             <div class="newsletter-form">
@@ -15,95 +19,82 @@
     <div class="container">
         <div class="footer-inner">
 
-            <div class="footer-location">
+            <div class="footer-logos">
                 <details open class="footer-details-wrapper">
                     <summary class="footer-header">
-                        <p>Our location</p>
+                
                     </summary>
                     <div class="footer-details">
-                        <?php echo get_field('company_address', 'option'); ?>
+                        <a href="<?php echo esc_url(home_url('/')); ?>">
+                            <img loading="lazy" src="<?php echo wp_get_upload_dir()['baseurl']; ?>/2026/08/Primary_Blue-3-1.svg" alt="<?php bloginfo('name'); ?>">
+                        </a>
+
+                        <button class="btn secondary">Send us an Email</button>
                     </div>
                 </details>
             </div>
             <div class="footer-contact">
                 <details open class="footer-details-wrapper">
                     <summary class="footer-header">
-                        <p>Contact Us</p>
+                        <p>Contact</p>
                     </summary>
-                    <div class="footer-details">
-                        <div class="footer-contact-detail">
-                            <p>Telephone:</p>
-                            <?php echo get_field('company_phone', 'option'); ?>
+                        <?php foreach ($footer_locations as $location) : ?>
+                        <div class="footer-details">
+                                <p><?php echo esc_html($location['location_title']); ?></p>
+                                <?php if(!empty($location['location_phone'])) : ?>
+                                    <a href="tel:<?php echo esc_attr($location['location_phone']['url']); ?>">
+                                        <?php echo esc_html($location['location_phone']['title']); ?>
+                                    </a>
+                                <?php endif; ?>
+                                <?php if(!empty($location['location_address'])) : ?>
+                                    <?php echo wp_kses_post($location['location_address']); ?>
+                                <?php endif; ?>
                         </div>
-                        <div class="footer-contact-detail">
-                            <p>Email:</p>
-                            <?php echo get_field('email_enquiries', 'option'); ?>
-                        </div>
-                    </div>
+                        <?php endforeach; ?>
                 </details>
             </div>
-            <div class="footer-privacy">
+            <div class="footer-site">
                 <details open class="footer-details-wrapper">
                     <summary class="footer-header">
-                        <p>Policies & Information</p>
+                        <p>Site</p>
                     </summary>
                     <div class="footer-details">
-                        <?php wp_nav_menu(array('theme_location' => 'max_mega_menu_1')); ?>
+                        <?php wp_nav_menu(array('menu' => 'footer-site')); ?>
                     </div>
                 </details>
-            </div>
-            <div class="footer-contact">
-                <details open class="footer-details-wrapper">
-                    <summary class="footer-header">
-                        <p>Key Links</p>
-                    </summary>
-                    <div class="footer-details">
-                        <?php wp_nav_menu(array('theme_location' => 'max_mega_menu_2')); ?>
-                    </div>
-                </details>
-            </div>
-
-        </div>
-        <div class="footer-logos">
-            <div class="accreditation-logo">
-
-                <?php $accreditation = get_field('accreditation_logo', 'option');
-                $accreditationLink = get_field('footer_logo_link', 'option');
-                ?>
-                <a href="<?php echo esc_url($accreditationLink); ?>" target="_blank" rel="noopener noreferrer">
-                    <img loading="lazy" src="<?php echo $accreditation['url']; ?>" alt="<?php echo $accreditation['alt']; ?>">
-                </a>
-            </div>
-            <div class="accreditation-payments">
-
-                <?php if (class_exists('WooCommerce')) : ?>
-                    <div class="payment-methods">
-                        <div class="payment-icons">
-                            <?php echo do_shortcode('[accepted_payments_stripe_paypal]'); ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
             </div>
             <div class="footer-socials">
-                <?php $social_links = get_field('social_media', 'option');
-                if ($social_links) : ?>
-                    <?php foreach ($social_links as $link) : ?>
-
-                        <div class="social-link-item">
-                            <a href="<?php echo esc_url($link['social_url']); ?>" target="_blank" rel="noopener noreferrer">
-                                <span class="screen-reader-text"><?php echo esc_html($link['social_name']); ?></span>
-                                <i class="icon-<?php echo strtolower(esc_attr($link['social_name'])); ?>"></i>
-                            </a>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                <details open class="footer-details-wrapper">
+                    <summary class="footer-header">
+                        <p>Socials</p>
+                    </summary>
+                    <div class="footer-details">
+                        <?php 
+                         $socials = get_field('socials', 'option');
+                         if($socials) :
+                             foreach($socials as $social) :
+                                 if(!empty($social['social_url']) && !empty($social['social_icon'])) :
+                                     echo '<a href="' . esc_url($social['social_url']) . '">' . wp_kses_post($social['social_icon']) . '</a>';
+                                 endif;
+                             endforeach;
+                         endif;
+                        ?>
+                    </div>
+                </details>
+                <details open class="footer-details-wrapper">
+                    <summary class="footer-header">
+                        <p>Legal</p>
+                    </summary>
+                    <div class="footer-details">
+                        <?php wp_nav_menu(array('menu' => 'footer-legal')); ?>
+                    </div>
+                </details>
             </div>
+
         </div>
     </div>
     <div class="footer-copyright">
-        <p>Copyright &copy; <?php echo date("Y"); ?> Your Company Name. All rights reserved.</p>
-        <p>Site by: <a href="https://example.com" target="_blank">Your Company</a></p>
+        <p>&copy; <?php echo date("Y"); ?> <?php echo get_field('company_name', 'option'); ?>. All rights reserved.</p>
     </div>
 </footer>
 </body>

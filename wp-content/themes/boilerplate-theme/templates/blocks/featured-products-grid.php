@@ -15,7 +15,7 @@ $specific_products = get_sub_field('products');
   <div class="container">
     <div class="featured-products-header">
       <?php if ($featured_products_subtitle) : ?>
-        <p class="subheading"><?php echo esc_html($featured_products_subtitle); ?></p>
+        <p class="eyebrow"><?php echo esc_html($featured_products_subtitle); ?></p>
       <?php endif; ?>
       <?php if ($featured_products_heading) : ?>
         <h2 class="featured-products-heading"><?php echo esc_html($featured_products_heading); ?></h2>

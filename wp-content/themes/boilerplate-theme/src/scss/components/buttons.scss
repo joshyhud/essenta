@@ -16,7 +16,7 @@ $icons: (
 button.btn {
   background: none;
   border: none;
-  font-family: var(--font-larken-light);
+  font-family: var(--font-circular-std);
   font-size: 0.875rem;
   line-height: 1.125rem;
   font-weight: 300;
@@ -57,7 +57,7 @@ button.btn {
 
 .nav-cta {
   a.mega-menu-link {
-    font-family: var(--font-larken-light) !important;
+    font-family: var(--font-circular-std) !important;
     font-size: 0.875rem !important;
     font-weight: 300 !important;
     text-decoration: none !important;
@@ -107,7 +107,7 @@ button.btn {
   }
 
   input[type="submit"] {
-    font-family: var(--font-larken-light);
+    font-family: var(--font-circular-std);
     font-size: 0.875rem;
     line-height: 1.125rem;
     letter-spacing: 1.4px;

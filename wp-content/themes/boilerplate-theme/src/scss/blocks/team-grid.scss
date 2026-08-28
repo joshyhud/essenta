@@ -31,15 +31,15 @@
       font-style: normal;
       font-weight: 300;
       line-height: 32px; /* 133.333% */
-      color: var(--color-neutral-dark);
+      color: var(--color-grey-dark);
       text-decoration: none;
 
       &:hover {
-        color: var(--color-neutral-darker);
+        color: var(--color-grey-darker);
       }
 
       &.is-active {
-        color: var(--color-neutral-darker);
+        color: var(--color-grey-darker);
         font-weight: 700;
       }
     }
@@ -155,7 +155,7 @@
       margin-top: 16px;
 
       a {
-        color: var(--color-neutral-darker);
+        color: var(--color-grey-darker);
         text-decoration: none;
         font-weight: 600;
 

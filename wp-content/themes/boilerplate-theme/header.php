@@ -8,7 +8,7 @@
     <title><?php wp_title('|', true, 'right'); ?></title>
     <?php wp_head(); ?>
 
-    <!-- Larken AdobeFont -->
+    <!-- Adelle AdobeFont -->
     <link rel="stylesheet" href="https://use.typekit.net/kxn1npi.css">
 
     <!-- Plus Jakarta Sans google font -->
@@ -60,7 +60,7 @@
                 -->
 
             <div class="site-nav">
-                <?php wp_nav_menu(array('theme_location' => 'main-menu')); ?>
+                <?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
             </div>
 
 

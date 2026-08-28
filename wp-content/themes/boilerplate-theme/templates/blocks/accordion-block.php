@@ -29,7 +29,7 @@ $accordion_items = get_sub_field('accordion_items');
         <?php if ($accordion_items): ?>
           <div class="accordion-block__items">
             <?php foreach ($accordion_items as $index => $item): ?>
-              <details class="accordion-item">
+              <details class="accordion-item" name="accordion-item">
                 <summary class="accordion-item__heading">
                   <?php echo esc_html($item['accordion_item_heading']); ?>
                 </summary>

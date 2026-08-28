@@ -1,30 +1,24 @@
 h1 {
-  font-family: var(--font-larken-light);
-  font-size: clamp(2rem, 5vw, 3rem);
-  line-height: clamp(2.5rem, 6vw, 3.75rem);
-
-  &.subheading {
-    font-family: var(--font-larken-light);
-    font-size: 0.875rem;
-    line-height: 1.125rem;
-    letter-spacing: 10%;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: var(--color-primary);
-  }
+  font-family: var(--font-adelle);
+  font-size: clamp(3.125rem, 5vw, 4.5rem);
+  font-family: "adelle", serif;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: -1.44px;
 }
 
 h2 {
-  font-family: var(--font-larken-light);
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-family: var(--font-adelle);
+  font-size: clamp(2.25rem, 5vw, 2.5rem);
+  font-weight: 400;
+  font-style: normal;
 }
 
 h3 {
-  font-family: var(--font-larken-light);
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  line-height: 1.188rem;
+  font-family: var(--font-adelle);
+  font-size: clamp(1.75rem, 5vw, 2rem);
+  font-weight: 400;
+  font-style: normal;
 }
 
 h4 {
@@ -46,20 +40,20 @@ h6 {
 }
 
 p {
-  font-family: var(--font-plus-jakarta-sans);
+  font-family: var(--font-circular-std);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
   font-weight: 300;
   margin-bottom: 1rem;
 
   &.subheading {
-    font-family: var(--font-plus-jakarta-sans);
+    font-family: var(--font-circular-std);
     font-size: 0.875rem;
     line-height: 1.125rem;
     font-weight: 600;
     letter-spacing: 10%;
     text-transform: uppercase;
-    color: var(--color-primary);
+    color: var(--color-navy-500);
   }
 
   em {
@@ -68,7 +62,7 @@ p {
 }
 
 a {
-  font-family: var(--font-plus-jakarta-sans);
+  font-family: var(--font-circular-std);
   font-size: var(--font-size-base);
   line-height: 1.188rem;
   font-weight: 300;
@@ -78,7 +72,7 @@ a {
 }
 
 small {
-  font-family: var(--font-plus-jakarta-sans);
+  font-family: var(--font-circular-std);
   font-size: 0.875rem;
   line-height: 1.188rem;
   font-weight: 300;
@@ -89,7 +83,7 @@ small {
 blockquote,
 q {
   quotes: initial;
-  font-family: var(--font-plus-jakarta-sans);
+  font-family: var(--font-circular-std);
   font-size: 2rem;
   line-height: 2.25rem;
 

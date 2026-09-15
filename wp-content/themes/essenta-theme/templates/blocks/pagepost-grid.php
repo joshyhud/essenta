@@ -67,7 +67,7 @@ $posts = get_sub_field('page_or_post_selection');
       <?php endforeach; ?>
       <?php wp_reset_postdata(); ?>
     <?php else : ?>
-      <p><?php esc_html_e('No posts or pages found.', 'boilerplate-theme'); ?></p>
+      <p><?php esc_html_e('No posts or pages found.', 'essenta-theme'); ?></p>
     <?php endif; ?>
   </div>
 </section>

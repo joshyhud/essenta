@@ -91,7 +91,7 @@ get_template_part('templates/components/archive-header', 'single');
             </div>
           <?php endwhile; ?>
         <?php else : ?>
-          <p><?php echo esc_html__('No posts found.', 'boilerplate-theme'); ?></p>
+          <p><?php echo esc_html__('No posts found.', 'essenta-theme'); ?></p>
         <?php endif; ?>
       </div>
     </div>

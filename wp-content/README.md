@@ -89,7 +89,7 @@ This is a Wordpress boilerplate theme designed for developers to kickstart websi
 1. Navigate to the theme directory:
 
    ```bash
-   cd wp-content/themes/boilerplate-theme
+   cd wp-content/themes/essenta-theme
    ```
 
 2. Install Node.js dependencies:
@@ -120,7 +120,7 @@ This theme uses Gulp to manage assets. The following tasks are included:
 2. Navigate to the theme directory:
 
    ```bash
-   cd wp-content/themes/boilerplate-theme
+   cd wp-content/themes/essenta-theme
    ```
 
 3. Run the default Gulp task:

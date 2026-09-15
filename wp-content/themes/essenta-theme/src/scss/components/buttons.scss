@@ -14,43 +14,125 @@ $icons: (
 
 .btn,
 button.btn {
+  width: fit-content;
+  display: inline-flex;
+  align-items: end;
+  padding: 12px 28px;
+  gap: 8px;
+  cursor: pointer;
   background: none;
   border: none;
+  border-radius: 2px;
   font-family: var(--font-circular-std);
-  font-size: 0.875rem;
-  line-height: 1.125rem;
-  font-weight: 300;
+  font-size: 0.813rem;
+  font-weight: 400;
+  line-height: 1;
   text-decoration: none;
-  text-transform: uppercase;
-  width: fit-content;
-
-  padding: 12px 24px;
 
   &.primary {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
     background-color: var(--color-navy-500); 
     color: #fff;
     transition: background-color 0.3s ease-in-out;
 
+    &:after {
+      content: "";
+      display: block;
+      width: 16px;
+      height: 16px;
+      background-image: url("../images/arrow-white.svg");
+      background-size: 16px 100%;
+      background-repeat: no-repeat;
+      transition: transform 0.3s ease-in-out;
+    }
+
     &:hover {
-      background-color: var(--color-navy-500-dark);
+      background-color: var(--color-navy-800);
+      &:after {
+        transform: translateX(2px);
+      }
+    }
+
+    &--light {
+      background-color: #fff ;
+      color: var(--color-navy-900);
+
+      &:after {
+        content: "";
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-image: url("../images/arrow.svg");
+        background-size: 16px 100%;
+        background-repeat: no-repeat;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      &:hover {
+        background-color: var(--color-sand-600);
+        &:after {
+          transform: translateX(2px);
+        }
+      }
 
     }
+
   }
 
   &.secondary {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+    padding: 12px 28px 10px;
     border: 1px solid var(--color-navy-500);
-    color: var(--color-navy-500);
+    border-radius: 2px;
+    color: var(--color-navy-900);
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 
     &:hover {
-      background-color: var(--color-navy-500);
-      color: #fff;
+      background-color: var(--color-sand-600);
+    }
+
+    &--light {
+      border: 1px solid var(--color-sand-200);
+      color: var(--color-sand-200);
+
+      &:hover {
+        background-color: rgba(254, 254, 254, 0.15);
+      }
+    }
+  }
+
+  &.cta-link {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: var(--color-navy-900);
+    font-size: 15px;
+    line-height: 19px;
+    padding: 8px 0;
+    transition: background-color 0.3s ease-in-out;
+
+    &:after {
+      content: "";
+      display: block;
+      width: 12px;
+      height: 12px;
+      background-image: url("../images/arrow.svg");
+      background-size: 12px 100%;
+      background-repeat: no-repeat;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &:hover {
+      &:after {
+        transform: translateX(4px);
+      }
+    }
+
+
+    &--light {
+      color: var(--color-sand-200);
+
+      &:hover {
+        color: var(--color-sand-500);
+      }
     }
   }
 }

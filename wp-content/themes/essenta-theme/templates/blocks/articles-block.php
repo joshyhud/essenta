@@ -134,7 +134,7 @@ $selected_articles = get_sub_field('selected_posts');
 
         <?php wp_reset_postdata(); ?>
       <?php else : ?>
-        <p><?php esc_html_e('No articles found.', 'boilerplate-theme'); ?></p>
+        <p><?php esc_html_e('No articles found.', 'essenta-theme'); ?></p>
       <?php endif; ?>
     </div>
   </div>

@@ -167,7 +167,7 @@ get_template_part('templates/components/blog-header', 'single');
 
                 <?php wp_reset_postdata(); ?>
             <?php else : ?>
-                <p><?php esc_html_e('No related articles found.', 'boilerplate-theme'); ?></p>
+                <p><?php esc_html_e('No related articles found.', 'essenta-theme'); ?></p>
             <?php endif; ?>
         </div>
     </div>

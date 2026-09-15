@@ -2407,6 +2407,96 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6aa95794a97ba": {
+                    "key": "layout_6aa95794a97ba",
+                    "name": "cta_block",
+                    "label": "CTA Block",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6aa957aca97c8",
+                            "label": "CTA Block Heading",
+                            "name": "cta_block_heading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aa957bea97c9",
+                            "label": "CTA Block Content",
+                            "name": "cta_block_content",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "allow_in_bindings": 0,
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aa957cca97ca",
+                            "label": "CTA Block Primary Link",
+                            "name": "cta_block_primary_link",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "This CTA with have default primary button styling",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aa957e4a97cb",
+                            "label": "CTA Block Secondary Link",
+                            "name": "cta_block_secondary_link",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "This CTA with have default secondary button styling",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "admin_only": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -2425,17 +2515,17 @@
             {
                 "param": "page",
                 "operator": "!=",
-                "value": "304"
+                "value": "306"
             },
             {
                 "param": "page",
                 "operator": "!=",
-                "value": "304"
+                "value": "306"
             },
             {
                 "param": "page",
                 "operator": "!=",
-                "value": "304"
+                "value": "306"
             }
         ],
         [
@@ -2470,5 +2560,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787306259
+    "modified": 1789483198
 }

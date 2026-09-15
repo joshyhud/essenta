@@ -40,10 +40,27 @@ h6 {
 }
 
 
+
 p {
   font-family: var(--font-circular-std);
   font-size: var(--font-size-base);
   font-weight: 400;
+
+  &.body-large {
+    font-size: clamp(1rem, 2vw, 0.938rem);
+    line-height: 1.6;
+  }
+
+  &.body-medium {
+      font-size: clamp(0.875rem, 2vw, 0.813rem);
+      line-height: 1.6;
+  }
+
+  &.body-small {
+      font-size: clamp(0.625rem, 2vw, 0.563rem);
+      line-height: 1.5;
+  }
+
 
   &.eyebrow {
     font-family: var(--font-circular-std);

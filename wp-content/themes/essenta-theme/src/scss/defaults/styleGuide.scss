@@ -27,7 +27,7 @@ section {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 5rem 1.5rem;
+  padding: 3.75rem 10rem;
 }
 
 .container.contained {
@@ -146,7 +146,7 @@ fieldset {
 
 @media (width <= 768px) {
   .container {
-    padding: 2.5rem 1rem;
+    padding: 1.875rem 1rem;
     max-width: 100%;
   }
 }

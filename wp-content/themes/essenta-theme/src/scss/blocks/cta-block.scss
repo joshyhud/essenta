@@ -1,0 +1,28 @@
+.cta-block {
+    background-color: var(--color-navy-500);
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 34px;
+        .cta-block-content {
+            max-width: 734px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 12px;
+            color: var(--color-white);
+
+            p {
+                max-width: 568px;
+            }
+        }
+        .cta-block-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            
+        }
+    }
+}

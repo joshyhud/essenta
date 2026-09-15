@@ -321,3 +321,16 @@ button.btn {
     }
   }
 }
+
+@media (width <= 768px) {
+  .btn,
+button.btn {
+  &.primary {
+    font-size: 0.875rem;
+  
+    &--light {
+      font-size: 0.813rem;
+    }
+  }
+}
+}

@@ -33,13 +33,13 @@ footer {
 
           p {
             color: var(--color-sand-700);
-            line-height: 1;
+            line-height: 1.2rem;
           }
 
           .location-tel {
             margin-bottom: 6px;
             font-size: clamp(0.875rem, 2vw, 0.813rem);
-            line-height: 1;
+            line-height: 1.2rem;
             text-decoration: none;
 
             &:hover {
@@ -102,7 +102,7 @@ footer {
 
           li {
             margin: 0;
-            line-height: 1;
+            line-height: 1.2rem;
 
             a {
               text-decoration: none;
@@ -188,8 +188,7 @@ footer {
     position: relative;
     padding: 1.5rem 1.5rem 0rem;
     text-align: center;
-    gap: 30px;
-    padding-top: 30px;
+    padding-top: 24px;
     border-top: 1px solid #808080;
     color: var(--color-sand-800);
 
@@ -209,8 +208,10 @@ footer {
   @media (width <= 980px) {
     .container {
       padding: 1.188rem 0.938rem;
+      gap: 24px;
       .footer-inner {
         flex-direction: column;
+        padding-bottom: 0;
 
         > * {
           width: 100%;

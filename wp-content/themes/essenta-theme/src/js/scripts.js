@@ -96,7 +96,7 @@ jQuery(document).ready(function ($) {
   function handleFooterDetails() {
     const footerDetails = $(".footer-details-wrapper");
 
-    if (window.innerWidth > 768) {
+    if (window.innerWidth > 980) {
       // Desktop: Always keep open and prevent closing
       footerDetails.each(function () {
         this.open = true;
@@ -106,7 +106,7 @@ jQuery(document).ready(function ($) {
       $(".footer-details-wrapper summary")
         .off("click.footerToggle")
         .on("click.footerToggle", function (e) {
-          if (window.innerWidth > 768) {
+          if (window.innerWidth > 980) {
             e.preventDefault();
             e.stopPropagation();
           }
@@ -384,37 +384,51 @@ jQuery(document).ready(function ($) {
   });
 
   // End of jQuery Ready
-
-  
 });
 
 // Ensure the DOM is fully loaded before running the hero video script
-document.addEventListener('DOMContentLoaded', () => {
-
-  document.querySelectorAll('.homepage-hero-image').forEach((hero) => {
-    const video = hero.querySelector('.homepage-hero-video');
-    const playButton = hero.querySelector('.homepage-hero-play');
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".homepage-hero-image").forEach((hero) => {
+    const video = hero.querySelector(".homepage-hero-video");
+    const playButton = hero.querySelector(".homepage-hero-play");
 
     if (!video || !playButton) {
       return;
     }
 
-    playButton.addEventListener('click', (event) => {
+    playButton.addEventListener("click", (event) => {
       event.stopPropagation();
 
       video.play();
     });
 
-    video.addEventListener('play', () => {
-      playButton.style.display = 'none';
+    video.addEventListener("play", () => {
+      playButton.style.display = "none";
     });
 
-    video.addEventListener('pause', () => {
-      playButton.style.display = 'flex';
+    video.addEventListener("pause", () => {
+      playButton.style.display = "flex";
     });
 
-    video.addEventListener('ended', () => {
-      playButton.style.display = 'flex';
+    video.addEventListener("ended", () => {
+      playButton.style.display = "flex";
     });
   });
+
+  function updateFooterDetails() {
+    const details = document.querySelectorAll(".footer-details-wrapper");
+
+    details.forEach((item) => {
+      if (window.innerWidth <= 980) {
+        item.setAttribute("name", "detail-item");
+      } else {
+        item.removeAttribute("name");
+        item.open = true;
+      }
+    });
+  }
+
+  updateFooterDetails();
+
+  window.addEventListener("resize", updateFooterDetails);
 });

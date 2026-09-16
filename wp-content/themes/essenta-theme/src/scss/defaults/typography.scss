@@ -47,23 +47,23 @@ h6 {
 p {
   font-family: var(--font-circular-std);
   font-size: clamp(1rem, 2vw, 0.938rem);
-  line-height: 1.6;
+  line-height: 1.188rem;
   font-weight: 400;
 
   &.body-large {
     font-size: clamp(1rem, 2vw, 0.938rem);
-    line-height: 1.6;
+    line-height: 1.188rem;
   }
 
   &.body-medium {
       font-size: clamp(0.875rem, 2vw, 0.813rem);
-      line-height: 100%;
+      line-height: 1;
       color: var(--color-sand-600);
   }
 
   &.body-small {
       font-size: clamp(0.625rem, 2vw, 0.563rem);
-      line-height: 1.5;
+      line-height: 1;
   }
 
 

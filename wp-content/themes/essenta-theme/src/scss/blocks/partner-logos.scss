@@ -1,21 +1,52 @@
 .partner-logos {
+  background-color: var(--color-beige-400);
   .container {
+    padding: 4.938rem 10rem 6rem;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+
+    h2 {
+      text-align: center;
+    }
   }
 
   .partner-logos-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-bottom: 5.5rem;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
+
+
   }
 
   .partner-logos-slider--forward,
   .partner-logos-slider--reverse {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 80px,
+      #000 calc(100% - 80px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 80px,
+      #000 calc(100% - 80px),
+      transparent 100%
+    );
+
+    &.slick-slider {
+      margin-bottom: 0;
+    }
+
     .slick-track {
       display: flex;
       align-items: center;
+      
     }
 
     .slick-slide {
@@ -38,17 +69,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 40px;
+    padding: 0 31px;
+    
 
     img {
-        
       max-height: 60px;
       width: auto;
+      height: 60px;
       filter: grayscale(100%);
+      mix-blend-mode: multiply;
       transition: filter 0.3s ease-in-out;
+    }
+  }
+}
 
-      &:hover {
-        filter: grayscale(0%);
+@media (width <= 768px) {
+  .partner-logos { 
+    .container {
+      padding: 3.5rem 0.938rem 4.375rem;
+    }
+    .partner-logos-wrapper {
+      padding-bottom: 4.563rem;
+      gap: 10px;
+
+      .partner-logo {
+        padding: 0 15px;
       }
     }
   }

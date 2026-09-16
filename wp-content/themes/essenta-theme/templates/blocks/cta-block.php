@@ -1,6 +1,6 @@
 <?php
 if (!defined('ABSPATH')) {
-  exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 $cta_block_heading = get_sub_field('cta_block_heading');
@@ -13,7 +13,7 @@ $cta_block_secondary_button = get_sub_field('cta_block_secondary_link');
     <div class="container">
         <div class="cta-block-content">
             <h2><?php echo $cta_block_heading; ?></h2>
-            <p><?php echo $cta_block_content; ?></p>
+            <?php echo wp_kses_post($cta_block_content); ?>
         </div>
         <div class="cta-block-buttons">
             <?php if ($cta_block_primary_button) : ?>

@@ -1,8 +1,8 @@
 h1 {
   font-family: var(--font-adelle);
-  font-size: clamp(3.125rem, 5vw, 4.5rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-family: "adelle", serif;
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
   letter-spacing: -1.44px;
 }
@@ -12,25 +12,28 @@ h2 {
   font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 400;
   font-style: normal;
+  letter-spacing: -0.96px;
 }
 
 h3 {
   font-family: var(--font-adelle);
-  font-size: clamp(1.75rem, 5vw, 2rem);
+  font-size: clamp(1.375rem, 5vw, 1.75rem);
   font-weight: 400;
   font-style: normal;
+  letter-spacing: -0.96px;
 }
 
 h4 {
   font-family: var(--font-circular-std);
-  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-  font-weight: 700;
+  font-size: clamp(1.375rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  
 }
 
 h5 {
   font-family: var(--font-circular-std);
   font-size: clamp(1.125rem, 2vw, 1.25rem);
-  font-weight: 700;
+  font-weight: 400;
 }
 
 h6 {
@@ -43,7 +46,8 @@ h6 {
 
 p {
   font-family: var(--font-circular-std);
-  font-size: var(--font-size-base);
+  font-size: clamp(1rem, 2vw, 0.938rem);
+  line-height: 1.6;
   font-weight: 400;
 
   &.body-large {
@@ -53,7 +57,8 @@ p {
 
   &.body-medium {
       font-size: clamp(0.875rem, 2vw, 0.813rem);
-      line-height: 1.6;
+      line-height: 100%;
+      color: var(--color-sand-600);
   }
 
   &.body-small {

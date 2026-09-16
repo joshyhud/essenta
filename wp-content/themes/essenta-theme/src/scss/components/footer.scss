@@ -2,36 +2,6 @@ footer {
   background-color: var(--color-navy-800);
   color: var(--color-white);
 
-  .footer-newsletter {
-    margin-top: 5rem;
-    background-color: var(--color-navy-500);
-    color: var(--color-white);
-
-    .newsletter-header {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .newsletter-form {
-      form {
-        flex-direction: row;
-        align-items: flex-end;
-        p {
-          width: 100%;
-        }
-        .input-submit-wrapper {
-          width: fit-content;
-          p {
-            width: auto;
-            input[type="submit"] {
-              color: white;
-            }
-          }
-        }
-      }
-    }
-  }
-
   .container {
     padding: 6.25rem 10rem 3rem;
     display: flex;
@@ -41,6 +11,7 @@ footer {
     .footer-inner {
       display: flex;
       align-items: flex-start;
+      flex-wrap: wrap;
       gap: 1rem;
       padding-bottom: 60px;
 
@@ -60,10 +31,20 @@ footer {
             margin-bottom: 8px;
           }
 
+          p {
+            color: var(--color-sand-700);
+            line-height: 1;
+          }
+
           .location-tel {
             margin-bottom: 6px;
             font-size: clamp(0.875rem, 2vw, 0.813rem);
             line-height: 1;
+            text-decoration: none;
+
+            &:hover {
+              color: var(--color-sand-200);
+            }
           }
         }
 
@@ -75,11 +56,8 @@ footer {
 
       .footer-header {
         p {
-          font-family: var(--font-circular-std);
-          font-size: 0.875rem;
-          line-height: 1.125rem;
-          text-transform: uppercase;
-          letter-spacing: 10%;
+          color: var(--color-sand-200);
+        
         }
       }
 
@@ -88,6 +66,10 @@ footer {
         display: flex;
         flex-direction: column;
         gap: 1.25rem;
+        &.social-wrapper,
+        &.legal-wrapper {
+          gap: 1rem;
+        }
         summary {
           list-style: none; // Hide default arrow
           cursor: default; // Remove pointer cursor
@@ -129,6 +111,12 @@ footer {
               font-weight: 400;
               color: var(--color-sand-700);
             }
+
+            &:hover {
+              a {
+                color: var(--color-sand-200);
+              }
+            }
           }
         }
       }
@@ -143,47 +131,59 @@ footer {
     margin-right: 126px;
 
     .footer-contact {
-      form {
-        p {
-          display: flex;
-          flex-wrap: wrap;
 
-          span {
-            width: 100%;
-          }
-        }
+      .gform_validation_errors {
+        display: none;
+      }
+
+      .gform_title {
+        font-family: var(--font-circular-std);
+        font-size: clamp(0.625rem, 2vw, 0.688rem);
+        line-height: 1.031rem;
+        font-weight: 700;
+        letter-spacing: 1.54px;
+        text-transform: uppercase;
+        color: var(--color-sand-200);
+        margin-bottom: 14px;
+      }
+
+      .gform_fields {
+        row-gap: 6px !important;
+        column-gap: 6px !important;
+      }
+
+      .gfield_label {
+        display: none;
+      }
+
+      .gform-button {
+        background-color: var(--color-sand-200) !important;
+        padding: 10px 20px !important;
       }
     
     }
+  }
 
-    .footer-socials {
-      display: flex;
-      gap: 1rem;
-      .social-link-item {
-        width: 24px;
-        height: 24px;
-        display: inline-block;
-      }
+      .footer-socials {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
 
-      i {
-        width: 24px;
-        height: 24px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        display: block;
-      }
-      .icon-facebook {
-        background-image: url("../images/facebook-white.svg");
-      }
-      .icon-instagram {
-        background-image: url("../images/instagram-white.svg");
-      }
-      .icon-pinterest {
-        background-image: url("../images/pinterest-white.svg");
+      .social-wrapper {
+        .social-link-item {
+          cursor: pointer;
+          padding: 11px;
+          border: 1px solid var(--color-sand-700);
+          display: inline-block;
+
+          &:hover {
+            opacity: 0.8;
+          }
+
+        }
       }
     }
-  }
+
   .footer-copyright {
     position: relative;
     padding: 1.5rem 1.5rem 0rem;
@@ -206,7 +206,7 @@ footer {
   }
 
 
-  @media (width <= 768px) {
+  @media (width <= 980px) {
     .container {
       padding: 1.188rem 0.938rem;
       .footer-inner {

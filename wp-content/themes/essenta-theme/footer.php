@@ -1,21 +1,10 @@
-<?php wp_footer();
+<?php
 
 $footer_locations = get_field('company_footer_locations', 'option');
 
 ?>
 
 <footer>
-    <section class="footer-newsletter">
-        <div class="container">
-            <div class="newsletter-header">
-                <p class="eyebrow">Subscribe & save</p>
-                <h2><?php echo get_field('subscription_text', 'option'); ?></h2>
-            </div>
-            <div class="newsletter-form">
-                <?php echo do_shortcode('[contact-form-7 id="66f30db" title="Newsletter"]'); ?>
-            </div>
-        </div>
-    </section>
     <div class="container">
         <div class="footer-inner">
 
@@ -30,13 +19,13 @@ $footer_locations = get_field('company_footer_locations', 'option');
             <div class="footer-contact">
                 <details open class="footer-details-wrapper">
                     <summary class="footer-header">
-                        <p>Contact</p>
+                        <p class="eyebrow">Contact</p>
                     </summary>
                     <?php foreach ($footer_locations as $location) : ?>
                         <div class="footer-details">
                             <p class="location-title"><?php echo esc_html($location['location_title']); ?></p>
                             <?php if (!empty($location['location_phone'])) : ?>
-                                <a class="location-tel  " href="tel:<?php echo esc_attr($location['location_phone']['url']); ?>">
+                                <a class="location-tel" href="tel:<?php echo esc_attr($location['location_phone']['url']); ?>">
                                     <?php echo esc_html($location['location_phone']['title']); ?>
                                 </a>
                             <?php endif; ?>
@@ -62,7 +51,7 @@ $footer_locations = get_field('company_footer_locations', 'option');
             <div class="footer-site">
                 <details open class="footer-details-wrapper">
                     <summary class="footer-header">
-                        <p>Site</p>
+                        <p class="eyebrow">Site</p>
                     </summary>
                     <div class="footer-details">
                         <?php wp_nav_menu(array('menu' => 'footer-site')); ?>
@@ -72,16 +61,20 @@ $footer_locations = get_field('company_footer_locations', 'option');
             <div class="footer-socials">
                 <details open class="social-wrapper footer-details-wrapper">
                     <summary class="footer-header">
-                        <p>Social</p>
+                        <p class="eyebrow">Social</p>
                     </summary>
                     <div class="footer-details">
                         <?php
-                        $socials = get_field('socials', 'option');
+                        $socials = get_field('social_media', 'option');
                         if ($socials) :
                             foreach ($socials as $social) :
-                                if (!empty($social['social_url']) && !empty($social['social_icon'])) :
-                                    echo '<a href="' . esc_url($social['social_url']) . '">' . wp_kses_post($social['social_icon']) . '</a>';
-                                endif;
+                        ?>
+                                <div class="social-link-item">
+                                    <?php if (!empty($social['social_url'])) :
+                                        echo '<a target="_blank" href="' . esc_url($social['social_url']) . '"><i class="icon-' . strtolower(esc_attr($social['social_name'])) . '"></i></a>';
+                                    endif; ?>
+                                </div>
+                        <?php
                             endforeach;
                         endif;
                         ?>
@@ -89,7 +82,7 @@ $footer_locations = get_field('company_footer_locations', 'option');
                 </details>
                 <details open class="legal-wrapper footer-details-wrapper">
                     <summary class="footer-header">
-                        <p>Legal</p>
+                        <p class="eyebrow">Legal</p>
                     </summary>
                     <div class="footer-details">
                         <?php wp_nav_menu(array('menu' => 'footer-legal')); ?>
@@ -106,6 +99,7 @@ $footer_locations = get_field('company_footer_locations', 'option');
     </div>
 
 </footer>
+<?php wp_footer(); ?>
 </body>
 
 </html>

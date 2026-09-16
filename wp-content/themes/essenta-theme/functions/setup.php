@@ -19,6 +19,28 @@ function add_theme_scripts()
 }
 add_action('wp_enqueue_scripts', 'add_theme_scripts');
 
+// Force-enqueue Gravity Forms CSS/JS for the footer contact form.
+// Gravity Forms only auto-enqueues its assets for forms found in the current
+// post's content, so the form embedded in the footer options field is never
+// detected and its default styles/scripts are skipped on the front end.
+function enqueue_footer_gravity_form_assets()
+{
+  if (!class_exists('GFForms') || !function_exists('get_field')) {
+    return;
+  }
+
+  $footer_form_content = get_field('footer_contact_form', 'option');
+
+  if (empty($footer_form_content)) {
+    return;
+  }
+
+  if (preg_match('/\[gravityform[^\]]*\bid=["\']?(\d+)["\']?/i', $footer_form_content, $matches)) {
+    gravity_form_enqueue_scripts((int) $matches[1], false);
+  }
+}
+add_action('wp_enqueue_scripts', 'enqueue_footer_gravity_form_assets', 20);
+
 // Enqueue External Libraries
 function add_cdn_libraries()
 {

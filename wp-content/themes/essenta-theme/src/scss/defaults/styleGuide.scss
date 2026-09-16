@@ -70,6 +70,36 @@ strong {
   font-weight: var(--font-weight-bold);
 }
 
+// Icons 
+
+      i {
+        width: 16px;
+        height: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: block;
+
+        &.icon-facebook {
+          background-image: url("../images/facebook.svg");
+        }
+        &.icon-instagram {
+          background-image: url("../images/instagram.svg");
+        }
+        &.icon-linkedin {
+          background-image: url("../images/linkedin.svg");
+        }
+        &.icon-pinterest {
+          background-image: url("../images/pinterest.svg");
+        }
+        &.icon-twitter {
+          background-image: url("../images/twitter.svg");
+        } 
+        &.icon-youtube {
+          background-image: url("../images/youtube.svg");
+        }
+      }
+
 ul {
   list-style-type: disc;
   padding-left: 20px;

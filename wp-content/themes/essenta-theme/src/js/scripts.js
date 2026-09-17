@@ -431,4 +431,95 @@ document.addEventListener("DOMContentLoaded", () => {
   updateFooterDetails();
 
   window.addEventListener("resize", updateFooterDetails);
+
+  // Toggle read moe for header
+
+  document.querySelectorAll(".expand").forEach((container) => {
+    const text = container.querySelector("p");
+
+    const fullText = text.textContent.trim();
+    const words = fullText.split(/\s+/);
+    const wordLimit = 30;
+
+    // Don't do anything if text is already 30 words or fewer
+    if (words.length <= wordLimit) {
+      return;
+    }
+
+    const truncatedText = words.slice(0, wordLimit).join(" ") + "...";
+
+    // Create the Read more button
+    const toggle = document.createElement("button");
+
+    toggle.type = "button";
+    toggle.className = "text-expand-toggle";
+    toggle.textContent = "Read more";
+
+    function setMobileState() {
+      if (window.innerWidth <= 767) {
+        text.innerHTML = truncatedText;
+        text.appendChild(toggle);
+
+        // Allow the browser to calculate the collapsed height
+        container.style.maxHeight = `${container.scrollHeight}px`;
+
+        requestAnimationFrame(() => {
+          container.classList.remove("is-expanded");
+        });
+      } else {
+        container.classList.remove("is-expanded");
+        container.style.maxHeight = "none";
+
+        text.textContent = fullText;
+      }
+    }
+
+    function expand() {
+      // Get current collapsed height
+      container.style.maxHeight = `${container.scrollHeight}px`;
+
+      // Change content
+      text.textContent = fullText;
+      text.appendChild(toggle);
+
+      toggle.textContent = "Read less";
+
+      // Force browser to calculate the new height
+      requestAnimationFrame(() => {
+        container.style.maxHeight = `${container.scrollHeight}px`;
+        container.classList.add("is-expanded");
+      });
+    }
+
+    function collapse() {
+      // Set current expanded height first
+      container.style.maxHeight = `${container.scrollHeight}px`;
+
+      requestAnimationFrame(() => {
+        text.innerHTML = truncatedText;
+        text.appendChild(toggle);
+
+        toggle.textContent = "Read more";
+
+        requestAnimationFrame(() => {
+          container.style.maxHeight = `${container.scrollHeight}px`;
+          container.classList.remove("is-expanded");
+        });
+      });
+    }
+
+    toggle.addEventListener("click", () => {
+      if (container.classList.contains("is-expanded")) {
+        collapse();
+      } else {
+        expand();
+      }
+    });
+
+    setMobileState();
+
+    window.addEventListener("resize", () => {
+      setMobileState();
+    });
+  });
 });

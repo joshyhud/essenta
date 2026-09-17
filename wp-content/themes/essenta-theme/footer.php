@@ -36,12 +36,16 @@ $footer_locations = get_field('company_footer_locations', 'option');
                     <?php endforeach; ?>
                     <div class="mobile-socials">
                         <?php
-                        $socials = get_field('socials', 'option');
+                        $socials = get_field('social_media', 'option');
                         if ($socials) :
                             foreach ($socials as $social) :
-                                if (!empty($social['social_url']) && !empty($social['social_icon'])) :
-                                    echo '<a href="' . esc_url($social['social_url']) . '">' . wp_kses_post($social['social_icon']) . '</a>';
-                                endif;
+                        ?>
+                                <div class="social-link-item">
+                                    <?php if (!empty($social['social_url'])) :
+                                        echo '<a target="_blank" href="' . esc_url($social['social_url']) . '"><i class="icon-' . strtolower(esc_attr($social['social_name'])) . '"></i></a>';
+                                    endif; ?>
+                                </div>
+                        <?php
                             endforeach;
                         endif;
                         ?>

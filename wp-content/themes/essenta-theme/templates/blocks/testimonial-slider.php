@@ -73,10 +73,6 @@ if ($testimonials->have_posts()) : ?>
           </div>
           <div class="slider-nav testimonials">
             <div class="slider-dots"></div>
-            <div class="slider-arrows">
-              <button class="slick-prev"></button>
-              <button class="slick-next"></button>
-            </div>
           </div>
         </div>
       </div>
@@ -99,33 +95,9 @@ wp_reset_postdata(); ?>
       slidesToScroll: 1,
       infinite: false,
       dots: true,
-      arrows: true,
-      prevArrow: $('.slider-nav.testimonials .slick-prev'),
-      nextArrow: $('.slider-nav.testimonials .slick-next'),
+      arrows: false,
       appendDots: $('.slider-nav.testimonials .slider-dots'),
-      adaptiveHeight: true,
-      responsive: [{
-          breakpoint: 1440,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        },
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          }
-        }
-      ]
+      adaptiveHeight: true
     });
   });
 </script>

@@ -30,7 +30,7 @@ button.btn {
   text-decoration: none;
 
   &.primary {
-    background-color: var(--color-navy-500); 
+    background-color: var(--color-navy-500);
     color: #fff;
     transition: background-color 0.3s ease-in-out;
 
@@ -53,7 +53,7 @@ button.btn {
     }
 
     &--light {
-      background-color: #fff ;
+      background-color: #fff;
       color: var(--color-navy-900);
 
       &:after {
@@ -73,9 +73,7 @@ button.btn {
           transform: translateX(2px);
         }
       }
-
     }
-
   }
 
   &.secondary {
@@ -83,7 +81,9 @@ button.btn {
     border: 1px solid var(--color-navy-500);
     border-radius: 2px;
     color: var(--color-navy-900);
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    transition:
+      background-color 0.3s ease-in-out,
+      color 0.3s ease-in-out;
 
     &:hover {
       background-color: var(--color-sand-600);
@@ -125,7 +125,6 @@ button.btn {
         transform: translateX(4px);
       }
     }
-
 
     &--light {
       color: var(--color-sand-200);
@@ -203,7 +202,8 @@ button.btn {
   }
 }
 
-.slick-pause-icon, .slick-autoplay-toggle-button {
+.slick-pause-icon,
+.slick-autoplay-toggle-button {
   display: none !important;
 }
 
@@ -216,14 +216,15 @@ button.btn {
   gap: 16px;
   padding: 24px 0;
 
-  &.testimonials {
-    justify-content: flex-end;
-  }
-
   @media (max-width: 768px) {
     gap: 1rem;
     width: 100%;
     padding: 24px 1rem;
+  }
+
+  // Remove padding for testimonial sliders
+  &.testimonials {
+    padding: 0;
   }
 
   .slider-dots {
@@ -234,6 +235,7 @@ button.btn {
       display: flex !important;
       align-items: center;
       justify-content: center;
+      gap: 6px;
 
       li {
         margin: 0 !important;
@@ -241,7 +243,7 @@ button.btn {
           width: auto !important;
           height: auto !important;
           margin: 0 !important;
-          padding: 8px;
+          padding: 0px;
           background: none;
           border: none;
           cursor: pointer;
@@ -250,16 +252,13 @@ button.btn {
             &:before {
               position: relative !important;
               content: "" !important;
-              width: 2rem;
-              height: 1px;
+              width: 8px;
+              height: 8px;
               display: block;
-              background-color: black;
-              transition: width 0.3s ease;
+              border-radius: 50%;
+              background-color: #cccccc;
+              transition: background-color 0.3s ease;
               margin-top: 0 !important;
-
-              @media (max-width: 768px) {
-                width: 1rem;
-              }
             }
           }
         }
@@ -268,11 +267,7 @@ button.btn {
           button {
             .slick-dot-icon {
               &:before {
-                width: 2.5rem;
-
-                @media (max-width: 768px) {
-                  width: 1.5rem;
-                }
+                background-color: #555555;
               }
             }
           }
@@ -324,13 +319,13 @@ button.btn {
 
 @media (width <= 768px) {
   .btn,
-button.btn {
-  &.primary {
-    font-size: 0.875rem;
-  
-    &--light {
-      font-size: 0.813rem;
+  button.btn {
+    &.primary {
+      font-size: 0.875rem;
+
+      &--light {
+        font-size: 0.813rem;
+      }
     }
   }
-}
 }

@@ -32,7 +32,6 @@
 
 /* Blocks/patterns */
 @import "assets/scss/blocks/hero.scss";
-@import "assets/scss/blocks/media-text.scss";
 @import "assets/scss/blocks/page-post-grid.scss";
 @import "assets/scss/blocks/icon-columns.scss";
 @import "assets/scss/blocks/testimonial-slider.scss";
@@ -44,12 +43,13 @@
 @import "assets/scss/blocks/content-switcher.scss";
 @import "assets/scss/blocks/single-column-text.scss";
 @import "assets/scss/blocks/product-collections.scss";
+
 @import "assets/scss/blocks/cta-block.scss";
+@import "assets/scss/blocks/introduction-block.scss";
+@import "assets/scss/blocks/media-text.scss";
 
 /* Hero Headers */
-@import "assets/scss/blocks/hero-headers/contact-form-hero.scss";
 @import "assets/scss/blocks/hero-headers/homepage-hero.scss";
-@import "assets/scss/blocks/hero-headers/full-hero.scss";
 @import "assets/scss/blocks/hero-headers/cta-hero.scss";
 @import "assets/scss/blocks/hero-headers/media-text-header.scss";
 

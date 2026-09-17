@@ -125,11 +125,12 @@
                                 "id": ""
                             },
                             "choices": {
-                                "#FBFCFB": "Grey",
-                                "#FFF": "White"
+                                "#111A4B": "Navy Blue",
+                                "#F7F5F3": "Beige",
+                                "#F9F9F8": "Sand"
                             },
                             "default_value": false,
-                            "return_format": "value",
+                            "return_format": "array",
                             "multiple": 0,
                             "allow_null": 0,
                             "allow_in_bindings": 0,
@@ -264,6 +265,24 @@
                             "key": "field_6925aeb3aa32a",
                             "label": "Media CTA",
                             "name": "media_cta",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aaba4d2061cd",
+                            "label": "Media CTA Secondary",
+                            "name": "media_cta_secondary",
                             "aria-label": "",
                             "type": "link",
                             "instructions": "",
@@ -2689,17 +2708,17 @@
             {
                 "param": "page",
                 "operator": "!=",
-                "value": "357"
+                "value": "401"
             },
             {
                 "param": "page",
                 "operator": "!=",
-                "value": "357"
+                "value": "401"
             },
             {
                 "param": "page",
                 "operator": "!=",
-                "value": "357"
+                "value": "401"
             }
         ],
         [
@@ -2734,5 +2753,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789486953
+    "modified": 1789633768
 }

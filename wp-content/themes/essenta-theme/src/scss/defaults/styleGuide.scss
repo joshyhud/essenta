@@ -8,7 +8,7 @@ html #wpadminbar {
 body {
   font-family:
     var(--font-circular-std), var(--font-adelle), "Open Sans", sans-serif;
-  color: var(--color-grey-darker);
+  color: var(--color-navy-900);
   background-color: var(--color-white);
   &.mm-locked {
     overflow: hidden;
@@ -67,7 +67,7 @@ a:hover {
 }
 
 strong {
-  font-weight: var(--font-weight-bold);
+  font-weight: 600;
 }
 
 // Icons 

@@ -331,163 +331,6 @@
                     "min": "",
                     "max": ""
                 },
-                "layout_6936c21b8e96a": {
-                    "key": "layout_6936c21b8e96a",
-                    "name": "two_col_media_text",
-                    "label": "Two Col Media text",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_6936c2328e96c",
-                            "label": "Two Column Image",
-                            "name": "two_column_image",
-                            "aria-label": "",
-                            "type": "image",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "return_format": "array",
-                            "library": "all",
-                            "min_width": "",
-                            "min_height": "",
-                            "min_size": "",
-                            "max_width": "",
-                            "max_height": "",
-                            "max_size": "",
-                            "mime_types": "",
-                            "allow_in_bindings": 0,
-                            "preview_size": "medium",
-                            "admin_only": 0
-                        },
-                        {
-                            "key": "field_6936c25f76706",
-                            "label": "Two Column Header",
-                            "name": "two_column_header",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "admin_only": 0
-                        },
-                        {
-                            "key": "field_6936c23f8e96d",
-                            "label": "Two Column Text",
-                            "name": "two_column_text",
-                            "aria-label": "",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "allow_in_bindings": 0,
-                            "tabs": "all",
-                            "toolbar": "full",
-                            "media_upload": 1,
-                            "delay": 0,
-                            "admin_only": 0
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
-                "layout_6925b34dedb9e": {
-                    "key": "layout_6925b34dedb9e",
-                    "name": "two_column_text",
-                    "label": "Two Column Text",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_6925b360edba0",
-                            "label": "Two Col Sub Heading",
-                            "name": "two_col_sub_heading",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "admin_only": 0
-                        },
-                        {
-                            "key": "field_6925b371edba1",
-                            "label": "Two Col Heading",
-                            "name": "two_col_heading",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "admin_only": 0
-                        },
-                        {
-                            "key": "field_6925b37cedba2",
-                            "label": "Two Col Content",
-                            "name": "two_col_content",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "admin_only": 0
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
                 "layout_6925d98555496": {
                     "key": "layout_6925d98555496",
                     "name": "pagepost_grid",
@@ -2690,6 +2533,344 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6aabee1882e3c": {
+                    "key": "layout_6aabee1882e3c",
+                    "name": "introduction_block",
+                    "label": "Introduction Block",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6aabee3382e3e",
+                            "label": "Intro Subheading",
+                            "name": "intro_subheading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aabee3f82e3f",
+                            "label": "Intro Heading",
+                            "name": "intro_heading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aabee4782e40",
+                            "label": "Intro text",
+                            "name": "intro_text",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "allow_in_bindings": 0,
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aabee5482e41",
+                            "label": "Intro Primary CTA",
+                            "name": "intro_primary_cta",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aabee6082e42",
+                            "label": "Intro Secondary CTA",
+                            "name": "intro_secondary_cta",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aabee7382e43",
+                            "label": "Statistics",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "placement": "top",
+                            "endpoint": 0,
+                            "admin_only": 0,
+                            "selected": 0
+                        },
+                        {
+                            "key": "field_6aabee8182e44",
+                            "label": "Statistics",
+                            "name": "statistics",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "table",
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Add Row",
+                            "admin_only": 0,
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_6aabee9482e45",
+                                    "label": "Statistic Subheader",
+                                    "name": "statistic_subheader",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6aabee8182e44"
+                                },
+                                {
+                                    "key": "field_6aabeea582e46",
+                                    "label": "Statistic Entry",
+                                    "name": "statistic_entry",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6aabee8182e44"
+                                },
+                                {
+                                    "key": "field_6aabeec882e47",
+                                    "label": "Statistic subcontent",
+                                    "name": "statistic_subcontent",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6aabee8182e44"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_6aabeef4283bb",
+                            "label": "Testimonials",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "placement": "top",
+                            "endpoint": 0,
+                            "admin_only": 0,
+                            "selected": 0
+                        },
+                        {
+                            "key": "field_6aabef00283bc",
+                            "label": "Testimonial Select",
+                            "name": "testimonial_select",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "Select either the latest five testimonials or manauly select",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "auto": "Latest Five",
+                                "man": "Manualy Select"
+                            },
+                            "default_value": false,
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "admin_only": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        },
+                        {
+                            "key": "field_6aabf105283bd",
+                            "label": "Select your Testimonials",
+                            "name": "select_your_testimonials",
+                            "aria-label": "",
+                            "type": "post_object",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6aabef00283bc",
+                                        "operator": "==",
+                                        "value": "man"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "testimonial"
+                            ],
+                            "post_status": [
+                                "publish"
+                            ],
+                            "taxonomy": "",
+                            "return_format": "object",
+                            "multiple": 1,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "bidirectional": 0,
+                            "admin_only": 0,
+                            "ui": 1,
+                            "bidirectional_target": []
+                        },
+                        {
+                            "key": "field_6aabf157283be",
+                            "label": "Automatic Testimonials",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6aabef00283bc",
+                                        "operator": "==",
+                                        "value": "auto"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "The latest five Testimonials will show on the Intro block as a carousel",
+                            "new_lines": "wpautop",
+                            "esc_html": 0,
+                            "admin_only": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -2708,17 +2889,17 @@
             {
                 "param": "page",
                 "operator": "!=",
-                "value": "401"
+                "value": "407"
             },
             {
                 "param": "page",
                 "operator": "!=",
-                "value": "401"
+                "value": "407"
             },
             {
                 "param": "page",
                 "operator": "!=",
-                "value": "401"
+                "value": "407"
             }
         ],
         [
@@ -2753,5 +2934,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789633768
+    "modified": 1789653388
 }

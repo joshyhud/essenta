@@ -144,3 +144,70 @@ function create_department_taxonomy()
   register_taxonomy('department', array('team_member'), $args);
 }
 add_action('init', 'create_department_taxonomy', 0);
+
+// Case Study CPT
+function create_case_study_cpt()
+{
+  $labels = array(
+    'name' => _x('Case Studies', 'Post Type General Name', 'textdomain'),
+    'singular_name' => _x('Case Study', 'Post Type Singular Name', 'textdomain'),
+    'menu_name' => _x('Case Studies', 'Admin Menu text', 'textdomain'),
+    'name_admin_bar' => _x('Case Study', 'Add New on Toolbar', 'textdomain'),
+    'all_items' => __('All Case Studies', 'textdomain'),
+    'add_new_item' => __('Add New Case Study', 'textdomain'),
+    'add_new' => __('Add New', 'textdomain'),
+    'new_item' => __('New Case Study', 'textdomain'),
+    'edit_item' => __('Edit Case Study', 'textdomain'),
+    'view_item' => __('View Case Study', 'textdomain'),
+    'search_items' => __('Search Case Studies', 'textdomain'),
+    'not_found' => __('Not found', 'textdomain'),
+    'not_found_in_trash' => __('Not found in Trash', 'textdomain'),
+  );
+
+  $args = array(
+    'label' => __('Case Study', 'textdomain'),
+    'labels' => $labels,
+    'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+    'taxonomies' => array('case_study_category', 'case_study_tag'),
+    'public' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'menu_position' => 4,
+    'show_in_nav_menus' => true,
+    'has_archive' => true,
+    'rewrite' => array('slug' => 'case-studies'),
+    'show_in_rest' => true,
+  );
+
+  register_post_type('case_study', $args);
+}
+add_action('init', 'create_case_study_cpt', 0);
+
+// Case Study categories and tags
+function create_case_study_taxonomies()
+{
+  register_taxonomy('case_study_category', array('case_study'), array(
+    'labels' => array(
+      'name' => __('Case Study Categories', 'textdomain'),
+      'singular_name' => __('Case Study Category', 'textdomain'),
+    ),
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'show_in_rest' => true,
+    'rewrite' => array('slug' => 'case-study-category'),
+  ));
+
+  register_taxonomy('case_study_tag', array('case_study'), array(
+    'labels' => array(
+      'name' => __('Case Study Tags', 'textdomain'),
+      'singular_name' => __('Case Study Tag', 'textdomain'),
+    ),
+    'hierarchical' => false,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'show_in_rest' => true,
+    'rewrite' => array('slug' => 'case-study-tag'),
+  ));
+}
+add_action('init', 'create_case_study_taxonomies', 0);

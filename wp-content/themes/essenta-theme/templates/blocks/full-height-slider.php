@@ -47,6 +47,7 @@ $full_height_slides = get_sub_field('full_height_slides');
             $slider.slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
+                swipe: false,
                 fade: true,
                 arrows: false,
                 dots: false,

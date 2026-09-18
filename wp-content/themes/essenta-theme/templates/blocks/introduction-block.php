@@ -137,7 +137,7 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
                 {
                     breakpoint: 768,
                     settings: {
-                        slidesToShow: 1,
+                        slidesToShow: 2,
                     }
 
                 }

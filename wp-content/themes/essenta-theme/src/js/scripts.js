@@ -402,6 +402,18 @@ document.addEventListener("DOMContentLoaded", () => {
       video.play();
     });
 
+    // Let clicking the video itself toggle play/pause, alongside the
+    // native controls.
+    video.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
     video.addEventListener("play", () => {
       playButton.style.display = "none";
     });
@@ -414,6 +426,227 @@ document.addEventListener("DOMContentLoaded", () => {
       playButton.style.display = "flex";
     });
   });
+
+  // Scroll-jack the hero video: intercept scroll input to animate the video
+  // from its start size to fullscreen (overlapping the hero content), then
+  // release the jack once fully expanded so the page scrolls normally.
+  // Scrolling back up to the top re-engages the jack in reverse (no replay).
+  document
+    .querySelectorAll(".homepage-hero-image-wrapper.has-scroll-video")
+    .forEach((wrapper) => {
+      const heroSection = wrapper.closest(".homepage-hero");
+      const video = wrapper.querySelector(".homepage-hero-video");
+
+      if (!heroSection || !video) {
+        return;
+      }
+
+      const isMobile = () => window.innerWidth <= 980;
+      const growPxDistance = 900;
+      const navOffset = 120;
+
+      const startBorderRadius = 5;
+      let startTop = 0;
+      let startLeft = 0;
+      let startWidth = 0;
+      let startHeight = 0;
+      let bottomOffsetInHero = 0;
+      let topOffsetInHero = 0;
+
+      // collapsed | expanding | released | collapsing
+      let phase = "collapsed";
+      let progress = 0;
+
+      function resetWrapper() {
+        wrapper.style.position = "";
+        wrapper.style.top = "";
+        wrapper.style.left = "";
+        wrapper.style.width = "";
+        wrapper.style.height = "";
+        wrapper.style.borderRadius = "";
+      }
+
+      function measure() {
+        resetWrapper();
+        const rect = wrapper.getBoundingClientRect();
+        const heroRect = heroSection.getBoundingClientRect();
+        startTop = rect.top;
+        startLeft = rect.left;
+        startWidth = rect.width;
+        startHeight = rect.height;
+        // Scroll-position independent: same regardless of current scrollY
+        bottomOffsetInHero = rect.top - heroRect.top + rect.height;
+        // Where the viewport-relative navOffset lands relative to the hero,
+        // so the absolute release state lines up with the fixed rect exactly
+        topOffsetInHero = navOffset - heroRect.top;
+      }
+
+      function lockScroll() {
+        // Compensate for the scrollbar disappearing so locking doesn't
+        // shift the viewport width and fire a resize event mid-gesture.
+        const scrollbarWidth =
+          window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.overflow = "hidden";
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+      function unlockScroll() {
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
+      }
+
+      function applyProgress(p) {
+        const vw = window.innerWidth;
+        const bottomFixed = startTop + startHeight;
+
+        // Height lags slightly behind width so it visibly grows a touch slower
+        const heightP = Math.pow(p, 1.3);
+
+        const left = startLeft * (1 - p);
+        const width = startWidth + (vw - startWidth) * p;
+        const top = startTop + (navOffset - startTop) * heightP;
+        const height = bottomFixed - top;
+
+        // Fixed positioning takes it out of flow so it can grow in place
+        // and overlap the hero content above it as it expands.
+        wrapper.style.position = "fixed";
+        wrapper.style.top = `${top}px`;
+        wrapper.style.left = `${left}px`;
+        wrapper.style.width = `${width}px`;
+        wrapper.style.height = `${height}px`;
+        wrapper.style.borderRadius = `${startBorderRadius * (1 - p)}px`;
+      }
+
+      function applyReleasedStyles() {
+        // Match the fully-expanded rect exactly so it scrolls away
+        // naturally with the page instead of staying fixed forever.
+        // Scroll-position independent (unlike startTop + startHeight).
+        wrapper.style.position = "absolute";
+        wrapper.style.top = `${topOffsetInHero}px`;
+        wrapper.style.left = "0";
+        wrapper.style.width = "100%";
+        wrapper.style.height = `${bottomOffsetInHero - topOffsetInHero}px`;
+        wrapper.style.borderRadius = "0px";
+      }
+
+      function releaseJack() {
+        phase = "released";
+        unlockScroll();
+        video.play();
+        applyReleasedStyles();
+      }
+
+      function collapse() {
+        phase = "collapsed";
+        unlockScroll();
+        resetWrapper();
+
+        if (!video.paused) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      }
+
+      function handleWheel(event) {
+        if (isMobile()) {
+          return;
+        }
+
+        if (phase === "released") {
+          // Only re-engage (in reverse) if back at the very top and still
+          // trying to scroll up further.
+          if (window.scrollY <= 0 && event.deltaY < 0) {
+            event.preventDefault();
+            lockScroll();
+            phase = "collapsing";
+            progress = 1;
+            applyProgress(progress);
+          }
+          return;
+        }
+
+        if (phase === "collapsed") {
+          if (window.scrollY > 0 || event.deltaY <= 0) {
+            return;
+          }
+          event.preventDefault();
+          lockScroll();
+          phase = "expanding";
+          progress = Math.min(progress + event.deltaY / growPxDistance, 1);
+          applyProgress(progress);
+          if (progress >= 1) {
+            releaseJack();
+          }
+          return;
+        }
+
+        if (phase === "expanding") {
+          event.preventDefault();
+          progress = Math.min(
+            Math.max(progress + event.deltaY / growPxDistance, 0),
+            1,
+          );
+          applyProgress(progress);
+
+          if (progress >= 1) {
+            releaseJack();
+          } else if (progress <= 0) {
+            collapse();
+          }
+          return;
+        }
+
+        if (phase === "collapsing") {
+          event.preventDefault();
+          progress = Math.min(
+            Math.max(progress + event.deltaY / growPxDistance, 0),
+            1,
+          );
+          applyProgress(progress);
+
+          if (progress <= 0) {
+            collapse();
+          } else if (progress >= 1) {
+            releaseJack();
+          }
+        }
+      }
+
+      measure();
+
+      // If the page loads/reloads already scrolled past the hero (e.g. the
+      // browser restored scroll position), keep the video in its large,
+      // released state instead of snapping back to the small start size.
+      if (!isMobile() && window.scrollY > 0) {
+        progress = 1;
+        phase = "released";
+        applyReleasedStyles();
+      }
+
+      window.addEventListener("resize", () => {
+        // Locking body scroll can hide the scrollbar and fire a resize event
+        // mid-gesture; only re-measure when at rest so it doesn't corrupt
+        // the in-flight animation and cause the size to jump.
+        if (phase === "collapsed") {
+          measure();
+        }
+      });
+      window.addEventListener("wheel", handleWheel, { passive: false });
+
+      // Stop playback once the hero has scrolled fully out of view
+      const videoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting && !video.paused) {
+              video.pause();
+            }
+          });
+        },
+        { threshold: 0 },
+      );
+
+      videoObserver.observe(heroSection);
+    });
 
   function updateFooterDetails() {
     const details = document.querySelectorAll(".footer-details-wrapper");

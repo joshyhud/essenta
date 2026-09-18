@@ -26,19 +26,10 @@ $hero_cta_link = get_sub_field('homepage_cta');
       <?php endif; ?>
 
     </div>
-    <div class="homepage-hero-image">
-      <?php if ($hero_image): ?>
-
-        <?php if ($hero_image['type'] === 'image'): ?>
-
-          <img
-            loading="lazy"
-            src="<?php echo esc_url($hero_image['url']); ?>"
-            alt="<?php echo esc_attr($hero_image['alt']); ?>">
-
-        <?php elseif ($hero_image['type'] === 'video'): ?>
-
-          <video class="homepage-hero-video" controls>
+    <?php if ($hero_image && $hero_image['type'] === 'video'): ?>
+      <div class="homepage-hero-image-wrapper has-scroll-video">
+        <div class="homepage-hero-image">
+          <video class="homepage-hero-video" playsinline muted controls>
             <source
               src="<?php echo esc_url($hero_image['url']); ?>"
               type="video/mp4">
@@ -50,11 +41,20 @@ $hero_cta_link = get_sub_field('homepage_cta');
             aria-label="Play video">
             <span>▶</span>
           </button>
-
-        <?php endif; ?>
-
-      <?php endif; ?>
-    </div>
+        </div>
+      </div>
+    <?php else: ?>
+      <div class="homepage-hero-image-wrapper">
+        <div class="homepage-hero-image">
+          <?php if ($hero_image && $hero_image['type'] === 'image'): ?>
+            <img
+              loading="lazy"
+              src="<?php echo esc_url($hero_image['url']); ?>"
+              alt="<?php echo esc_attr($hero_image['alt']); ?>">
+          <?php endif; ?>
+        </div>
+      </div>
+    <?php endif; ?>
   </div>
 
 </div>

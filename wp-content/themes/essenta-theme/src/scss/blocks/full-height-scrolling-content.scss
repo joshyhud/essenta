@@ -44,6 +44,7 @@
         .scrolling-content-item {
           position: relative;
           min-height: 500px;
+          padding: 1.25rem;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -54,28 +55,19 @@
 
           .scrolling-content-card {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
             z-index: 1;
-            width: 100%;
-            padding: 2rem;
-            color: #fff;
-            background: linear-gradient(
-              0deg,
-              rgba(0, 0, 0, 0.7) 0%,
-              rgba(0, 0, 0, 0) 100%
-            );
+            width: fit-content;
+            padding: 1.25rem;
+            max-width: 340px;
+            border-radius: 5px;
+            background: var(--color-sand-200);
 
             .scrolling-content-heading {
-              padding-bottom: 1rem;
               text-transform: uppercase;
               letter-spacing: 10%;
-            }
-
-            .scrolling-content-text {
-              padding-bottom: 1rem;
-            }
-
-            .scrolling-content-excerpt {
-              padding-bottom: 1.5rem;
             }
           }
         }

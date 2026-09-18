@@ -55,18 +55,18 @@ $scrolling_contents = get_sub_field('scrolling_contents');
                 <?php if ($case_study_id): ?>
                   <h3 class="scrolling-content-heading"><?php echo esc_html(get_the_title($case_study_id)); ?></h3>
                 <?php endif; ?>
-
-                <?php if ($content['scrolling_content_text']): ?>
-                  <div class="scrolling-content-text">
-                    <?php echo apply_filters('the_content', $content['scrolling_content_text']); ?>
-                  </div>
-                <?php endif; ?>
-
                 <?php if ($case_study_id): ?>
                   <div class="scrolling-content-excerpt">
                     <?php echo esc_html(get_the_excerpt($case_study_id)); ?>
                   </div>
-                  <a href="<?php echo esc_url(get_permalink($case_study_id)); ?>" class="btn primary--light">
+
+                  <?php if ($content['scrolling_content_text']): ?>
+                    <div class="scrolling-content-text">
+                      <?php echo apply_filters('the_content', $content['scrolling_content_text']); ?>
+                    </div>
+                  <?php endif; ?>
+
+                  <a href="<?php echo esc_url(get_permalink($case_study_id)); ?>" class="btn cta-link">
                     <?php esc_html_e('Read More', 'essenta-theme'); ?>
                   </a>
                 <?php endif; ?>

@@ -2871,6 +2871,198 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6aacf2ef55f35": {
+                    "key": "layout_6aacf2ef55f35",
+                    "name": "full_height_slider",
+                    "label": "Full Height Slider",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6aacf30855f3b",
+                            "label": "Block Message",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "This block is a full height section with a background image and selectable tabs that will move the slider showing different content and CTAs built for expertise pages but could be used in general",
+                            "new_lines": "wpautop",
+                            "esc_html": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aacf35855f3c",
+                            "label": "Full Height Slides",
+                            "name": "full_height_slides",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Add Row",
+                            "admin_only": 0,
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_6aacf45e55f41",
+                                    "label": "Slide type",
+                                    "name": "slide_type",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "Add in Slide type text here which will appear in navigation button at the bottom of the block",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6aacf35855f3c"
+                                },
+                                {
+                                    "key": "field_6aacf43355f3d",
+                                    "label": "Slide Subheading",
+                                    "name": "slide_subheading",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6aacf35855f3c"
+                                },
+                                {
+                                    "key": "field_6aacf43d55f3e",
+                                    "label": "Slide Heading",
+                                    "name": "slide_heading",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6aacf35855f3c"
+                                },
+                                {
+                                    "key": "field_6aacf44655f3f",
+                                    "label": "Slide Content",
+                                    "name": "slide_content",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6aacf35855f3c"
+                                },
+                                {
+                                    "key": "field_6aacf44e55f40",
+                                    "label": "Slide Cta",
+                                    "name": "slide_cta",
+                                    "aria-label": "",
+                                    "type": "link",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "return_format": "array",
+                                    "allow_in_bindings": 0,
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6aacf35855f3c"
+                                },
+                                {
+                                    "key": "field_6aacf48f55f42",
+                                    "label": "Slide Background image",
+                                    "name": "slide_background_image",
+                                    "aria-label": "",
+                                    "type": "image",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "return_format": "array",
+                                    "library": "all",
+                                    "min_width": "",
+                                    "min_height": "",
+                                    "min_size": "",
+                                    "max_width": "",
+                                    "max_height": "",
+                                    "max_size": "",
+                                    "mime_types": "",
+                                    "allow_in_bindings": 0,
+                                    "preview_size": "small",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6aacf35855f3c"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -2934,5 +3126,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789653388
+    "modified": 1789721207
 }

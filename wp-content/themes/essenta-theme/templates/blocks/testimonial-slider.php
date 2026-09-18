@@ -3,104 +3,76 @@ if (!defined('ABSPATH')) {
   exit; // Exit if accessed directly.
 }
 
-$testimonial_slider_subheading = get_sub_field('testimonial_slider_subheading');
-$testimonial_slider_heading = get_sub_field('testimonial_slider_heading');
-$testimonial_slider_standout = get_sub_field('testimonial_slider_standout');
+$testimonial_type = get_sub_field('testimonial_type');
+$testimonial_selection = get_sub_field('select_your_testimonials');
 
-$testimonail_total = wp_count_posts('testimonial')->publish;
-$testimonial_count = 0;
+$testimonials_to_display = array();
 
-$args = array(
-  'post_type' => 'testimonial',
-  'posts_per_page' => -1
-);
-$testimonials = new WP_Query($args);
+if ($testimonial_type === 'man' && $testimonial_selection) {
+  foreach ($testimonial_selection as $selected_testimonial) {
+    if (is_object($selected_testimonial)) {
+      $testimonials_to_display[] = array(
+        'testimonial_id'      => $selected_testimonial->ID,
+        'testimonial_text'    => apply_filters('the_content', get_post_field('post_content', $selected_testimonial->ID)),
+        'testimonial_author'  => get_the_title($selected_testimonial->ID),
+      );
+    }
+  }
+} else {
+  $auto_testimonials = new WP_Query(array(
+    'post_type'      => 'testimonial',
+    'posts_per_page' => 5,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+  ));
 
-if ($testimonials->have_posts()) : ?>
-  <section class="testimonial-slider-section">
+  while ($auto_testimonials->have_posts()) {
+    $auto_testimonials->the_post();
+
+    $testimonials_to_display[] = array(
+      'testimonial_id'     => get_the_ID(),
+      'testimonial_text'   => apply_filters('the_content', get_the_content()),
+      'testimonial_author' => get_the_title(),
+    );
+  }
+
+  wp_reset_postdata();
+}
+
+$testimonial_total = count($testimonials_to_display);
+
+if ($testimonial_total) : ?>
+  <section class="testimonial-slider-block">
     <div class="container">
-
-      <div class="testimonial-slider-header">
-        <?php if ($testimonial_slider_subheading) : ?>
-          <p class="eyebrow"><?php echo esc_html($testimonial_slider_subheading); ?></p>
-        <?php endif; ?>
-        <?php if ($testimonial_slider_heading) : ?>
-          <h2 class="heading"><?php echo esc_html($testimonial_slider_heading); ?></h2>
-        <?php endif; ?>
-      </div>
-
       <div class="testimonials-wrapper">
-        <?php if ($testimonial_slider_standout) : ?>
-          <div class="standout-text">
-            <div class="standout-text--inner">
-              <?php echo $testimonial_slider_standout; ?>
+        <div class="testimonials-block-slider">
+          <?php foreach ($testimonials_to_display as $testimonial_index => $testimonial) : ?>
+            <div class="testimonial">
+              <div class="testimonial-text"><?php echo wp_kses_post($testimonial['testimonial_text']); ?></div>
+              <span class="testimonial-author eyebrow"><?php echo esc_html($testimonial['testimonial_author']); ?></span>
             </div>
-          </div>
-        <?php endif; ?>
-
-        <div class="slider-half">
-          <div class="testimonial-slider">
-            <?php while ($testimonials->have_posts()) : $testimonials->the_post(); ?>
-              <div class="testimonial-card slide">
-                <div class="quote-rating">
-                  <div class="testimonial-number">
-                    <div class="current"><?php echo sprintf('%03d', $testimonial_count + 1); ?> </div> / <div class="total"><?php echo sprintf('%03d', $testimonail_total); ?></div>
-                  </div>
-                  <?php if (get_field('star_rating')) : ?>
-                    <div class="rating">
-                      <?php
-                      $rating = get_field('star_rating');
-                      for ($i = 0; $i < 5; $i++) {
-                        if ($i < $rating) {
-                          echo '<span class="star filled">&#9733;</span>'; // filled star
-                        } else {
-                          echo '<span class="star">&#9734;</span>'; // empty star
-                        }
-                      }
-                      ?>
-                    </div>
-                  <?php endif; ?>
-                </div>
-                <div class=" testimonial-content">
-                  <?php the_content(); ?>
-                </div>
-                <div class="testimonial-author">
-                  <?php the_title(); ?>
-                </div>
-              </div>
-              <?php $testimonial_count++; ?>
-            <?php endwhile; ?>
-          </div>
-          <div class="slider-nav testimonials">
+          <?php endforeach; ?>
+        </div>
+        <?php if ($testimonial_total > 1) : ?>
+          <div class="testimonials-block-slider-nav testimonials">
             <div class="slider-dots"></div>
           </div>
-        </div>
+        <?php endif; ?>
       </div>
-
     </div>
   </section>
-<?php endif;
-wp_reset_postdata(); ?>
+<?php endif; ?>
 
 <script type="text/javascript">
   jQuery(document).ready(function($) {
-    $('.testimonial-slider').on('setPosition', function() {
-      var slickTrack = $(this).find('.slick-track');
-      var slickTrackHeight = $(slickTrack).height();
-      $(this).find('.slide').css('height', slickTrackHeight + 'px');
-    });
-
-    $('.testimonial-slider').slick({
+    $('.testimonials-block-slider').slick({
       slidesToShow: 1,
       slidesToScroll: 1,
       infinite: false,
       dots: true,
       arrows: false,
-      appendDots: $('.slider-nav.testimonials .slider-dots'),
-      adaptiveHeight: true
+      appendDots: $('.testimonials-block-slider-nav.testimonials .slider-dots'),
+      adaptiveHeight: false
     });
   });
 </script>
-
-
-</style>

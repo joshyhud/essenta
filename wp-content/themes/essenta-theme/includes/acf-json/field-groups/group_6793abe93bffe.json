@@ -331,150 +331,6 @@
                     "min": "",
                     "max": ""
                 },
-                "layout_6925d98555496": {
-                    "key": "layout_6925d98555496",
-                    "name": "pagepost_grid",
-                    "label": "Page\/Post Grid",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_6925d9a955498",
-                            "label": "Page or Post Selection",
-                            "name": "page_or_post_selection",
-                            "aria-label": "",
-                            "type": "flexible_content",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "layouts": {
-                                "layout_6926c9b98f4ac": {
-                                    "key": "layout_6926c9b98f4ac",
-                                    "name": "selections",
-                                    "label": "Selections",
-                                    "display": "block",
-                                    "sub_fields": [
-                                        {
-                                            "key": "field_6925e09b27b43",
-                                            "label": "Post or Category",
-                                            "name": "post_or_category",
-                                            "aria-label": "",
-                                            "type": "select",
-                                            "instructions": "",
-                                            "required": 0,
-                                            "conditional_logic": 0,
-                                            "wrapper": {
-                                                "width": "",
-                                                "class": "",
-                                                "id": ""
-                                            },
-                                            "choices": {
-                                                "post": "Page or Post",
-                                                "category": "Product Category"
-                                            },
-                                            "default_value": false,
-                                            "return_format": "value",
-                                            "multiple": 0,
-                                            "allow_null": 0,
-                                            "allow_in_bindings": 0,
-                                            "ui": 0,
-                                            "admin_only": 0,
-                                            "ajax": 0,
-                                            "placeholder": "",
-                                            "create_options": 0,
-                                            "save_options": 0
-                                        },
-                                        {
-                                            "key": "field_6925d9c255499",
-                                            "label": "Post or Page",
-                                            "name": "post_or_page",
-                                            "aria-label": "",
-                                            "type": "post_object",
-                                            "instructions": "Select a Post or Page to be displayed in the grid",
-                                            "required": 0,
-                                            "conditional_logic": [
-                                                [
-                                                    {
-                                                        "field": "field_6925e09b27b43",
-                                                        "operator": "==",
-                                                        "value": "post"
-                                                    }
-                                                ]
-                                            ],
-                                            "wrapper": {
-                                                "width": "",
-                                                "class": "",
-                                                "id": ""
-                                            },
-                                            "post_type": [
-                                                "page",
-                                                "post",
-                                                "product"
-                                            ],
-                                            "post_status": "",
-                                            "taxonomy": "",
-                                            "return_format": "object",
-                                            "multiple": 0,
-                                            "allow_null": 1,
-                                            "allow_in_bindings": 0,
-                                            "bidirectional": 0,
-                                            "admin_only": 0,
-                                            "ui": 1,
-                                            "bidirectional_target": []
-                                        },
-                                        {
-                                            "key": "field_6925dfeb54d3e",
-                                            "label": "Product Category",
-                                            "name": "product_category",
-                                            "aria-label": "",
-                                            "type": "taxonomy",
-                                            "instructions": "",
-                                            "required": 0,
-                                            "conditional_logic": [
-                                                [
-                                                    {
-                                                        "field": "field_6925e09b27b43",
-                                                        "operator": "==",
-                                                        "value": "category"
-                                                    }
-                                                ]
-                                            ],
-                                            "wrapper": {
-                                                "width": "",
-                                                "class": "",
-                                                "id": ""
-                                            },
-                                            "taxonomy": "product_cat",
-                                            "add_term": 0,
-                                            "save_terms": 0,
-                                            "load_terms": 0,
-                                            "return_format": "object",
-                                            "field_type": "select",
-                                            "allow_null": 1,
-                                            "allow_in_bindings": 0,
-                                            "bidirectional": 0,
-                                            "admin_only": 0,
-                                            "multiple": 0,
-                                            "bidirectional_target": []
-                                        }
-                                    ],
-                                    "min": "",
-                                    "max": ""
-                                }
-                            },
-                            "min": "",
-                            "max": 4,
-                            "button_label": "Add Row",
-                            "admin_only": 0
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
                 "layout_69270ab563ed0": {
                     "key": "layout_69270ab563ed0",
                     "name": "testimonial_slider",
@@ -482,11 +338,11 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_69270acd63ed3",
-                            "label": "Testimonial Slider Subheading",
-                            "name": "testimonial_slider_subheading",
+                            "key": "field_6aad0316c7239",
+                            "label": "Testimonial Type",
+                            "name": "testimonial_type",
                             "aria-label": "",
-                            "type": "text",
+                            "type": "select",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -495,57 +351,59 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
-                            "maxlength": "",
+                            "choices": {
+                                "auto": "Latest Testimonials",
+                                "man": "Manually Select Testimonials"
+                            },
+                            "default_value": false,
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
                             "allow_in_bindings": 0,
+                            "ui": 0,
+                            "admin_only": 0,
+                            "ajax": 0,
                             "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "admin_only": 0
+                            "create_options": 0,
+                            "save_options": 0
                         },
                         {
-                            "key": "field_69270ade63ed4",
-                            "label": "Testimonial Slider heading",
-                            "name": "testimonial_slider_heading",
+                            "key": "field_6aad0362c723a",
+                            "label": "Select your Testimonials",
+                            "name": "select_your_testimonials",
                             "aria-label": "",
-                            "type": "text",
+                            "type": "post_object",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6aad0316c7239",
+                                        "operator": "==",
+                                        "value": "man"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
-                            "maxlength": "",
+                            "post_type": [
+                                "testimonial"
+                            ],
+                            "post_status": [
+                                "publish"
+                            ],
+                            "taxonomy": "",
+                            "return_format": "object",
+                            "multiple": 1,
+                            "allow_null": 0,
                             "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "admin_only": 0
-                        },
-                        {
-                            "key": "field_69270aec63ed5",
-                            "label": "Testimonial Slider Standout",
-                            "name": "testimonial_slider_standout",
-                            "aria-label": "",
-                            "type": "textarea",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "allow_in_bindings": 1,
-                            "rows": "",
-                            "placeholder": "",
-                            "new_lines": "",
-                            "admin_only": 0
+                            "bidirectional": 0,
+                            "admin_only": 0,
+                            "ui": 1,
+                            "bidirectional_target": []
                         }
                     ],
                     "min": "",
@@ -3126,5 +2984,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789721207
+    "modified": 1789724138
 }

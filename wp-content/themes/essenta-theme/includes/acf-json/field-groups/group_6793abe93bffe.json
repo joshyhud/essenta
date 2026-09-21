@@ -989,11 +989,11 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_693c33f8ad977",
-                            "label": "Management",
-                            "name": "",
+                            "key": "field_6ab145b9400e6",
+                            "label": "Team Block Subheading",
+                            "name": "team_block_subheading",
                             "aria-label": "",
-                            "type": "tab",
+                            "type": "text",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -1002,17 +1002,20 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "placement": "top",
-                            "endpoint": 0,
-                            "admin_only": 0,
-                            "selected": 0
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
                         },
                         {
-                            "key": "field_693c3493ad978",
-                            "label": "Management Members",
-                            "name": "management_members",
+                            "key": "field_6ab145d0400e7",
+                            "label": "Team Block Heading",
+                            "name": "team_block_heading",
                             "aria-label": "",
-                            "type": "relationship",
+                            "type": "text",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -1021,29 +1024,69 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "post_type": [
-                                "team_member"
-                            ],
-                            "post_status": "",
-                            "taxonomy": "",
-                            "filters": [
-                                "taxonomy"
-                            ],
-                            "return_format": "object",
-                            "min": "",
-                            "max": "",
+                            "default_value": "",
+                            "maxlength": "",
                             "allow_in_bindings": 0,
-                            "elements": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab145ef13a9a",
+                            "label": "Team member content",
+                            "name": "team_member_content_",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "allow_in_bindings": 0,
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab1400d73724",
+                            "label": "Team member location",
+                            "name": "team_member_location",
+                            "aria-label": "",
+                            "type": "taxonomy",
+                            "instructions": "Select the teams location and all team members will be pull into thew block",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "taxonomy": "team_location",
+                            "add_term": 0,
+                            "save_terms": 1,
+                            "load_terms": 1,
+                            "return_format": "id",
+                            "field_type": "select",
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
                             "bidirectional": 0,
                             "admin_only": 0,
+                            "multiple": 0,
                             "bidirectional_target": []
                         },
                         {
-                            "key": "field_693c34ed01a18",
-                            "label": "Workshop",
-                            "name": "",
+                            "key": "field_6ab1460513a9b",
+                            "label": "Team block primary CTA",
+                            "name": "team_block_primary_cta",
                             "aria-label": "",
-                            "type": "tab",
+                            "type": "link",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -1052,48 +1095,16 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "placement": "top",
-                            "endpoint": 0,
-                            "admin_only": 0,
-                            "selected": 0
-                        },
-                        {
-                            "key": "field_693c34ff01a19",
-                            "label": "Workshop Members",
-                            "name": "workshop_members",
-                            "aria-label": "",
-                            "type": "relationship",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "post_type": [
-                                "team_member"
-                            ],
-                            "post_status": "",
-                            "taxonomy": "",
-                            "filters": [
-                                "taxonomy"
-                            ],
-                            "return_format": "object",
-                            "min": "",
-                            "max": "",
+                            "return_format": "array",
                             "allow_in_bindings": 0,
-                            "elements": "",
-                            "bidirectional": 0,
-                            "admin_only": 0,
-                            "bidirectional_target": []
+                            "admin_only": 0
                         },
                         {
-                            "key": "field_693c351a01a1a",
-                            "label": "Sales",
-                            "name": "",
+                            "key": "field_6ab1460f13a9c",
+                            "label": "Team block secondary CTA",
+                            "name": "team_block_secondary_cta",
                             "aria-label": "",
-                            "type": "tab",
+                            "type": "link",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -1102,41 +1113,9 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "placement": "top",
-                            "endpoint": 0,
-                            "admin_only": 0,
-                            "selected": 0
-                        },
-                        {
-                            "key": "field_693c352401a1b",
-                            "label": "Sales members",
-                            "name": "sales_members",
-                            "aria-label": "",
-                            "type": "relationship",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "post_type": [
-                                "team_member"
-                            ],
-                            "post_status": "",
-                            "taxonomy": "",
-                            "filters": [
-                                "taxonomy"
-                            ],
-                            "return_format": "object",
-                            "min": "",
-                            "max": "",
+                            "return_format": "array",
                             "allow_in_bindings": 0,
-                            "elements": "",
-                            "bidirectional": 0,
-                            "admin_only": 0,
-                            "bidirectional_target": []
+                            "admin_only": 0
                         }
                     ],
                     "min": "",
@@ -2469,6 +2448,20 @@
                 "operator": "==",
                 "value": "case_study"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "office"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "team_member"
+            }
         ]
     ],
     "menu_order": 0,
@@ -2488,5 +2481,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789988170
+    "modified": 1790002716
 }

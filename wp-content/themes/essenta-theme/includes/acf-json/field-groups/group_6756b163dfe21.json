@@ -498,6 +498,20 @@
                 "operator": "==",
                 "value": "case_study"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "office"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "team_member"
+            }
         ]
     ],
     "menu_order": 0,
@@ -518,5 +532,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789736667
+    "modified": 1790001018
 }

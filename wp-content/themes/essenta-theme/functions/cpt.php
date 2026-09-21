@@ -97,7 +97,7 @@ function create_team_member_cpt()
     'description' => __('Post Type Description', 'textdomain'),
     'labels' => $labels,
     'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
-    'taxonomies' => array('department'),
+    'taxonomies' => array('department', 'location'),
     'hierarchical' => false,
     'public' => false,
     'show_ui' => true,
@@ -144,6 +144,94 @@ function create_department_taxonomy()
   register_taxonomy('department', array('team_member'), $args);
 }
 add_action('init', 'create_department_taxonomy', 0);
+
+// Register Location taxonomy for Team Members
+function create_team_location_taxonomy()
+{
+  $labels = array(
+    'name' => _x('Team Locations', 'taxonomy general name', 'textdomain'),
+    'singular_name' => _x('Team Location', 'taxonomy singular name', 'textdomain'),
+    'search_items' => __('Search Team Locations', 'textdomain'),
+    'all_items' => __('All Team Locations', 'textdomain'),
+    'parent_item' => __('Parent Team Location', 'textdomain'),
+    'parent_item_colon' => __('Parent Team Location:', 'textdomain'),
+    'edit_item' => __('Edit Team Location', 'textdomain'),
+    'update_item' => __('Update Team Location', 'textdomain'),
+    'add_new_item' => __('Add New Team Location', 'textdomain'),
+    'new_item_name' => __('New Team Location Name', 'textdomain'),
+    'menu_name' => __('Team Locations', 'textdomain'),
+  );
+
+  $args = array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array('slug' => 'location'),
+  );
+
+  register_taxonomy('team_location', array('team_member'), $args);
+}
+add_action('init', 'create_team_location_taxonomy', 0);
+
+
+// Office Location CPT
+
+function create_office_cpt()
+{
+  $labels = array(
+    'name' => _x('Offices', 'Post Type General Name', 'textdomain'),
+    'singular_name' => _x('Office', 'Post Type Singular Name', 'textdomain'),
+    'menu_name' => _x('Offices', 'Admin Menu text', 'textdomain'),
+    'name_admin_bar' => _x('Office', 'Add New on Toolbar', 'textdomain'),
+    'archives' => __('Office Archives', 'textdomain'),
+    'attributes' => __('Office Attributes', 'textdomain'),
+    'parent_item_colon' => __('Parent Office:', 'textdomain'),
+    'all_items' => __('All Offices', 'textdomain'),
+    'add_new_item' => __('Add New Office', 'textdomain'),
+    'add_new' => __('Add New', 'textdomain'),
+    'new_item' => __('New Office', 'textdomain'),
+    'edit_item' => __('Edit Office', 'textdomain'),
+    'update_item' => __('Update Office', 'textdomain'),
+    'view_item' => __('View Office', 'textdomain'),
+    'view_items' => __('View Offices', 'textdomain'),
+    'search_items' => __('Search Office', 'textdomain'),
+    'not_found' => __('Not found', 'textdomain'),
+    'not_found_in_trash' => __('Not found in Trash', 'textdomain'),
+    'featured_image' => __('Featured Image', 'textdomain'),
+    'set_featured_image' => __('Set featured image', 'textdomain'),
+    'remove_featured_image' => __('Remove featured image', 'textdomain'),
+    'use_featured_image' => __('Use as featured image', 'textdomain'),
+    'insert_into_item' => __('Insert into office', 'textdomain'),
+    'uploaded_to_this_item' => __('Uploaded to this office', 'textdomain'),
+    'items_list' => __('Offices list', 'textdomain'),
+    'items_list_navigation' => __('Offices list navigation', 'textdomain'),
+    'filter_items_list' => __('Filter offices list', 'textdomain'),
+  );
+  $args = array(
+    'label' => __('Office', 'textdomain'),
+    'description' => __('Post Type Description', 'textdomain'),
+    'labels' => $labels,
+    'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+    'taxonomies' => array('department'),
+    'hierarchical' => false,
+    'public' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'menu_position' => 6,
+    'show_in_admin_bar' => true,
+    'show_in_nav_menus' => true,
+    'can_export' => true,
+    'has_archive' => true,
+    'exclude_from_search' => false,
+    'publicly_queryable' => true,
+    'capability_type' => 'post',
+  );
+  register_post_type('office', $args);
+}
+add_action('init', 'create_office_cpt', 0);
+
 
 // Case Study CPT
 function create_case_study_cpt()

@@ -23,56 +23,6 @@
             "prepend": "",
             "append": "",
             "admin_only": 0
-        },
-        {
-            "key": "field_693c315ffede0",
-            "label": "Favourite Piece",
-            "name": "favourite_piece",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "admin_only": 0
-        },
-        {
-            "key": "field_693c3173fede1",
-            "label": "favourite product",
-            "name": "favourite_product",
-            "aria-label": "",
-            "type": "post_object",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "post_type": [
-                "product"
-            ],
-            "post_status": "",
-            "taxonomy": "",
-            "return_format": "object",
-            "multiple": 0,
-            "allow_null": 0,
-            "allow_in_bindings": 0,
-            "bidirectional": 0,
-            "admin_only": 0,
-            "ui": 1,
-            "bidirectional_target": []
         }
     ],
     "location": [
@@ -94,5 +44,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1765552531
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1790002606
 }

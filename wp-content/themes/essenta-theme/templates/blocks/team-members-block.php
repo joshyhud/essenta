@@ -1,153 +1,137 @@
 <?php
 
-
 if (! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-$tabs = [
-  'management' => [
-    'label'   => 'Management',
-    'members' => get_sub_field('management_members') ?: [],
-  ],
-  'workshop' => [
-    'label'   => 'Workshop',
-    'members' => get_sub_field('workshop_members') ?: [],
-  ],
-  'sales' => [
-    'label'   => 'Sales',
-    'members' => get_sub_field('sales_members') ?: [],
-  ],
-];
+$team_block_subheading = get_sub_field('team_block_subheading');
+$team_block_heading = get_sub_field('team_block_heading');
+$team_block_content = get_sub_field('team_block_content');
+$team_block_primary_cta = get_sub_field('team_block_primary_cta');
+$team_block_secondary_cta = get_sub_field('team_block_secondary_cta');
 
-// Optional: hide empty departments
-$tabs = array_filter($tabs, fn($t) => !empty($t['members']));
 
-if (empty($tabs)) {
+$team_member_location = get_sub_field('team_member_location');
+
+$team_members = [];
+
+if ($team_member_location) {
+
+  // Handle ACF taxonomy field returning either a term object or term ID.
+  $team_members = new WP_Query([
+    'post_type'      => 'team_member',
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+    'tax_query'      => [
+      [
+        'taxonomy' => 'team_location',
+        'field'    => 'term_id',
+        'terms'     => $team_member_location,
+      ],
+    ],
+    'orderby'        => 'menu_order',
+    'order'          => 'ASC',
+  ]);
+}
+
+if (!$team_members || !$team_members->have_posts()) {
   echo '<p>No team members selected.</p>';
   return;
 }
 
-$uid = 'team-depts-' . wp_unique_id();
+$uid = 'team-members-' . wp_unique_id();
+
 ?>
 
-<section class="team-depts" id="<?php echo esc_attr($uid); ?>" data-team-depts>
-  <aside class="team-depts__nav" aria-label="Departments">
-    <div class="team-depts__nav-inner">
-      <ul class="team-depts__nav-list">
-        <?php $i = 0;
-        foreach ($tabs as $key => $tab): ?>
-          <li>
-            <a
-              class="team-depts__nav-link <?php echo $i === 0 ? 'is-active' : ''; ?>"
-              href="#<?php echo esc_attr($uid . '-' . $key); ?>"
-              data-dept-link="<?php echo esc_attr($key); ?>">
-              <?php echo esc_html($tab['label']); ?>
-            </a>
-          </li>
-        <?php $i++;
-        endforeach; ?>
-      </ul>
-    </div>
-  </aside>
-
+<section
+  class="team-depts"
+  id="<?php echo esc_attr($uid); ?>"
+  data-team-depts>
   <div class="team-depts__content" data-team-content>
+    <?php if ($team_block_subheading): ?>
+      <p class="team-depts__subheading">
+        <?php echo esc_html($team_block_subheading); ?>
+      </p>
+    <?php endif; ?>
+
+    <?php if ($team_block_heading): ?>
+      <h2 class="team-depts__heading">
+        <?php echo esc_html($team_block_heading); ?>
+      </h2>
+    <?php endif; ?>
+
+    <?php if ($team_block_content): ?>
+      <div class="team-depts__content-text">
+        <?php echo wp_kses_post(wpautop($team_block_content)); ?>
+      </div>
+    <?php endif; ?>
+    <?php if ($team_block_primary_cta || $team_block_secondary_cta): ?>
+      <div class="team-depts__ctas">
+        <?php if ($team_block_primary_cta): ?>
+          <a href="<?php echo esc_url($team_block_primary_cta['url']); ?>" class="btn primary">
+            <?php echo esc_html($team_block_primary_cta['title']); ?>
+          </a>
+        <?php endif; ?>
+
+        <?php if ($team_block_secondary_cta): ?>
+          <a href="<?php echo esc_url($team_block_secondary_cta['url']); ?>" class="btn secondary">
+            <?php echo esc_html($team_block_secondary_cta['title']); ?>
+          </a>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
     <div class="team-depts__list">
-      <?php foreach ($tabs as $key => $tab): ?>
-        <section
-          class="team-depts__section"
-          id="<?php echo esc_attr($uid . '-' . $key); ?>"
-          data-dept-section
-          data-dept-key="<?php echo esc_attr($key); ?>">
 
-          <?php foreach ($tab['members'] as $member): ?>
-            <?php
-            $member_id = is_object($member) ? $member->ID : (int) $member;
-            $name      = get_the_title($member_id);
-            $role      = get_field('job_role', $member_id); // optional
-            $img       = get_the_post_thumbnail($member_id, 'medium');
-            $member_content = get_post_field('post_content', $member_id);
+      <section
+        class="team-depts__section"
+        data-dept-section>
 
-            ?>
-            <article class="team-card">
-              <div class="team-card__user">
-                <p class="team-card__name subheading"><?php echo esc_html($name); ?></p>
-                <h3><?php echo esc_html($role); ?></h3>
+        <?php while ($team_members->have_posts()): $team_members->the_post(); ?>
+          <?php $member = get_post(); ?>
 
+          <?php
+          $member_id      = $member->ID;
+          $name           = get_the_title($member_id);
+          $role           = get_field('job_role', $member_id);
+          $img            = get_the_post_thumbnail($member_id, 'medium');
+          $member_content = get_post_field('post_content', $member_id);
+          ?>
+
+          <article class="team-card">
+
+            <div class="team-card__user">
+
+              <p class="team-card__name subheading">
+                <?php echo esc_html($name); ?>
+              </p>
+
+              <?php if ($role): ?>
+                <h3>
+                  <?php echo esc_html($role); ?>
+                </h3>
+              <?php endif; ?>
+
+              <?php if ($member_content): ?>
                 <div class="member-content">
                   <?php echo wp_kses_post(wpautop($member_content)); ?>
                 </div>
-              </div>
+              <?php endif; ?>
 
-              <div class="team-card__image">
-                <?php if ($img): ?>
-                  <?php echo $img; ?>
-                <?php endif; ?>
-              </div>
+            </div>
 
-            </article>
-          <?php endforeach; ?>
-        </section>
-      <?php endforeach; ?>
+            <div class="team-card__image">
+              <?php if ($img): ?>
+                <?php echo $img; ?>
+              <?php endif; ?>
+            </div>
+
+          </article>
+
+        <?php endwhile; ?>
+        <?php wp_reset_postdata(); ?>
+
+      </section>
+
     </div>
   </div>
 </section>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const teamDepts = document.querySelector('[data-team-depts]');
-    if (!teamDepts) return;
-
-    const navLinks = teamDepts.querySelectorAll('[data-dept-link]');
-    const sections = teamDepts.querySelectorAll('[data-dept-section]');
-    const content = teamDepts.querySelector('[data-team-content]');
-
-    if (!navLinks.length || !sections.length || !content) return;
-
-    // Smooth scrolling when clicking nav links
-    navLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
-
-        if (targetSection) {
-          const offsetTop = targetSection.offsetTop - content.offsetTop;
-          content.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-
-    // Update active nav link based on scroll position using Intersection Observer
-    const observerOptions = {
-      root: content,
-      rootMargin: '-20% 0px -70% 0px',
-      threshold: 0
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const sectionKey = entry.target.getAttribute('data-dept-key');
-
-          // Remove active class from all links
-          navLinks.forEach(link => link.classList.remove('is-active'));
-
-          // Add active class to current section's link
-          const activeLink = teamDepts.querySelector(`[data-dept-link="${sectionKey}"]`);
-          if (activeLink) {
-            activeLink.classList.add('is-active');
-          }
-        }
-      });
-    }, observerOptions);
-
-    // Observe all sections
-    sections.forEach(section => {
-      observer.observe(section);
-    });
-  });
-</script>

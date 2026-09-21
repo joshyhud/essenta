@@ -52,10 +52,12 @@ $insights = new WP_Query(array(
                                     <?php the_post_thumbnail('medium'); ?>
                                 <?php endif; ?>
                             </div>
-                            <h4 class="insights-post-title"><?php the_title(); ?></h4>
-                            <div class="insights-post-excerpt"><?php the_excerpt(); ?></div>
-                            <div class="insights-post-readmore btn cta-link">
-                                Read more
+                            <div class="insights-post-content">
+                                <h4 class="insights-post-title"><?php the_title(); ?></h4>
+                                <div class="insights-post-excerpt"><?php the_excerpt(); ?></div>
+                                <div class="insights-post-readmore btn cta-link">
+                                    Read more
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -71,6 +73,8 @@ $insights = new WP_Query(array(
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('.insights-posts-wrapper').slick({
+            variableWidth: true,
+            variableHeight: true,
             slidesToShow: 3.2,
             slidesToScroll: 1,
             arrows: true,
@@ -83,14 +87,15 @@ $insights = new WP_Query(array(
             responsive: [{
                     breakpoint: 1024,
                     settings: {
-                        slidesToShow: 2.2,
+                        slidesToShow: 2,
                         slidesToScroll: 1,
                     }
                 },
                 {
                     breakpoint: 768,
                     settings: {
-                        slidesToShow: 1.2,
+                        variableWidth: false,
+                        slidesToShow: 1,
                         slidesToScroll: 1,
                     }
                 }

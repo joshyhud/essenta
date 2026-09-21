@@ -14,8 +14,19 @@
       }
 
       .slick-slide {
-        height: auto;
+        width: 25vw;
         margin: 0 8px;
+
+        &:first-child {
+          width: 40vw;
+        }
+
+        @media (width<=980px) {
+          width: auto;
+          &:first-child {
+            width: auto;
+          }
+        }
       }
 
       a {
@@ -32,14 +43,47 @@
             left: 10px;
           }
           .insights-post-thumbnail {
-            max-height: 340px;
-            aspect-ratio: 125/68;
+            height: 340px;
             overflow: hidden;
             img {
               width: 100%;
-              height: auto;
+              height: 100%;
               object-fit: cover;
             }
+          }
+          .insights-post-content {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            .insights-post-title {
+              min-height: 6ch;
+            }
+
+            .insights-post-readmore {
+              justify-self: flex-end;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (width <= 980px) {
+  .insights-block {
+    .container {
+      padding: 3.875rem 1rem;
+    }
+    .insights-posts {
+      padding: 0 1rem;
+
+      .insights-posts-wrapper a .insights-post {
+        .insights-post-content {
+          gap: 1rem;
+          .insights-post-title {
+            min-height: auto;
           }
         }
       }

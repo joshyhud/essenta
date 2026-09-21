@@ -1,0 +1,48 @@
+.insights-block {
+  .container {
+    padding: 3.875rem 5rem;
+    margin: inherit;
+  }
+
+  .insights-posts {
+    padding: 0 0 0 5rem;
+
+    .insights-posts-wrapper {
+      .slick-track {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .slick-slide {
+        height: auto;
+        margin: 0 8px;
+      }
+
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        .insights-post {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          .insight-tags {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+          }
+          .insights-post-thumbnail {
+            max-height: 340px;
+            aspect-ratio: 125/68;
+            overflow: hidden;
+            img {
+              width: 100%;
+              height: auto;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+    }
+  }
+}

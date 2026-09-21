@@ -2329,6 +2329,110 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6ab104f7b897e": {
+                    "key": "layout_6ab104f7b897e",
+                    "name": "video_module",
+                    "label": "Video Module",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6ab10501b8980",
+                            "label": "Video Select",
+                            "name": "video_select",
+                            "aria-label": "",
+                            "type": "file",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_size": "",
+                            "max_size": "",
+                            "mime_types": "",
+                            "allow_in_bindings": 0,
+                            "admin_only": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6ab10c123e753": {
+                    "key": "layout_6ab10c123e753",
+                    "name": "insights_block",
+                    "label": "Insights Block",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6ab10c1c3e755",
+                            "label": "Insights Subheading",
+                            "name": "insights_subheading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab10c2f3e756",
+                            "label": "Insights Heading",
+                            "name": "insights_heading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab10c3d3e757",
+                            "label": "Insights CTA",
+                            "name": "insights_cta",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "admin_only": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -2384,5 +2488,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789984145
+    "modified": 1789988170
 }

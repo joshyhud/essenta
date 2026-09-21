@@ -208,16 +208,22 @@ fieldset {
 
 .pill {
   font-family: var(--font-circular-reg);
-  font-weight: 300;
-  font-size: 12px;
-  letter-spacing: 10%;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
-  border-radius: 1rem;
-  padding: 6px 8px;
-  background-color: var(--color-grey-light);
-  color: var(--color-grey-darker);
+  border-radius: 2px;
+  padding: 7px 10px;
+  background-color: var(--color-sand-50);
+  color: var(--color-navy-900);
   width: fit-content;
   height: fit-content;
+
+  &.outline {
+    border: 1px solid var(--color-sand-50);
+    color: var(--color-sand-50);
+    background-color: rgba(254, 254, 254, 0.08);
+  }
 }
 
 // Pagination

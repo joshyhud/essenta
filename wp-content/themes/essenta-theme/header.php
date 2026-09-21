@@ -1,4 +1,3 @@
-<?php $woocommerce_available = function_exists('wc_get_cart_url') && function_exists('WC') && WC()->cart; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,12 +23,12 @@
 
     <div class="site-wrapper">
 
-        <?php 
+        <?php
         $announcement = get_field('announcement', 'option');
-        
+
         if ($announcement) : ?>
             <div class="announcement-bar">
-                    <p><?php echo esc_html($announcement); ?></p>
+                <p><?php echo esc_html($announcement); ?></p>
             </div>
         <?php endif; ?>
 
@@ -44,9 +43,9 @@
                         } ?>
                     </a>
                 </div>
-                
-               
-                <!-- Mobile search form is commented out for now, but can be enabled if needed. --> 
+
+
+                <!-- Mobile search form is commented out for now, but can be enabled if needed. -->
                 <!--
                 <div class="header-search mobile">
                     <form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
@@ -59,9 +58,9 @@
                 </div>
                 -->
 
-            <div class="site-nav">
-                <?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
-            </div>
+                <div class="site-nav">
+                    <?php wp_nav_menu(array('theme_location' => 'main-menu')); ?>
+                </div>
 
 
                 <div class="header-ctas col-2">

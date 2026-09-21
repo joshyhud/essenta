@@ -43,14 +43,35 @@ $scrolling_contents = get_sub_field('scrolling_contents');
 
     <div class="scrolling-contents-wrapper">
       <div class="scrolling-contents">
+        <?php $video_modals_html = ''; ?>
         <?php if ($scrolling_contents): ?>
-          <?php foreach ($scrolling_contents as $content):
+          <?php foreach ($scrolling_contents as $index => $content):
             $case_study = $content['case_study_link'];
             $case_study_id = $case_study ? $case_study->ID : 0;
             $case_study_image_url = $case_study_id ? get_the_post_thumbnail_url($case_study_id, 'full') : '';
+
+            $image_or_video = isset($content['image_or_video']) ? $content['image_or_video'] : null;
+            $media_type = $image_or_video && !empty($image_or_video['type']) ? $image_or_video['type'] : '';
+
+
+            $background_image_url = '';
+            $video_url = '';
+
+            if ($media_type === 'video' && !empty($image_or_video)) {
+              $video_url = $image_or_video['url'];
+            } elseif ($media_type === 'image' && !empty($image_or_video)) {
+              $background_image_url = is_array($image_or_video['image']) ? $image_or_video['image']['url'] : $image_or_video['image'];
+            } else {
+              $background_image_url = $case_study_image_url;
+            }
+
+            $item_id = 'scrolling-content-item-' . $index;
           ?>
 
-            <div class="scrolling-content-item" <?php if ($case_study_image_url): ?>style="background-image: url('<?php echo esc_url($case_study_image_url); ?>');" <?php endif; ?>>
+            <div id="<?php echo esc_attr($item_id); ?>" class="scrolling-content-item <?php echo $video_url ? 'has-video' : ''; ?>" <?php if ($video_url): ?>data-video-modal-trigger="<?php echo esc_attr($item_id); ?>" <?php endif; ?><?php if ($background_image_url && !$video_url): ?>style="background-image: url('<?php echo esc_url($background_image_url); ?>');" <?php endif; ?>>
+              <?php if ($video_url): ?>
+                <video class="scrolling-content-video" src="<?php echo esc_url($video_url); ?>" muted playsinline loop preload="metadata" data-video-src="<?php echo esc_url($video_url); ?>"></video>
+              <?php endif; ?>
               <div class="scrolling-content-card">
                 <?php if ($case_study_id): ?>
                   <h3 class="scrolling-content-heading"><?php echo esc_html(get_the_title($case_study_id)); ?></h3>
@@ -72,6 +93,18 @@ $scrolling_contents = get_sub_field('scrolling_contents');
                 <?php endif; ?>
               </div>
             </div>
+
+            <?php if ($video_url):
+              ob_start(); ?>
+              <div class="scrolling-content-video-modal" id="<?php echo esc_attr($item_id); ?>-modal" data-video-modal>
+                <div class="scrolling-content-video-modal-overlay" data-video-modal-close></div>
+                <div class="scrolling-content-video-modal-inner">
+                  <button type="button" class="scrolling-content-video-modal-close" aria-label="<?php esc_attr_e('Close', 'essenta-theme'); ?>" data-video-modal-close></button>
+                  <video class="scrolling-content-video-modal-video" src="<?php echo esc_url($video_url); ?>" controls playsinline></video>
+                </div>
+              </div>
+            <?php $video_modals_html .= ob_get_clean();
+            endif; ?>
           <?php endforeach; ?>
         <?php endif; ?>
       </div>
@@ -83,11 +116,32 @@ $scrolling_contents = get_sub_field('scrolling_contents');
       <?php endif; ?>
     </div>
   </div>
+  <?php echo $video_modals_html; ?>
 </section>
 
 <script>
   jQuery(document).ready(function($) {
-    $('.full-height-scrolling-content .scrolling-contents').slick({
+    var $slider = $('.full-height-scrolling-content .scrolling-contents');
+    var sectionEl = document.querySelector('.full-height-scrolling-content');
+    var sectionInView = true;
+
+    function pauseAllVideos() {
+      $slider.find('.scrolling-content-video').each(function() {
+        this.pause();
+      });
+    }
+
+    function playActiveVideo() {
+      pauseAllVideos();
+      if (!sectionInView) return;
+      $slider.find('.slick-current .scrolling-content-video').each(function() {
+        this.play().catch(function() {});
+      });
+    }
+
+    $slider.on('init afterChange', playActiveVideo);
+
+    $slider.slick({
       vertical: true,
       verticalSwiping: true,
       slidesToShow: 1,
@@ -106,6 +160,57 @@ $scrolling_contents = get_sub_field('scrolling_contents');
           verticalSwiping: false
         }
       }]
+    });
+
+    // Only autoplay the current slide's video while the section itself is on screen.
+    if (sectionEl && 'IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          sectionInView = entry.isIntersecting;
+          if (entry.isIntersecting) {
+            playActiveVideo();
+          } else {
+            pauseAllVideos();
+          }
+        });
+      }, {
+        threshold: 0.4
+      });
+      observer.observe(sectionEl);
+    }
+
+    var $openModal = null;
+
+    function closeModal($modal) {
+      $modal.removeClass('is-open').find('.scrolling-content-video-modal-video').each(function() {
+        this.pause();
+        this.currentTime = 0;
+      });
+      $openModal = null;
+      playActiveVideo();
+    }
+
+    $(document).on('click', '[data-video-modal-trigger]', function() {
+      var itemId = $(this).data('video-modal-trigger');
+      var $modal = $('#' + itemId + '-modal');
+      if (!$modal.length) return;
+
+      pauseAllVideos();
+      $openModal = $modal;
+      $modal.addClass('is-open').find('.scrolling-content-video-modal-video').each(function() {
+        this.currentTime = 0;
+        this.play().catch(function() {});
+      });
+    });
+
+    $(document).on('click', '[data-video-modal-close]', function() {
+      closeModal($(this).closest('[data-video-modal]'));
+    });
+
+    $(document).on('keydown', function(event) {
+      if (event.key === 'Escape' && $openModal) {
+        closeModal($openModal);
+      }
     });
   });
 </script>

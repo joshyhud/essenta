@@ -2183,6 +2183,152 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6ab0fc7e94263": {
+                    "key": "layout_6ab0fc7e94263",
+                    "name": "statistics_module",
+                    "label": "Statistics Module",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6ab0fc8694265",
+                            "label": "Statistics Module Subheading",
+                            "name": "statistics_module_subheading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab0fc9794266",
+                            "label": "Statistics Module Heading",
+                            "name": "statistics_module_heading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab0fc9e94267",
+                            "label": "Statistics Module Content",
+                            "name": "statistics_module_content",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "allow_in_bindings": 0,
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab0fca794268",
+                            "label": "Statistics cards",
+                            "name": "statistics_cards",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "Max of four stats per module",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "table",
+                            "min": 1,
+                            "max": 4,
+                            "collapsed": "",
+                            "button_label": "Add Row",
+                            "admin_only": 0,
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_6ab0fcb994269",
+                                    "label": "Statistic value",
+                                    "name": "statistic_value",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6ab0fca794268"
+                                },
+                                {
+                                    "key": "field_6ab0fcca9426a",
+                                    "label": "Statistic Content",
+                                    "name": "statistic_content",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6ab0fca794268"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -2238,5 +2384,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789977824
+    "modified": 1789984145
 }

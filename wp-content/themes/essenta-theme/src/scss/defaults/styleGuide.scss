@@ -7,7 +7,7 @@ html #wpadminbar {
 
 body {
   font-family:
-    var(--font-circular-std), var(--font-adelle), "Open Sans", sans-serif;
+    var(--font-circular-reg), var(--font-adelle), "Open Sans", sans-serif;
   color: var(--color-navy-900);
   background-color: var(--color-sand-300);
   &.mm-locked {
@@ -207,7 +207,7 @@ fieldset {
 }
 
 .pill {
-  font-family: var(--font-circular-std);
+  font-family: var(--font-circular-reg);
   font-weight: 300;
   font-size: 12px;
   letter-spacing: 10%;
@@ -252,7 +252,7 @@ fieldset {
     }
 
     .pagination-arrow {
-      font-family: var(--font-circular-std);
+      font-family: var(--font-circular-reg);
       font-weight: 300;
       font-size: 14px;
       line-height: 19px;
@@ -319,7 +319,7 @@ fieldset {
 
       &.next,
       &.prev {
-        font-family: var(--font-circular-std);
+        font-family: var(--font-circular-reg);
         font-weight: 300;
         font-size: 14px;
         line-height: 19px;

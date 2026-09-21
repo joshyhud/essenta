@@ -106,7 +106,9 @@ input[type="checkbox"] {
   border-radius: 0.25rem;
   position: relative;
   cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 
   &:checked {
     background-color: var(--color-navy-100);
@@ -134,7 +136,9 @@ input[type="radio"] {
   border-radius: 50%;
   position: relative;
   cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 
   &:checked {
     background-color: var(--color-navy-100);
@@ -208,7 +212,7 @@ select {
   font-size: 1rem;
   color: var(--color-grey-darkest);
   font-weight: 300;
-  font-family: var(--font-circular-std);
+  font-family: var(--font-circular-reg);
   border: none;
   appearance: none;
   background: url('data:image/svg+xml;utf8,<svg fill="%23007bff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>')

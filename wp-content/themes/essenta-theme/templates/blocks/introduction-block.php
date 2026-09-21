@@ -135,9 +135,9 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
                     }
                 },
                 {
-                    breakpoint: 768,
+                    breakpoint: 420,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: 1,
                     }
 
                 }

@@ -68,9 +68,9 @@ $scrolling_contents = get_sub_field('scrolling_contents');
             $item_id = 'scrolling-content-item-' . $index;
           ?>
 
-            <div id="<?php echo esc_attr($item_id); ?>" class="scrolling-content-item <?php echo $video_url ? 'has-video' : ''; ?>" <?php if ($video_url): ?>data-video-modal-trigger="<?php echo esc_attr($item_id); ?>" <?php endif; ?><?php if ($background_image_url && !$video_url): ?>style="background-image: url('<?php echo esc_url($background_image_url); ?>');" <?php endif; ?>>
+            <div id="<?php echo esc_attr($item_id); ?>" class="scrolling-content-item <?php echo $video_url ? 'has-video' : ''; ?>" <?php if ($background_image_url && !$video_url): ?>style="background-image: url('<?php echo esc_url($background_image_url); ?>');" <?php endif; ?>>
               <?php if ($video_url): ?>
-                <video class="scrolling-content-video" src="<?php echo esc_url($video_url); ?>" muted playsinline loop preload="metadata" data-video-src="<?php echo esc_url($video_url); ?>"></video>
+                <video <?php if ($video_url): ?>data-video-modal-trigger="<?php echo esc_attr($item_id); ?>" <?php endif; ?> class="scrolling-content-video" src="<?php echo esc_url($video_url); ?>" muted playsinline loop preload="metadata" data-video-src="<?php echo esc_url($video_url); ?>"></video>
               <?php endif; ?>
               <div class="scrolling-content-card">
                 <?php if ($case_study_id): ?>

@@ -18,13 +18,15 @@ $insights = new WP_Query(array(
 
 <section class="insights-block">
     <div class="container">
-        <?php if ($insights_subheading) : ?>
-            <p class="insights-subheading eyebrow"><?php echo esc_html($insights_subheading); ?></p>
-        <?php endif; ?>
+        <div class="insights-block-header">
+            <?php if ($insights_subheading) : ?>
+                <p class="insights-subheading eyebrow"><?php echo esc_html($insights_subheading); ?></p>
+            <?php endif; ?>
 
-        <?php if ($insights_heading) : ?>
-            <h2 class="insights-heading"><?php echo esc_html($insights_heading); ?></h2>
-        <?php endif; ?>
+            <?php if ($insights_heading) : ?>
+                <h2 class="insights-heading"><?php echo esc_html($insights_heading); ?></h2>
+            <?php endif; ?>
+        </div>
 
         <?php if ($insights_cta) : ?>
             <a href="<?php echo esc_url($insights_cta['url']); ?>" class="insights-cta btn primary"><?php echo esc_html($insights_cta['title']); ?></a>

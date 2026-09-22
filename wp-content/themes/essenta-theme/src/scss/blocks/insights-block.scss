@@ -4,16 +4,24 @@
   flex-direction: column;
 
   .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
     padding: 3.875rem 5rem;
     margin: inherit;
+
+    .insights-cta {
+      align-items: flex-end;
+    }
   }
 
   .insights-posts-nav {
-    position: absolute;
-    right: 5rem;
-    bottom: 2rem;
     display: flex;
+    justify-content: flex-end;
     gap: 1rem;
+    margin-bottom: 64px;
+    margin-right: 77px;
 
     .insights-posts-navigation {
       display: flex;
@@ -123,6 +131,9 @@
     .container {
       padding: 3.875rem 1rem;
       order: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
     }
 
     .insights-posts-nav {

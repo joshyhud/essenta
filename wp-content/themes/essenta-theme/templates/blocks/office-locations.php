@@ -65,7 +65,10 @@ if ($office_locations) {
     <div class="container">
         <?php if ($office_locations) : ?>
             <div class="office-locations__stage">
-                <div class="office-locations__map js-office-locations-map" aria-label="Office and delivery partner locations map">
+                <div
+                    class="office-locations__map js-office-locations-map"
+                    data-pin-icon="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin-teal.svg'); ?>"
+                    aria-label="Office and delivery partner locations map">
                     <?php foreach ($office_locations as $location_index => $office_location) : ?>
                         <div
                             class="office-locations__marker"
@@ -99,7 +102,7 @@ if ($office_locations) {
 
                 <div class="office-locations__legend" aria-label="Map legend">
                     <div><span class="office-locations__legend-role" aria-hidden="true"></span>Roles delivered</div>
-                    <div><span class="office-locations__legend-office" aria-hidden="true"></span>Office locations</div>
+                    <div><img class="office-locations__legend-office" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin-teal.svg'); ?>" alt="">Office locations</div>
                 </div>
 
                 <aside class="office-locations__drawer" aria-hidden="true" aria-label="Office details">
@@ -121,26 +124,28 @@ if ($office_locations) {
                             <div class="office-locations__contact">
                                 <?php if ($office_location['address']) : ?>
                                     <div class="office-locations__contact-row">
-                                        <span class="office-locations__contact-icon office-locations__contact-icon--pin" aria-hidden="true"></span>
+                                        <span class="office-locations__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt=""></span>
                                         <address><?php echo esc_html($office_location['address']); ?></address>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($office_location['phone']) : ?>
                                     <div class="office-locations__contact-row">
-                                        <span class="office-locations__contact-icon office-locations__contact-icon--phone" aria-hidden="true"></span>
+                                        <span class="office-locations__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/phone.svg'); ?>" alt=""></span>
                                         <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $office_location['phone'])); ?>"><?php echo esc_html($office_location['phone']); ?></a>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($office_location['email']) : ?>
                                     <div class="office-locations__contact-row">
-                                        <span class="office-locations__contact-icon office-locations__contact-icon--email" aria-hidden="true"></span>
+                                        <span class="office-locations__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/mail.svg'); ?>" alt=""></span>
                                         <a href="mailto:<?php echo esc_attr($office_location['email']); ?>"><?php echo esc_html($office_location['email']); ?></a>
                                     </div>
                                 <?php endif; ?>
+
+                                <a class="btn primary" href="<?php echo esc_url($office_location['url']); ?>">
+                                    View office
+                                </a>
+
                             </div>
-                            <a class="btn cta-link" href="<?php echo esc_url($office_location['url']); ?>">
-                                View office
-                            </a>
                         </article>
                     <?php endforeach; ?>
                 </aside>

@@ -62,6 +62,13 @@ $uid = 'team-members-' . wp_unique_id();
         </div>
       <?php endif; ?>
 
+      <?php if ($team_members->post_count > 1): ?>
+        <div class="team-members-block__nav">
+          <button type="button" class="team-members-block__prev" aria-label="<?php esc_attr_e('Previous', 'essenta-theme'); ?>"></button>
+          <button type="button" class="team-members-block__next" aria-label="<?php esc_attr_e('Next', 'essenta-theme'); ?>"></button>
+        </div>
+      <?php endif; ?>
+
       <?php if ($team_block_primary_cta || $team_block_secondary_cta): ?>
         <div class="team-members-block__ctas">
           <?php if ($team_block_primary_cta): ?>
@@ -75,13 +82,6 @@ $uid = 'team-members-' . wp_unique_id();
               <?php echo esc_html($team_block_secondary_cta['title']); ?>
             </a>
           <?php endif; ?>
-        </div>
-      <?php endif; ?>
-
-      <?php if ($team_members->post_count > 1): ?>
-        <div class="team-members-block__nav">
-          <button type="button" class="team-members-block__prev" aria-label="<?php esc_attr_e('Previous', 'essenta-theme'); ?>"></button>
-          <button type="button" class="team-members-block__next" aria-label="<?php esc_attr_e('Next', 'essenta-theme'); ?>"></button>
         </div>
       <?php endif; ?>
     </div>
@@ -114,13 +114,26 @@ $uid = 'team-members-' . wp_unique_id();
                 <p class="team-card__role"><?php echo esc_html($role); ?></p>
               <?php endif; ?>
 
-              <?php if (!empty($departments) && !is_wp_error($departments)): ?>
-                <p class="team-card__department"><?php echo esc_html(implode(', ', wp_list_pluck($departments, 'name'))); ?></p>
-              <?php endif; ?>
+              <div class="team-card__meta">
+                <?php if (!empty($departments) && !is_wp_error($departments)): ?>
+                  <p class="team-card__department"><?php echo esc_html(implode(', ', wp_list_pluck($departments, 'name'))); ?></p>
+                <?php endif; ?>
 
-              <?php if (!empty($locations) && !is_wp_error($locations)): ?>
-                <p class="team-card__location"><?php echo esc_html(implode(', ', wp_list_pluck($locations, 'name'))); ?></p>
-              <?php endif; ?>
+                <?php if (!empty($locations) && !is_wp_error($locations)): ?>
+                  <?php
+                  $location_names = array_map(
+                    function ($location) {
+                      return trim(explode(',', $location->name, 2)[0]);
+                    },
+                    $locations
+                  );
+                  ?>
+                  <p class="team-card__location">
+                    <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt="">
+                    <span><?php echo $location_names[0]; ?></span>
+                  </p>
+                <?php endif; ?>
+              </div>
 
               <a href="<?php echo esc_url(get_permalink($member_id)); ?>" class="btn cta-link">
                 <?php esc_html_e('View Profile', 'essenta-theme'); ?>

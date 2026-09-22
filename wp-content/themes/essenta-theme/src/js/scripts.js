@@ -91,6 +91,7 @@ window.essentaInitOfficeMaps = function () {
     var markerElements = mapElement.querySelectorAll(
       ".office-locations__marker",
     );
+    var pinIconUrl = mapElement.dataset.pinIcon;
     var officeBounds = new google.maps.LatLngBounds();
     var map = new google.maps.Map(mapElement, {
       center: { lat: 51.5072, lng: -0.1276 },
@@ -184,13 +185,9 @@ window.essentaInitOfficeMaps = function () {
         clickable: isOffice,
         icon: isOffice
           ? {
-              anchor: new google.maps.Point(12, 22),
-              fillColor: "#00a2aa",
-              fillOpacity: 1,
-              path: "M12 2C7.58 2 4 5.58 4 10c0 6 8 12 8 12s8-6 8-12c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z",
-              scale: 1.25,
-              strokeColor: "#ffffff",
-              strokeWeight: 1.5,
+              anchor: new google.maps.Point(8, 15),
+              scaledSize: new google.maps.Size(24, 24),
+              url: pinIconUrl,
             }
           : {
               fillColor: "#00a2aa",

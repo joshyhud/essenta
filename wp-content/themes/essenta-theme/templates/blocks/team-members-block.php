@@ -44,94 +44,119 @@ $uid = 'team-members-' . wp_unique_id();
 ?>
 
 <section
-  class="team-depts"
-  id="<?php echo esc_attr($uid); ?>"
-  data-team-depts>
-  <div class="team-depts__content" data-team-content>
-    <?php if ($team_block_subheading): ?>
-      <p class="team-depts__subheading">
-        <?php echo esc_html($team_block_subheading); ?>
-      </p>
-    <?php endif; ?>
+  class="team-members-block"
+  id="<?php echo esc_attr($uid); ?>">
+  <div class="container">
+    <div class="team-members-block__content">
+      <?php if ($team_block_subheading): ?>
+        <p class="eyebrow"><?php echo esc_html($team_block_subheading); ?></p>
+      <?php endif; ?>
 
-    <?php if ($team_block_heading): ?>
-      <h2 class="team-depts__heading">
-        <?php echo esc_html($team_block_heading); ?>
-      </h2>
-    <?php endif; ?>
+      <?php if ($team_block_heading): ?>
+        <h2 class="heading"><?php echo esc_html($team_block_heading); ?></h2>
+      <?php endif; ?>
 
-    <?php if ($team_block_content): ?>
-      <div class="team-depts__content-text">
-        <?php echo wp_kses_post(wpautop($team_block_content)); ?>
-      </div>
-    <?php endif; ?>
-    <?php if ($team_block_primary_cta || $team_block_secondary_cta): ?>
-      <div class="team-depts__ctas">
-        <?php if ($team_block_primary_cta): ?>
-          <a href="<?php echo esc_url($team_block_primary_cta['url']); ?>" class="btn primary">
-            <?php echo esc_html($team_block_primary_cta['title']); ?>
-          </a>
-        <?php endif; ?>
+      <?php if ($team_block_content): ?>
+        <div class="content-text">
+          <?php echo wp_kses_post(wpautop($team_block_content)); ?>
+        </div>
+      <?php endif; ?>
 
-        <?php if ($team_block_secondary_cta): ?>
-          <a href="<?php echo esc_url($team_block_secondary_cta['url']); ?>" class="btn secondary">
-            <?php echo esc_html($team_block_secondary_cta['title']); ?>
-          </a>
-        <?php endif; ?>
-      </div>
-    <?php endif; ?>
-    <div class="team-depts__list">
+      <?php if ($team_block_primary_cta || $team_block_secondary_cta): ?>
+        <div class="team-members-block__ctas">
+          <?php if ($team_block_primary_cta): ?>
+            <a href="<?php echo esc_url($team_block_primary_cta['url']); ?>" class="btn primary">
+              <?php echo esc_html($team_block_primary_cta['title']); ?>
+            </a>
+          <?php endif; ?>
 
-      <section
-        class="team-depts__section"
-        data-dept-section>
+          <?php if ($team_block_secondary_cta): ?>
+            <a href="<?php echo esc_url($team_block_secondary_cta['url']); ?>" class="btn secondary">
+              <?php echo esc_html($team_block_secondary_cta['title']); ?>
+            </a>
+          <?php endif; ?>
+        </div>
+      <?php endif; ?>
+    </div>
 
+    <div class="team-members-block__slider-wrapper">
+      <div class="team-members-slider">
         <?php while ($team_members->have_posts()): $team_members->the_post(); ?>
           <?php $member = get_post(); ?>
 
           <?php
-          $member_id      = $member->ID;
-          $name           = get_the_title($member_id);
-          $role           = get_field('job_role', $member_id);
-          $img            = get_the_post_thumbnail($member_id, 'medium');
-          $member_content = get_post_field('post_content', $member_id);
+          $member_id       = $member->ID;
+          $name            = get_the_title($member_id);
+          $role            = get_field('job_role', $member_id);
+          $img             = get_the_post_thumbnail($member_id, 'medium');
+          $departments     = get_the_terms($member_id, 'department');
+          $locations       = get_the_terms($member_id, 'team_location');
           ?>
 
           <article class="team-card">
-
-            <div class="team-card__user">
-
-              <p class="team-card__name subheading">
-                <?php echo esc_html($name); ?>
-              </p>
-
-              <?php if ($role): ?>
-                <h3>
-                  <?php echo esc_html($role); ?>
-                </h3>
-              <?php endif; ?>
-
-              <?php if ($member_content): ?>
-                <div class="member-content">
-                  <?php echo wp_kses_post(wpautop($member_content)); ?>
-                </div>
-              <?php endif; ?>
-
-            </div>
-
             <div class="team-card__image">
               <?php if ($img): ?>
                 <?php echo $img; ?>
               <?php endif; ?>
             </div>
 
+            <div class="team-card__body">
+              <p class="team-card__name"><?php echo esc_html($name); ?></p>
+
+              <?php if ($role): ?>
+                <p class="team-card__role"><?php echo esc_html($role); ?></p>
+              <?php endif; ?>
+
+              <?php if (!empty($departments) && !is_wp_error($departments)): ?>
+                <p class="team-card__department"><?php echo esc_html(implode(', ', wp_list_pluck($departments, 'name'))); ?></p>
+              <?php endif; ?>
+
+              <?php if (!empty($locations) && !is_wp_error($locations)): ?>
+                <p class="team-card__location"><?php echo esc_html(implode(', ', wp_list_pluck($locations, 'name'))); ?></p>
+              <?php endif; ?>
+
+              <a href="<?php echo esc_url(get_permalink($member_id)); ?>" class="btn cta-link">
+                <?php esc_html_e('View Profile', 'essenta-theme'); ?>
+              </a>
+            </div>
           </article>
 
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
+      </div>
 
-      </section>
-
+      <?php if ($team_members->post_count > 1): ?>
+        <div class="team-members-block__nav">
+          <button type="button" class="team-members-block__prev" aria-label="<?php esc_attr_e('Previous', 'essenta-theme'); ?>"></button>
+          <button type="button" class="team-members-block__next" aria-label="<?php esc_attr_e('Next', 'essenta-theme'); ?>"></button>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </section>
+
+<script>
+  jQuery(document).ready(function($) {
+    $('#<?php echo esc_js($uid); ?> .team-members-slider').slick({
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      arrows: true,
+      dots: false,
+      infinite: false,
+      adaptiveHeight: false,
+      prevArrow: $('#<?php echo esc_js($uid); ?> .team-members-block__prev'),
+      nextArrow: $('#<?php echo esc_js($uid); ?> .team-members-block__next'),
+      responsive: [{
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2
+        }
+      }, {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 1
+        }
+      }]
+    });
+  });
+</script>

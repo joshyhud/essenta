@@ -18,6 +18,10 @@
         column-gap: 1.875rem;
         row-gap: 2.188rem;
 
+        &.content-grid-items--stacked {
+          grid-template-columns: 1fr;
+        }
+
         .content-grid-item {
           display: flex;
           flex-direction: column;

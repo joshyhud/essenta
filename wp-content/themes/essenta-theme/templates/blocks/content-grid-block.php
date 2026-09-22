@@ -30,7 +30,7 @@ $content_grid_items = get_sub_field('content_grid_items');
                 <?php endif; ?>
             </div>
 
-            <div class="content-grid-items">
+            <div class="content-grid-items <?php echo ($content_grid_items && count($content_grid_items) === 2) ? 'content-grid-items--stacked' : ''; ?>">
                 <?php if ($content_grid_items) : ?>
                     <?php foreach ($content_grid_items as $item) : ?>
                         <div class="content-grid-item">

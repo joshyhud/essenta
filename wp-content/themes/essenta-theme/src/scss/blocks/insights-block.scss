@@ -1,7 +1,54 @@
 .insights-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
   .container {
     padding: 3.875rem 5rem;
     margin: inherit;
+  }
+
+  .insights-posts-nav {
+    position: absolute;
+    right: 5rem;
+    bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+
+    .insights-posts-navigation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      padding: 9px;
+      border-radius: 50%;
+      border: 1px solid var(--color-sand-600);
+      background: none;
+      cursor: pointer;
+      position: relative;
+
+      &:after {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M0.833496 5.83301L5.8335 0.833008L10.8335 5.83301" stroke="%23050817" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transform: rotate(-90deg);
+      }
+
+      &.next:after {
+        transform: rotate(90deg);
+      }
+
+      &.slick-disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+    }
   }
 
   .insights-posts {
@@ -75,8 +122,19 @@
   .insights-block {
     .container {
       padding: 3.875rem 1rem;
+      order: 1;
     }
+
+    .insights-posts-nav {
+      position: static;
+      order: 2;
+      justify-content: flex-start;
+      padding: 0 1rem;
+      margin-bottom: 1rem;
+    }
+
     .insights-posts {
+      order: 3;
       padding: 0 1rem;
 
       .insights-posts-wrapper a .insights-post {

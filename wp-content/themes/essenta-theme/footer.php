@@ -12,9 +12,9 @@ $footer_locations = get_field('company_footer_locations', 'option');
                 <a href="<?php echo esc_url(home_url('/')); ?>">
                     <img loading="lazy" src="<?php echo wp_get_upload_dir()['baseurl']; ?>/2026/08/Primary_Blue-3-1.svg" alt="<?php bloginfo('name'); ?>">
                 </a>
-                <div class="footer-contact">
+                <!-- <div class="footer-contact">
                     <?php echo get_field('footer_contact_form', 'option'); ?>
-                </div>
+                </div> -->
             </div>
             <div class="footer-contact">
                 <details open class="footer-details-wrapper">

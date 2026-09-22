@@ -1,0 +1,136 @@
+.team-members-block {
+  .container {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+    padding: 5rem 2rem;
+  }
+
+  .team-members-block__content {
+    width: 33.333%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .team-members-block__ctas {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .team-members-block__slider-wrapper {
+    width: 66.666%;
+    min-width: 0;
+
+    .team-members-slider {
+      .slick-list {
+        margin: 0 -12px;
+      }
+
+      .slick-slide {
+        margin: 0 12px;
+      }
+    }
+  }
+
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    overflow: hidden;
+    background: var(--color-sand-200);
+
+    &__image {
+      img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+      }
+    }
+
+    &__body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    &__name {
+      font-family: var(--font-circular-med);
+      font-size: 1.125rem;
+    }
+
+    &__role {
+      color: var(--color-sand-800);
+    }
+
+    &__department,
+    &__location {
+      font-size: 0.875rem;
+      color: var(--color-sand-800);
+    }
+
+    .cta-link {
+      margin-top: 1rem;
+    }
+  }
+
+  .team-members-block__nav {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      padding: 9px;
+      border-radius: 50%;
+      border: 1px solid var(--color-sand-600);
+      background: none;
+      cursor: pointer;
+      position: relative;
+
+      &:after {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M0.833496 5.83301L5.8335 0.833008L10.8335 5.83301" stroke="%23050817" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transform: rotate(-90deg);
+      }
+
+      &.team-members-block__next:after {
+        transform: rotate(90deg);
+      }
+
+      &.slick-disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+    }
+  }
+}
+
+@media (width <= 980px) {
+  .team-members-block {
+    .container {
+      flex-direction: column;
+      padding: 2.5rem 1rem;
+      gap: 1.5rem;
+    }
+
+    .team-members-block__content,
+    .team-members-block__slider-wrapper {
+      width: 100%;
+    }
+  }
+}

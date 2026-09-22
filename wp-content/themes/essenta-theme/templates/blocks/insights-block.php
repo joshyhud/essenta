@@ -66,8 +66,10 @@ $insights = new WP_Query(array(
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
     </div>
-    <div class="insights-posts-navigation prev"></div>
-    <div class="insights-posts-navigation next"></div>
+    <div class="insights-posts-nav">
+        <button type="button" class="insights-posts-navigation prev" aria-label="<?php esc_attr_e('Previous', 'essenta-theme'); ?>"></button>
+        <button type="button" class="insights-posts-navigation next" aria-label="<?php esc_attr_e('Next', 'essenta-theme'); ?>"></button>
+    </div>
 </section>
 
 <script type="text/javascript">

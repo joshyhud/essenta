@@ -77,6 +77,13 @@ $uid = 'team-members-' . wp_unique_id();
           <?php endif; ?>
         </div>
       <?php endif; ?>
+
+      <?php if ($team_members->post_count > 1): ?>
+        <div class="team-members-block__nav">
+          <button type="button" class="team-members-block__prev" aria-label="<?php esc_attr_e('Previous', 'essenta-theme'); ?>"></button>
+          <button type="button" class="team-members-block__next" aria-label="<?php esc_attr_e('Next', 'essenta-theme'); ?>"></button>
+        </div>
+      <?php endif; ?>
     </div>
 
     <div class="team-members-block__slider-wrapper">
@@ -88,7 +95,7 @@ $uid = 'team-members-' . wp_unique_id();
           $member_id       = $member->ID;
           $name            = get_the_title($member_id);
           $role            = get_field('job_role', $member_id);
-          $img             = get_the_post_thumbnail($member_id, 'medium');
+          $img             = get_the_post_thumbnail($member_id, 'full');
           $departments     = get_the_terms($member_id, 'department');
           $locations       = get_the_terms($member_id, 'team_location');
           ?>
@@ -125,12 +132,6 @@ $uid = 'team-members-' . wp_unique_id();
         <?php wp_reset_postdata(); ?>
       </div>
 
-      <?php if ($team_members->post_count > 1): ?>
-        <div class="team-members-block__nav">
-          <button type="button" class="team-members-block__prev" aria-label="<?php esc_attr_e('Previous', 'essenta-theme'); ?>"></button>
-          <button type="button" class="team-members-block__next" aria-label="<?php esc_attr_e('Next', 'essenta-theme'); ?>"></button>
-        </div>
-      <?php endif; ?>
     </div>
   </div>
 </section>
@@ -138,7 +139,7 @@ $uid = 'team-members-' . wp_unique_id();
 <script>
   jQuery(document).ready(function($) {
     $('#<?php echo esc_js($uid); ?> .team-members-slider').slick({
-      slidesToShow: 3,
+      slidesToShow: 3.5,
       slidesToScroll: 1,
       arrows: true,
       dots: false,
@@ -149,12 +150,12 @@ $uid = 'team-members-' . wp_unique_id();
       responsive: [{
         breakpoint: 1200,
         settings: {
-          slidesToShow: 2
+          slidesToShow: 2.5
         }
       }, {
         breakpoint: 700,
         settings: {
-          slidesToShow: 1
+          slidesToShow: 1.35
         }
       }]
     });

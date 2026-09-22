@@ -54,6 +54,19 @@ function my_acf_json_load_point( $path ) {
 add_filter( 'acf/settings/load_json', 'my_acf_json_load_point' );
 
 /**
+ * Provide Google Maps credentials to ACF's admin map fields.
+ */
+function essenta_acf_google_maps_api( $api ) {
+    $api['key'] = apply_filters(
+        'essenta_google_maps_api_key',
+        'AIzaSyAW0GJXmU70GtFN4p8eyw1ujFSSXhlJRY8'
+    );
+
+    return $api;
+}
+add_filter( 'acf/fields/google_map/api', 'essenta_acf_google_maps_api' );
+
+/**
  * Filter to prevent fields with 'admin_only' setting from displaying to non-admins.
  */
 function admin_only_prepare_field( $field ) {

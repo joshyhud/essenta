@@ -3,6 +3,36 @@
     "title": "Office Information",
     "fields": [
         {
+            "key": "field_6ab24973fd1a1",
+            "label": "Office or Delivery Partner",
+            "name": "office_or_delivery_partner",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Select Office to show on map as clickable office details. Delivery partners will only show pins on map.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "office": "Essenta Office",
+                "partner": "Delivery Partner Location"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "admin_only": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
             "key": "field_6ab14b7201f9a",
             "label": "Office location",
             "name": "office_location",
@@ -115,5 +145,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790004202
+    "modified": 1790069200
 }

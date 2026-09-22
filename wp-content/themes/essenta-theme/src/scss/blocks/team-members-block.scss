@@ -1,136 +1,222 @@
 .team-members-block {
+  background: var(--color-beige-300);
+  overflow: hidden;
+
   .container {
-    display: flex;
     align-items: flex-start;
-    gap: 2.5rem;
-    padding: 5rem 2rem;
+    display: flex;
+    gap: clamp(2rem, 5vw, 5.5rem);
+    margin: 0 auto;
+    max-width: var(--max-width);
+    padding: clamp(4rem, 8vw, 7rem) 2rem;
   }
 
-  .team-members-block__content {
-    width: 33.333%;
-    flex-shrink: 0;
+  &__content {
     display: flex;
+    flex: 0 0 min(24rem, 31%);
     flex-direction: column;
     gap: 1rem;
+    padding-top: 0.25rem;
   }
 
-  .team-members-block__ctas {
+  .eyebrow {
+    color: var(--color-navy-500);
+    font-family: var(--font-circular-med);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .heading {
+    color: var(--color-navy-500);
+    font-family: var(--font-adelle);
+    font-size: clamp(2rem, 3.2vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .content-text {
+    color: var(--color-navy-500);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 20rem;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__ctas {
     display: flex;
-    gap: 1rem;
-    margin-top: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
   }
 
-  .team-members-block__slider-wrapper {
-    width: 66.666%;
+  &__nav {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+
+    button {
+      align-items: center;
+      background: transparent;
+      border: 1px solid var(--color-navy-500);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      height: 2.25rem;
+      justify-content: center;
+      padding: 0;
+      position: relative;
+      width: 2.25rem;
+
+      &::after {
+        border-right: 1px solid currentColor;
+        border-top: 1px solid currentColor;
+        content: "";
+        height: 0.45rem;
+        transform: rotate(-135deg);
+        width: 0.45rem;
+      }
+
+      &.team-members-block__next::after {
+        transform: rotate(45deg);
+      }
+
+      &:hover:not(.slick-disabled),
+      &:focus-visible:not(.slick-disabled) {
+        background: var(--color-navy-500);
+        color: var(--color-white);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--color-teal-500);
+        outline-offset: 3px;
+      }
+
+      &.slick-disabled {
+        cursor: default;
+        opacity: 0.35;
+      }
+    }
+  }
+
+  &__slider-wrapper {
+    flex: 1 1 auto;
     min-width: 0;
+    overflow: visible;
 
     .team-members-slider {
+      margin: 0 -0.5rem;
+
       .slick-list {
-        margin: 0 -12px;
+        overflow: hidden;
       }
 
       .slick-slide {
-        margin: 0 12px;
+        margin: 0 0.5rem;
       }
     }
   }
 
   .team-card {
+    background: var(--color-beige-100);
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
-    overflow: hidden;
-    background: var(--color-sand-200);
+    min-width: 0;
 
     &__image {
+      background: var(--color-sand-400);
+      aspect-ratio: 0.76;
+      overflow: hidden;
+
       img {
         display: block;
-        width: 100%;
-        aspect-ratio: 3 / 4;
+        height: 100%;
         object-fit: cover;
+        width: 100%;
       }
     }
 
     &__body {
-      padding: 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: 0.35rem;
+      min-height: 9.5rem;
+      padding: 1rem 0.75rem 1.25rem;
     }
 
     &__name {
+      color: var(--color-navy-500);
       font-family: var(--font-circular-med);
-      font-size: 1.125rem;
+      font-size: 0.95rem;
+      margin: 0;
     }
 
     &__role {
-      color: var(--color-sand-800);
+      color: var(--color-navy-500);
+      font-size: 0.72rem;
+      line-height: 1.35;
+      margin: 0;
     }
 
     &__department,
     &__location {
-      font-size: 0.875rem;
-      color: var(--color-sand-800);
+      background: var(--color-beige-400);
+      color: var(--color-navy-500);
+      display: inline-flex;
+      font-size: 0.62rem;
+      line-height: 1.2;
+      margin: 0.15rem 0 0;
+      padding: 0.3rem 0.45rem;
+      width: fit-content;
     }
 
     .cta-link {
-      margin-top: 1rem;
-    }
-  }
-
-  .team-members-block__nav {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px;
-      height: 38px;
-      padding: 9px;
-      border-radius: 50%;
-      border: 1px solid var(--color-sand-600);
-      background: none;
-      cursor: pointer;
-      position: relative;
-
-      &:after {
-        content: "";
-        display: block;
-        width: 20px;
-        height: 20px;
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M0.833496 5.83301L5.8335 0.833008L10.8335 5.83301" stroke="%23050817" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        transform: rotate(-90deg);
-      }
-
-      &.team-members-block__next:after {
-        transform: rotate(90deg);
-      }
-
-      &.slick-disabled {
-        opacity: 0.3;
-        cursor: default;
-      }
+      color: var(--color-navy-500);
+      font-size: 0.75rem;
+      margin-top: auto;
+      padding-top: 0.75rem;
     }
   }
 }
 
-@media (width <= 980px) {
+@media (max-width: 980px) {
   .team-members-block {
     .container {
       flex-direction: column;
-      padding: 2.5rem 1rem;
-      gap: 1.5rem;
+      gap: 2.5rem;
+      padding: 4rem 1.5rem;
     }
 
-    .team-members-block__content,
-    .team-members-block__slider-wrapper {
+    &__content,
+    &__slider-wrapper {
+      flex-basis: auto;
       width: 100%;
+    }
+
+    &__content {
+      max-width: 32rem;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .team-members-block {
+    .container {
+      gap: 2rem;
+      padding: 3.5rem 1rem;
+    }
+
+    &__slider-wrapper {
+      width: calc(100% + 1rem);
+    }
+
+    .team-card__body {
+      min-height: 8rem;
     }
   }
 }

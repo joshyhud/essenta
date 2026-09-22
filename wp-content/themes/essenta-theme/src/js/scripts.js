@@ -1,3 +1,265 @@
+window.essentaInitOfficeMaps = function () {
+  var mapElements = document.querySelectorAll(".js-office-locations-map");
+  var mapStyles = [
+    {
+      featureType: "all",
+      elementType: "labels",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "administrative",
+      elementType: "geometry.fill",
+      stylers: [{ color: "#273259" }],
+    },
+    {
+      featureType: "administrative",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#0f1c47" }],
+    },
+    {
+      featureType: "landscape",
+      elementType: "geometry.fill",
+      stylers: [{ color: "#27335b" }],
+    },
+    { featureType: "poi", elementType: "all", stylers: [{ color: "#2c3966" }] },
+    {
+      featureType: "road",
+      elementType: "geometry.fill",
+      stylers: [{ color: "#0f1c47" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "all",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "water",
+      elementType: "all",
+      stylers: [{ color: "#0f1c47" }, { visibility: "on" }],
+    },
+  ];
+  var markerAnimations = new WeakMap();
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function fadeMarker(marker, targetOpacity, delay) {
+    var currentAnimation = markerAnimations.get(marker);
+    if (currentAnimation) {
+      window.clearTimeout(currentAnimation.timer);
+      window.cancelAnimationFrame(currentAnimation.frame);
+    }
+
+    if (reduceMotion.matches) {
+      marker.setOpacity(targetOpacity);
+      return;
+    }
+
+    var animation = { frame: 0, timer: 0 };
+    markerAnimations.set(marker, animation);
+
+    animation.timer = window.setTimeout(function () {
+      var currentOpacity = marker.getOpacity();
+      var startOpacity =
+        typeof currentOpacity === "number" ? currentOpacity : 0;
+      var startTime = performance.now();
+
+      function updateOpacity(currentTime) {
+        var progress = Math.min((currentTime - startTime) / 500, 1);
+        var easedProgress = 1 - Math.pow(1 - progress, 3);
+        marker.setOpacity(
+          startOpacity + (targetOpacity - startOpacity) * easedProgress,
+        );
+
+        if (progress < 1) {
+          animation.frame = window.requestAnimationFrame(updateOpacity);
+        } else {
+          markerAnimations.delete(marker);
+        }
+      }
+
+      animation.frame = window.requestAnimationFrame(updateOpacity);
+    }, delay || 0);
+  }
+
+  mapElements.forEach(function (mapElement) {
+    if (mapElement.dataset.initialized === "true") return;
+
+    var markerElements = mapElement.querySelectorAll(
+      ".office-locations__marker",
+    );
+    var officeBounds = new google.maps.LatLngBounds();
+    var map = new google.maps.Map(mapElement, {
+      center: { lat: 51.5072, lng: -0.1276 },
+      fullscreenControl: false,
+      mapTypeControl: false,
+      minZoom: 3,
+      restriction: {
+        latLngBounds: {
+          east: 180,
+          north: 85,
+          south: -60,
+          west: -180,
+        },
+        strictBounds: true,
+      },
+      styles: mapStyles,
+      streetViewControl: false,
+      zoom: 6,
+    });
+    var stage = mapElement.closest(".office-locations__stage");
+    var drawer = stage.querySelector(".office-locations__drawer");
+    var closeButton = stage.querySelector(".office-locations__close");
+    var toggles = stage.querySelectorAll(".office-locations__toggle");
+    var details = stage.querySelectorAll(".office-locations__details");
+    var officeMarkers = {};
+    var partnerMarkers = [];
+    var drawerTimer;
+
+    function resetViewport() {
+      var officeIndexes = Object.keys(officeMarkers);
+
+      if (officeIndexes.length === 1) {
+        map.setCenter(officeMarkers[officeIndexes[0]].position);
+        map.setZoom(6);
+        return;
+      }
+
+      if (officeIndexes.length > 1) {
+        map.fitBounds(officeBounds, 48);
+      }
+    }
+
+    function closeDrawer() {
+      clearTimeout(drawerTimer);
+      drawer.classList.remove("is-open");
+      drawer.setAttribute("aria-hidden", "true");
+      drawer.setAttribute("inert", "");
+      toggles.forEach(function (toggle) {
+        toggle.classList.remove("is-active");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+      details.forEach(function (detail) {
+        detail.hidden = true;
+      });
+      resetViewport();
+    }
+
+    function selectOffice(locationIndex) {
+      var office = officeMarkers[locationIndex];
+      if (!office) return;
+
+      clearTimeout(drawerTimer);
+      map.panTo(office.position);
+      map.setZoom(6);
+
+      toggles.forEach(function (toggle) {
+        var isActive = toggle.dataset.locationIndex === locationIndex;
+        toggle.classList.toggle("is-active", isActive);
+        toggle.setAttribute("aria-expanded", String(isActive));
+      });
+      details.forEach(function (detail) {
+        detail.hidden = detail.dataset.locationIndex !== locationIndex;
+      });
+
+      drawerTimer = setTimeout(function () {
+        drawer.classList.add("is-open");
+        drawer.setAttribute("aria-hidden", "false");
+        drawer.removeAttribute("inert");
+      }, 300);
+    }
+
+    drawer.setAttribute("inert", "");
+
+    markerElements.forEach(function (markerElement) {
+      var isOffice = markerElement.dataset.locationType === "office";
+      var position = {
+        lat: Number(markerElement.dataset.lat),
+        lng: Number(markerElement.dataset.lng),
+      };
+      var marker = new google.maps.Marker({
+        clickable: isOffice,
+        icon: isOffice
+          ? {
+              anchor: new google.maps.Point(12, 22),
+              fillColor: "#00a2aa",
+              fillOpacity: 1,
+              path: "M12 2C7.58 2 4 5.58 4 10c0 6 8 12 8 12s8-6 8-12c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z",
+              scale: 1.25,
+              strokeColor: "#ffffff",
+              strokeWeight: 1.5,
+            }
+          : {
+              fillColor: "#00a2aa",
+              fillOpacity: 1,
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 5,
+              strokeColor: "#00a2aa",
+              strokeWeight: 0,
+            },
+        map: map,
+        opacity: isOffice ? 1 : 0,
+        position: position,
+        title: isOffice ? markerElement.dataset.title : "",
+      });
+
+      if (isOffice) {
+        marker.addListener("click", function () {
+          selectOffice(markerElement.dataset.locationIndex);
+        });
+
+        officeMarkers[markerElement.dataset.locationIndex] = {
+          marker: marker,
+          position: position,
+        };
+      } else {
+        partnerMarkers.push(marker);
+      }
+
+      if (isOffice) {
+        officeBounds.extend(position);
+      }
+    });
+
+    toggles.forEach(function (toggle) {
+      toggle.addEventListener("click", function () {
+        selectOffice(toggle.dataset.locationIndex);
+      });
+    });
+
+    closeButton.addEventListener("click", closeDrawer);
+    map.addListener("click", closeDrawer);
+    stage.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeDrawer();
+        toggles[0]?.focus();
+      }
+    });
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        var isVisible = entries[0].intersectionRatio >= 0.15;
+        partnerMarkers.forEach(function (marker, markerIndex) {
+          fadeMarker(
+            marker,
+            isVisible ? 1 : 0,
+            isVisible ? markerIndex * 45 : 0,
+          );
+        });
+      },
+      { threshold: [0, 0.15] },
+    );
+    observer.observe(stage);
+
+    resetViewport();
+
+    mapElement.dataset.initialized = "true";
+  });
+};
+
 // Wrap consecutive images in blog posts into a masonry grid
 jQuery(document).ready(function ($) {
   var $content = $("body.single .container.contained");

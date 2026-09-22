@@ -3,6 +3,7 @@
   overflow: hidden;
 
   .container {
+    position: relative;
     align-items: flex-start;
     display: flex;
     gap: clamp(2rem, 5vw, 5.5rem);
@@ -225,6 +226,11 @@
       flex-direction: column;
       gap: 2.5rem;
       padding: 4rem 1.5rem;
+    }
+
+    &__ctas {
+      position: absolute;
+      bottom: 20px;
     }
 
     &__content,

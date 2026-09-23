@@ -98,6 +98,8 @@
       row-gap: 2.125rem;
 
       .content-grid-wrapper {
+        order: 2;
+
         .content-grid-items {
           display: block;
           margin-bottom: 1.5rem;
@@ -136,8 +138,19 @@
       }
 
       .content-grid-image {
+        order: 3;
         height: auto;
         max-height: 500px;
+      }
+
+      &.content-grid-container--reverse {
+        .content-grid-wrapper {
+          order: 3;
+        }
+
+        .content-grid-image {
+          order: 2;
+        }
       }
     }
   }

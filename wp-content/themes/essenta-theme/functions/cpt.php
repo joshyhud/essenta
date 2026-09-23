@@ -256,7 +256,13 @@ function create_case_study_cpt()
     'label' => __('Case Study', 'textdomain'),
     'labels' => $labels,
     'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
-    'taxonomies' => array('case_study_category', 'case_study_tag'),
+    'taxonomies' => array(
+      'case_study_client',
+      'case_study_sector',
+      'case_study_service',
+      'case_study_role',
+      'case_study_region',
+    ),
     'public' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -271,31 +277,37 @@ function create_case_study_cpt()
 }
 add_action('init', 'create_case_study_cpt', 0);
 
-// Case Study categories and tags
+// Case Study taxonomies
 function create_case_study_taxonomies()
 {
-  register_taxonomy('case_study_category', array('case_study'), array(
-    'labels' => array(
-      'name' => __('Case Study Categories', 'textdomain'),
-      'singular_name' => __('Case Study Category', 'textdomain'),
-    ),
-    'hierarchical' => true,
-    'show_ui' => true,
-    'show_admin_column' => true,
-    'show_in_rest' => true,
-    'rewrite' => array('slug' => 'case-study-category'),
-  ));
+  $taxonomies = array(
+    'case_study_client' => array('Client', 'Clients'),
+    'case_study_sector' => array('Sector', 'Sectors'),
+    'case_study_service' => array('Service', 'Services'),
+    'case_study_role' => array('Role', 'Roles'),
+    'case_study_region' => array('Region', 'Regions'),
+  );
 
-  register_taxonomy('case_study_tag', array('case_study'), array(
-    'labels' => array(
-      'name' => __('Case Study Tags', 'textdomain'),
-      'singular_name' => __('Case Study Tag', 'textdomain'),
-    ),
-    'hierarchical' => false,
-    'show_ui' => true,
-    'show_admin_column' => true,
-    'show_in_rest' => true,
-    'rewrite' => array('slug' => 'case-study-tag'),
-  ));
+  foreach ($taxonomies as $taxonomy => $names) {
+    register_taxonomy($taxonomy, array('case_study'), array(
+      'labels' => array(
+        'name' => __($names[1], 'textdomain'),
+        'singular_name' => __($names[0], 'textdomain'),
+        'search_items' => __('Search ' . $names[1], 'textdomain'),
+        'all_items' => __('All ' . $names[1], 'textdomain'),
+        'edit_item' => __('Edit ' . $names[0], 'textdomain'),
+        'update_item' => __('Update ' . $names[0], 'textdomain'),
+        'add_new_item' => __('Add New ' . $names[0], 'textdomain'),
+        'new_item_name' => __('New ' . $names[0] . ' Name', 'textdomain'),
+        'menu_name' => __($names[1], 'textdomain'),
+      ),
+      'hierarchical' => true,
+      'show_ui' => true,
+      'show_admin_column' => true,
+      'show_in_rest' => true,
+      'query_var' => true,
+      'rewrite' => array('slug' => str_replace('_', '-', $taxonomy)),
+    ));
+  }
 }
 add_action('init', 'create_case_study_taxonomies', 0);

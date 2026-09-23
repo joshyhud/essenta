@@ -476,6 +476,149 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6ab3b216bd382": {
+                    "key": "layout_6ab3b216bd382",
+                    "name": "case_study_header",
+                    "label": "Case Study Header",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6ab3b280bd389",
+                            "label": "Case study Header message",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "The cases study header will pull in case study title and key category information for the left hand section but content and stats will need to be added here",
+                            "new_lines": "wpautop",
+                            "esc_html": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab3b21dbd384",
+                            "label": "Case Study Right Subheading",
+                            "name": "case_study_right_subheading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab3b232bd385",
+                            "label": "Case Study Content",
+                            "name": "case_study_content",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "allow_in_bindings": 0,
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab3b243bd386",
+                            "label": "Case Study Statistics",
+                            "name": "case_study_statistics",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "table",
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Add Row",
+                            "admin_only": 0,
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_6ab3b25bbd387",
+                                    "label": "Case study Statistic",
+                                    "name": "case_study_statistic",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6ab3b243bd386"
+                                },
+                                {
+                                    "key": "field_6ab3b26abd388",
+                                    "label": "Case Study Statistic content",
+                                    "name": "case_study_statistic_content",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6ab3b243bd386"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -532,5 +675,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790001018
+    "modified": 1790167498
 }

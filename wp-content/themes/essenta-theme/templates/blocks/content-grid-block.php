@@ -17,7 +17,7 @@ $content_grid_item_count = is_array($content_grid_items) ? count($content_grid_i
 ?>
 
 <section class="content-grid-block">
-    <div class="container">
+    <div class="container content-grid-container--<?php echo $content_grid_item_count > 4 ? 'reverse' : 'normal'; ?>">
         <div class="content-grid-header content-grid-header--<?php echo $content_grid_item_count >= 5 ? 'columns' : 'stacked'; ?>">
             <div class="content-grid-header-title">
                 <?php if ($block_subheading) : ?>

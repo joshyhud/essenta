@@ -216,6 +216,7 @@
     &__showcase {
       height: auto;
       grid-template-columns: 1fr;
+      gap: 1.25rem;
     }
 
     &__header {
@@ -260,7 +261,7 @@
 
       .slick-slide {
         height: auto !important;
-        margin: 0 0.5rem 0 0;
+        margin: 0 0.75rem 0 0;
       }
 
       .usp-module-large__nav-item {

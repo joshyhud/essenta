@@ -2068,7 +2068,7 @@
                             },
                             "layout": "table",
                             "min": 0,
-                            "max": 4,
+                            "max": 6,
                             "collapsed": "",
                             "button_label": "Add Row",
                             "admin_only": 0,
@@ -2664,5 +2664,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790154098
+    "modified": 1790160537
 }

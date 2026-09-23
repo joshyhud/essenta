@@ -233,6 +233,82 @@ function create_office_cpt()
 add_action('init', 'create_office_cpt', 0);
 
 
+// Services CPT
+function create_service_cpt()
+{
+  $labels = array(
+    'name' => _x('Services', 'Post Type General Name', 'textdomain'),
+    'singular_name' => _x('Service', 'Post Type Singular Name', 'textdomain'),
+    'menu_name' => _x('Services', 'Admin Menu text', 'textdomain'),
+    'name_admin_bar' => _x('Service', 'Add New on Toolbar', 'textdomain'),
+    'all_items' => __('All Services', 'textdomain'),
+    'add_new_item' => __('Add New Service', 'textdomain'),
+    'add_new' => __('Add New', 'textdomain'),
+    'new_item' => __('New Service', 'textdomain'),
+    'edit_item' => __('Edit Service', 'textdomain'),
+    'view_item' => __('View Service', 'textdomain'),
+    'search_items' => __('Search Services', 'textdomain'),
+    'not_found' => __('No services found', 'textdomain'),
+    'not_found_in_trash' => __('No services found in Trash', 'textdomain'),
+  );
+
+  $args = array(
+    'label' => __('Service', 'textdomain'),
+    'labels' => $labels,
+    'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+    'taxonomies' => array('service_type'),
+    'hierarchical' => false,
+    'public' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'menu_position' => 7,
+    'show_in_admin_bar' => true,
+    'show_in_nav_menus' => true,
+    'can_export' => true,
+    'has_archive' => true,
+    'rewrite' => array('slug' => 'services'),
+    'exclude_from_search' => false,
+    'publicly_queryable' => true,
+    'show_in_rest' => true,
+    'capability_type' => 'post',
+  );
+
+  register_post_type('service', $args);
+}
+add_action('init', 'create_service_cpt', 0);
+
+// Service Type taxonomy
+function create_service_type_taxonomy()
+{
+  $labels = array(
+    'name' => _x('Service Types', 'taxonomy general name', 'textdomain'),
+    'singular_name' => _x('Service Type', 'taxonomy singular name', 'textdomain'),
+    'search_items' => __('Search Service Types', 'textdomain'),
+    'all_items' => __('All Service Types', 'textdomain'),
+    'parent_item' => __('Parent Service Type', 'textdomain'),
+    'parent_item_colon' => __('Parent Service Type:', 'textdomain'),
+    'edit_item' => __('Edit Service Type', 'textdomain'),
+    'update_item' => __('Update Service Type', 'textdomain'),
+    'add_new_item' => __('Add New Service Type', 'textdomain'),
+    'new_item_name' => __('New Service Type Name', 'textdomain'),
+    'menu_name' => __('Service Types', 'textdomain'),
+  );
+
+  $args = array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'show_in_rest' => true,
+    'query_var' => true,
+    'rewrite' => array('slug' => 'service-type'),
+  );
+
+  register_taxonomy('service_type', array('service'), $args);
+}
+add_action('init', 'create_service_type_taxonomy', 0);
+
+
 // Case Study CPT
 function create_case_study_cpt()
 {

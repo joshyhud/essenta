@@ -655,6 +655,13 @@
                 "operator": "==",
                 "value": "team_member"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "service"
+            }
         ]
     ],
     "menu_order": 0,
@@ -675,5 +682,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790167498
+    "modified": 1790173565
 }

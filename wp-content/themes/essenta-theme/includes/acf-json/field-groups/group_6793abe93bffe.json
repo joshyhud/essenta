@@ -2595,6 +2595,15 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6ab3d8c00e256": {
+                    "key": "layout_6ab3d8c00e256",
+                    "name": "services_module",
+                    "label": "Services Module",
+                    "display": "block",
+                    "sub_fields": [],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -2645,6 +2654,13 @@
                 "operator": "==",
                 "value": "team_member"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "service"
+            }
         ]
     ],
     "menu_order": 0,
@@ -2664,5 +2680,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790160537
+    "modified": 1790173555
 }

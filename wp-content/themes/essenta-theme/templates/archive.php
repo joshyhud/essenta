@@ -1,83 +1,101 @@
 <?php
-get_template_part('templates/components/archive-header', 'single');
+$posts_page_id = (int) get_option('page_for_posts');
+$posts_page = $posts_page_id ? get_post($posts_page_id) : null;
 
+if ($posts_page) {
+  global $post;
+  $post = $posts_page;
+  setup_postdata($post);
+}
+
+$recent_insights = new WP_Query(array(
+  'post_type' => 'post',
+  'posts_per_page' => 2,
+  'orderby' => 'date',
+  'order' => 'DESC',
+  'ignore_sticky_posts' => true,
+));
+
+$archive_query = $GLOBALS['wp_query'];
+$archive_categories = get_categories(array(
+  'taxonomy' => 'category',
+  'hide_empty' => false,
+  'orderby' => 'name',
+  'order' => 'ASC',
+));
 ?>
 
 <main class="archive-blogs-page">
+  <?php if ($posts_page && have_rows('header_pagebuilder')) : ?>
+    <?php get_template_part('header-page-builder'); ?>
+  <?php endif; ?>
 
-  <section class="blog-posts-header">
-    <div class="container">
-      <div class="archive-blog-header">
-        <h1 class="subheading">Our Blog</h1>
-        <h2>Jewellery guides, news & articles.</h2>
+  <?php wp_reset_postdata(); ?>
+
+  <?php if ($recent_insights->have_posts()) : ?>
+    <section class="archive-recent-insights">
+      <div class="container">
+        <div class="archive-section-heading">
+          <p class="eyebrow">Recent insights</p>
+          <h2>Latest thinking</h2>
+        </div>
+
+        <div class="archive-recent-insights-grid">
+          <?php while ($recent_insights->have_posts()) : $recent_insights->the_post(); ?>
+            <article class="archive-insight-card">
+              <a href="<?php the_permalink(); ?>">
+                <div class="archive-insight-card__image">
+                  <?php if (has_post_thumbnail()) : ?>
+                    <?php the_post_thumbnail('large', array('loading' => 'lazy')); ?>
+                  <?php endif; ?>
+                </div>
+                <div class="archive-insight-card__content">
+                  <p class="eyebrow"><?php echo esc_html(get_the_date('d.m.Y')); ?></p>
+                  <h3><?php the_title(); ?></h3>
+                  <span class="btn cta-link">Read more</span>
+                </div>
+              </a>
+            </article>
+          <?php endwhile; ?>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <?php global $wp_query; ?>
+    </section>
+  <?php endif; ?>
+  <?php wp_reset_postdata(); ?>
 
   <div class="container">
     <div class="archive-filtering">
       <div class="filter-bar">
-        <div class="filter-bar-left">
-          <button class="filter-toggle btn secondary" id="filterToggle" type="button" aria-controls="filterDropdown">
-            <span>Select Filters</span>
-            <svg class="filter-icon" width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
-              <path d="M14.5972 0.375V5.625M14.5972 5.625C13.6154 5.625 12.8194 6.4085 12.8194 7.375C12.8194 8.3415 13.6154 9.125 14.5972 9.125M14.5972 5.625C15.5791 5.625 16.375 6.4085 16.375 7.375C16.375 8.3415 15.5791 9.125 14.5972 9.125M14.5972 9.125V14.375M8.375 0.375V10.875M8.375 10.875C7.39316 10.875 6.59722 11.6585 6.59722 12.625C6.59722 13.5915 7.39316 14.375 8.375 14.375C9.35684 14.375 10.1528 13.5915 10.1528 12.625C10.1528 11.6585 9.35684 10.875 8.375 10.875ZM2.15278 3.875V14.375M2.15278 3.875C3.13462 3.875 3.93056 3.0915 3.93056 2.125C3.93056 1.1585 3.13462 0.375 2.15278 0.375C1.17094 0.375 0.375 1.1585 0.375 2.125C0.375 3.0915 1.17094 3.875 2.15278 3.875Z" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <svg class="close-icon" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
-              <path d="M1 1L16 16M16 1L1 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <div class="selected-filters" aria-live="polite">
-            <?php echo facetwp_display('selections'); ?>
-          </div>
+        <div class="archive-category-filters" aria-label="Filter insights by category">
+          <button class="archive-category-filter is-active" type="button" data-category="" aria-pressed="true">All</button>
+          <?php foreach ($archive_categories as $category) : ?>
+            <button
+              class="archive-category-filter<?php echo $category->count ? '' : ' is-disabled'; ?>"
+              type="button"
+              data-category="<?php echo esc_attr($category->slug); ?>"
+              aria-pressed="false"
+              <?php echo $category->count ? '' : ' disabled'; ?>><?php echo esc_html($category->name); ?></button>
+          <?php endforeach; ?>
         </div>
 
         <div class="filter-bar-right">
           <div class="results-count">
             <?php
-            echo '<span>' . esc_html($wp_query->post_count) . '</span> Results';
+            echo '<span>' . esc_html($archive_query->post_count) . '</span> Results';
             ?>
           </div>
 
-          <div class="sort-dropdown">
-            <p>Sort By: </p>
-            <?php
-            if (function_exists('facetwp_display')) {
-              echo facetwp_display('facet', 'blog_sort');
-            }
-            ?>
-          </div>
         </div>
       </div>
 
-      <div class="filter-dropdown" id="filterDropdown" hidden>
-        <div class="filter-facets">
-          <?php if (function_exists('facetwp_display')) : ?>
-
-            <details class="facet-group facet-category">
-              <summary>Category</summary>
-              <?php echo facetwp_display('facet', 'blog_categories'); ?>
-            </details>
-
-          <?php endif; ?>
-        </div>
-      </div>
     </div>
 
     <div class="all-posts-grid facetwp-template">
       <div class="blog-grid">
-        <?php if (have_posts()) : ?>
-          <?php while (have_posts()) : the_post(); ?>
+        <?php if ($archive_query->have_posts()) : ?>
+          <?php while ($archive_query->have_posts()) : $archive_query->the_post(); ?>
             <div class="blog-card">
               <a href="<?php the_permalink(); ?>">
-                <div class="blog-card-content">
-                  <p class="blog-card-title subheading">
-                    <?php the_title(); ?>
-                  </p>
-                </div>
-
                 <div class="blog-card-image">
                   <?php
                   $thumb_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
@@ -86,6 +104,17 @@ get_template_part('templates/components/archive-header', 'single');
                   <?php else : ?>
                     <img loading="lazy" src="<?php echo get_template_directory_uri() . '/src/images/product-placeholder.png'; ?>" alt="Placeholder Image">
                   <?php endif; ?>
+                </div>
+
+                <div class="blog-card-content">
+                  <div class="blog-card-categories">
+                    <?php foreach (get_the_category() as $category) : ?>
+                      <span class="pill outline"><?php echo esc_html($category->name); ?></span>
+                    <?php endforeach; ?>
+                  </div>
+                  <p class="blog-card-title subheading"><?php the_title(); ?></p>
+                  <p class="blog-card-excerpt"><?php echo esc_html(get_the_excerpt()); ?></p>
+                  <span class="blog-card-readmore btn cta-link">Read more</span>
                 </div>
               </a>
             </div>
@@ -98,9 +127,9 @@ get_template_part('templates/components/archive-header', 'single');
 
     <div class="pagination-wrapper">
       <?php
-      if ($wp_query->max_num_pages > 1) :
+      if ($archive_query->max_num_pages > 1) :
         $pagination = paginate_links(array(
-          'total' => $wp_query->max_num_pages,
+          'total' => $archive_query->max_num_pages,
           'current' => max(1, get_query_var('paged')),
           'prev_text' => 'Previous',
           'next_text' => 'Next',
@@ -140,24 +169,48 @@ get_template_part('templates/components/archive-header', 'single');
     </div>
   </div>
 
+  <?php if ($posts_page) : ?>
+    <?php
+    global $post;
+    $post = $posts_page;
+    setup_postdata($post);
+    ?>
+    <?php if (have_rows('page_builder')) : ?>
+      <?php get_template_part('page-builder'); ?>
+    <?php endif; ?>
+    <?php wp_reset_postdata(); ?>
+  <?php endif; ?>
+
 </main>
+
+<?php wp_reset_postdata(); ?>
 
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.archive-category-filter:not([disabled])');
 
-    const toggle = document.getElementById('filterToggle');
-    const dropdown = document.getElementById('filterDropdown');
-    const selected = document.getElementById('selectedFilters');
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        if (typeof FWP === 'undefined') {
+          return;
+        }
 
-    if (toggle && dropdown) {
-      toggle.addEventListener('click', function() {
-        const isHidden = dropdown.hidden;
-        dropdown.hidden = !isHidden;
-        toggle.setAttribute('aria-expanded', String(isHidden));
+        FWP.facets.blog_categories = button.dataset.category ? [button.dataset.category] : [];
+        FWP.refresh();
       });
-    }
+    });
 
+    document.addEventListener('facetwp-loaded', function() {
+      const selectedCategory = typeof FWP !== 'undefined' && FWP.facets.blog_categories ?
+        FWP.facets.blog_categories[0] || '' :
+        '';
 
+      buttons.forEach(function(button) {
+        const isActive = button.dataset.category === selectedCategory;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+    });
   });
 </script>

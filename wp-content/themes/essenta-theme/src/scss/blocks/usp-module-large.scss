@@ -11,10 +11,17 @@
   }
 
   &__header {
-    max-width: 48rem;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
     gap: 1rem;
+
+    .usp-module-large__header-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 
   &__subheading {
@@ -29,7 +36,6 @@
   }
 
   &__text {
-    margin: 0;
     max-width: 42rem;
     color: var(--color-sand-600);
 

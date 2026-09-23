@@ -15,13 +15,15 @@ $usp_module_items = get_sub_field('usp_module_items');
     <div class="container">
         <?php if ($usp_module_subheading || $usp_module_heading || $usp_module_text): ?>
             <div class="usp-module-large__header">
-                <?php if ($usp_module_subheading): ?>
-                    <p class="usp-module-large__subheading eyebrow"><?php echo esc_html($usp_module_subheading); ?></p>
-                <?php endif; ?>
+                <div class="usp-module-large__header-inner">
+                    <?php if ($usp_module_subheading): ?>
+                        <p class="usp-module-large__subheading eyebrow"><?php echo esc_html($usp_module_subheading); ?></p>
+                    <?php endif; ?>
 
-                <?php if ($usp_module_heading): ?>
-                    <h2 class="usp-module-large__heading"><?php echo esc_html($usp_module_heading); ?></h2>
-                <?php endif; ?>
+                    <?php if ($usp_module_heading): ?>
+                        <h2 class="usp-module-large__heading"><?php echo esc_html($usp_module_heading); ?></h2>
+                    <?php endif; ?>
+                </div> <!-- .usp-module-large__header-inner -->
 
                 <?php if ($usp_module_text): ?>
                     <div class="usp-module-large__text"><?php echo wp_kses_post($usp_module_text); ?></div>

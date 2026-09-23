@@ -711,6 +711,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let startHeight = 0;
       let bottomOffsetInHero = 0;
       let topOffsetInHero = 0;
+      let reverseStartRect = null;
 
       // collapsed | expanding | released | collapsing
       let phase = "collapsed";
@@ -788,6 +789,33 @@ document.addEventListener("DOMContentLoaded", () => {
         wrapper.style.borderRadius = "0px";
       }
 
+      function applyReverseProgress(p) {
+        if (!reverseStartRect) {
+          applyProgress(p);
+          return;
+        }
+
+        const initialTop = startTop - window.scrollY;
+        const initialLeft = startLeft;
+        const initialWidth = startWidth;
+        const initialHeight = startHeight;
+
+        wrapper.style.position = "fixed";
+        wrapper.style.top = `${
+          initialTop + (reverseStartRect.top - initialTop) * p
+        }px`;
+        wrapper.style.left = `${
+          initialLeft + (reverseStartRect.left - initialLeft) * p
+        }px`;
+        wrapper.style.width = `${
+          initialWidth + (reverseStartRect.width - initialWidth) * p
+        }px`;
+        wrapper.style.height = `${
+          initialHeight + (reverseStartRect.height - initialHeight) * p
+        }px`;
+        wrapper.style.borderRadius = `${startBorderRadius * (1 - p)}px`;
+      }
+
       function releaseJack() {
         phase = "released";
         unlockScroll();
@@ -797,13 +825,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
       function collapse() {
         phase = "collapsed";
+        progress = 0;
+        reverseStartRect = null;
         unlockScroll();
         resetWrapper();
 
-        if (!video.paused) {
-          video.pause();
-          video.currentTime = 0;
+        video.pause();
+        video.currentTime = 0;
+      }
+
+      function resetAtTop() {
+        if (
+          isMobile() ||
+          window.scrollY > 0 ||
+          phase === "expanding" ||
+          phase === "collapsing"
+        ) {
+          return;
         }
+
+        phase = "collapsed";
+        progress = 0;
+        unlockScroll();
+        resetWrapper();
+        video.pause();
+        video.currentTime = 0;
+        measure();
+      }
+
+      function isHeroInView() {
+        const rect = heroSection.getBoundingClientRect();
+        return rect.bottom > 0 && rect.top < window.innerHeight;
       }
 
       function handleWheel(event) {
@@ -812,14 +864,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (phase === "released") {
-          // Only re-engage (in reverse) if back at the very top and still
-          // trying to scroll up further.
-          if (window.scrollY <= 0 && event.deltaY < 0) {
+          // Re-engage in reverse while the released hero is still visible.
+          if (isHeroInView() && event.deltaY < 0) {
             event.preventDefault();
+            reverseStartRect = wrapper.getBoundingClientRect();
             lockScroll();
             phase = "collapsing";
             progress = 1;
-            applyProgress(progress);
+            applyReverseProgress(progress);
           }
           return;
         }
@@ -845,7 +897,7 @@ document.addEventListener("DOMContentLoaded", () => {
             Math.max(progress + event.deltaY / growPxDistance, 0),
             1,
           );
-          applyProgress(progress);
+          applyReverseProgress(progress);
 
           if (progress >= 1) {
             releaseJack();
@@ -873,14 +925,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       measure();
 
-      // If the page loads/reloads already scrolled past the hero (e.g. the
-      // browser restored scroll position), keep the video in its large,
-      // released state instead of snapping back to the small start size.
-      if (!isMobile() && window.scrollY > 0) {
-        progress = 1;
-        phase = "released";
-        applyReleasedStyles();
-      }
+      // A restored lower-page load keeps the video at its original size.
+      // The animation only becomes active again after returning to the top
+      // and starting a new downward scroll.
 
       window.addEventListener("resize", () => {
         // Locking body scroll can hide the scrollbar and fire a resize event
@@ -891,13 +938,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
       window.addEventListener("wheel", handleWheel, { passive: false });
+      window.addEventListener("scroll", resetAtTop, { passive: true });
 
       // Stop playback once the hero has scrolled fully out of view
       const videoObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (!entry.isIntersecting && !video.paused) {
-              video.pause();
+            if (!entry.isIntersecting) {
+              // Leaving the hero always returns it to the initial, paused
+              // state. This also handles pages loaded below the hero.
+              collapse();
             }
           });
         },

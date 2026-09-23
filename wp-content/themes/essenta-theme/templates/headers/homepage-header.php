@@ -29,7 +29,7 @@ $hero_cta_link = get_sub_field('homepage_cta');
     <?php if ($hero_image && $hero_image['type'] === 'video'): ?>
       <div class="homepage-hero-image-wrapper has-scroll-video">
         <div class="homepage-hero-image">
-          <video class="homepage-hero-video" playsinline muted controls>
+          <video class="homepage-hero-video" playsinline muted controls preload="auto">
             <source
               src="<?php echo esc_url($hero_image['url']); ?>"
               type="video/mp4">

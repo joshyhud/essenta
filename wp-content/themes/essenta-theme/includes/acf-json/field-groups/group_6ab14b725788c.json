@@ -97,6 +97,28 @@
             "admin_only": 0
         },
         {
+            "key": "field_6ab14bc9738b2",
+            "label": "Office Opening Hours",
+            "name": "office_opening_hours",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "visual",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0,
+            "admin_only": 0
+        },
+        {
             "key": "field_6ab14bdc738b2",
             "label": "Office Specialisms",
             "name": "office_specialisms",

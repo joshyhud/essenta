@@ -253,3 +253,82 @@ function bn_search_distinct_for_sku($distinct, $wp_query)
 
   return 'DISTINCT';
 }
+
+
+
+/**
+ * Get the visitor's country calling code from their IP address.
+ *
+ * Example:
+ * UK       => +44
+ * USA      => +1
+ * Portugal => +351
+ *
+ * @return string
+ */
+function get_visitor_country_calling_code()
+{
+
+  // Get the visitor's IP address.
+  $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+
+  if (empty($ip) || ! filter_var($ip, FILTER_VALIDATE_IP)) {
+    return '';
+  }
+
+  // Cache the result for this IP for 24 hours.
+  $cache_key = 'visitor_calling_code_' . md5($ip);
+  $cached    = get_transient($cache_key);
+
+  if ($cached !== false) {
+    return $cached;
+  }
+
+  // Look up the IP.
+  $response = wp_remote_get(
+    'https://ipapi.co/' . rawurlencode($ip) . '/country_calling_code/',
+    [
+      'timeout' => 2,
+    ]
+  );
+
+  if (is_wp_error($response)) {
+    return '';
+  }
+
+  if (wp_remote_retrieve_response_code($response) !== 200) {
+    return '';
+  }
+
+  $calling_code = trim(wp_remote_retrieve_body($response));
+
+  // Make sure we actually received something like +44.
+  if (! preg_match('/^\+\d+(?:,\s*\+\d+)*$/', $calling_code)) {
+    return '';
+  }
+
+  // Cache for 24 hours.
+  set_transient($cache_key, $calling_code, DAY_IN_SECONDS);
+
+  return $calling_code;
+}
+
+
+/**
+ * Populate the Gravity Forms phone country calling code.
+ */
+add_filter(
+  'gform_field_value_country_calling_code',
+  'populate_gravity_forms_country_calling_code'
+);
+
+function populate_gravity_forms_country_calling_code($value)
+{
+
+  // Don't overwrite an existing value.
+  if (! empty($value)) {
+    return $value;
+  }
+
+  return get_visitor_country_calling_code();
+}

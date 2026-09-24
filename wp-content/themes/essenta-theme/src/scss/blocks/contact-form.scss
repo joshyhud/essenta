@@ -1,0 +1,133 @@
+.contact-form {
+  background: var(--color-sand-300);
+  padding: 5rem 0;
+
+  &__layout {
+    align-items: start;
+    display: grid;
+    gap: clamp(2rem, 5vw, 5rem);
+    grid-template-columns: minmax(0, 1.65fr) minmax(18rem, 0.85fr);
+  }
+
+  &__main {
+    min-width: 0;
+  }
+
+  &__intro {
+    margin-bottom: 2rem;
+
+    h4 {
+      color: var(--color-navy-500);
+      margin: 0 0 1rem;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__form {
+    min-width: 0;
+  }
+
+  &__offices {
+    display: grid;
+    gap: 1rem;
+  }
+
+  &__office-card {
+    background: var(--color-sand-500);
+    color: var(--color-navy-900);
+    padding: 33px 42px;
+    border-radius: 5px;
+
+    h5 {
+      font-family: var(--font-circular-reg);
+      font-size: clamp(1.125rem, 2vw, 1.25rem);
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  &__office-eyebrow {
+    color: var(--color-sand-800);
+    font-family: var(--font-circular-med);
+    font-size: 0.65rem;
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+  }
+
+  &__office-details {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  &__office-row {
+    align-items: flex-start;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    line-height: 19px;
+    gap: 0.75rem;
+    line-height: 1.5;
+
+    .contact-form__icon {
+      width: 40px;
+      height: 40px;
+      padding: 11px;
+      border: 1px solid var(--color-sand-800);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 1rem;
+        margin-top: 0.15rem;
+        object-fit: contain;
+        width: 1rem;
+      }
+    }
+
+    address {
+      font-style: normal;
+    }
+
+    a {
+      color: inherit;
+      overflow-wrap: anywhere;
+      text-decoration: none;
+
+      &:hover,
+      &:focus-visible {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__office-row--hours {
+    p {
+      margin: 0;
+    }
+  }
+}
+
+@media (width <= 980px) {
+  .contact-form {
+    padding: 3rem 0;
+
+    &__layout {
+      grid-template-columns: 1fr;
+    }
+
+    &__offices {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+@media (width <= 620px) {
+  .contact-form__offices {
+    grid-template-columns: 1fr;
+  }
+}

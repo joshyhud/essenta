@@ -1,4 +1,11 @@
-<?php get_header(); ?>
+<?php
+/*
+Template Name: Office Page
+Template Post Type: page
+*/
+
+get_header();
+?>
 
 
 <main class="content">

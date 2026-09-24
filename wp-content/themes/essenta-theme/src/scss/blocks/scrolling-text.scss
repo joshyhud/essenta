@@ -1,0 +1,107 @@
+.scrolling-text {
+  background: var(--color-sand-300);
+  padding: clamp(4rem, 7vw, 7rem) 0;
+
+  .container {
+    align-items: start;
+    display: grid;
+    gap: clamp(3rem, 9vw, 10rem);
+    grid-template-columns: minmax(13rem, 0.75fr) minmax(0, 1.25fr);
+  }
+
+  .scrolling-text-header {
+    position: sticky;
+    top: 8rem;
+  }
+
+  .scrolling-text-subheading {
+    color: var(--color-sand-800);
+    margin: 0 0 0.85rem;
+  }
+
+  .scrolling-text-heading {
+    color: var(--color-navy-900);
+    font-family: var(--font-adelle);
+    font-size: clamp(2rem, 3.2vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.08;
+    margin: 0;
+    max-width: 12ch;
+  }
+
+  .scrolling-text-content {
+    color: var(--color-navy-900);
+    display: flow-root;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    max-width: 42rem;
+
+    > :first-child {
+      font-size: 0.78rem;
+      margin: 0 0 clamp(2.5rem, 5vw, 4.5rem);
+      max-width: 38rem;
+    }
+
+    > h2,
+    > h3,
+    > h4 {
+      border-left: 2px solid var(--color-teal-500);
+      color: var(--color-navy-500);
+      font-family: var(--font-circular-med);
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      font-weight: 500;
+      line-height: 1.25;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding-bottom: 1rem;
+      padding-left: clamp(1.25rem, 3vw, 2.5rem);
+      padding-top: 0.25rem;
+    }
+
+    > p:not(:first-child),
+    > ul:not(:first-child),
+    > ol:not(:first-child) {
+      color: var(--color-sand-900);
+      margin-bottom: clamp(2.25rem, 4vw, 3.75rem);
+      padding-bottom: 0.5rem;
+    }
+
+    > ul,
+    > ol {
+      padding-inline-start: calc(clamp(1.25rem, 3vw, 2.5rem) + 1.25rem);
+    }
+
+    > blockquote:not(:first-child) {
+      font-family: var(--font-adelle);
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      line-height: 1.3;
+      padding-bottom: clamp(2.25rem, 4vw, 3.75rem);
+      padding-top: 0.25rem;
+    }
+
+    > :last-child {
+      padding-bottom: 0;
+    }
+  }
+}
+
+@media (width <= 760px) {
+  .scrolling-text {
+    .container {
+      gap: 2.5rem;
+      grid-template-columns: 1fr;
+    }
+
+    .scrolling-text-header {
+      position: static;
+    }
+
+    .scrolling-text-heading {
+      max-width: 14ch;
+    }
+
+    .scrolling-text-content {
+      max-width: none;
+    }
+  }
+}

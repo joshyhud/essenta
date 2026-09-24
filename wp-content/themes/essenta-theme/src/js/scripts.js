@@ -974,6 +974,130 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("resize", updateFooterDetails);
 
+  document.querySelectorAll("[data-team-filters]").forEach((filters) => {
+    const directory = filters.closest(".team-archive__directory");
+    const cards = Array.from(directory.querySelectorAll(".team-archive__card"));
+    const emptyMessage = directory.querySelector("[data-team-empty]");
+    const visibleCountElement = filters.querySelector(
+      "[data-team-visible-count]",
+    );
+    const locationFilter = filters.querySelector(
+      '[data-team-filter="location"]',
+    );
+    const departmentFilter = filters.querySelector(
+      '[data-team-filter="department"]',
+    );
+
+    function cardHasTerm(card, taxonomy, term) {
+      if (!term) return true;
+      return card.dataset[taxonomy].split(" ").includes(term);
+    }
+
+    function filterTeamMembers() {
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const isVisible =
+          cardHasTerm(card, "teamLocation", locationFilter.value) &&
+          cardHasTerm(card, "teamDepartment", departmentFilter.value);
+
+        card.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      emptyMessage.hidden = visibleCount !== 0;
+      visibleCountElement.textContent = visibleCount;
+    }
+
+    locationFilter.addEventListener("change", filterTeamMembers);
+    departmentFilter.addEventListener("change", filterTeamMembers);
+  });
+
+  document.querySelectorAll("[data-team-drawer]").forEach((drawerShell) => {
+    const drawer = drawerShell.querySelector(".team-archive__drawer");
+    const drawerContent = drawerShell.querySelector(
+      "[data-team-drawer-content]",
+    );
+    const triggers = document.querySelectorAll(
+      `[data-team-profile][aria-controls="${drawer.id}"]`,
+    );
+    const closeButtons = drawerShell.querySelectorAll(
+      "[data-team-drawer-close]",
+    );
+    let activeTrigger = null;
+    let closeTimer;
+
+    function closeDrawer() {
+      clearTimeout(closeTimer);
+      drawerShell.classList.remove("is-open");
+      document.body.classList.remove("team-drawer-open");
+      triggers.forEach((trigger) =>
+        trigger.setAttribute("aria-expanded", "false"),
+      );
+
+      closeTimer = window.setTimeout(() => {
+        drawerShell.hidden = true;
+        drawerContent.replaceChildren();
+      }, 450);
+
+      activeTrigger?.focus();
+      activeTrigger = null;
+    }
+
+    function openDrawer(trigger) {
+      const profileTemplate = document.getElementById(
+        trigger.dataset.teamProfile,
+      );
+      if (!profileTemplate) return;
+
+      clearTimeout(closeTimer);
+      drawerContent.replaceChildren(profileTemplate.content.cloneNode(true));
+      triggers.forEach((item) => item.setAttribute("aria-expanded", "false"));
+      trigger.setAttribute("aria-expanded", "true");
+      activeTrigger = trigger;
+      drawerShell.hidden = false;
+      document.body.classList.add("team-drawer-open");
+
+      requestAnimationFrame(() => {
+        drawerShell.classList.add("is-open");
+        drawer.focus();
+      });
+    }
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => openDrawer(trigger));
+    });
+    closeButtons.forEach((button) =>
+      button.addEventListener("click", closeDrawer),
+    );
+
+    drawerShell.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeDrawer();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = Array.from(
+        drawer.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => !element.closest("[hidden]"));
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  });
+
   // Toggle read moe for header
 
   document.querySelectorAll(".expand").forEach((container) => {

@@ -23,6 +23,257 @@
             "prepend": "",
             "append": "",
             "admin_only": 0
+        },
+        {
+            "key": "field_6ab4da2dd7c16",
+            "label": "Team Member Contact",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "admin_only": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6ab4da4bd7c17",
+            "label": "Team Member Linkedin",
+            "name": "team_member_linkedin",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "allow_in_bindings": 0,
+            "admin_only": 0
+        },
+        {
+            "key": "field_6ab4da59d7c18",
+            "label": "Team Member Email",
+            "name": "team_member_email",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "allow_in_bindings": 0,
+            "admin_only": 0
+        },
+        {
+            "key": "field_6ab4da6bd7c19",
+            "label": "Team Member Exptertise",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "admin_only": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6ab4da7fd7c1a",
+            "label": "Team Member Expertise",
+            "name": "team_member_expertise",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "admin_only": 0,
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6ab4da7fd7c1b",
+                    "label": "Expertise",
+                    "name": "expertise",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6ab4da7fd7c1a",
+                    "admin_only": 0
+                }
+            ]
+        },
+        {
+            "key": "field_6ab4da94d7c1b",
+            "label": "Team Member Content",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "admin_only": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6ab4da9ed7c1c",
+            "label": "Professional Overview",
+            "name": "professional_overview",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "admin_only": 0
+        },
+        {
+            "key": "field_6ab4dab2d7c1d",
+            "label": "Sector and Functional Experience",
+            "name": "sector_and_functional_experience",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "admin_only": 0
+        },
+        {
+            "key": "field_6ab4dacbd7c1e",
+            "label": "Relevant career experience",
+            "name": "relevant_career_experience",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "admin_only": 0
+        },
+        {
+            "key": "field_6ab4dad8d7c1f",
+            "label": "Personal Perspective",
+            "name": "personal_perspective",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "admin_only": 0
+        },
+        {
+            "key": "field_6ab4daf7d7c20",
+            "label": "Featured quote",
+            "name": "featured_quote",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "admin_only": 0
         }
     ],
     "location": [
@@ -46,5 +297,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790002606
+    "modified": 1790237438
 }

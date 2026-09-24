@@ -309,6 +309,95 @@ function create_service_type_taxonomy()
 add_action('init', 'create_service_type_taxonomy', 0);
 
 
+// Expertise CPT
+function create_expertise_cpt()
+{
+  $labels = array(
+    'name' => _x('Expertise', 'Post Type General Name', 'textdomain'),
+    'singular_name' => _x('Expertise', 'Post Type Singular Name', 'textdomain'),
+    'menu_name' => _x('Expertise', 'Admin Menu text', 'textdomain'),
+    'name_admin_bar' => _x('Expertise', 'Add New on Toolbar', 'textdomain'),
+    'all_items' => __('All Expertise', 'textdomain'),
+    'add_new_item' => __('Add New Expertise', 'textdomain'),
+    'add_new' => __('Add New', 'textdomain'),
+    'new_item' => __('New Expertise', 'textdomain'),
+    'edit_item' => __('Edit Expertise', 'textdomain'),
+    'update_item' => __('Update Expertise', 'textdomain'),
+    'view_item' => __('View Expertise', 'textdomain'),
+    'view_items' => __('View Expertise', 'textdomain'),
+    'search_items' => __('Search Expertise', 'textdomain'),
+    'not_found' => __('No expertise found', 'textdomain'),
+    'not_found_in_trash' => __('No expertise found in Trash', 'textdomain'),
+    'featured_image' => __('Featured Image', 'textdomain'),
+    'set_featured_image' => __('Set featured image', 'textdomain'),
+    'remove_featured_image' => __('Remove featured image', 'textdomain'),
+    'use_featured_image' => __('Use as featured image', 'textdomain'),
+  );
+
+  $args = array(
+    'label' => __('Expertise', 'textdomain'),
+    'labels' => $labels,
+    'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+    'taxonomies' => array('expertise_sector'),
+    'hierarchical' => false,
+    'public' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'menu_position' => 7,
+    'show_in_admin_bar' => true,
+    'show_in_nav_menus' => true,
+    'can_export' => true,
+    'has_archive' => false,
+    'rewrite' => array(
+      'slug' => 'expertise',
+      'with_front' => false,
+    ),
+    'exclude_from_search' => false,
+    'publicly_queryable' => true,
+    'show_in_rest' => true,
+    'capability_type' => 'post',
+  );
+
+  register_post_type('expertise', $args);
+}
+add_action('init', 'create_expertise_cpt', 0);
+
+// Sector taxonomy for Expertise
+function create_expertise_sector_taxonomy()
+{
+  $labels = array(
+    'name' => _x('Sectors', 'taxonomy general name', 'textdomain'),
+    'singular_name' => _x('Sector', 'taxonomy singular name', 'textdomain'),
+    'search_items' => __('Search Sectors', 'textdomain'),
+    'all_items' => __('All Sectors', 'textdomain'),
+    'parent_item' => __('Parent Sector', 'textdomain'),
+    'parent_item_colon' => __('Parent Sector:', 'textdomain'),
+    'edit_item' => __('Edit Sector', 'textdomain'),
+    'update_item' => __('Update Sector', 'textdomain'),
+    'add_new_item' => __('Add New Sector', 'textdomain'),
+    'new_item_name' => __('New Sector Name', 'textdomain'),
+    'menu_name' => __('Sectors', 'textdomain'),
+  );
+
+  $args = array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'public' => true,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'show_in_rest' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'expertise-sector',
+      'with_front' => false,
+    ),
+  );
+
+  register_taxonomy('expertise_sector', array('expertise'), $args);
+}
+add_action('init', 'create_expertise_sector_taxonomy', 0);
+
+
 // Case Study CPT
 function create_case_study_cpt()
 {
@@ -345,7 +434,7 @@ function create_case_study_cpt()
     'menu_position' => 4,
     'show_in_nav_menus' => true,
     'has_archive' => true,
-    'rewrite' => array('slug' => 'case-studies'),
+    'rewrite' => array('slug' => 'results'),
     'show_in_rest' => true,
   );
 

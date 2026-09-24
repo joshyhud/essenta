@@ -10,6 +10,8 @@ body {
     var(--font-circular-reg), var(--font-adelle), "Open Sans", sans-serif;
   color: var(--color-navy-900);
   background-color: var(--color-sand-300);
+
+  cursor: default;
   &.mm-locked {
     overflow: hidden;
   }

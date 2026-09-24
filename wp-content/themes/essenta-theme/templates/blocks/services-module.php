@@ -89,7 +89,7 @@ $first_service = $services[0];
             var $image = $block.find('.services-block__image');
 
             // Keep one service open at a time and sync the featured image with it.
-            $block.on('toggle', '.services-block__item', function() {
+            $block.find('.services-block__item').on('toggle', function() {
                 var $item = $(this);
 
                 if (!$item.prop('open')) {
@@ -98,8 +98,8 @@ $first_service = $services[0];
 
                 $block.find('.services-block__item').not(this).prop('open', false);
 
-                if ($image.length && $item.data('image')) {
-                    $image.attr('src', $item.data('image')).attr('alt', $item.data('alt'));
+                if ($image.length && $item.attr('data-image')) {
+                    $image.attr('src', $item.attr('data-image')).attr('alt', $item.attr('data-alt'));
                 }
             });
         });

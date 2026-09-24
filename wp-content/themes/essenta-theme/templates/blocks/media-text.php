@@ -43,16 +43,20 @@ $media_text_content = get_sub_field('media_text_content');
         <h2><?php echo esc_html($media_heading); ?></h2>
         <?php echo wp_kses_post($media_content); ?>
         <div class="media-ctas">
-          <?php if ($media_cta && $background_value != 'navy-blue') { ?>
-            <a href="<?php echo esc_url($media_cta['url']); ?>" class="btn primary"><?php echo esc_html($media_cta['title']); ?></a>
-          <?php } else { ?>
-            <a href="<?php echo esc_url($media_cta['url']); ?>" class="btn primary--light"><?php echo esc_html($media_cta['title']); ?></a>
-          <?php } ?>
-          <?php if ($media_cta_secondary && $background_value != 'navy-blue') { ?>
-            <a href="<?php echo esc_url($media_cta_secondary['url']); ?>" class="btn secondary"><?php echo esc_html($media_cta_secondary['title']); ?></a>
-          <?php } else { ?>
-            <a href="<?php echo esc_url($media_cta_secondary['url']); ?>" class="btn secondary--light"><?php echo esc_html($media_cta_secondary['title']); ?></a>
-          <?php } ?>
+          <?php if ($media_cta): ?>
+            <?php if ($background_value != 'navy-blue') { ?>
+              <a href="<?php echo esc_url($media_cta['url']); ?>" class="btn primary"><?php echo esc_html($media_cta['title']); ?></a>
+            <?php } else { ?>
+              <a href="<?php echo esc_url($media_cta['url']); ?>" class="btn primary--light"><?php echo esc_html($media_cta['title']); ?></a>
+            <?php } ?>
+          <?php endif; ?>
+          <?php if ($media_cta_secondary): ?>
+            <?php if ($background_value != 'navy-blue') { ?>
+              <a href="<?php echo esc_url($media_cta_secondary['url']); ?>" class="btn secondary"><?php echo esc_html($media_cta_secondary['title']); ?></a>
+            <?php } else { ?>
+              <a href="<?php echo esc_url($media_cta_secondary['url']); ?>" class="btn secondary--light"><?php echo esc_html($media_cta_secondary['title']); ?></a>
+            <?php } ?>
+          <?php endif; ?>
         </div>
       </div>
     </div>

@@ -662,6 +662,13 @@
                 "operator": "==",
                 "value": "service"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "expertise"
+            }
         ]
     ],
     "menu_order": 0,
@@ -682,5 +689,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790173565
+    "modified": 1790238056
 }

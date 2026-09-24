@@ -30,6 +30,8 @@
     background-color: var(--color-beige-500);
 
     &[open] {
+      flex: 1;
+
       summary {
         display: none;
       }

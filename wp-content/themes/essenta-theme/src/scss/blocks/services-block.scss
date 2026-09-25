@@ -40,7 +40,7 @@
       overflow: hidden;
       transition:
         block-size 450ms cubic-bezier(0.76, 0, 0.24, 1),
-        content-visibility 450ms allow-discrete,
+        content-visibility 600ms allow-discrete,
         opacity 250ms ease;
     }
 
@@ -76,9 +76,9 @@
       font-size: 1rem;
       overflow: hidden;
       transition:
-        max-height 300ms ease,
-        opacity 200ms ease,
-        padding 300ms ease;
+        max-height 600ms ease,
+        opacity 500ms ease,
+        padding 500ms ease;
 
       &::after {
         right: 50px;

@@ -30,7 +30,9 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
             <?php endif; ?>
 
             <?php if ($intro_text) : ?>
-                <?php echo wp_kses_post($intro_text); ?>
+                <div class="introduction-block__text">
+                    <?php echo wp_kses_post($intro_text); ?>
+                </div>
             <?php endif; ?>
 
             <?php if ($intro_primary_cta) : ?>

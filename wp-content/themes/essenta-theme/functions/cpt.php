@@ -397,6 +397,35 @@ function create_expertise_sector_taxonomy()
 }
 add_action('init', 'create_expertise_sector_taxonomy', 0);
 
+// Expertise taxonomy for blog posts
+function create_post_expertise_taxonomy()
+{
+  $labels = array(
+    'name' => _x('Post Expertise', 'taxonomy general name', 'textdomain'),
+    'singular_name' => _x('Post Expertise', 'taxonomy singular name', 'textdomain'),
+    'search_items' => __('Search Post Expertise', 'textdomain'),
+    'all_items' => __('All Post Expertise', 'textdomain'),
+    'parent_item' => __('Parent Post Expertise', 'textdomain'),
+    'parent_item_colon' => __('Parent Post Expertise:', 'textdomain'),
+    'edit_item' => __('Edit Post Expertise', 'textdomain'),
+    'update_item' => __('Update Post Expertise', 'textdomain'),
+    'add_new_item' => __('Add New Post Expertise', 'textdomain'),
+    'new_item_name' => __('New Post Expertise Name', 'textdomain'),
+    'menu_name' => __('Post Expertise', 'textdomain'),
+  );
+
+  register_taxonomy('post-expertise', array('post'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'show_in_rest' => true,
+    'query_var' => true,
+    'rewrite' => array('slug' => 'post-expertise'),
+  ));
+}
+add_action('init', 'create_post_expertise_taxonomy', 0);
+
 
 // Case Study CPT
 function create_case_study_cpt()

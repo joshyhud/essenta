@@ -97,28 +97,6 @@
             "admin_only": 0
         },
         {
-            "key": "field_6ab14bc9738b2",
-            "label": "Office Opening Hours",
-            "name": "office_opening_hours",
-            "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "allow_in_bindings": 0,
-            "tabs": "visual",
-            "toolbar": "basic",
-            "media_upload": 0,
-            "delay": 0,
-            "admin_only": 0
-        },
-        {
             "key": "field_6ab14bdc738b2",
             "label": "Office Specialisms",
             "name": "office_specialisms",
@@ -144,6 +122,28 @@
             "multiple": 0,
             "allow_null": 0,
             "bidirectional_target": []
+        },
+        {
+            "key": "field_6ab6990c9613e",
+            "label": "Office Content",
+            "name": "office_content",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "This content will display on the office info block not the office page",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "admin_only": 0
         }
     ],
     "location": [
@@ -167,5 +167,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790069200
+    "modified": 1790351659
 }

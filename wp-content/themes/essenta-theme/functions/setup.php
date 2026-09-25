@@ -13,9 +13,9 @@ function add_theme_scripts()
   // Enqueue style.css with version updating
   wp_enqueue_style('main_style', get_stylesheet_directory_uri() . '/dist/css/style.min.css', array(), $style_ver);
   // Enqueue latest version of jQuery
-  wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-latest.min.js', array(), null, true);
+  wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-latest.min.js', array(), null);
   // Enqueue script.js with version updating and dependency on jQuery
-  wp_enqueue_script('main-script', get_stylesheet_directory_uri() . '/dist/js/scripts.min.js', array('jquery'), $script_ver);
+  wp_enqueue_script('main-script', get_stylesheet_directory_uri() . '/dist/js/scripts.min.js', array('jquery', 'accessible-slick-cdn-js'), $script_ver, true);
 }
 add_action('wp_enqueue_scripts', 'add_theme_scripts');
 
@@ -61,6 +61,7 @@ function add_cdn_libraries()
   wp_enqueue_script(
     'accessible-slick-cdn-js', // Handle name
     'https://cdn.jsdelivr.net/npm/@accessible360/accessible-slick@1.0.1/slick/slick.min.js', // CDN URL
+    array('jquery'), // Dependencies
   );
 }
 add_action('wp_enqueue_scripts', 'add_cdn_libraries');

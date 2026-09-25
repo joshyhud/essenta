@@ -887,13 +887,30 @@ document.addEventListener("DOMContentLoaded", () => {
     function filterTeamMembers() {
       let visibleCount = 0;
 
-      cards.forEach((card) => {
+      cards.forEach((card, index) => {
         const isVisible =
           cardHasTerm(card, "teamLocation", locationFilter.value) &&
           cardHasTerm(card, "teamDepartment", departmentFilter.value);
 
-        card.hidden = !isVisible;
-        if (isVisible) visibleCount += 1;
+        if (isVisible) {
+          card.hidden = false;
+          card.style.transitionDelay = `${Math.min(0.2, index * 0.03)}s`;
+
+          requestAnimationFrame(() => {
+            card.classList.remove("is-filtered-out");
+          });
+
+          visibleCount += 1;
+        } else {
+          card.style.transitionDelay = "0s";
+          card.classList.add("is-filtered-out");
+
+          window.setTimeout(() => {
+            if (card.classList.contains("is-filtered-out")) {
+              card.hidden = true;
+            }
+          }, 450);
+        }
       });
 
       emptyMessage.hidden = visibleCount !== 0;

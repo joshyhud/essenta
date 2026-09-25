@@ -12,10 +12,13 @@
   }
 
   &__results {
-    color: var(--color-navy-500);
+    color: var(--color-sand-800);
     font-family: var(--font-circular-med);
     font-size: 0.8rem;
     margin: 0 auto 0.85rem 0;
+    span {
+      color: var(--color-navy-900);
+    }
   }
 
   &__filter {
@@ -57,6 +60,20 @@
     display: grid;
     gap: 2rem 1rem;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  &__card {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition:
+      opacity 450ms ease,
+      transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+
+    &.is-filtered-out {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(0.75rem) scale(0.98);
+    }
   }
 
   &__drawer-shell {
@@ -363,6 +380,7 @@ body.team-drawer-open {
     }
 
     &__results {
+      order: 1;
       margin: 0 0 0.5rem;
     }
 
@@ -424,6 +442,10 @@ body.team-drawer-open {
 
 @media (prefers-reduced-motion: reduce) {
   .team-archive {
+    &__card {
+      transition-duration: 0ms;
+    }
+
     &__backdrop,
     &__drawer {
       transition-duration: 0ms;

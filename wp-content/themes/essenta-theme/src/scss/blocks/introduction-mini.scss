@@ -42,9 +42,8 @@
 
 @media (width <= 760px) {
   .introduction-mini {
-    padding: 3.5rem 0;
-
     .container {
+      padding: 1.875rem 0.978rem;
       gap: 1.5rem;
       grid-template-columns: 1fr;
     }

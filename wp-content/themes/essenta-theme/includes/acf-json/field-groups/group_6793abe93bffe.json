@@ -2926,6 +2926,79 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6ab696abc75ed": {
+                    "key": "layout_6ab696abc75ed",
+                    "name": "office_information_block",
+                    "label": "Office Information Block",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6ab696cac75ef",
+                            "label": "Office info subheading",
+                            "name": "office_info_subheading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab696dec75f0",
+                            "label": "Office info heading",
+                            "name": "office_info_heading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab696e6c75f1",
+                            "label": "Office info message",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "The main office information will be pull based on offices set with essenta office tags",
+                            "new_lines": "wpautop",
+                            "esc_html": 0,
+                            "admin_only": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -3009,5 +3082,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790341045
+    "modified": 1790351163
 }

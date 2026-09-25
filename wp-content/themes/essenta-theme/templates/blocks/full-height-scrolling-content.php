@@ -1,17 +1,17 @@
-<!-- <?php
+<?php
 
-      if (!defined('ABSPATH')) {
-        exit; // Exit if accessed directly.
-      }
+if (!defined('ABSPATH')) {
+  exit; // Exit if accessed directly.
+}
 
 
-      $sitcky_left_subheading = get_sub_field('sticky_left_subheading');
-      $sitcky_left_heading = get_sub_field('sticky_left_heading');
-      $sitcky_left_content = get_sub_field('sticky_left_content');
-      $sticky_left_cta = get_sub_field('sticky_left_cta');
+$sitcky_left_subheading = get_sub_field('sticky_left_subheading');
+$sitcky_left_heading = get_sub_field('sticky_left_heading');
+$sitcky_left_content = get_sub_field('sticky_left_content');
+$sticky_left_cta = get_sub_field('sticky_left_cta');
 
-      $scrolling_contents = get_sub_field('scrolling_contents');
-      ?>
+$scrolling_contents = get_sub_field('scrolling_contents');
+?>
 
 <section class="full-height-scrolling-content">
   <div class="container">
@@ -68,10 +68,12 @@
             $item_id = 'scrolling-content-item-' . $index;
           ?>
 
-            <div id="<?php echo esc_attr($item_id); ?>" class="scrolling-content-item <?php echo $video_url ? 'has-video' : ''; ?>" <?php if ($background_image_url && !$video_url): ?>style="background-image: url('<?php echo esc_url($background_image_url); ?>');" <?php endif; ?>>
-              <?php if ($video_url): ?>
-                <video <?php if ($video_url): ?>data-video-modal-trigger="<?php echo esc_attr($item_id); ?>" <?php endif; ?>class="scrolling-content-video" src="<?php echo esc_url($video_url); ?>" muted playsinline loop preload="metadata" data-video-src="<?php echo esc_url($video_url); ?>"></video>
-              <?php endif; ?>
+            <div id="<?php echo esc_attr($item_id); ?>" class="scrolling-content-item <?php echo $video_url ? 'has-video' : ''; ?>">
+              <div class="scrolling-content-media" <?php if ($background_image_url && !$video_url): ?> style="background-image: url('<?php echo esc_url($background_image_url); ?>');" <?php endif; ?>>
+                <?php if ($video_url): ?>
+                  <video <?php if ($video_url): ?>data-video-modal-trigger="<?php echo esc_attr($item_id); ?>" <?php endif; ?>class="scrolling-content-video" src="<?php echo esc_url($video_url); ?>" muted playsinline loop preload="metadata" data-video-src="<?php echo esc_url($video_url); ?>"></video>
+                <?php endif; ?>
+              </div>
               <div class="scrolling-content-card">
                 <?php if ($case_study_id): ?>
                   <h3 class="scrolling-content-heading"><?php echo esc_html(get_the_title($case_study_id)); ?></h3>
@@ -141,26 +143,34 @@
 
     $slider.on('init afterChange', playActiveVideo);
 
-    $slider.slick({
-      vertical: true,
-      verticalSwiping: true,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: true,
-      dots: false,
-      infinite: true,
-      centerMode: true,
-      adaptiveHeight: false,
-      prevArrow: $('.full-height-scrolling-content .scrolling-contents-prev'),
-      nextArrow: $('.full-height-scrolling-content .scrolling-contents-next'),
-      responsive: [{
-        breakpoint: 980,
-        settings: {
-          vertical: false,
-          verticalSwiping: false
-        }
-      }]
-    });
+    var mobileQuery = window.matchMedia('(max-width: 980px)');
+
+    function initSlider(isMobile) {
+      $slider.slick({
+        vertical: !isMobile,
+        verticalSwiping: !isMobile,
+        slidesToShow: isMobile ? 1.1 : 1,
+        slidesToScroll: 1,
+        arrows: !isMobile,
+        dots: false,
+        infinite: !isMobile,
+        centerMode: !isMobile,
+        adaptiveHeight: false,
+        prevArrow: $('.full-height-scrolling-content .scrolling-contents-prev'),
+        nextArrow: $('.full-height-scrolling-content .scrolling-contents-next')
+      });
+    }
+
+    function syncSliderOrientation(event) {
+      if ($slider.hasClass('slick-initialized')) {
+        $slider.slick('unslick');
+      }
+
+      initSlider(event.matches);
+    }
+
+    syncSliderOrientation(mobileQuery);
+    mobileQuery.addEventListener('change', syncSliderOrientation);
 
     // Only autoplay the current slide's video while the section itself is on screen.
     if (sectionEl && 'IntersectionObserver' in window) {
@@ -213,4 +223,4 @@
       }
     });
   });
-</script> -->
+</script>

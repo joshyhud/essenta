@@ -393,6 +393,15 @@ button[type="submit"] {
   .btn,
   button.btn {
     &.primary {
+      padding: 10px 12px;
+      font-size: 0.875rem;
+
+      &--light {
+        font-size: 0.813rem;
+      }
+    }
+    &.secondary {
+      padding: 10px 12px;
       font-size: 0.875rem;
 
       &--light {

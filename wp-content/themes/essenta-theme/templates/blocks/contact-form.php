@@ -62,7 +62,7 @@ $contactOffices = new WP_Query(array(
                     <div class="contact-form__icon">
                       <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt="">
                     </div>
-                    <address><?php echo esc_html($officeAddress); ?></address>
+                    <address><a href="<?php echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($officeAddress)); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($officeAddress); ?></a></address>
                   </div>
                 <?php endif; ?>
 

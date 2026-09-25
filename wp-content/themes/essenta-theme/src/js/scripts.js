@@ -473,143 +473,34 @@ jQuery(document).ready(function ($) {
     $("#main-product-image").attr("src", newImageSrc).attr("alt", newImageAlt);
   });
 
-  //mobile menu functions
+  // Mobile menu drawer
   var $drawer = $("#mm-drawer");
   var $toggle = $(".mm-toggle");
   var $overlay = $(".mm-overlay");
   var $close = $drawer.find(".mm-close");
-  var $panels = $drawer.find(".mm-panels");
 
-  if (!$drawer.length || !$toggle.length || !$overlay.length || !$panels.length)
-    return;
-
-  var panelStack = ["root"];
-
-  function setActivePanel(panelId) {
-    var $all = $panels.find(".mm-panel");
-    $all.removeClass("mm-panel--active mm-panel--left");
-
-    var $active = $panels.find(".mm-panel[data-panel='" + panelId + "']");
-    if (!$active.length) return;
-
-    // mark previous as left (nice slide-back feel)
-    if (panelStack.length > 1) {
-      var prevId = panelStack[panelStack.length - 2];
-      $panels
-        .find(".mm-panel[data-panel='" + prevId + "']")
-        .addClass("mm-panel--left");
+  if ($drawer.length && $toggle.length && $overlay.length) {
+    function openMenu() {
+      $drawer.addClass("is-open").attr("aria-hidden", "false");
+      $overlay.prop("hidden", false);
+      $("body").addClass("mm-locked");
+      $toggle.attr("aria-expanded", "true");
     }
 
-    $active.addClass("mm-panel--active");
-  }
+    function closeMenu() {
+      $drawer.removeClass("is-open").attr("aria-hidden", "true");
+      $overlay.prop("hidden", true);
+      $("body").removeClass("mm-locked");
+      $toggle.attr("aria-expanded", "false");
+    }
 
-  function openMenu() {
-    $drawer.addClass("is-open").attr("aria-hidden", "false");
-    $overlay.prop("hidden", false);
-    $("body").addClass("mm-locked");
-    $toggle.attr("aria-expanded", "true");
-  }
-
-  function closeMenu() {
-    $drawer.removeClass("is-open").attr("aria-hidden", "true");
-    $overlay.prop("hidden", true);
-    $("body").removeClass("mm-locked");
-    $toggle.attr("aria-expanded", "false");
-
-    panelStack = ["root"];
-    setActivePanel("root");
-  }
-
-  $toggle.on("click", openMenu);
-  $overlay.on("click", closeMenu);
-  $close.on("click", closeMenu);
-
-  function makePanel(id, title, $submenuUL) {
-    var $panel = $("<div/>", { class: "mm-panel", "data-panel": id });
-
-    var $back = $("<button/>", {
-      class: "mm-back",
-      type: "button",
-      html: "<span>‹</span> Back",
-    });
-    $back.on("click", function () {
-      if (panelStack.length > 1) panelStack.pop();
-      setActivePanel(panelStack[panelStack.length - 1]);
-    });
-
-    var $list = $submenuUL.clone(true, true);
-    $list.addClass("mm-submenu");
-
-    $panel.append($back, $list);
-    $panels.append($panel);
-
-    return $panel;
-  }
-
-  // Converts a list's direct children to "row + chevron", recursively for new panels.
-  function convertList($ul) {
-    $ul.children("li").each(function () {
-      var $li = $(this);
-      var $a = $li.children("a").first();
-      var $submenu = $li.children("ul").first();
-
-      if (!$a.length || !$submenu.length) return;
-
-      var panelId = "p-" + Math.random().toString(16).slice(2);
-      makePanel(panelId, $.trim($a.text()), $submenu);
-
-      // Build row: [link navigates] [chevron opens submenu]
-      var $row = $("<div/>", { class: "mm-row" });
-      var $link = $a.clone(true, true); // keep navigation
-      var $next = $("<button/>", {
-        class: "mm-next",
-        type: "button",
-        text: "›",
-      }).attr("aria-label", "Open " + $.trim($a.text()) + " submenu");
-
-      $next.on("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        var currentId =
-          $panels.find(".mm-panel--active").data("panel") || "root";
-        if (panelStack[panelStack.length - 1] !== currentId)
-          panelStack.push(currentId);
-
-        panelStack.push(panelId);
-        setActivePanel(panelId);
-
-        // Convert nested items inside this panel once
-        var $newPanel = $panels.find(".mm-panel[data-panel='" + panelId + "']");
-        var $newUL = $newPanel.find("ul").first();
-
-        if ($newUL.length && !$newUL.data("converted")) {
-          $newUL.data("converted", 1);
-          convertList($newUL);
-        }
-      });
-
-      $row.append($link, $next);
-
-      // Replace li contents with row and remove submenu at this level
-      $li.empty().append($row);
+    $toggle.on("click", openMenu);
+    $overlay.on("click", closeMenu);
+    $close.on("click", closeMenu);
+    $(document).on("keydown", function (event) {
+      if (event.key === "Escape" && $drawer.hasClass("is-open")) closeMenu();
     });
   }
-
-  // Init from root panel's UL
-  var $rootPanel = $panels.find(".mm-panel[data-panel='root']");
-  var $rootUL = $rootPanel.find("ul").first();
-
-  if (!$rootUL.length) return;
-
-  $rootUL.data("converted", 1);
-  convertList($rootUL);
-  setActivePanel("root");
-
-  // ESC closes
-  $(document).on("keydown", function (e) {
-    if (e.key === "Escape" && $drawer.hasClass("is-open")) closeMenu();
-  });
 
   //Article Slider
   // Initialize Slick slider for mobile

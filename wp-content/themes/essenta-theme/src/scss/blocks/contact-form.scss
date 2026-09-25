@@ -72,14 +72,25 @@
     gap: 0.75rem;
     line-height: 1.5;
 
+    &:hover {
+      .contact-form__icon {
+        background: var(--color-teal-200);
+      }
+    }
+
     .contact-form__icon {
       width: 40px;
       height: 40px;
       padding: 11px;
       border: 1px solid var(--color-sand-800);
+      border-radius: 2px;
+      transition: background 0.3s ease-in-out;
+      background: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
+
+      will-change: background;
 
       img {
         height: 1rem;

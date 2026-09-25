@@ -83,3 +83,32 @@ $sectors_select = get_sub_field('sectors_select');
         ?>
     </div>
 </section>
+
+<script>
+    jQuery(document).ready(function($) {
+        var $grid = $('.sectors-module .sectors-grid');
+        var mobileQuery = window.matchMedia('(max-width: 760px)');
+
+        function syncSectorsSlider(event) {
+            if (!$grid.length) {
+                return;
+            }
+
+            if (event.matches && !$grid.hasClass('slick-initialized')) {
+                $grid.slick({
+                    slidesToShow: 1.2,
+                    slidesToScroll: 1,
+                    arrows: false,
+                    dots: false,
+                    infinite: false,
+                    adaptiveHeight: false
+                });
+            } else if (!event.matches && $grid.hasClass('slick-initialized')) {
+                $grid.slick('unslick');
+            }
+        }
+
+        syncSectorsSlider(mobileQuery);
+        mobileQuery.addEventListener('change', syncSectorsSlider);
+    });
+</script>

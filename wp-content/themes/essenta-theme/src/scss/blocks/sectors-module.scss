@@ -59,6 +59,8 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     min-width: 0;
+    border-radius: 5px;
+    overflow: hidden;
   }
 
   .sectors-card__image {
@@ -148,6 +150,10 @@
 
 @media (width <= 760px) {
   .sectors-module {
+    padding: 0;
+    .container {
+      padding: 30px 0.978rem 37px;
+    }
     .sectors-inner {
       gap: 1rem;
       grid-template-columns: 1fr;
@@ -165,22 +171,32 @@
 
     .sectors-grid {
       grid-template-columns: 1fr;
+
+      &.slick-initialized {
+        display: block;
+
+        .slick-slide {
+          height: auto;
+          margin-right: 0.75rem;
+        }
+      }
     }
 
     .sectors-card {
+      aspect-ratio: auto;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
       min-height: 0;
-    }
-  }
-}
 
-@media (width <= 430px) {
-  .sectors-module {
-    .sectors-card {
-      grid-template-columns: minmax(8.5rem, 0.9fr) minmax(0, 1.1fr);
-    }
+      .sectors-card__image {
+        aspect-ratio: 4 / 3;
+      }
 
-    .sectors-card__body {
-      padding: 1rem;
+      .sectors-card__body {
+        flex: 1;
+        padding: 1rem;
+      }
     }
   }
 }

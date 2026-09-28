@@ -50,7 +50,7 @@
                 <div class="header-ctas col-2">
                     <div class="header-icons">
 
-                        <a href="/contact-us/" class="btn primary">Talk to an expert</a>
+                        <a href="/contact/" class="btn primary">Talk to an expert</a>
 
                         <div class="site-nav mobile">
                             <button class="mm-toggle" aria-controls="mm-drawer" aria-expanded="false" type="button"></button>

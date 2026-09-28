@@ -462,7 +462,7 @@ function create_case_study_cpt()
     'show_in_menu' => true,
     'menu_position' => 4,
     'show_in_nav_menus' => true,
-    'has_archive' => true,
+    'has_archive' => false,
     'rewrite' => array('slug' => 'results'),
     'show_in_rest' => true,
   );

@@ -1,8 +1,8 @@
 .scrolling-text {
   background: var(--color-sand-300);
-  padding: clamp(4rem, 7vw, 7rem) 0;
 
   .container {
+    padding: 100px 10rem 82px;
     align-items: start;
     display: grid;
     gap: clamp(3rem, 9vw, 10rem);
@@ -35,9 +35,6 @@
     font-size: 0.82rem;
     line-height: 1.55;
     max-width: 42rem;
-
-    > :first-child {
-    }
 
     > h2,
     > h3,
@@ -91,6 +88,7 @@
 @media (width <= 760px) {
   .scrolling-text {
     .container {
+      padding: 44px 15px;
       gap: 2.5rem;
       grid-template-columns: 1fr;
     }
@@ -105,6 +103,15 @@
 
     .scrolling-text-content {
       max-width: none;
+      padding: 0 0 0 1rem;
+
+      > h2,
+      > h3,
+      > h4 {
+        &:before {
+          left: -1rem;
+        }
+      }
     }
   }
 }

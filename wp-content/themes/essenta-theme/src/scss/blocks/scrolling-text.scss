@@ -37,32 +37,35 @@
     max-width: 42rem;
 
     > :first-child {
-      font-size: 0.78rem;
-      margin: 0 0 clamp(2.5rem, 5vw, 4.5rem);
-      max-width: 38rem;
     }
 
     > h2,
     > h3,
     > h4 {
-      border-left: 2px solid var(--color-teal-500);
-      color: var(--color-navy-500);
+      position: relative;
+      color: var(--color-navy-900);
       font-family: var(--font-circular-med);
       font-size: clamp(1rem, 1.5vw, 1.2rem);
       font-weight: 500;
       line-height: 1.25;
       margin-bottom: 0;
       margin-top: 0;
-      padding-bottom: 1rem;
-      padding-left: clamp(1.25rem, 3vw, 2.5rem);
-      padding-top: 0.25rem;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: -2rem;
+        top: 0.25rem;
+        height: 3.5rem;
+        border-left: 2px solid var(--color-teal-700);
+        padding-left: clamp(1.25rem, 3vw, 2.5rem);
+      }
     }
 
     > p:not(:first-child),
     > ul:not(:first-child),
     > ol:not(:first-child) {
       color: var(--color-sand-900);
-      margin-bottom: clamp(2.25rem, 4vw, 3.75rem);
       padding-bottom: 0.5rem;
     }
 

@@ -125,7 +125,7 @@ if ($office_locations) {
                                 <?php if ($office_location['address']) : ?>
                                     <div class="office-locations__contact-row">
                                         <span class="office-locations__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt=""></span>
-                                        <address><?php echo esc_html($office_location['address']); ?></address>
+                                        <address><a href="<?php echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($office_location['address'])); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($office_location['address']); ?></a></address>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($office_location['phone']) : ?>
@@ -140,10 +140,6 @@ if ($office_locations) {
                                         <a href="mailto:<?php echo esc_attr($office_location['email']); ?>"><?php echo esc_html($office_location['email']); ?></a>
                                     </div>
                                 <?php endif; ?>
-
-                                <a class="btn primary" href="<?php echo esc_url($office_location['url']); ?>">
-                                    View office
-                                </a>
 
                             </div>
                         </article>

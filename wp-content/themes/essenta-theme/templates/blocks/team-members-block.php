@@ -10,14 +10,24 @@ $team_block_content = get_sub_field('team_block_content');
 $team_block_primary_cta = get_sub_field('team_block_primary_cta');
 $team_block_secondary_cta = get_sub_field('team_block_secondary_cta');
 
+$team_type = get_sub_field('team_type');
 
 $team_member_location = get_sub_field('team_member_location');
+$selected_team_members = get_sub_field('team_members');
 
 $team_members = [];
 
-if ($team_member_location) {
-
-  // Handle ACF taxonomy field returning either a term object or term ID.
+if ($team_type === 'individual') {
+  if ($selected_team_members) {
+    $team_members = new WP_Query([
+      'post_type'      => 'team_member',
+      'posts_per_page' => -1,
+      'post_status'    => 'publish',
+      'post__in'       => wp_list_pluck((array) $selected_team_members, 'ID'),
+      'orderby'        => 'post__in',
+    ]);
+  }
+} elseif ($team_member_location) {
   $team_members = new WP_Query([
     'post_type'      => 'team_member',
     'posts_per_page' => -1,
@@ -290,6 +300,9 @@ $drawer_id = $uid . '-profile-drawer';
     $('#<?php echo esc_js($uid); ?> .team-members-slider').slick({
       slidesToShow: 3.5,
       slidesToScroll: 1,
+      draggable: true,
+      swipe: true,
+      waitForAnimate: false,
       arrows: true,
       dots: false,
       infinite: false,

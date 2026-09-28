@@ -1026,7 +1026,7 @@
                         {
                             "key": "field_6ab145ef13a9a",
                             "label": "Team member content",
-                            "name": "team_member_content_",
+                            "name": "team_member_content",
                             "aria-label": "",
                             "type": "wysiwyg",
                             "instructions": "",
@@ -1046,6 +1046,36 @@
                             "admin_only": 0
                         },
                         {
+                            "key": "field_6aba8b1e0edc4",
+                            "label": "Team type",
+                            "name": "team_type",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "location": "Select location based Teams",
+                                "individual": "Select Individuals"
+                            },
+                            "default_value": false,
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "admin_only": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        },
+                        {
                             "key": "field_6ab1400d73724",
                             "label": "Team member location",
                             "name": "team_member_location",
@@ -1053,7 +1083,15 @@
                             "type": "taxonomy",
                             "instructions": "Select the teams location and all team members will be pull into thew block",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6aba8b1e0edc4",
+                                        "operator": "==",
+                                        "value": "location"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
@@ -1107,6 +1145,44 @@
                             "return_format": "array",
                             "allow_in_bindings": 0,
                             "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aba8b620edc5",
+                            "label": "Team members",
+                            "name": "team_members",
+                            "aria-label": "",
+                            "type": "post_object",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6aba8b1e0edc4",
+                                        "operator": "==",
+                                        "value": "individual"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "team_member"
+                            ],
+                            "post_status": [
+                                "publish"
+                            ],
+                            "taxonomy": "",
+                            "return_format": "object",
+                            "multiple": 1,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "bidirectional": 0,
+                            "admin_only": 0,
+                            "ui": 1,
+                            "bidirectional_target": []
                         }
                     ],
                     "min": "",
@@ -1347,7 +1423,7 @@
                                     "max_size": "",
                                     "mime_types": "",
                                     "allow_in_bindings": 0,
-                                    "preview_size": "medium",
+                                    "preview_size": "thumbnail",
                                     "admin_only": 0,
                                     "parent_repeater": "field_6aa9675edf512"
                                 },
@@ -3082,5 +3158,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790599088
+    "modified": 1790610336
 }

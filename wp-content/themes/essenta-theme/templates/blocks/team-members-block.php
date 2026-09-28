@@ -117,7 +117,9 @@ $drawer_id = $uid . '-profile-drawer';
 
               <div class="team-card__meta">
                 <?php if (!empty($departments) && !is_wp_error($departments)): ?>
-                  <p class="team-card__department"><?php echo esc_html(implode(', ', wp_list_pluck($departments, 'name'))); ?></p>
+                  <?php foreach ($departments as $department): ?>
+                    <p class="team-card__department"><?php echo esc_html($department->name); ?></p>
+                  <?php endforeach; ?>
                 <?php endif; ?>
 
                 <?php if (!empty($locations) && !is_wp_error($locations)): ?>

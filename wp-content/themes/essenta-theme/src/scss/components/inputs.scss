@@ -20,7 +20,7 @@ textarea {
   border-radius: 2px !important;
   font-size: 1rem !important;
   color: var(--color-sand-200) !important;
-  background-color: transparent !important;
+  background-color: var(--color-sand-200) !important;
   box-shadow: none !important;
 
   &::placeholder {
@@ -295,5 +295,5 @@ input:checked + .slider:before {
 }
 
 .gfield_select {
-  background-color: transparent !important;
+  background-color: var(--color-sand-200) !important;
 }

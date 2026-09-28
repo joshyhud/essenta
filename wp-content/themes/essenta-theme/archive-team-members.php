@@ -120,7 +120,9 @@ $get_filter_term_slugs = static function ($terms, $taxonomy) {
                                 <div class="team-archive__meta">
 
                                     <?php if ($departments && !is_wp_error($departments)) : ?>
-                                        <p class="team-archive__department"><?php echo esc_html(implode(', ', wp_list_pluck($departments, 'name'))); ?></p>
+                                        <?php foreach ($departments as $department): ?>
+                                            <p class="team-archive__department"><?php echo esc_html($department->name); ?></p>
+                                        <?php endforeach; ?>
                                     <?php endif; ?>
 
                                     <?php if ($locations && !is_wp_error($locations)) : ?>

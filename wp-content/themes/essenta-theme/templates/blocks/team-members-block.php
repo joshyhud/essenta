@@ -302,6 +302,11 @@ $drawer_id = $uid . '-profile-drawer';
       slidesToScroll: 1,
       draggable: true,
       swipe: true,
+      touchThreshold: 10,
+
+      speed: 450,
+      cssEase: 'ease-out',
+
       waitForAnimate: false,
       arrows: true,
       dots: false,

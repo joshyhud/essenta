@@ -226,6 +226,16 @@
       overflow-wrap: anywhere;
       text-decoration: none;
     }
+
+    &:hover {
+      a {
+        text-decoration: underline;
+      }
+
+      .office-locations__contact-icon {
+        background-color: var(--color-teal-200);
+      }
+    }
   }
 
   &__contact-icon {

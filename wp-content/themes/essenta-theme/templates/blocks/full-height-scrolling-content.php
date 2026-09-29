@@ -53,6 +53,11 @@ $scrolling_contents = get_sub_field('scrolling_contents');
             $image_or_video = isset($content['image_or_video']) ? $content['image_or_video'] : null;
             $media_type = $image_or_video && !empty($image_or_video['type']) ? $image_or_video['type'] : '';
 
+            $sector = get_the_terms($case_study_id, 'case_study_sector');
+            $service = get_the_terms($case_study_id, 'case_study_service');
+
+            $sector = $sector ? $sector[0] : null;
+            $service = $service ? $service[0] : null;
 
             $background_image_url = '';
             $video_url = '';
@@ -69,6 +74,15 @@ $scrolling_contents = get_sub_field('scrolling_contents');
           ?>
 
             <div id="<?php echo esc_attr($item_id); ?>" class="scrolling-content-item <?php echo $video_url ? 'has-video' : ''; ?>">
+              <div class="casestudy-card__tags">
+                <?php if ($service) : ?>
+                  <span class="casestudy-card__tag"><?php echo esc_html($service->name); ?></span>
+                <?php endif; ?>
+                <?php if ($sector) : ?>
+                  <span class="casestudy-card__tag casestudy-card__tag--teal"><?php echo esc_html($sector->name); ?></span>
+                <?php endif; ?>
+              </div>
+
               <div class="scrolling-content-media" <?php if ($background_image_url && !$video_url): ?> style="background-image: url('<?php echo esc_url($background_image_url); ?>');" <?php endif; ?>>
                 <?php if ($video_url): ?>
                   <video <?php if ($video_url): ?>data-video-modal-trigger="<?php echo esc_attr($item_id); ?>" <?php endif; ?>class="scrolling-content-video" src="<?php echo esc_url($video_url); ?>" muted playsinline loop preload="metadata" data-video-src="<?php echo esc_url($video_url); ?>"></video>

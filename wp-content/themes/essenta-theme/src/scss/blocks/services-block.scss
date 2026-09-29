@@ -2,12 +2,12 @@
   .container {
     padding: 0;
     display: flex;
-    max-height: 700px;
+    max-height: 490px;
   }
 
   &__image-wrap {
     width: 50%;
-    min-height: 700px;
+    min-height: 490px;
     overflow: hidden;
   }
 
@@ -86,7 +86,7 @@
         top: 50%;
         transform: translateY(-50%);
         background-image: none;
-        content: "+";
+        content: url("../images/plus.svg");
         line-height: 1;
       }
     }

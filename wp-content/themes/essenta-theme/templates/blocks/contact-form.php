@@ -49,7 +49,6 @@ $contactOffices = new WP_Query(array(
             $officeCountry = str_replace(array('United Kingdom', 'United States'), array('UK', 'USA'), $officeCountry);
             $officePhone = get_field('office_phone', $officeId);
             $officeEmail = get_field('office_email', $officeId);
-            $officeOpeningHours = get_field('office_opening_hours', $officeId) ?: $defaultOpeningHours;
             ?>
             <article class="contact-form__office-card">
               <h5>
@@ -81,15 +80,6 @@ $contactOffices = new WP_Query(array(
                       <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/mail-dark.svg'); ?>" alt="">
                     </div>
                     <a href="mailto:<?php echo esc_attr(antispambot($officeEmail)); ?>"><?php echo esc_html(antispambot($officeEmail)); ?></a>
-                  </div>
-                <?php endif; ?>
-
-                <?php if ($officeOpeningHours) : ?>
-                  <div class="contact-form__office-row contact-form__office-row--hours">
-                    <div class="contact-form__icon">
-                      <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/clock-dark.svg'); ?>" alt="">
-                    </div>
-                    <?php echo wp_kses_post($officeOpeningHours); ?>
                   </div>
                 <?php endif; ?>
               </div>

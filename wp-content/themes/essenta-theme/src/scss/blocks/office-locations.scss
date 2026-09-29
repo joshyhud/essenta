@@ -28,7 +28,7 @@
   }
 
   &__intro {
-    color: var(--color-white);
+    color: var(--color-sand-200);
     left: 50%;
     position: absolute;
     text-align: center;
@@ -48,6 +48,7 @@
 
   &__eyebrow {
     font-family: var(--font-circular-med);
+    color: var(--color-sand-700);
     font-size: 0.7rem;
     letter-spacing: 0.16em;
     margin: 0 0 1.75rem;
@@ -64,6 +65,7 @@
     appearance: none;
     background: rgba(153, 218, 221, 0.55);
     border: 0;
+    border-radius: 2px;
     color: var(--color-navy-700);
     cursor: pointer;
     font-family: var(--font-circular-reg);

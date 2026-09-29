@@ -102,6 +102,11 @@ $get_filter_term_slugs = static function ($terms, $taxonomy) {
                         ?>
                         <article
                             class="team-archive__card"
+                            role="button"
+                            tabindex="0"
+                            aria-controls="team-profile-drawer"
+                            aria-expanded="false"
+                            data-team-profile="team-profile-<?php echo esc_attr($member_id); ?>"
                             data-team-location="<?php echo esc_attr(implode(' ', $location_filter_slugs)); ?>"
                             data-team-department="<?php echo esc_attr(implode(' ', $department_filter_slugs)); ?>">
                             <?php if (has_post_thumbnail()) : ?>
@@ -129,16 +134,7 @@ $get_filter_term_slugs = static function ($terms, $taxonomy) {
                                         <p class="team-archive__location"><?php echo esc_html(implode(', ', wp_list_pluck($locations, 'name'))); ?></p>
                                     <?php endif; ?>
                                 </div>
-
-                                <button
-                                    class="team-archive__profile-trigger btn cta-link"
-                                    type="button"
-                                    aria-controls="team-profile-drawer"
-                                    aria-expanded="false"
-                                    data-team-profile="team-profile-<?php echo esc_attr($member_id); ?>">
-                                    <?php esc_html_e('View Profile', 'essenta-theme'); ?>
-                                </button>
-                            </div>
+                                <div class="btn cta-link">View Profile</div>
                         </article>
                     <?php endwhile; ?>
                 </div>
@@ -228,7 +224,7 @@ $get_filter_term_slugs = static function ($terms, $taxonomy) {
 
                             <?php if ($profile_expertise) : ?>
                                 <div class="team-archive__profile-expertise" aria-label="<?php esc_attr_e('Areas of expertise', 'essenta-theme'); ?>">
-                                    <p><?php esc_html_e('Areas of expertise', 'essenta-theme'); ?></p>
+                                    <p class="eyebrow"><?php esc_html_e('Areas of expertise', 'essenta-theme'); ?></p>
                                     <div>
                                         <?php foreach ($profile_expertise as $expertise) : ?>
                                             <?php $expertise_label = is_array($expertise) ? ($expertise['expertise'] ?? '') : $expertise; ?>

@@ -66,20 +66,20 @@ $essenta_offices = new WP_Query(array(
                                     <address>
                                         <a class="office-information-block__office-address" href="<?php echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($office_address)); ?>" target="_blank" rel="noopener noreferrer">
                                             <span class="office-information-block__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt=""></span>
-                                            <span><?php echo esc_html($office_address); ?></span>
+                                            <p><?php echo esc_html($office_address); ?></p>
                                         </a>
                                     </address>
                                 <?php endif; ?>
                                 <?php if ($office_phone) : ?>
                                     <a class="office-information-block__office-phone" href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $office_phone)); ?>">
                                         <span class="office-information-block__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/phone-dark.svg'); ?>" alt=""></span>
-                                        <span><?php echo esc_html($office_phone); ?></span>
+                                        <p><?php echo esc_html($office_phone); ?></p>
                                     </a>
                                 <?php endif; ?>
                                 <?php if ($office_email) : ?>
                                     <a class="office-information-block__office-email" href="mailto:<?php echo esc_attr(antispambot($office_email)); ?>">
                                         <span class="office-information-block__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/mail-dark.svg'); ?>" alt=""></span>
-                                        <span><?php echo esc_html(antispambot($office_email)); ?></span>
+                                        <p><?php echo esc_html(antispambot($office_email)); ?></p>
                                     </a>
                                 <?php endif; ?>
                             </div>

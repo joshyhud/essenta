@@ -173,6 +173,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.4375rem;
+    z-index: 1;
   }
 
   &__tag {

@@ -70,7 +70,7 @@ $first_service = $services[0];
                     <summary><?php echo esc_html($service['type']); ?></summary>
                     <div class="services-block__content">
                         <p class="eyebrow"> Our <?php echo esc_html($service['type']); ?> Services</p>
-                        <h3><?php echo esc_html($service['title']); ?></h3>
+                        <h2><?php echo esc_html($service['title']); ?></h2>
                         <?php if ($service['excerpt']) : ?>
                             <p><?php echo wp_kses_post($service['excerpt']); ?></p>
                         <?php endif; ?>

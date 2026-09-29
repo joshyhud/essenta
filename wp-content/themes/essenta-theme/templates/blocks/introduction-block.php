@@ -133,13 +133,13 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
             responsive: [{
                     breakpoint: 980,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: 2.2,
                     }
                 },
                 {
                     breakpoint: 420,
                     settings: {
-                        slidesToShow: 1,
+                        slidesToShow: 2.2,
                     }
 
                 }

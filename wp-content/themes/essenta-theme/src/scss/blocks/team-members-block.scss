@@ -6,13 +6,14 @@
     position: relative;
     align-items: flex-start;
     display: flex;
-    gap: clamp(2rem, 5vw, 5.5rem);
+    gap: clamp(2rem, 5vw, 3.625rem);
     margin: 0 auto;
     max-width: var(--max-width);
-    padding: clamp(4rem, 8vw, 7rem) 2rem;
+    padding: 110px 0 110px 80px;
   }
 
   &__content {
+    max-width: 404px;
     display: flex;
     flex: 0 0 min(24rem, 31%);
     flex-direction: column;

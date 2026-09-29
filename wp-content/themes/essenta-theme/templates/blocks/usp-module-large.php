@@ -139,7 +139,8 @@ $usp_module_items = get_sub_field('usp_module_items');
                 slidesToScroll: 1,
                 arrows: false,
                 dots: false,
-                fade: true,
+                vertical: true,
+                verticalSwiping: true,
                 speed: 400,
                 infinite: false,
             });

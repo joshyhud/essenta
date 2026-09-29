@@ -185,8 +185,8 @@ window.essentaInitOfficeMaps = function () {
         clickable: isOffice,
         icon: isOffice
           ? {
-              anchor: new google.maps.Point(8, 15),
-              scaledSize: new google.maps.Size(24, 24),
+              anchor: new google.maps.Point(12, 22),
+              scaledSize: new google.maps.Size(36, 36),
               url: pinIconUrl,
             }
           : {
@@ -974,6 +974,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     triggers.forEach((trigger) => {
       trigger.addEventListener("click", () => openDrawer(trigger));
+      trigger.addEventListener("keydown", (event) => {
+        if (trigger.tagName === "BUTTON") return;
+        if (event.key !== "Enter" && event.key !== " ") return;
+
+        event.preventDefault();
+        openDrawer(trigger);
+      });
     });
     closeButtons.forEach((button) =>
       button.addEventListener("click", closeDrawer),
@@ -1006,17 +1013,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Toggle read moe for header
+  // Toggle read more for the homepage header
 
   document.querySelectorAll(".expand").forEach((container) => {
-    const text = container.querySelector("p");
-
-    const fullText = text.textContent.trim();
+    const originalContent = container.innerHTML;
+    const fullText = container.textContent.trim();
     const words = fullText.split(/\s+/);
     const wordLimit = 30;
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
 
-    // Don't do anything if text is already 30 words or fewer
-    if (words.length <= wordLimit) {
+    if (!fullText || words.length <= wordLimit) {
       return;
     }
 
@@ -1028,11 +1034,27 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.type = "button";
     toggle.className = "text-expand-toggle";
     toggle.textContent = "Read more";
+    toggle.setAttribute("aria-expanded", "false");
+
+    function showCollapsedContent() {
+      const text = document.createElement("p");
+      text.textContent = truncatedText;
+      text.appendChild(toggle);
+      container.replaceChildren(text);
+      toggle.textContent = "Read more";
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
+    function showExpandedContent() {
+      container.innerHTML = originalContent;
+      container.appendChild(toggle);
+      toggle.textContent = "Read less";
+      toggle.setAttribute("aria-expanded", "true");
+    }
 
     function setMobileState() {
-      if (window.innerWidth <= 767) {
-        text.innerHTML = truncatedText;
-        text.appendChild(toggle);
+      if (mobileQuery.matches) {
+        showCollapsedContent();
 
         // Allow the browser to calculate the collapsed height
         container.style.maxHeight = `${container.scrollHeight}px`;
@@ -1044,7 +1066,7 @@ document.addEventListener("DOMContentLoaded", () => {
         container.classList.remove("is-expanded");
         container.style.maxHeight = "none";
 
-        text.textContent = fullText;
+        container.innerHTML = originalContent;
       }
     }
 
@@ -1053,10 +1075,7 @@ document.addEventListener("DOMContentLoaded", () => {
       container.style.maxHeight = `${container.scrollHeight}px`;
 
       // Change content
-      text.textContent = fullText;
-      text.appendChild(toggle);
-
-      toggle.textContent = "Read less";
+      showExpandedContent();
 
       // Force browser to calculate the new height
       requestAnimationFrame(() => {
@@ -1070,10 +1089,7 @@ document.addEventListener("DOMContentLoaded", () => {
       container.style.maxHeight = `${container.scrollHeight}px`;
 
       requestAnimationFrame(() => {
-        text.innerHTML = truncatedText;
-        text.appendChild(toggle);
-
-        toggle.textContent = "Read more";
+        showCollapsedContent();
 
         requestAnimationFrame(() => {
           container.style.maxHeight = `${container.scrollHeight}px`;
@@ -1091,9 +1107,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     setMobileState();
-
-    window.addEventListener("resize", () => {
-      setMobileState();
-    });
+    mobileQuery.addEventListener("change", setMobileState);
   });
 });

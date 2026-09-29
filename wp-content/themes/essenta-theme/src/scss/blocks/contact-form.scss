@@ -1,6 +1,6 @@
 .contact-form {
   background: var(--color-sand-300);
-  padding: 5rem 0;
+  padding: 1rem 0 5rem 0;
 
   &__layout {
     align-items: start;
@@ -15,6 +15,7 @@
 
   &__intro {
     margin-bottom: 2rem;
+    color: var(--color-sand-800);
 
     h4 {
       color: var(--color-navy-900);

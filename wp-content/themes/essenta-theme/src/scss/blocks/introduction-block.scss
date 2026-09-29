@@ -69,11 +69,13 @@
 
               .statistic-value {
                 font-family: var(--font-adelle);
-                font-size: clamp(34px, 2vw, 42px);
+                font-size: clamp(34px, 5vw, 42px);
                 letter-spacing: -0.96px;
+                font-weight: 600;
               }
               .statistic-label:not(.eyebrow) {
                 font-size: 13px;
+                line-height: 1rem;
                 color: var(--color-sand-800);
               }
             }
@@ -92,14 +94,18 @@
               font-family: var(--font-circular-reg);
               font-size: clamp(1.125rem, 2vw, 1.25rem);
               font-weight: 400;
+              line-height: 24px;
               margin-bottom: 28px;
             }
 
             .testimonial-author {
               color: var(--color-teal-500);
+              font-family: var(--font-circular-bold);
+              font-size: clamp(0.625rem, 2vw, 0.688rem);
+              line-height: 1.031rem;
               font-weight: 700;
               letter-spacing: 1.54px;
-              line-height: 16.5px;
+              text-transform: uppercase;
             }
 
             &:before {

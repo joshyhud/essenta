@@ -14,8 +14,10 @@
       gap: 2rem;
 
       &--stacked {
+        grid-column: span 8;
         flex-direction: column;
         max-width: 758px;
+        grid-row: 1;
       }
 
       &--columns {
@@ -47,6 +49,16 @@
       .content-grid-intro {
         margin: 0;
       }
+    }
+
+    .content-grid-wrapper {
+      grid-row: 2;
+    }
+
+    .content-grid-image {
+      grid-column: span 4;
+      grid-row: span 2;
+      height: 100%;
     }
 
     .content-grid-wrapper {

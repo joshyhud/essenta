@@ -21,11 +21,12 @@
 
           .testimonial-author {
             color: var(--color-teal-500);
+            font-family: var(--font-circular-bold);
+            font-size: clamp(0.625rem, 2vw, 0.688rem);
+            line-height: 1.031rem;
             font-weight: 700;
             letter-spacing: 1.54px;
-            line-height: 16.5px;
-            max-width: 340px;
-            margin: 0 auto;
+            text-transform: uppercase;
           }
 
           &:before {

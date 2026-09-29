@@ -56,7 +56,7 @@ $insights = new WP_Query(array(
                             </div>
                             <div class="insights-post-content">
                                 <h4 class="insights-post-title"><?php the_title(); ?></h4>
-                                <div class="insights-post-excerpt"><?php the_excerpt(); ?></div>
+                                <div class="insights-post-excerpt"><?php echo esc_html(wp_trim_words(get_the_excerpt(), 16)); ?></div>
                                 <div class="insights-post-readmore btn cta-link">
                                     Read more
                                 </div>

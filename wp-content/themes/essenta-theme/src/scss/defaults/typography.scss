@@ -46,10 +46,11 @@ h6 {
 }
 
 p {
+  color: var(--color-sand-800);
   font-family: var(--font-circular-reg);
   font-size: clamp(1rem, 2vw, 0.938rem);
-  line-height: 1.188rem;
-  font-weight: 400;
+  line-height: 1.25rem;
+  font-weight: regular;
   margin-bottom: 1rem;
 
   &.body-large {
@@ -75,7 +76,7 @@ p {
     font-weight: 700;
     letter-spacing: 1.54px;
     text-transform: uppercase;
-    color: var(--color-sand-700);
+    color: var(--color-sand-800);
   }
 
   em {

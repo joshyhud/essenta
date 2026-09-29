@@ -72,9 +72,10 @@
       opacity: 1;
       padding: 13px 50px;
       border: 0;
-      color: var(--color-navy-500);
-      font-family: var(--font-circular-med);
-      font-size: 1rem;
+      color: var(--color-navy-900);
+      font-family: var(--font-circular-std);
+      font-size: 20px;
+      font-weight: normal;
       overflow: hidden;
       transition:
         max-height 600ms ease,

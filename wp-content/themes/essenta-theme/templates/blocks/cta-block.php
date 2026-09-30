@@ -7,21 +7,27 @@ $cta_block_heading = get_sub_field('cta_block_heading');
 $cta_block_content = get_sub_field('cta_block_content');
 $cta_block_primary_button = get_sub_field('cta_block_primary_link');
 $cta_block_secondary_button = get_sub_field('cta_block_secondary_link');
+
+$cta_background = get_sub_field('cta_background_colour');
+
 ?>
 
-<section class="cta-block">
+<section class="cta-block <?php echo strtolower($cta_background['label']); ?>">
     <div class="container">
         <div class="cta-block-content">
             <h2><?php echo $cta_block_heading; ?></h2>
             <?php echo wp_kses_post($cta_block_content); ?>
         </div>
         <div class="cta-block-buttons">
-            <?php if ($cta_block_primary_button) : ?>
+            <?php if ($cta_block_primary_button && $cta_background['label'] == 'Navy Blue') : ?>
                 <a href="<?php echo $cta_block_primary_button['url']; ?>" class="btn primary--light"><?php echo $cta_block_primary_button['title']; ?></a>
+            <?php else : ?>
+                <a href="<?php echo $cta_block_primary_button['url']; ?>" class="btn primary"><?php echo $cta_block_primary_button['title']; ?></a>
             <?php endif; ?>
             <?php if ($cta_block_secondary_button) : ?>
                 <a href="<?php echo $cta_block_secondary_button['url']; ?>" class="btn secondary--light"><?php echo $cta_block_secondary_button['title']; ?></a>
             <?php endif; ?>
+
         </div>
     </div>
 </section>

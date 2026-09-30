@@ -10,7 +10,7 @@
       background-position: center;
       background-repeat: no-repeat;
       display: flex !important;
-      align-items: center;
+      align-items: self-start;
       justify-content: center;
 
       .full-height-slide-content {
@@ -21,6 +21,7 @@
         text-align: center;
         color: var(--color-sand-400);
         max-width: 488px;
+        padding-top: 69px;
 
         .eyebrow {
           color: var(--color-sand-400);
@@ -32,6 +33,7 @@
 
         .slide-content {
           margin-bottom: 15px;
+          color: var(--color-sand-200);
         }
       }
     }

@@ -54,6 +54,7 @@ $manual_sectors = get_sub_field('manual_sectors');
                     'post_type'      => 'expertise',
                     'posts_per_page' => -1,
                     'post_status'    => 'publish',
+                    'post_parent__not_in' => array(0),
                     'tax_query'      => array(
                         array(
                             'taxonomy' => $taxonomy,

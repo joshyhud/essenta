@@ -53,14 +53,20 @@ $scrolling_contents = get_sub_field('scrolling_contents');
             $image_or_video = isset($content['image_or_video']) ? $content['image_or_video'] : null;
             $media_type = $image_or_video && !empty($image_or_video['type']) ? $image_or_video['type'] : '';
 
+            $client = get_the_terms($case_study_id, 'case_study_client');
             $sector = get_the_terms($case_study_id, 'case_study_sector');
             $service = get_the_terms($case_study_id, 'case_study_service');
+
+            $client_term_id = $client[0]->term_id;
+
+            $client_logo = get_field('client_logo', 'term_' . $client_term_id);
 
             $sector = $sector ? $sector[0] : null;
             $service = $service ? $service[0] : null;
 
             $background_image_url = '';
             $video_url = '';
+
 
             if ($media_type === 'video' && !empty($image_or_video)) {
               $video_url = $image_or_video['url'];
@@ -89,19 +95,18 @@ $scrolling_contents = get_sub_field('scrolling_contents');
                 <?php endif; ?>
               </div>
               <div class="scrolling-content-card">
-                <?php if ($case_study_id): ?>
-                  <h3 class="scrolling-content-heading"><?php echo esc_html(get_the_title($case_study_id)); ?></h3>
+
+                <?php if ($client_logo): ?>
+                  <div class="scrolling-content-client-logo">
+                    <img src="<?php echo esc_url($client_logo['url']); ?>" alt="<?php echo esc_attr($client_logo['alt']); ?>">
+                  </div>
+                <?php else: ?>
+                  <h3 class="scrolling-content-heading"><?php echo esc_html($client[0]->name); ?></h3>
                 <?php endif; ?>
                 <?php if ($case_study_id): ?>
-                  <div class="scrolling-content-excerpt">
-                    <?php echo esc_html(get_the_excerpt($case_study_id)); ?>
+                  <div class="scrolling-content-text">
+                    <?php echo get_the_title($case_study_id); ?>
                   </div>
-
-                  <?php if ($content['scrolling_content_text']): ?>
-                    <div class="scrolling-content-text">
-                      <?php echo apply_filters('the_content', $content['scrolling_content_text']); ?>
-                    </div>
-                  <?php endif; ?>
 
                   <a href="<?php echo esc_url(get_permalink($case_study_id)); ?>" class="btn cta-link">
                     <?php esc_html_e('Read More', 'essenta-theme'); ?>

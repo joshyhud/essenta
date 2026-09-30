@@ -383,6 +383,17 @@ fieldset {
   }
 }
 
+table,
+th,
+td {
+  border: 1px solid;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
 details {
   summary {
     font-size: 1rem;

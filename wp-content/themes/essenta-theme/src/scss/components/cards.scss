@@ -135,13 +135,13 @@
   &__name {
     color: var(--color-navy-900);
     font-family: var(--font-circular-med);
-    font-size: 0.95rem;
+    font-size: clamp(20px, 2.5vw, 24px);
     margin: 0;
   }
 
   &__role {
     color: var(--color-sand-900);
-    font-size: 0.72rem;
+    font-size: 15px;
     line-height: 1.35;
     margin: 0;
   }

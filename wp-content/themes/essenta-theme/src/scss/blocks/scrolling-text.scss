@@ -59,9 +59,9 @@
       }
     }
 
-    > p:not(:first-child),
-    > ul:not(:first-child),
-    > ol:not(:first-child) {
+    > p,
+    > ul,
+    > ol {
       color: var(--color-sand-900);
       padding-bottom: 0.5rem;
     }

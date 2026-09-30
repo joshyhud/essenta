@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) {
 $partner_logos_heading = get_sub_field('partner_logos_heading');
 $partner_logos_one = get_sub_field('partner_logos_carousel_one');
 $partner_logos_two = get_sub_field('partner_logos_carousel_two');
+
 ?>
 
 <section class="partner-logos">
@@ -18,13 +19,7 @@ $partner_logos_two = get_sub_field('partner_logos_carousel_two');
             <div class="partner-logos-slider partner-logos-slider--forward">
                 <?php foreach ($partner_logos_one as $partner_logo) : ?>
                     <div class="partner-logo">
-                        <?php if ($partner_logo['partner_link']) : ?>
-                            <a href="<?php echo esc_url($partner_logo['partner_link']); ?>">
-                                <img src="<?php echo esc_url($partner_logo['partner_logo_image']['url']); ?>" alt="<?php echo esc_attr($partner_logo['partner_logo_image']['alt']); ?>">
-                            </a>
-                        <?php else : ?>
-                            <img src="<?php echo esc_url($partner_logo['partner_logo_image']['url']); ?>" alt="<?php echo esc_attr($partner_logo['partner_logo_image']['alt']); ?>">
-                        <?php endif; ?>
+                        <img src="<?php echo esc_url($partner_logo['url']); ?>" alt="<?php echo esc_attr($partner_logo['alt']); ?>">
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -33,13 +28,7 @@ $partner_logos_two = get_sub_field('partner_logos_carousel_two');
             <div class="partner-logos-slider partner-logos-slider--reverse">
                 <?php foreach ($partner_logos_two as $partner_logo_two) : ?>
                     <div class="partner-logo">
-                        <?php if ($partner_logo_two['partner_link']) : ?>
-                            <a href="<?php echo esc_url($partner_logo_two['partner_link']); ?>">
-                                <img src="<?php echo esc_url($partner_logo_two['partner_logo_image']['url']); ?>" alt="<?php echo esc_attr($partner_logo_two['partner_logo_image']['alt']); ?>">
-                            </a>
-                        <?php else : ?>
-                            <img src="<?php echo esc_url($partner_logo_two['partner_logo_image']['url']); ?>" alt="<?php echo esc_attr($partner_logo_two['partner_logo_image']['alt']); ?>">
-                        <?php endif; ?>
+                        <img src="<?php echo esc_url($partner_logo_two['url']); ?>" alt="<?php echo esc_attr($partner_logo_two['alt']); ?>">
                     </div>
                 <?php endforeach; ?>
             </div>

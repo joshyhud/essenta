@@ -855,6 +855,52 @@
                                     "allow_in_bindings": 0,
                                     "admin_only": 0,
                                     "parent_repeater": "field_692ed5035557c"
+                                },
+                                {
+                                    "key": "field_6abd1ee141834",
+                                    "label": "scrolling_content_stat_text",
+                                    "name": "scrolling_content_stat_text",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_692ed5035557c"
+                                },
+                                {
+                                    "key": "field_6abd1ef441835",
+                                    "label": "scrolling_content_stat",
+                                    "name": "scrolling_content_stat",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_692ed5035557c"
                                 }
                             ]
                         }
@@ -1195,6 +1241,37 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_6abd2ddb2908f",
+                            "label": "CTA Background Colour",
+                            "name": "cta_background_colour",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "#050817": "Navy Blue",
+                                "#e4dfd7": "Beige",
+                                "#f3f3f2": "Sand"
+                            },
+                            "default_value": false,
+                            "return_format": "array",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "admin_only": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        },
+                        {
                             "key": "field_6aa957aca97c8",
                             "label": "CTA Block Heading",
                             "name": "cta_block_heading",
@@ -1311,7 +1388,7 @@
                             "label": "Partner Logos Carousel one",
                             "name": "partner_logos_carousel_one",
                             "aria-label": "",
-                            "type": "repeater",
+                            "type": "gallery",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -1320,69 +1397,27 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "layout": "table",
-                            "min": 0,
-                            "max": 0,
-                            "collapsed": "",
-                            "button_label": "Add Row",
-                            "admin_only": 0,
-                            "rows_per_page": 20,
-                            "sub_fields": [
-                                {
-                                    "key": "field_6aa964c36a934",
-                                    "label": "Partner Logo image",
-                                    "name": "partner_logo_image",
-                                    "aria-label": "",
-                                    "type": "image",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "return_format": "array",
-                                    "library": "all",
-                                    "min_width": "",
-                                    "min_height": "",
-                                    "min_size": "",
-                                    "max_width": "",
-                                    "max_height": "",
-                                    "max_size": "",
-                                    "mime_types": "",
-                                    "allow_in_bindings": 0,
-                                    "preview_size": "thumbnail",
-                                    "admin_only": 0,
-                                    "parent_repeater": "field_6aa964a86a933"
-                                },
-                                {
-                                    "key": "field_6aa964cf6a935",
-                                    "label": "Partner Link",
-                                    "name": "partner_link",
-                                    "aria-label": "",
-                                    "type": "link",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "return_format": "array",
-                                    "allow_in_bindings": 0,
-                                    "admin_only": 0,
-                                    "parent_repeater": "field_6aa964a86a933"
-                                }
-                            ]
+                            "return_format": "array",
+                            "library": "all",
+                            "min": "",
+                            "max": "",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "",
+                            "insert": "append",
+                            "preview_size": "thumbnail",
+                            "admin_only": 0
                         },
                         {
                             "key": "field_6aa9675edf512",
                             "label": "Partner Logos Carousel Two",
                             "name": "partner_logos_carousel_two",
                             "aria-label": "",
-                            "type": "repeater",
+                            "type": "gallery",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -1391,62 +1426,20 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "layout": "table",
-                            "min": 0,
-                            "max": 0,
-                            "collapsed": "",
-                            "button_label": "Add Row",
-                            "admin_only": 0,
-                            "rows_per_page": 20,
-                            "sub_fields": [
-                                {
-                                    "key": "field_6aa9675edf513",
-                                    "label": "Partner Logo image",
-                                    "name": "partner_logo_image",
-                                    "aria-label": "",
-                                    "type": "image",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "return_format": "array",
-                                    "library": "all",
-                                    "min_width": "",
-                                    "min_height": "",
-                                    "min_size": "",
-                                    "max_width": "",
-                                    "max_height": "",
-                                    "max_size": "",
-                                    "mime_types": "",
-                                    "allow_in_bindings": 0,
-                                    "preview_size": "thumbnail",
-                                    "admin_only": 0,
-                                    "parent_repeater": "field_6aa9675edf512"
-                                },
-                                {
-                                    "key": "field_6aa9675edf514",
-                                    "label": "Partner Link",
-                                    "name": "partner_link",
-                                    "aria-label": "",
-                                    "type": "link",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "return_format": "array",
-                                    "allow_in_bindings": 0,
-                                    "admin_only": 0,
-                                    "parent_repeater": "field_6aa9675edf512"
-                                }
-                            ]
+                            "return_format": "array",
+                            "library": "all",
+                            "min": "",
+                            "max": "",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "",
+                            "insert": "append",
+                            "preview_size": "thumbnail",
+                            "admin_only": 0
                         }
                     ],
                     "min": "",
@@ -2848,7 +2841,7 @@
                             "bidirectional_target": []
                         },
                         {
-                            "key": "field_6abcd26104558",
+                            "key": "field_6abcd95a5e70d",
                             "label": "Manual Sectors",
                             "name": "manual_sectors",
                             "aria-label": "",
@@ -2870,8 +2863,8 @@
                             "rows_per_page": 20,
                             "sub_fields": [
                                 {
-                                    "key": "field_6abcd27d04559",
-                                    "label": "Manual sector image",
+                                    "key": "field_6abcd97d5e70e",
+                                    "label": "manual sector image",
                                     "name": "manual_sector_image",
                                     "aria-label": "",
                                     "type": "image",
@@ -2895,11 +2888,11 @@
                                     "allow_in_bindings": 0,
                                     "preview_size": "medium",
                                     "admin_only": 0,
-                                    "parent_repeater": "field_6abcd26104558"
+                                    "parent_repeater": "field_6abcd95a5e70d"
                                 },
                                 {
-                                    "key": "field_6abcd2880455a",
-                                    "label": "Manual sector title",
+                                    "key": "field_6abcd9835e70f",
+                                    "label": "manual sector title",
                                     "name": "manual_sector_title",
                                     "aria-label": "",
                                     "type": "text",
@@ -2918,11 +2911,11 @@
                                     "prepend": "",
                                     "append": "",
                                     "admin_only": 0,
-                                    "parent_repeater": "field_6abcd26104558"
+                                    "parent_repeater": "field_6abcd95a5e70d"
                                 },
                                 {
-                                    "key": "field_6abcd2900455b",
-                                    "label": "Manual sector text",
+                                    "key": "field_6abcd9ae6c6cc",
+                                    "label": "manual sector text",
                                     "name": "manual_sector_text",
                                     "aria-label": "",
                                     "type": "wysiwyg",
@@ -2941,7 +2934,7 @@
                                     "media_upload": 1,
                                     "delay": 0,
                                     "admin_only": 0,
-                                    "parent_repeater": "field_6abcd26104558"
+                                    "parent_repeater": "field_6abcd95a5e70d"
                                 }
                             ]
                         }
@@ -3191,13 +3184,6 @@
         ],
         [
             {
-                "param": "taxonomy",
-                "operator": "==",
-                "value": "all"
-            }
-        ],
-        [
-            {
                 "param": "post_type",
                 "operator": "==",
                 "value": "post"
@@ -3256,5 +3242,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790759813
+    "modified": 1790783753
 }

@@ -1,5 +1,5 @@
 .statistics-module {
-  background-color: var(--color-sand-300);
+  background-color: var(--color-beige-400);
 
   .container {
     padding: 93px 10rem;
@@ -20,6 +20,16 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
       margin-top: 10px;
+
+      &.has-no-content {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .statistics-item {
+          flex: 1;
+        }
+      }
 
       .statistics-item {
         display: flex;

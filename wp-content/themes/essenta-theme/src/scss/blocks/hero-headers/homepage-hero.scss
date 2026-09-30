@@ -60,7 +60,7 @@
 
       &.has-scroll-video {
         max-height: none;
-        z-index: 30;
+        z-index: 1;
         border-radius: 5px;
         overflow: hidden;
         will-change: width, height, top, left, border-radius;

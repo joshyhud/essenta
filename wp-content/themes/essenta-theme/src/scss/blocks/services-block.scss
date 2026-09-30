@@ -2,13 +2,14 @@
   .container {
     padding: 0;
     display: flex;
-    max-height: 490px;
+    max-height: 700px;
   }
 
   &__image-wrap {
     width: 50%;
-    min-height: 490px;
+    min-height: 700px;
     overflow: hidden;
+    border-radius: 0.3125rem;
   }
 
   &__image {

@@ -129,8 +129,8 @@
   .blog-header-author-name {
     color: var(--color-navy-900);
     font-family: var(--font-circular-reg);
-    font-size: 15px;
-    line-height: 19px;
+    font-size: 18px;
+    line-height: 1.188rem;
   }
 
   .blog-header-author-role {
@@ -147,7 +147,7 @@
   .blog-header-meta {
     color: var(--color-sand-800);
     font-family: var(--font-circular-reg);
-    font-size: 9px;
+    font-size: 13px;
     line-height: 19px;
   }
 
@@ -175,7 +175,7 @@
 
     &:hover,
     &.is-copied {
-      background-color: var(--color-sand-50);
+      background-color: var(--color-teal-200);
     }
   }
 

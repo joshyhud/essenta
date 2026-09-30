@@ -337,9 +337,9 @@ function create_expertise_cpt()
   $args = array(
     'label' => __('Expertise', 'textdomain'),
     'labels' => $labels,
-    'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+    'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes'),
     'taxonomies' => array('expertise_sector'),
-    'hierarchical' => false,
+    'hierarchical' => true,
     'public' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -347,7 +347,7 @@ function create_expertise_cpt()
     'show_in_admin_bar' => true,
     'show_in_nav_menus' => true,
     'can_export' => true,
-    'has_archive' => false,
+    'has_archive' => true,
     'rewrite' => array(
       'slug' => 'expertise',
       'with_front' => false,

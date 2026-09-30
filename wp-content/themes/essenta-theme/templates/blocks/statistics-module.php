@@ -13,23 +13,25 @@ $statistics_cards = get_sub_field('statistics_cards');
 
 <section class="statistics-module">
     <div class="container">
-        <div class="statistics-module__content">
-            <?php if ($statistics_subheading): ?>
-                <p class="eyebrow"><?php echo esc_html($statistics_subheading); ?></p>
-            <?php endif; ?>
-            <?php if ($statistics_heading): ?>
-                <h2 class="heading"><?php echo esc_html($statistics_heading); ?></h2>
-            <?php endif; ?>
+        <?php if ($statistics_subheading || $statistics_heading || $statistics_text): ?>
+            <div class="statistics-module__content">
+                <?php if ($statistics_subheading): ?>
+                    <p class="eyebrow"><?php echo esc_html($statistics_subheading); ?></p>
+                <?php endif; ?>
+                <?php if ($statistics_heading): ?>
+                    <h2 class="heading"><?php echo esc_html($statistics_heading); ?></h2>
+                <?php endif; ?>
 
-            <?php if ($statistics_text): ?>
-                <div class="content-text">
-                    <?php echo wp_kses_post($statistics_text); ?>
-                </div>
-            <?php endif; ?>
-        </div>
+                <?php if ($statistics_text): ?>
+                    <div class="content-text">
+                        <?php echo wp_kses_post($statistics_text); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
 
         <?php if ($statistics_cards): ?>
-            <div class="statistics-module__grid">
+            <div class="statistics-module__grid <?php if (!$statistics_subheading && !$statistics_heading && !$statistics_text): ?>has-no-content<?php endif; ?>">
                 <?php foreach ($statistics_cards as $card): ?>
                     <div class="statistics-item">
                         <?php if (!empty($card['statistic_value'])): ?>
@@ -58,9 +60,9 @@ $statistics_cards = get_sub_field('statistics_cards');
                     infinite: false,
                     dots: false,
                     arrows: false,
-                    adaptiveHeight: true,
+                    adaptiveHeight: false,
                     responsive: [{
-                        breakpoint: 420,
+                        breakpoint: 768,
                         settings: {
                             slidesToShow: 1.2,
                         }

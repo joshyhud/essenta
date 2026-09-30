@@ -7,6 +7,7 @@
 
   .media-text-left,
   .media-text-right {
+    flex: 1;
     .media-header-ctas {
       display: flex;
       gap: 16px;
@@ -14,13 +15,9 @@
   }
 
   .media-text-left {
-    width: 60%;
     display: flex;
     flex-direction: column;
     gap: 25px;
-  }
-  .media-text-right {
-    width: 40%;
   }
 
   .media-text-right.image {

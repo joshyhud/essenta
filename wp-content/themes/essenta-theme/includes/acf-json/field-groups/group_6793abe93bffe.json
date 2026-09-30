@@ -1111,42 +1111,6 @@
                             "bidirectional_target": []
                         },
                         {
-                            "key": "field_6ab1460513a9b",
-                            "label": "Team block primary CTA",
-                            "name": "team_block_primary_cta",
-                            "aria-label": "",
-                            "type": "link",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "return_format": "array",
-                            "allow_in_bindings": 0,
-                            "admin_only": 0
-                        },
-                        {
-                            "key": "field_6ab1460f13a9c",
-                            "label": "Team block secondary CTA",
-                            "name": "team_block_secondary_cta",
-                            "aria-label": "",
-                            "type": "link",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "return_format": "array",
-                            "allow_in_bindings": 0,
-                            "admin_only": 0
-                        },
-                        {
                             "key": "field_6aba8b620edc5",
                             "label": "Team members",
                             "name": "team_members",
@@ -1183,6 +1147,42 @@
                             "admin_only": 0,
                             "ui": 1,
                             "bidirectional_target": []
+                        },
+                        {
+                            "key": "field_6ab1460513a9b",
+                            "label": "Team block primary CTA",
+                            "name": "team_block_primary_cta",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6ab1460f13a9c",
+                            "label": "Team block secondary CTA",
+                            "name": "team_block_secondary_cta",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "admin_only": 0
                         }
                     ],
                     "min": "",
@@ -2846,6 +2846,104 @@
                             "multiple": 0,
                             "allow_null": 0,
                             "bidirectional_target": []
+                        },
+                        {
+                            "key": "field_6abcd26104558",
+                            "label": "Manual Sectors",
+                            "name": "manual_sectors",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "table",
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Add Row",
+                            "admin_only": 0,
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_6abcd27d04559",
+                                    "label": "Manual sector image",
+                                    "name": "manual_sector_image",
+                                    "aria-label": "",
+                                    "type": "image",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "return_format": "array",
+                                    "library": "all",
+                                    "min_width": "",
+                                    "min_height": "",
+                                    "min_size": "",
+                                    "max_width": "",
+                                    "max_height": "",
+                                    "max_size": "",
+                                    "mime_types": "",
+                                    "allow_in_bindings": 0,
+                                    "preview_size": "medium",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6abcd26104558"
+                                },
+                                {
+                                    "key": "field_6abcd2880455a",
+                                    "label": "Manual sector title",
+                                    "name": "manual_sector_title",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6abcd26104558"
+                                },
+                                {
+                                    "key": "field_6abcd2900455b",
+                                    "label": "Manual sector text",
+                                    "name": "manual_sector_text",
+                                    "aria-label": "",
+                                    "type": "wysiwyg",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "allow_in_bindings": 0,
+                                    "tabs": "all",
+                                    "toolbar": "full",
+                                    "media_upload": 1,
+                                    "delay": 0,
+                                    "admin_only": 0,
+                                    "parent_repeater": "field_6abcd26104558"
+                                }
+                            ]
                         }
                     ],
                     "min": "",
@@ -3158,5 +3256,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790610336
+    "modified": 1790759813
 }

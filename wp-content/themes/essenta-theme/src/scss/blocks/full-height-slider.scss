@@ -47,6 +47,8 @@
     justify-content: center;
     gap: 30px;
     padding: 0;
+    // Slick fade slides use z-index 998/999, which otherwise cover the nav.
+    z-index: 1000;
 
     .slide-type-btn {
       width: fit-content;

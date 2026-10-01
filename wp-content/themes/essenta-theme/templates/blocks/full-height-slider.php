@@ -48,6 +48,10 @@ $full_height_slides = get_sub_field('full_height_slides');
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 swipe: false,
+                autoplay: true,
+                autoplaySpeed: 4000,
+                pauseOnHover: false,
+                pauseOnFocus: false,
                 fade: true,
                 arrows: false,
                 dots: false,
@@ -57,12 +61,12 @@ $full_height_slides = get_sub_field('full_height_slides');
             });
 
             $navButtons.on('click', function() {
-                var slideIndex = $(this).data('slide-index');
+                var slideIndex = parseInt($(this).data('slide-index'), 10);
                 $slider.slick('slickGoTo', slideIndex);
             });
 
-            $slider.on('afterChange', function(event, slick, currentSlide) {
-                $navButtons.removeClass('active').eq(currentSlide).addClass('active');
+            $slider.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+                $navButtons.removeClass('active').filter('[data-slide-index="' + nextSlide + '"]').addClass('active');
             });
         });
     });

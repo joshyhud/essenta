@@ -48,6 +48,7 @@ if ($testimonial_total) : ?>
         <div class="testimonials-block-slider">
           <?php foreach ($testimonials_to_display as $testimonial_index => $testimonial) : ?>
             <div class="testimonial">
+              <div class="testimonial-quotation"></div>
               <div class="testimonial-text"><?php echo wp_kses_post($testimonial['testimonial_text']); ?></div>
               <span class="testimonial-author eyebrow"><?php echo esc_html($testimonial['testimonial_author']); ?></span>
             </div>

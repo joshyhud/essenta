@@ -82,7 +82,7 @@ if ($office_locations) {
                 </div>
 
                 <div class="office-locations__intro">
-                    <p class="office-locations__eyebrow">By the numbers</p>
+                    <p class="office-locations__eyebrow">Everywhere you need us</p>
                     <h2>Global reach, personal commitment</h2>
                     <div class="office-locations__controls" aria-label="Choose an office">
                         <?php foreach ($office_locations as $location_index => $office_location) : ?>

@@ -94,25 +94,27 @@ $scrolling_contents = get_sub_field('scrolling_contents');
                   <video <?php if ($video_url): ?>data-video-modal-trigger="<?php echo esc_attr($item_id); ?>" <?php endif; ?>class="scrolling-content-video" src="<?php echo esc_url($video_url); ?>" muted playsinline loop preload="metadata" data-video-src="<?php echo esc_url($video_url); ?>"></video>
                 <?php endif; ?>
               </div>
-              <div class="scrolling-content-card">
+              <?php if ($case_study): ?>
+                <div class="scrolling-content-card">
 
-                <?php if ($client_logo): ?>
-                  <div class="scrolling-content-client-logo">
-                    <img src="<?php echo esc_url($client_logo['url']); ?>" alt="<?php echo esc_attr($client_logo['alt']); ?>">
-                  </div>
-                <?php else: ?>
-                  <h3 class="scrolling-content-heading"><?php echo esc_html($client[0]->name); ?></h3>
-                <?php endif; ?>
-                <?php if ($case_study_id): ?>
-                  <div class="scrolling-content-text">
-                    <?php echo get_the_title($case_study_id); ?>
-                  </div>
+                  <?php if ($client_logo): ?>
+                    <div class="scrolling-content-client-logo">
+                      <img src="<?php echo esc_url($client_logo['url']); ?>" alt="<?php echo esc_attr($client_logo['alt']); ?>">
+                    </div>
+                  <?php else: ?>
+                    <h3 class="scrolling-content-heading"><?php echo esc_html($client[0]->name); ?></h3>
+                  <?php endif; ?>
+                  <?php if ($case_study_id): ?>
+                    <div class="scrolling-content-text">
+                      <?php echo get_the_title($case_study_id); ?>
+                    </div>
 
-                  <a href="<?php echo esc_url(get_permalink($case_study_id)); ?>" class="btn cta-link">
-                    <?php esc_html_e('Read More', 'essenta-theme'); ?>
-                  </a>
-                <?php endif; ?>
-              </div>
+                    <a href="<?php echo esc_url(get_permalink($case_study_id)); ?>" class="btn cta-link">
+                      <?php esc_html_e('Read More', 'essenta-theme'); ?>
+                    </a>
+                  <?php endif; ?>
+                </div>
+              <?php endif; ?>
             </div>
 
             <?php if ($video_url):

@@ -162,5 +162,38 @@ add_action('after_setup_theme', 'mytheme_add_woocommerce_support');
 add_post_type_support('post', 'excerpt');
 add_post_type_support('page', 'excerpt');
 
+// Prefix standard post URLs with /insights/
+function essenta_insights_post_link($permalink, $post)
+{
+  if ($post->post_type !== 'post' || !get_option('permalink_structure') || in_array($post->post_status, array('draft', 'pending', 'auto-draft'), true)) {
+    return $permalink;
+  }
+
+  return home_url(user_trailingslashit('insights/' . $post->post_name));
+}
+add_filter('post_link', 'essenta_insights_post_link', 10, 2);
+
+function essenta_insights_rewrite_rules()
+{
+  add_rewrite_rule('^insights/([^/]+)/?$', 'index.php?name=$matches[1]', 'top');
+}
+add_action('init', 'essenta_insights_rewrite_rules');
+
+// 301 old /post-slug/ URLs to /insights/post-slug/
+function essenta_insights_redirect_old_urls()
+{
+  if (!is_singular('post') || is_preview()) {
+    return;
+  }
+
+  $request_path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+
+  if (strpos($request_path, 'insights/') !== 0) {
+    wp_safe_redirect(get_permalink(), 301);
+    exit;
+  }
+}
+add_action('template_redirect', 'essenta_insights_redirect_old_urls');
+
 // Enable classic editor for products
 add_post_type_support('product', 'editor');

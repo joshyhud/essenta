@@ -29,14 +29,16 @@
             text-transform: uppercase;
           }
 
-          &:before {
-            content: "\201C";
-            display: block;
-            font-family: serif;
-            font-size: clamp(1.125rem, 12vw, 3.25rem);
-            line-height: 1;
-            color: var(--color-teal-600);
-            margin-bottom: 0;
+          .testimonial-quotation {
+            &:before {
+              content: "\201C";
+              display: block;
+              font-family: serif;
+              font-size: clamp(2.125rem, 12vw, 5.25rem);
+              line-height: 1;
+              color: var(--color-teal-600);
+              margin-bottom: 0;
+            }
           }
         }
       }

@@ -16,7 +16,7 @@ $intro_mini_text = get_sub_field('intro_mini_content');
                 <p class="introduction-mini__subheading eyebrow"><?php echo esc_html($intro_mini_subheading); ?></p>
             <?php endif; ?>
             <?php if ($intro_mini_heading) : ?>
-                <p class="introduction-mini__heading body-large "><?php echo esc_html($intro_mini_heading); ?></p>
+                <h2 class="introduction-mini__heading body-large "><?php echo esc_html($intro_mini_heading); ?></h2>
             <?php endif; ?>
         </div>
         <div class="introduction-mini__content">

@@ -6,11 +6,20 @@ Template Post Type: page
 
 get_header();
 
+$excluded_team_member_ids = get_posts(array(
+    'post_type' => 'team_member',
+    'title' => 'Essenta',
+    'posts_per_page' => -1,
+    'fields' => 'ids',
+    'no_found_rows' => true,
+));
+
 $team_members = new WP_Query(array(
     'post_type' => 'team_member',
     'posts_per_page' => -1,
     'orderby' => 'title',
     'order' => 'ASC',
+    'post__not_in' => $excluded_team_member_ids,
 ));
 $has_team_members = $team_members->have_posts();
 $team_locations = get_terms(array(

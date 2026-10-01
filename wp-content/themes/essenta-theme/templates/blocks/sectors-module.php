@@ -136,7 +136,7 @@ $manual_sectors = get_sub_field('manual_sectors');
                                             </h3>
 
                                             <div class="sectors-card__excerpt">
-                                                <?php echo wp_kses_post($sector_text); ?>
+                                                <?php echo esc_html(wp_strip_all_tags($sector_text)); ?>
                                             </div>
 
                                         </div>

@@ -39,6 +39,7 @@
       color: var(--color-navy-500);
       min-height: 2.75rem;
       width: 100%;
+      min-width: auto;
 
       &:focus-visible {
         outline: 2px solid var(--color-teal-500);
@@ -403,7 +404,7 @@ body.team-drawer-open {
 @media (width <= 760px) {
   .team-archive {
     &__directory {
-      padding: 3rem 0;
+      padding: 0;
     }
 
     &__grid {
@@ -413,6 +414,7 @@ body.team-drawer-open {
     &__filters {
       align-items: stretch;
       flex-direction: column;
+      margin-bottom: 1.688rem;
     }
 
     &__results {
@@ -460,10 +462,6 @@ body.team-drawer-open {
 
 @media (width <= 480px) {
   .team-archive {
-    &__grid {
-      grid-template-columns: 1fr;
-    }
-
     &__drawer-close {
       right: 0.5rem;
       top: 0.5rem;

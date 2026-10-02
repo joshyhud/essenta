@@ -175,9 +175,25 @@
       &.slick-initialized {
         display: block;
 
+        .slick-track {
+          display: flex;
+          align-items: stretch;
+        }
+
         .slick-slide {
+          display: flex;
           height: auto;
           margin-right: 0.75rem;
+
+          > div {
+            display: flex;
+            width: 100%;
+          }
+        }
+
+        .sectors-card {
+          height: auto;
+          width: 100%;
         }
       }
     }

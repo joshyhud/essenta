@@ -140,6 +140,14 @@
       max-height: fit-content;
     }
 
+    &__content {
+      padding: 65px 24px 68px;
+    }
+
+    .services-block__item summary {
+      padding: 13px 25px;
+    }
+
     &__image-wrap {
       min-height: 246px;
       height: 246px;

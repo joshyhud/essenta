@@ -91,7 +91,7 @@ $insights = new WP_Query(array(
             responsive: [{
                     breakpoint: 1024,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: 2.1,
                         slidesToScroll: 1,
                     }
                 },
@@ -99,7 +99,7 @@ $insights = new WP_Query(array(
                     breakpoint: 768,
                     settings: {
                         variableWidth: false,
-                        slidesToShow: 1,
+                        slidesToShow: 1.1,
                         slidesToScroll: 1,
                     }
                 }

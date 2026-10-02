@@ -93,11 +93,12 @@ window.essentaInitOfficeMaps = function () {
     );
     var pinIconUrl = mapElement.dataset.pinIcon;
     var officeBounds = new google.maps.LatLngBounds();
+    var isMobileMap = window.matchMedia("(max-width: 780px)").matches;
     var map = new google.maps.Map(mapElement, {
       center: { lat: 51.5072, lng: -0.1276 },
       fullscreenControl: false,
       mapTypeControl: false,
-      minZoom: 3,
+      minZoom: isMobileMap ? 0 : 3,
       restriction: {
         latLngBounds: {
           east: 180,
@@ -105,7 +106,7 @@ window.essentaInitOfficeMaps = function () {
           south: -60,
           west: -180,
         },
-        strictBounds: true,
+        strictBounds: !isMobileMap,
       },
       styles: mapStyles,
       streetViewControl: false,
@@ -122,15 +123,29 @@ window.essentaInitOfficeMaps = function () {
 
     function resetViewport() {
       var officeIndexes = Object.keys(officeMarkers);
+      var isMobile = window.matchMedia("(max-width: 780px)").matches;
 
       if (officeIndexes.length === 1) {
         map.setCenter(officeMarkers[officeIndexes[0]].position);
-        map.setZoom(6);
+        map.setZoom(isMobile ? 4 : 6);
         return;
       }
 
       if (officeIndexes.length > 1) {
-        map.fitBounds(officeBounds, 48);
+        var padding = 48;
+
+        if (isMobile) {
+          var intro = stage.querySelector(".office-locations__intro");
+          var legend = stage.querySelector(".office-locations__legend");
+          padding = {
+            top: intro ? intro.offsetTop + intro.offsetHeight + 32 : 64,
+            right: 64,
+            bottom: legend ? stage.clientHeight - legend.offsetTop + 32 : 64,
+            left: 64,
+          };
+        }
+
+        map.fitBounds(officeBounds, padding);
       }
     }
 
@@ -371,12 +386,10 @@ jQuery(document).ready(function ($) {
           }
         });
     } else {
-      // Mobile: Remove click prevention and close all initially
       $(".footer-details-wrapper summary").off("click.footerToggle");
 
-      // Close all on mobile by default
       footerDetails.each(function () {
-        this.open = false;
+        this.open = Boolean(this.closest(".footer-contact"));
       });
     }
   }

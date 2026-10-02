@@ -298,11 +298,16 @@
     }
 
     &__drawer {
-      bottom: 1rem;
+      bottom: 0;
       padding: 3.25rem 1.25rem 1.5rem;
-      right: 1rem;
+      right: 0;
       top: 4.25rem;
-      width: calc(100% - 2rem);
+      transform: translateY(100%);
+      width: 100%;
+
+      &.is-open {
+        transform: translateY(0);
+      }
     }
 
     &__contact {

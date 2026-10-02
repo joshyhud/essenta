@@ -2,12 +2,12 @@
   .container {
     padding: 0 32px 0 80px;
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: minmax(0, 29fr) minmax(0, 71fr);
     align-items: center;
     gap: 58px;
 
     .sticky-left {
-      grid-column: 1/6;
+      grid-column: 1;
       height: fit-content;
       .sticky-left-content {
         padding: 0;
@@ -25,7 +25,7 @@
     }
 
     .scrolling-contents-wrapper {
-      grid-column: 6/13;
+      grid-column: 2;
       padding: 2rem 0;
       display: flex;
       gap: 1.5rem;
@@ -277,8 +277,20 @@
             margin: 0 -0.4rem;
           }
 
+          .slick-track {
+            display: flex;
+            align-items: stretch;
+          }
+
           .slick-slide {
+            display: flex;
+            height: auto;
             margin: 0 0.4rem;
+
+            > div {
+              display: flex;
+              width: 100%;
+            }
           }
 
           .scrolling-content-item {
@@ -287,9 +299,11 @@
             flex-direction: column;
             min-height: 0;
             padding: 0;
+            width: 100%;
 
             .scrolling-content-media {
               aspect-ratio: 4 / 3;
+              flex-shrink: 0;
               order: 2;
               position: relative;
               width: 100%;
@@ -301,6 +315,7 @@
 
             .scrolling-content-card {
               border-radius: 0;
+              flex: 1;
               max-width: none;
               order: 1;
               padding: 1.25rem;

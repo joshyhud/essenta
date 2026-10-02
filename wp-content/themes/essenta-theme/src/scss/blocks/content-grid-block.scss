@@ -8,6 +8,10 @@
     column-gap: 2rem;
     row-gap: 4.125rem;
 
+    &.content-grid-container--normal {
+      row-gap: 2.125rem;
+    }
+
     .content-grid-header {
       grid-column: 1 / -1;
       width: 100%;
@@ -154,7 +158,7 @@
       .content-grid-image {
         order: 3;
         height: auto;
-        max-height: 500px;
+        max-height: 284px;
       }
 
       &.content-grid-container--reverse {

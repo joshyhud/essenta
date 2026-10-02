@@ -47,19 +47,20 @@ $media_cta_secondary = get_sub_field('header_secondary_cta');
                 <p class="eyebrow"><?php echo esc_html($media_sub_header); ?></p>
                 <h1><?php echo esc_html($media_heading); ?></h1>
             </div>
-            <div class="media-text-right content">
-                <?php if ($media_heading_intro_text) : ?>
-                    <?php echo wp_kses_post($media_heading_intro_text); ?>
-                <?php endif; ?>
-                <div class="media-header-ctas">
-                    <?php if ($media_cta) { ?>
-                        <a href="<?php echo esc_url($media_cta['url']); ?>" class="btn primary"><?php echo esc_html($media_cta['title']); ?></a>
-                    <?php } ?>
-                    <?php if ($media_cta_secondary) { ?>
-                        <a href="<?php echo esc_url($media_cta_secondary['url']); ?>" class="btn secondary"><?php echo esc_html($media_cta_secondary['title']); ?></a>
-                    <?php } ?>
-                </div>
+            <?php if ($media_heading_intro_text) : ?>
+                <div class="media-text-right content">
 
-            </div>
+                    <?php echo wp_kses_post($media_heading_intro_text); ?>
+                    <div class="media-header-ctas">
+                        <?php if ($media_cta) { ?>
+                            <a href="<?php echo esc_url($media_cta['url']); ?>" class="btn primary"><?php echo esc_html($media_cta['title']); ?></a>
+                        <?php } ?>
+                        <?php if ($media_cta_secondary) { ?>
+                            <a href="<?php echo esc_url($media_cta_secondary['url']); ?>" class="btn secondary"><?php echo esc_html($media_cta_secondary['title']); ?></a>
+                        <?php } ?>
+                    </div>
+
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
 </section>

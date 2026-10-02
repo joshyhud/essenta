@@ -77,6 +77,10 @@ p {
     letter-spacing: 1.54px;
     text-transform: uppercase;
     color: var(--color-sand-800);
+
+    @media (width <= 980px) {
+      margin-bottom: 0;
+    }
   }
 
   em {

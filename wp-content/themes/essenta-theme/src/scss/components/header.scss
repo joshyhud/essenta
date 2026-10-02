@@ -39,11 +39,12 @@
       justify-content: end;
       gap: 0.75rem;
       text-wrap: nowrap;
+      padding-right: 0.5rem;
 
       .header-icons {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 1.563rem;
 
         .header-icon {
           position: relative;
@@ -104,6 +105,7 @@
       justify-content: space-between;
 
       .site-brand {
+        max-width: 81px;
         gap: 0;
       }
 
@@ -116,21 +118,15 @@
         }
       }
 
-      .header-search.mobile {
-        display: block;
-        grid-column: span 4;
-        grid-row: 2;
-        .search-form {
-          border-top: 1px solid var(--color-neutral);
-          // border-bottom: 1px solid var(--color-neutral);
-          background-color: transparent !important;
-        }
-      }
-
       .header-ctas {
         .header-search {
           display: none;
         }
+
+        .btn::after {
+          display: none;
+        }
+
         .cta-icon {
           display: flex;
           align-items: center;
@@ -253,10 +249,11 @@
         }
 
         .mm-close {
+          color: var(--color-navy-900);
           background: transparent;
           border: 0;
           cursor: pointer;
-          font-size: 18px;
+          font-size: 30px;
         }
 
         .mm-menu-content {
@@ -265,9 +262,50 @@
           overflow-y: auto;
 
           .mega-menu.max-mega-menu.mega-menu-horizontal {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 30px !important;
+
+            > li.mega-menu-item {
+              margin: 0 !important;
+
+              > a.mega-menu-link {
+                font-family: var(--font-circular-med) !important;
+                font-size: 18px !important;
+                font-weight: 500 !important;
+              }
+
+              &.mega-menu-item-has-children > a.mega-menu-link {
+                position: relative;
+                padding-right: 48px !important;
+
+                > .mega-indicator {
+                  display: block !important;
+                  position: absolute !important;
+                  right: 16px !important;
+                  top: 50% !important;
+                  width: 16px !important;
+                  height: 16px !important;
+                  margin: 0 !important;
+                  background: url("../images/chevron-down.svg") center / contain
+                    no-repeat !important;
+                  transform: translateY(-50%) !important;
+                  transition: transform 0.25s ease !important;
+
+                  &::after {
+                    content: none !important;
+                  }
+
+                  @media (prefers-reduced-motion: reduce) {
+                    transition: none !important;
+                  }
+                }
+
+                &[aria-expanded="true"] > .mega-indicator {
+                  transform: translateY(-50%) rotate(180deg) !important;
+                }
+              }
+            }
 
             .mega-sub-menu {
               box-shadow: none !important;
@@ -299,6 +337,13 @@
           position: fixed;
           width: 100%;
           z-index: 9999;
+          a {
+            width: 100%;
+            /* text-align: center; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
         }
 
         body.mm-locked {

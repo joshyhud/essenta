@@ -332,3 +332,17 @@ function populate_gravity_forms_country_calling_code($value)
 
   return get_visitor_country_calling_code();
 }
+
+add_filter('gform_submit_button', function ($button, $form) {
+  $privacy_policy_url = get_privacy_policy_url();
+  $privacy_policy_text = esc_html__('privacy policy', 'essenta-theme');
+
+  if ($privacy_policy_url) {
+    $privacy_policy_text = '<a href="' . esc_url($privacy_policy_url) . '">' . $privacy_policy_text . '</a>';
+  }
+
+  return $button . '<div class="gform_under_submit_text">' . sprintf(
+    esc_html__("*By clicking submit I agree to Essenta's %s.", 'essenta-theme'),
+    $privacy_policy_text
+  ) . '</div>';
+}, 10, 2);

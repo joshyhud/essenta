@@ -138,6 +138,11 @@ $get_first_stat = static function ($post_id) {
                                 </div>
 
                                 <div class="casestudy-card__body">
+                                    <?php if (!empty($client_logo['url'])) : ?>
+                                        <img class="casestudy-card__logo" loading="lazy" src="<?php echo esc_url($client_logo['url']); ?>" alt="<?php echo esc_attr(!empty($client_logo['alt']) ? $client_logo['alt'] : $client->name); ?>">
+                                    <?php elseif ($client) : ?>
+                                        <h3 class="casestudy-card__client"><?php echo esc_html($client->name); ?></h3>
+                                    <?php endif; ?>
                                     <h2 class="casestudy-card__title"><?php the_title(); ?></h2>
                                     <p class="casestudy-card__excerpt"><?php echo get_the_excerpt(); ?></p>
 

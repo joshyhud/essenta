@@ -264,7 +264,7 @@ $archive_query = $GLOBALS['wp_query'];
             return;
           }
 
-          FWP.facets.post_type = [button.dataset.value];
+          FWP.facets.post_types = [button.dataset.value];
           FWP.is_reset = true;
           FWP.refresh();
         });
@@ -279,7 +279,7 @@ $archive_query = $GLOBALS['wp_query'];
     if (allButton) {
       allButton.addEventListener('click', function() {
         if (typeof FWP !== 'undefined') {
-          FWP.reset('post_type');
+          FWP.reset('post_types');
         }
       });
     }
@@ -289,7 +289,7 @@ $archive_query = $GLOBALS['wp_query'];
         return;
       }
 
-      const isAllSelected = !(FWP.facets.post_type || []).length;
+      const isAllSelected = !(FWP.facets.post_types || []).length;
       allButton.classList.toggle('is-active', isAllSelected);
       allButton.setAttribute('aria-pressed', String(isAllSelected));
       renderPostTypeButtons();

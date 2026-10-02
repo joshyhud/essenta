@@ -129,7 +129,7 @@
 
 @media (width <= 980px) {
   .introduction-block {
-    margin-top: 52px;
+    margin-top: 21px;
 
     .container {
       flex-direction: column;
@@ -161,6 +161,9 @@
 
           .testimonials-slider {
             max-width: 100%;
+            .testimonial {
+              padding: 20px 30px 0;
+            }
           }
           .slider-nav.testimonials {
             max-width: 100%;

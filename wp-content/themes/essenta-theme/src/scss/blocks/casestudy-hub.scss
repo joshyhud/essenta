@@ -206,19 +206,20 @@
 
   &__logo {
     display: block;
-    width: auto;
-    max-width: 8rem;
-    height: 22px;
-    object-fit: contain;
-    object-position: left center;
+    filter: grayscale(100%);
+    mix-blend-mode: multiply;
+    transition: filter 0.3s ease-in-out;
+    width: 140px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 
   &__client {
-    margin: 0;
-    color: var(--color-navy-900);
-    font-family: var(--font-circular-bold);
-    font-size: 15px;
-    line-height: 22px;
+    color: var(--color-sand-800);
+    text-transform: uppercase;
+    letter-spacing: 0;
+    font-size: clamp(1rem, 2.5vw, 1.375rem);
   }
 
   &__title {

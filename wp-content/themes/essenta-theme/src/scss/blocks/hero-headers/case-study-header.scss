@@ -143,6 +143,20 @@
       gap: 3rem;
       padding: 18px 15px 20px;
 
+      .case-study-header-left {
+        .case-study-meta {
+          .case-study-meta-item {
+            display: flex;
+            .case-study-meta-label {
+              width: 30%;
+            }
+            .case-study-meta-value {
+              width: 70%;
+            }
+          }
+        }
+      }
+
       .case-study-header-right {
         .case-study-header-content {
           max-width: 100%;

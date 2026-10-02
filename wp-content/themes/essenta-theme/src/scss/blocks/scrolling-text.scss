@@ -103,13 +103,13 @@
 
     .scrolling-text-content {
       max-width: none;
-      padding: 0 0 0 1rem;
+      padding: 0;
 
       > h2,
       > h3,
       > h4 {
         &:before {
-          left: -1rem;
+          display: none;
         }
       }
     }

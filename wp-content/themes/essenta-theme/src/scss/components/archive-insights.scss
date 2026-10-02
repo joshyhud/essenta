@@ -78,11 +78,11 @@
       .archive-post-type-option,
       .archive-post-type-filters .facetwp-checkbox,
       .archive-post-type-filters .facetwp-radio {
-        min-height: 2.5rem;
         padding: 0.625rem 1.25rem;
         border: 0;
-        border-radius: 0;
-        background-color: var(--color-sand-50);
+        border-radius: 2px;
+        overflow: hidden;
+        background-color: white;
         background-image: none;
         color: var(--color-navy-500);
         font-family: var(--font-circular-reg);
@@ -91,10 +91,17 @@
         cursor: pointer;
         margin: 0;
 
-        &:hover,
+        span {
+          padding: 0 !important;
+        }
+
+        &:hover {
+          background-color: var(--color-teal-200);
+        }
+
         &.is-active,
         &.checked {
-          background-color: var(--color-teal-500);
+          background-color: var(--color-teal-600);
           color: var(--color-white);
         }
 
@@ -121,6 +128,10 @@
 
     .archive-recent-insights-grid {
       grid-template-columns: 1fr;
+
+      .blog-card .blog-card-image {
+        aspect-ratio: 4 / 3;
+      }
 
       &.slick-initialized {
         display: block;

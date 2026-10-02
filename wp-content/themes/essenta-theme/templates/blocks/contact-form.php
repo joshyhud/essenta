@@ -28,7 +28,7 @@ $contactOffices = new WP_Query(array(
       <div class="contact-form__main">
         <div class="contact-form__intro">
           <?php if ($contactTitle) : ?>
-            <h4><?php echo esc_html($contactTitle); ?></h4>
+            <h5><?php echo esc_html($contactTitle); ?></h5>
           <?php endif; ?>
           <?php echo wp_kses_post($contactDescription); ?>
         </div>

@@ -1,153 +1,330 @@
 <?php
 
-
 if (! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
-$tabs = [
-  'management' => [
-    'label'   => 'Management',
-    'members' => get_sub_field('management_members') ?: [],
-  ],
-  'workshop' => [
-    'label'   => 'Workshop',
-    'members' => get_sub_field('workshop_members') ?: [],
-  ],
-  'sales' => [
-    'label'   => 'Sales',
-    'members' => get_sub_field('sales_members') ?: [],
-  ],
-];
+$team_block_subheading = get_sub_field('team_block_subheading');
+$team_block_heading = get_sub_field('team_block_heading');
+$team_block_content = get_sub_field('team_block_content');
+$team_block_primary_cta = get_sub_field('team_block_primary_cta');
+$team_block_secondary_cta = get_sub_field('team_block_secondary_cta');
 
-// Optional: hide empty departments
-$tabs = array_filter($tabs, fn($t) => !empty($t['members']));
+$team_type = get_sub_field('team_type');
 
-if (empty($tabs)) {
+$team_member_location = get_sub_field('team_member_location');
+$selected_team_members = get_sub_field('team_members');
+
+$team_members = [];
+
+if ($team_type === 'individual') {
+  if ($selected_team_members) {
+    $team_members = new WP_Query([
+      'post_type'      => 'team_member',
+      'posts_per_page' => -1,
+      'post_status'    => 'publish',
+      'post__in'       => wp_list_pluck((array) $selected_team_members, 'ID'),
+      'orderby'        => 'post__in',
+    ]);
+  }
+} elseif ($team_member_location) {
+  $team_members = new WP_Query([
+    'post_type'      => 'team_member',
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+    'tax_query'      => [
+      [
+        'taxonomy' => 'team_location',
+        'field'    => 'term_id',
+        'terms'     => $team_member_location,
+      ],
+    ],
+    'orderby'        => 'title',
+    'order'          => 'ASC',
+  ]);
+}
+
+if (!$team_members || !$team_members->have_posts()) {
   echo '<p>No team members selected.</p>';
   return;
 }
 
-$uid = 'team-depts-' . wp_unique_id();
+$uid = 'team-members-' . wp_unique_id();
+$drawer_id = $uid . '-profile-drawer';
+
 ?>
 
-<section class="team-depts" id="<?php echo esc_attr($uid); ?>" data-team-depts>
-  <aside class="team-depts__nav" aria-label="Departments">
-    <div class="team-depts__nav-inner">
-      <ul class="team-depts__nav-list">
-        <?php $i = 0;
-        foreach ($tabs as $key => $tab): ?>
-          <li>
-            <a
-              class="team-depts__nav-link <?php echo $i === 0 ? 'is-active' : ''; ?>"
-              href="#<?php echo esc_attr($uid . '-' . $key); ?>"
-              data-dept-link="<?php echo esc_attr($key); ?>">
-              <?php echo esc_html($tab['label']); ?>
+<section
+  class="team-members-block"
+  id="<?php echo esc_attr($uid); ?>">
+  <div class="container">
+    <div class="team-members-block__content">
+      <?php if ($team_block_subheading): ?>
+        <p class="eyebrow"><?php echo esc_html($team_block_subheading); ?></p>
+      <?php endif; ?>
+
+      <?php if ($team_block_heading): ?>
+        <h2 class="heading"><?php echo esc_html($team_block_heading); ?></h2>
+      <?php endif; ?>
+
+      <?php if ($team_block_content): ?>
+        <div class="content-text">
+          <?php echo wp_kses_post(wpautop($team_block_content)); ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($team_members->post_count > 1): ?>
+        <div class="team-members-block__nav">
+          <button type="button" class="team-members-block__prev" aria-label="<?php esc_attr_e('Previous', 'essenta-theme'); ?>"></button>
+          <button type="button" class="team-members-block__next" aria-label="<?php esc_attr_e('Next', 'essenta-theme'); ?>"></button>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($team_block_primary_cta || $team_block_secondary_cta): ?>
+        <div class="team-members-block__ctas">
+          <?php if ($team_block_primary_cta): ?>
+            <a href="<?php echo esc_url($team_block_primary_cta['url']); ?>" class="btn primary">
+              <?php echo esc_html($team_block_primary_cta['title']); ?>
             </a>
-          </li>
-        <?php $i++;
-        endforeach; ?>
-      </ul>
+          <?php endif; ?>
+
+          <?php if ($team_block_secondary_cta): ?>
+            <a href="<?php echo esc_url($team_block_secondary_cta['url']); ?>" class="btn secondary">
+              <?php echo esc_html($team_block_secondary_cta['title']); ?>
+            </a>
+          <?php endif; ?>
+        </div>
+      <?php endif; ?>
     </div>
-  </aside>
 
-  <div class="team-depts__content" data-team-content>
-    <div class="team-depts__list">
-      <?php foreach ($tabs as $key => $tab): ?>
-        <section
-          class="team-depts__section"
-          id="<?php echo esc_attr($uid . '-' . $key); ?>"
-          data-dept-section
-          data-dept-key="<?php echo esc_attr($key); ?>">
+    <div class="team-members-block__slider-wrapper">
+      <div class="team-members-slider">
+        <?php while ($team_members->have_posts()): $team_members->the_post(); ?>
+          <?php $member = get_post(); ?>
 
-          <?php foreach ($tab['members'] as $member): ?>
-            <?php
-            $member_id = is_object($member) ? $member->ID : (int) $member;
-            $name      = get_the_title($member_id);
-            $role      = get_field('job_role', $member_id); // optional
-            $img       = get_the_post_thumbnail($member_id, 'medium');
-            $member_content = get_post_field('post_content', $member_id);
+          <?php
+          $member_id       = $member->ID;
+          $name            = get_the_title($member_id);
+          $role            = get_field('job_role', $member_id);
+          $img             = get_the_post_thumbnail($member_id, 'full');
+          $departments     = get_the_terms($member_id, 'department');
+          $locations       = get_the_terms($member_id, 'team_location');
+          ?>
 
-            ?>
-            <article class="team-card">
-              <div class="team-card__user">
-                <p class="team-card__name subheading"><?php echo esc_html($name); ?></p>
-                <h3><?php echo esc_html($role); ?></h3>
+          <article class="team-card">
+            <div class="team-card__image">
+              <?php if ($img): ?>
+                <?php echo $img; ?>
+              <?php endif; ?>
+            </div>
 
-                <div class="member-content">
-                  <?php echo wp_kses_post(wpautop($member_content)); ?>
-                </div>
-              </div>
+            <div class="team-card__body">
+              <p class="team-card__name"><?php echo esc_html($name); ?></p>
 
-              <div class="team-card__image">
-                <?php if ($img): ?>
-                  <?php echo $img; ?>
+              <?php if ($role): ?>
+                <p class="team-card__role"><?php echo esc_html($role); ?></p>
+              <?php endif; ?>
+
+              <div class="team-card__meta">
+                <?php if (!empty($departments) && !is_wp_error($departments)): ?>
+                  <?php foreach ($departments as $department): ?>
+                    <p class="team-card__department"><?php echo esc_html($department->name); ?></p>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+
+                <?php if (!empty($locations) && !is_wp_error($locations)): ?>
+                  <?php
+                  $location_names = array_map(
+                    function ($location) {
+                      return trim(explode(',', $location->name, 2)[0]);
+                    },
+                    $locations
+                  );
+                  ?>
+                  <p class="team-card__location">
+                    <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt="">
+                    <span><?php echo $location_names[0]; ?></span>
+                  </p>
                 <?php endif; ?>
               </div>
 
-            </article>
-          <?php endforeach; ?>
-        </section>
-      <?php endforeach; ?>
+              <button
+                class="btn cta-link"
+                type="button"
+                aria-controls="<?php echo esc_attr($drawer_id); ?>"
+                aria-expanded="false"
+                data-team-profile="<?php echo esc_attr($uid . '-team-profile-' . $member_id); ?>">
+                <?php esc_html_e('View Profile', 'essenta-theme'); ?>
+              </button>
+            </div>
+          </article>
+
+        <?php endwhile; ?>
+        <?php wp_reset_postdata(); ?>
+      </div>
+
     </div>
   </div>
 </section>
 
+<div class="team-archive__drawer-shell" data-team-drawer hidden>
+  <button class="team-archive__backdrop" type="button" aria-label="<?php esc_attr_e('Close profile', 'essenta-theme'); ?>" data-team-drawer-close></button>
+  <aside
+    class="team-archive__drawer"
+    id="<?php echo esc_attr($drawer_id); ?>"
+    role="dialog"
+    aria-modal="true"
+    aria-label="<?php esc_attr_e('Team member profile', 'essenta-theme'); ?>"
+    tabindex="-1">
+    <button class="team-archive__drawer-close" type="button" aria-label="<?php esc_attr_e('Close profile', 'essenta-theme'); ?>" data-team-drawer-close></button>
+    <div data-team-drawer-content></div>
+  </aside>
+</div>
+
+<?php $team_members->rewind_posts(); ?>
+<?php while ($team_members->have_posts()): $team_members->the_post(); ?>
+  <?php
+  $member_id = get_the_ID();
+  $role = get_field('job_role', $member_id);
+  $locations = get_the_terms($member_id, 'team_location');
+  $profile_linkedin = get_field('team_member_linkedin', $member_id);
+  $profile_email = get_field('team_member_email', $member_id);
+  $profile_email_url = $profile_email['url'] ?? '';
+  $profile_email_address = preg_replace('#^https?://#i', '', $profile_email_url);
+
+  if (is_email($profile_email_address)) {
+    $profile_email_url = 'mailto:' . $profile_email_address;
+  }
+
+  $profile_expertise = get_field('team_member_expertise', $member_id);
+  $professional_overview = get_field('professional_overview', $member_id);
+  $sector_and_functional_experience = get_field('sector_and_functional_experience', $member_id);
+  $relevant_career_experience = get_field('relevant_career_experience', $member_id);
+  $personal_perspective = get_field('personal_perspective', $member_id);
+  $featured_quote = get_field('featured_quote', $member_id);
+  ?>
+  <template id="<?php echo esc_attr($uid . '-team-profile-' . $member_id); ?>">
+    <article class="team-archive__profile">
+      <div class="team-archive__profile-header">
+        <?php if (has_post_thumbnail()): ?>
+          <div class="team-archive__profile-image">
+            <?php the_post_thumbnail('large', array('loading' => 'lazy')); ?>
+          </div>
+        <?php endif; ?>
+
+        <div class="team-archive__profile-intro">
+          <h2><?php the_title(); ?></h2>
+
+          <?php if ($role): ?>
+            <p class="team-archive__profile-role"><?php echo esc_html($role); ?></p>
+          <?php endif; ?>
+
+          <div class="team-archive__profile-meta">
+            <?php if ($locations && !is_wp_error($locations)): ?>
+              <span class="team-archive__profile-location">
+                <img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt="">
+                <?php echo esc_html(implode(', ', wp_list_pluck($locations, 'name'))); ?>
+              </span>
+            <?php endif; ?>
+            <?php if ($profile_linkedin): ?>
+              <a href="<?php echo esc_url($profile_linkedin['url']); ?>" target="<?php echo esc_attr($profile_linkedin['target'] ?: '_blank'); ?>" rel="noopener noreferrer">
+                <img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/linkedin.svg'); ?>" alt="">
+                <?php echo esc_html($profile_linkedin['title']); ?>
+              </a>
+            <?php endif; ?>
+            <?php if ($profile_email): ?>
+              <a href="<?php echo esc_url($profile_email_url); ?>">
+                <img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/mail.svg'); ?>" alt="">
+                <?php echo esc_html($profile_email['title']); ?>
+              </a>
+            <?php endif; ?>
+          </div>
+
+          <?php if ($profile_expertise): ?>
+            <div class="team-archive__profile-expertise" aria-label="<?php esc_attr_e('Areas of expertise', 'essenta-theme'); ?>">
+              <p><?php esc_html_e('Areas of expertise', 'essenta-theme'); ?></p>
+              <div>
+                <?php foreach ($profile_expertise as $expertise): ?>
+                  <?php $expertise_label = is_array($expertise) ? ($expertise['expertise'] ?? '') : $expertise; ?>
+                  <?php if ($expertise_label): ?>
+                    <span><?php echo esc_html($expertise_label); ?></span>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+              </div>
+            </div>
+          <?php endif; ?>
+
+          <a class="btn primary team-archive__profile-cta" href="/contact">
+            <?php esc_html_e('Talk to an expert', 'essenta-theme'); ?>
+          </a>
+        </div>
+      </div>
+
+      <div class="team-archive__profile-content">
+        <div class="profile-content-overlay"></div>
+        <?php if ($professional_overview): ?>
+          <section class="team-archive__profile-section">
+            <h3><?php esc_html_e('Professional overview', 'essenta-theme'); ?></h3>
+            <div><?php echo wp_kses_post($professional_overview); ?></div>
+          </section>
+        <?php endif; ?>
+        <?php if ($sector_and_functional_experience): ?>
+          <section class="team-archive__profile-section">
+            <h3><?php esc_html_e('Sector and functional experience', 'essenta-theme'); ?></h3>
+            <div><?php echo wp_kses_post($sector_and_functional_experience); ?></div>
+          </section>
+        <?php endif; ?>
+        <?php if ($relevant_career_experience): ?>
+          <section class="team-archive__profile-section">
+            <h3><?php esc_html_e('Relevant career experience', 'essenta-theme'); ?></h3>
+            <div><?php echo wp_kses_post($relevant_career_experience); ?></div>
+          </section>
+        <?php endif; ?>
+        <?php if ($personal_perspective): ?>
+          <section class="team-archive__profile-section">
+            <h3><?php esc_html_e('Personal perspective', 'essenta-theme'); ?></h3>
+            <div><?php echo wp_kses_post($personal_perspective); ?></div>
+          </section>
+        <?php endif; ?>
+        <?php if ($featured_quote): ?>
+          <blockquote class="team-archive__profile-quote"><?php echo esc_html($featured_quote); ?></blockquote>
+        <?php endif; ?>
+      </div>
+    </article>
+  </template>
+<?php endwhile; ?>
+<?php wp_reset_postdata(); ?>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const teamDepts = document.querySelector('[data-team-depts]');
-    if (!teamDepts) return;
+  jQuery(document).ready(function($) {
+    $('#<?php echo esc_js($uid); ?> .team-members-slider').slick({
+      slidesToShow: 3.5,
+      slidesToScroll: 1,
+      draggable: true,
+      swipe: true,
+      touchThreshold: 10,
 
-    const navLinks = teamDepts.querySelectorAll('[data-dept-link]');
-    const sections = teamDepts.querySelectorAll('[data-dept-section]');
-    const content = teamDepts.querySelector('[data-team-content]');
+      speed: 450,
+      cssEase: 'ease-out',
 
-    if (!navLinks.length || !sections.length || !content) return;
-
-    // Smooth scrolling when clicking nav links
-    navLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
-
-        if (targetSection) {
-          const offsetTop = targetSection.offsetTop - content.offsetTop;
-          content.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
+      waitForAnimate: false,
+      arrows: true,
+      dots: false,
+      infinite: false,
+      adaptiveHeight: false,
+      prevArrow: $('#<?php echo esc_js($uid); ?> .team-members-block__prev'),
+      nextArrow: $('#<?php echo esc_js($uid); ?> .team-members-block__next'),
+      responsive: [{
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2.5
         }
-      });
-    });
-
-    // Update active nav link based on scroll position using Intersection Observer
-    const observerOptions = {
-      root: content,
-      rootMargin: '-20% 0px -70% 0px',
-      threshold: 0
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const sectionKey = entry.target.getAttribute('data-dept-key');
-
-          // Remove active class from all links
-          navLinks.forEach(link => link.classList.remove('is-active'));
-
-          // Add active class to current section's link
-          const activeLink = teamDepts.querySelector(`[data-dept-link="${sectionKey}"]`);
-          if (activeLink) {
-            activeLink.classList.add('is-active');
-          }
+      }, {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 1.35
         }
-      });
-    }, observerOptions);
-
-    // Observe all sections
-    sections.forEach(section => {
-      observer.observe(section);
+      }]
     });
   });
 </script>

@@ -1,58 +1,86 @@
 h1 {
   font-family: var(--font-adelle);
-  font-size: clamp(3.125rem, 5vw, 4.5rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-family: "adelle", serif;
-  font-weight: 600;
-  font-style: normal;
+  font-weight: 500;
   letter-spacing: -1.44px;
 }
 
 h2 {
   font-family: var(--font-adelle);
-  font-size: clamp(2.25rem, 5vw, 2.5rem);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 400;
   font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.96px;
 }
 
 h3 {
   font-family: var(--font-adelle);
-  font-size: clamp(1.75rem, 5vw, 2rem);
+  font-size: clamp(1.375rem, 5vw, 1.75rem);
   font-weight: 400;
   font-style: normal;
+  letter-spacing: -0.96px;
+  line-height: normal;
 }
 
 h4 {
-  font-family: var(--font-circular-std);
-  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-  font-weight: 700;
+  font-family: var(--font-circular-reg);
+  font-size: clamp(1.375rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  line-height: normal;
 }
 
 h5 {
-  font-family: var(--font-circular-std);
+  font-family: var(--font-circular-reg);
   font-size: clamp(1.125rem, 2vw, 1.25rem);
-  font-weight: 700;
+  font-weight: 400;
+  line-height: normal;
 }
 
 h6 {
-  font-family: var(--font-circular-std);
+  font-family: var(--font-circular-reg);
   font-size: clamp(1.25rem, 2vw, 1.5rem);
   font-weight: 400;
+  line-height: normal;
 }
 
-
 p {
-  font-family: var(--font-circular-std);
-  font-size: var(--font-size-base);
-  font-weight: 400;
+  color: var(--color-sand-800);
+  font-family: var(--font-circular-reg);
+  font-size: clamp(1rem, 2vw, 0.938rem);
+  line-height: 1.25rem;
+  font-weight: regular;
+  margin-bottom: 1rem;
+
+  &.body-large {
+    font-size: clamp(1rem, 2vw, 0.938rem);
+    line-height: 1.188rem;
+  }
+
+  &.body-medium {
+    font-size: clamp(0.875rem, 2vw, 0.813rem);
+    line-height: 1.2;
+    color: var(--color-sand-600);
+  }
+
+  &.body-small {
+    font-size: clamp(0.625rem, 2vw, 0.563rem);
+    line-height: 1.2;
+  }
 
   &.eyebrow {
-    font-family: var(--font-circular-std);
+    font-family: var(--font-circular-bold);
     font-size: clamp(0.625rem, 2vw, 0.688rem);
-    line-height: 1rem;
+    line-height: 1.031rem;
     font-weight: 700;
     letter-spacing: 1.54px;
     text-transform: uppercase;
-    color: var(--color-sand-700);
+    color: var(--color-sand-800);
+
+    @media (width <= 980px) {
+      margin-bottom: 0;
+    }
   }
 
   em {
@@ -60,9 +88,8 @@ p {
   }
 }
 
-
 a {
-  font-family: var(--font-circular-std);
+  font-family: var(--font-circular-reg);
   font-size: var(--font-size-base);
   line-height: 1.188rem;
   font-weight: 300;
@@ -72,7 +99,7 @@ a {
 }
 
 small {
-  font-family: var(--font-circular-std);
+  font-family: var(--font-circular-reg);
   font-size: 0.875rem;
   line-height: 1.188rem;
   font-weight: 300;
@@ -83,7 +110,7 @@ small {
 blockquote,
 q {
   quotes: initial;
-  font-family: var(--font-circular-std);
+  font-family: var(--font-circular-reg);
   font-size: 2rem;
   line-height: 2.25rem;
 

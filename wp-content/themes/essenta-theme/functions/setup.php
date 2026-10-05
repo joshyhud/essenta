@@ -13,11 +13,33 @@ function add_theme_scripts()
   // Enqueue style.css with version updating
   wp_enqueue_style('main_style', get_stylesheet_directory_uri() . '/dist/css/style.min.css', array(), $style_ver);
   // Enqueue latest version of jQuery
-  wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-latest.min.js', array(), null, true);
+  wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-latest.min.js', array(), null);
   // Enqueue script.js with version updating and dependency on jQuery
-  wp_enqueue_script('main-script', get_stylesheet_directory_uri() . '/dist/js/scripts.min.js', array('jquery'), $script_ver);
+  wp_enqueue_script('main-script', get_stylesheet_directory_uri() . '/dist/js/scripts.min.js', array('jquery', 'accessible-slick-cdn-js'), $script_ver, true);
 }
 add_action('wp_enqueue_scripts', 'add_theme_scripts');
+
+// Force-enqueue Gravity Forms CSS/JS for the footer contact form.
+// Gravity Forms only auto-enqueues its assets for forms found in the current
+// post's content, so the form embedded in the footer options field is never
+// detected and its default styles/scripts are skipped on the front end.
+function enqueue_footer_gravity_form_assets()
+{
+  if (!class_exists('GFForms') || !function_exists('get_field')) {
+    return;
+  }
+
+  $footer_form_content = get_field('footer_contact_form', 'option');
+
+  if (empty($footer_form_content)) {
+    return;
+  }
+
+  if (preg_match('/\[gravityform[^\]]*\bid=["\']?(\d+)["\']?/i', $footer_form_content, $matches)) {
+    gravity_form_enqueue_scripts((int) $matches[1], false);
+  }
+}
+add_action('wp_enqueue_scripts', 'enqueue_footer_gravity_form_assets', 20);
 
 // Enqueue External Libraries
 function add_cdn_libraries()
@@ -39,6 +61,7 @@ function add_cdn_libraries()
   wp_enqueue_script(
     'accessible-slick-cdn-js', // Handle name
     'https://cdn.jsdelivr.net/npm/@accessible360/accessible-slick@1.0.1/slick/slick.min.js', // CDN URL
+    array('jquery'), // Dependencies
   );
 }
 add_action('wp_enqueue_scripts', 'add_cdn_libraries');
@@ -138,6 +161,39 @@ add_action('after_setup_theme', 'mytheme_add_woocommerce_support');
 // Enable excerpts for posts and pages
 add_post_type_support('post', 'excerpt');
 add_post_type_support('page', 'excerpt');
+
+// Prefix standard post URLs with /insights/
+function essenta_insights_post_link($permalink, $post)
+{
+  if ($post->post_type !== 'post' || !get_option('permalink_structure') || in_array($post->post_status, array('draft', 'pending', 'auto-draft'), true)) {
+    return $permalink;
+  }
+
+  return home_url(user_trailingslashit('insights/' . $post->post_name));
+}
+add_filter('post_link', 'essenta_insights_post_link', 10, 2);
+
+function essenta_insights_rewrite_rules()
+{
+  add_rewrite_rule('^insights/([^/]+)/?$', 'index.php?name=$matches[1]', 'top');
+}
+add_action('init', 'essenta_insights_rewrite_rules');
+
+// 301 old /post-slug/ URLs to /insights/post-slug/
+function essenta_insights_redirect_old_urls()
+{
+  if (!is_singular('post') || is_preview()) {
+    return;
+  }
+
+  $request_path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+
+  if (strpos($request_path, 'insights/') !== 0) {
+    wp_safe_redirect(get_permalink(), 301);
+    exit;
+  }
+}
+add_action('template_redirect', 'essenta_insights_redirect_old_urls');
 
 // Enable classic editor for products
 add_post_type_support('product', 'editor');

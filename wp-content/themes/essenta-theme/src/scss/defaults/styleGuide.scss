@@ -7,9 +7,11 @@ html #wpadminbar {
 
 body {
   font-family:
-    var(--font-circular-std), var(--font-adelle), "Open Sans", sans-serif;
-  color: var(--color-grey-darker);
-  background-color: var(--color-white);
+    var(--font-circular-reg), var(--font-adelle), "Open Sans", sans-serif;
+  color: var(--color-navy-900);
+  background-color: var(--color-sand-300);
+
+  cursor: default;
   &.mm-locked {
     overflow: hidden;
   }
@@ -27,7 +29,7 @@ section {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 5rem 1.5rem;
+  padding: 3.75rem 10rem;
 }
 
 .container.contained {
@@ -67,7 +69,37 @@ a:hover {
 }
 
 strong {
-  font-weight: var(--font-weight-bold);
+  font-weight: 600;
+}
+
+// Icons
+
+i {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+
+  &.icon-facebook {
+    background-image: url("../images/facebook.svg");
+  }
+  &.icon-instagram {
+    background-image: url("../images/instagram.svg");
+  }
+  &.icon-linkedin {
+    background-image: url("../images/linkedin.svg");
+  }
+  &.icon-pinterest {
+    background-image: url("../images/pinterest.svg");
+  }
+  &.icon-twitter {
+    background-image: url("../images/twitter.svg");
+  }
+  &.icon-youtube {
+    background-image: url("../images/youtube.svg");
+  }
 }
 
 ul {
@@ -144,9 +176,9 @@ fieldset {
   margin-top: 20px;
 }
 
-@media (width <= 768px) {
+@media (width <= 980px) {
   .container {
-    padding: 2.5rem 1rem;
+    padding: 1.875rem 1rem;
     max-width: 100%;
   }
 }
@@ -177,17 +209,24 @@ fieldset {
 }
 
 .pill {
-  font-family: var(--font-circular-std);
-  font-weight: 300;
-  font-size: 12px;
-  letter-spacing: 10%;
+  font-family: var(--font-circular-reg);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
-  border-radius: 1rem;
-  padding: 6px 8px;
-  background-color: var(--color-grey-light);
-  color: var(--color-grey-darker);
+  border-radius: 2px;
+  padding: 7px 10px;
+  background-color: rgba(254, 254, 254, 0.24);
+  border: 1px solid rgb(74 78 89);
+  color: var(--color-sand-50);
   width: fit-content;
   height: fit-content;
+
+  &.outline {
+    border: 1px solid var(--color-sand-50);
+    color: var(--color-sand-50);
+    background-color: rgba(254, 254, 254, 0.08);
+  }
 }
 
 // Pagination
@@ -222,7 +261,7 @@ fieldset {
     }
 
     .pagination-arrow {
-      font-family: var(--font-circular-std);
+      font-family: var(--font-circular-reg);
       font-weight: 300;
       font-size: 14px;
       line-height: 19px;
@@ -289,7 +328,7 @@ fieldset {
 
       &.next,
       &.prev {
-        font-family: var(--font-circular-std);
+        font-family: var(--font-circular-reg);
         font-weight: 300;
         font-size: 14px;
         line-height: 19px;
@@ -344,6 +383,17 @@ fieldset {
   }
 }
 
+table,
+th,
+td {
+  border: 1px solid;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
 details {
   summary {
     font-size: 1rem;
@@ -371,11 +421,5 @@ details {
       top: 50%;
       transition: transform 0.3s ease;
     }
-  }
-
-
-  &[open] summary::after {
-    transform: rotate(180deg);
-    transform-origin: center;
   }
 }

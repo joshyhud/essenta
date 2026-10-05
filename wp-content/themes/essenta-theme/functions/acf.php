@@ -54,6 +54,19 @@ function my_acf_json_load_point( $path ) {
 add_filter( 'acf/settings/load_json', 'my_acf_json_load_point' );
 
 /**
+ * Provide Google Maps credentials to ACF's admin map fields.
+ */
+function essenta_acf_google_maps_api( $api ) {
+    $api['key'] = apply_filters(
+        'essenta_google_maps_api_key',
+        'AIzaSyAW0GJXmU70GtFN4p8eyw1ujFSSXhlJRY8'
+    );
+
+    return $api;
+}
+add_filter( 'acf/fields/google_map/api', 'essenta_acf_google_maps_api' );
+
+/**
  * Filter to prevent fields with 'admin_only' setting from displaying to non-admins.
  */
 function admin_only_prepare_field( $field ) {
@@ -168,3 +181,40 @@ if( function_exists('acf_register_field_type') ) :
     } );
 
 endif;
+
+
+function adm_add_wysiwyg_styles($toolbars) {
+
+    foreach ($toolbars as &$toolbar) {
+        $toolbar[1][] = 'styleselect';
+    }
+
+    return $toolbars;
+}
+
+add_filter('acf/fields/wysiwyg/toolbars', 'adm_add_wysiwyg_styles');
+
+function adm_wysiwyg_styles($init) {
+
+    $init['style_formats'] = wp_json_encode([
+        [
+            'title'   => 'Body Large 15px',
+            'block'   => 'p',
+            'classes' => 'body-large',
+        ],
+        [
+            'title'   => 'Body Medium 13px',
+            'block'   => 'p',
+            'classes' => 'body-medium',
+        ],
+        [
+            'title'   => 'Body Small 10px',
+            'block'   => 'p',
+            'classes' => 'body-small',
+        ],
+    ]);
+
+    return $init;
+}
+
+add_filter('tiny_mce_before_init', 'adm_wysiwyg_styles');

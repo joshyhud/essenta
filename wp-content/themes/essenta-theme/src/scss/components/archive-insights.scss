@@ -1,0 +1,186 @@
+.archive-blogs-page {
+  .archive-recent-insights {
+    padding: 4rem 0 5rem;
+    background-color: var(--color-beige-400);
+  }
+
+  .archive-section-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+
+    .eyebrow,
+    h2,
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .archive-recent-insights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .archive-posts-grid {
+    .container {
+      padding: 3.75rem 11.375rem 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      .archive-filtering {
+        .filter-bar {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+
+          .archive-post-type-filters,
+          .archive-post-type-filters .facetwp-facet,
+          .archive-post-type-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.625rem;
+            align-items: center;
+          }
+          .archive-expertise-filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+
+            .filter-bar-right {
+              .results-count {
+                color: var(--color-sand-800);
+                font-size: 12px;
+                line-height: 18px;
+
+                span {
+                  color: var(--color-navy-900);
+                  font-weight: bold;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .all-posts-grid {
+        padding-bottom: 3rem;
+
+        .blog-grid {
+          gap: 1.25rem;
+        }
+      }
+
+      .archive-post-type-all,
+      .archive-post-type-option,
+      .archive-post-type-filters .facetwp-checkbox,
+      .archive-post-type-filters .facetwp-radio {
+        padding: 0.625rem 1.25rem;
+        border: 0;
+        border-radius: 2px;
+        overflow: hidden;
+        background-color: white;
+        background-image: none;
+        color: var(--color-navy-500);
+        font-family: var(--font-circular-reg);
+        font-size: 0.75rem;
+        line-height: 1.2;
+        cursor: pointer;
+        margin: 0;
+
+        span {
+          padding: 0 !important;
+        }
+
+        &:hover {
+          background-color: var(--color-teal-200);
+        }
+
+        &.is-active,
+        &.checked {
+          background-color: var(--color-teal-600);
+          color: var(--color-white);
+        }
+
+        &.disabled {
+          opacity: 0.35;
+          cursor: not-allowed;
+        }
+      }
+
+      .archive-post-type-filters .facetwp-checkbox[data-value=""],
+      .archive-post-type-filters .facetwp-radio[data-value=""],
+      .archive-post-type-filters .facetwp-counter {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (width <= 768px) {
+  .archive-blogs-page {
+    .archive-recent-insights {
+      padding: 3rem 0;
+    }
+
+    .archive-recent-insights-grid {
+      grid-template-columns: 1fr;
+
+      .blog-card .blog-card-image {
+        aspect-ratio: 4 / 3;
+      }
+
+      &.slick-initialized {
+        display: block;
+
+        .slick-slide {
+          height: auto;
+          margin-right: 1rem;
+        }
+
+        .blog-card {
+          height: 100%;
+        }
+      }
+    }
+
+    .archive-posts-grid {
+      .container {
+        padding: 2.438rem 0.938rem 5.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 31px;
+
+        .archive-expertise-filter {
+          width: 100%;
+          flex-direction: column;
+          gap: 1.25rem;
+
+          .facetwp-facet-post_expertise,
+          .facetwp-facet-post_expertise select {
+            width: 100%;
+          }
+          .filter-bar-right {
+            text-align: right;
+          }
+        }
+
+        .filter-bar-right {
+          width: 100%;
+          margin-left: 0;
+        }
+
+        .all-posts-grid {
+          padding-bottom: 0rem;
+
+          .blog-grid {
+            gap: 1.75rem;
+          }
+        }
+      }
+    }
+  }
+}

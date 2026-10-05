@@ -1,0 +1,327 @@
+.casestudy-hub {
+  &__directory {
+    background-color: var(--color-sand-300);
+  }
+
+  &__container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3.5rem 8.75rem 6.25rem;
+  }
+
+  .screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  form#{&}__filters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.875rem;
+    margin-bottom: 3.5rem;
+  }
+
+  &__filter {
+    width: min(17.8125rem, 100%);
+
+    select {
+      width: 100%;
+      height: 3rem;
+      padding: 0 3rem 0 0.875rem;
+      border: 1px solid var(--color-sand-500);
+      border-radius: 2px;
+      background: var(--color-sand-50)
+        url("../images/case-study-select-chevron.svg") no-repeat right 1rem
+        center;
+      background-size: 21px 19px;
+      color: var(--color-navy-900);
+      font-family: var(--font-circular-reg);
+      font-size: 15px;
+      line-height: 19px;
+      cursor: pointer;
+
+      &:focus-visible {
+        outline: 2px solid var(--color-teal-500);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  &__results {
+    margin: 0 0 0 auto;
+    color: var(--color-sand-800);
+    font-family: var(--font-circular-med);
+    font-size: 12px;
+    line-height: 18px;
+
+    span {
+      color: var(--color-navy-900);
+      font-family: var(--font-circular-bold);
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.875rem 1.375rem;
+  }
+
+  &__empty {
+    color: var(--color-navy-500);
+    margin: 3rem 0;
+  }
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 6.6875rem;
+
+    .page-numbers {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--color-sand-600);
+      color: var(--color-sand-800);
+      font-family: var(--font-circular-med);
+      font-size: 13px;
+      line-height: 19.5px;
+      text-decoration: none;
+      transition: border-color 0.2s ease-in-out;
+
+      &:hover {
+        border-color: var(--color-navy-900);
+      }
+
+      &.current {
+        background-color: var(--color-navy-900);
+        border-color: var(--color-navy-900);
+        color: var(--color-white, #fff);
+      }
+
+      &.dots {
+        border-color: transparent;
+      }
+
+      &.prev,
+      &.next {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 16px 16px;
+      }
+
+      &.prev {
+        background-image: url("../images/pagination-prev.svg");
+      }
+
+      &.next {
+        background-image: url("../images/pagination-next.svg");
+      }
+
+      &.is-disabled {
+        opacity: 0.3;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+.casestudy-card {
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+
+  &__link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &__image {
+    position: relative;
+    height: 19.5625rem;
+    overflow: hidden;
+    background-color: var(--color-beige-300);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease-in-out;
+    }
+  }
+
+  &__link:hover &__image img {
+    transform: scale(1.03);
+  }
+
+  &__tags {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4375rem;
+    z-index: 1;
+  }
+
+  &__tag {
+    padding: 7px 10px;
+    border-radius: 2px;
+    background-color: var(--color-sand-50);
+    color: var(--color-navy-900);
+    font-family: var(--font-circular-med);
+    font-size: 10px;
+    line-height: 13.5px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+
+    &--teal {
+      background-color: var(--color-teal-300);
+    }
+  }
+
+  &__body {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: -0.6875rem;
+    padding: 1.4375rem 1.25rem 1.25rem;
+    background-color: var(--color-sand-50);
+  }
+
+  &__logo {
+    display: block;
+    filter: grayscale(100%);
+    mix-blend-mode: multiply;
+    transition: filter 0.3s ease-in-out;
+    width: 140px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  &__client {
+    color: var(--color-sand-800);
+    text-transform: uppercase;
+    letter-spacing: 0;
+    font-size: clamp(1rem, 2.5vw, 1.375rem);
+  }
+
+  &__title {
+    margin: 0;
+    color: var(--color-navy-900);
+    font-family: var(--font-circular-reg);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  &__excerpt {
+    color: var(--color-sand-800);
+  }
+
+  &__footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__stat-label {
+    margin: 0;
+    color: var(--color-sand-800);
+    font-family: var(--font-circular-bold);
+    font-size: 10px;
+    line-height: 13.5px;
+    letter-spacing: 1.08px;
+    text-transform: uppercase;
+  }
+
+  &__stat-value {
+    margin: 0;
+    color: var(--color-navy-900);
+    font-family: var(--font-adelle);
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 44px;
+    letter-spacing: -0.96px;
+  }
+
+  .cta-link {
+    flex-shrink: 0;
+    gap: 8px;
+  }
+}
+
+@media (width <= 1100px) {
+  .casestudy-hub__container {
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (width <= 760px) {
+  .casestudy-hub {
+    &__container {
+      padding: 2.5rem 0.9375rem 4rem;
+    }
+
+    form#{&}__filters {
+      flex-direction: column;
+      align-items: stretch;
+      margin-bottom: 2rem;
+    }
+
+    &__filter {
+      width: 100%;
+    }
+
+    &__results {
+      margin: 0;
+      text-align: right;
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    &__pagination {
+      margin-top: 3rem;
+    }
+  }
+
+  .casestudy-card {
+    &__image {
+      height: auto;
+      aspect-ratio: 569 / 313;
+    }
+
+    &__stat-value {
+      font-size: 32px;
+      line-height: 36px;
+    }
+  }
+}

@@ -493,19 +493,190 @@ jQuery(document).ready(function ($) {
   var $close = $drawer.find(".mm-close");
 
   if ($drawer.length && $toggle.length && $overlay.length) {
-    function openMenu() {
+    var menuContent = $drawer.find(".mm-menu-content").get(0);
+    var rootMenu = menuContent
+      ? menuContent.querySelector(".mega-menu")
+      : null;
+    var panelItems = [];
+
+    if (rootMenu) {
+      panelItems = Array.from(rootMenu.children).filter(function (item) {
+        return item.matches(".mega-menu-item-has-children") &&
+          item.querySelector(":scope > ul.mega-sub-menu");
+      });
+
+      panelItems.forEach(function (item) {
+        var link = item.querySelector(":scope > a.mega-menu-link");
+        var submenu = item.querySelector(":scope > ul.mega-sub-menu");
+
+        if (!link || !submenu) return;
+
+        link.setAttribute("aria-expanded", "false");
+        link.setAttribute("aria-haspopup", "true");
+        submenu.setAttribute("aria-hidden", "true");
+        submenu.inert = true;
+
+        var backItem = document.createElement("li");
+        backItem.className = "mm-panel-back-item";
+
+        var backButton = document.createElement("button");
+        backButton.className = "mm-panel-back";
+        backButton.type = "button";
+        backButton.setAttribute("aria-label", "Back to " + link.textContent.trim());
+
+        var backLabel = document.createElement("span");
+        backLabel.textContent = link.textContent.trim();
+        backButton.appendChild(backLabel);
+        backItem.appendChild(backButton);
+        submenu.insertBefore(backItem, submenu.firstChild);
+
+        var firstMenuItem = submenu.querySelector(
+          ".mega-menu-item:not(.mega-menu-column):not(.nav-cta)",
+        );
+        if (firstMenuItem) {
+          firstMenuItem.classList.add("mm-panel-first-item");
+        }
+
+        if (/expertise/i.test(link.textContent)) {
+          submenu
+            .querySelectorAll(".mega-menu-column")
+            .forEach(function (column, index) {
+              var columnMenu = column.querySelector(
+                ":scope > ul.mega-sub-menu",
+              );
+              var firstLink = columnMenu
+                ? columnMenu.querySelector(":scope > li > a.mega-menu-link")
+                : null;
+
+              if (!columnMenu || !firstLink) return;
+
+              var category = firstLink.textContent.match(
+                /\b(B2C|B2B|Functions)\b/i,
+              );
+              var labels = ["B2C", "B2B", "Functions"];
+              var accordion = document.createElement("button");
+              accordion.className = "mm-accordion-toggle";
+              accordion.type = "button";
+              accordion.setAttribute("aria-expanded", "false");
+              accordion.textContent = category
+                ? category[0]
+                : labels[index] || firstLink.textContent.trim();
+              column.classList.add("mm-expertise-accordion");
+              column.insertBefore(accordion, columnMenu);
+            });
+        }
+      });
+
+      menuContent.addEventListener(
+        "click",
+        function (event) {
+          var backButton = event.target.closest(".mm-panel-back");
+          if (backButton && menuContent.contains(backButton)) {
+            event.preventDefault();
+            event.stopPropagation();
+            var panelItem = backButton.closest(".mm-panel-back-item")
+              .parentElement.parentElement;
+            var backParentLink = panelItem.querySelector(
+              ":scope > a.mega-menu-link",
+            );
+            menuContent.classList.remove("has-open-panel");
+            menuContent.scrollLeft = 0;
+            backParentLink.focus({ preventScroll: true });
+            resetMobilePanels();
+            return;
+          }
+
+          var accordionButton = event.target.closest(".mm-accordion-toggle");
+          if (accordionButton && menuContent.contains(accordionButton)) {
+            event.preventDefault();
+            event.stopPropagation();
+            var accordion = accordionButton.closest(".mm-expertise-accordion");
+            var isExpanded = accordion.classList.toggle("is-expanded");
+            accordionButton.setAttribute("aria-expanded", String(isExpanded));
+            return;
+          }
+
+          var parentLink = event.target.closest(
+            ".mega-menu > li.mega-menu-item-has-children > a.mega-menu-link",
+          );
+          if (
+            !parentLink ||
+            !rootMenu ||
+            parentLink.parentElement.parentElement !== rootMenu
+          ) {
+            return;
+          }
+
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          panelItems.forEach(function (item) {
+            item.classList.remove("mm-panel-open");
+            var submenu = item.querySelector(":scope > ul.mega-sub-menu");
+            submenu.setAttribute("aria-hidden", "true");
+            submenu.inert = true;
+            item
+              .querySelector(":scope > a.mega-menu-link")
+              .setAttribute("aria-expanded", "false");
+          });
+
+          var activeItem = parentLink.parentElement;
+          var activeSubmenu = activeItem.querySelector(
+            ":scope > ul.mega-sub-menu",
+          );
+          activeItem.classList.add("mm-panel-open");
+          parentLink.setAttribute("aria-expanded", "true");
+          activeSubmenu.setAttribute("aria-hidden", "false");
+          activeSubmenu.inert = false;
+          menuContent.classList.add("has-open-panel");
+          menuContent.scrollLeft = 0;
+          activeSubmenu
+            .querySelector(".mm-panel-back")
+            .focus({ preventScroll: true });
+        },
+        true,
+      );
+    }
+
+    var resetMobilePanels = function () {
+      panelItems.forEach(function (item) {
+        item.classList.remove("mm-panel-open");
+        var submenu = item.querySelector(":scope > ul.mega-sub-menu");
+        submenu.setAttribute("aria-hidden", "true");
+        submenu.inert = true;
+        item
+          .querySelector(":scope > a.mega-menu-link")
+          .setAttribute("aria-expanded", "false");
+      });
+
+      if (menuContent) {
+        menuContent.classList.remove("has-open-panel");
+        menuContent
+          .querySelectorAll(".mm-expertise-accordion")
+          .forEach(function (item) {
+            item.classList.remove("is-expanded");
+            item
+              .querySelector(".mm-accordion-toggle")
+              .setAttribute("aria-expanded", "false");
+          });
+      }
+    };
+
+    var openMenu = function () {
+      resetMobilePanels();
       $drawer.addClass("is-open").attr("aria-hidden", "false");
       $overlay.prop("hidden", false);
       $("body").addClass("mm-locked");
       $toggle.attr("aria-expanded", "true");
-    }
+    };
 
-    function closeMenu() {
+    var closeMenu = function () {
+      resetMobilePanels();
       $drawer.removeClass("is-open").attr("aria-hidden", "true");
       $overlay.prop("hidden", true);
       $("body").removeClass("mm-locked");
       $toggle.attr("aria-expanded", "false");
-    }
+      $toggle.trigger("focus");
+    };
 
     $toggle.on("click", openMenu);
     $overlay.on("click", closeMenu);

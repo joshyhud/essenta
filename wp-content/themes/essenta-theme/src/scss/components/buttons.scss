@@ -216,6 +216,7 @@ button[type="submit"] {
   > a.mega-menu-link {
     align-items: center !important;
     display: inline-flex !important;
+    font-weight: bold;
 
     &::after {
       background-image: url("../images/arrow.svg") !important;
@@ -236,6 +237,16 @@ button[type="submit"] {
 
   &:hover > a.mega-menu-link::after,
   &:focus-within > a.mega-menu-link::after {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+}
+
+.mega-sub-menu > .mega-menu-item:first-child:not(.nav-cta) > a.mega-menu-link {
+  font-family: var(--font-circular-bold) !important;
+  font-weight: 700 !important;
+
+  &::after {
     opacity: 1;
     transform: translateX(2px);
   }

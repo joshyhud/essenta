@@ -428,6 +428,10 @@ body.team-drawer-open {
 
     &__drawer {
       width: 100%;
+
+      > div {
+        padding-top: 3rem;
+      }
     }
 
     &__profile-header {
@@ -439,6 +443,10 @@ body.team-drawer-open {
       aspect-ratio: 4 / 3;
       max-height: 30rem;
       width: 100%;
+      border-radius: 5px;
+      img {
+        object-position: top;
+      }
     }
 
     &__profile-intro {

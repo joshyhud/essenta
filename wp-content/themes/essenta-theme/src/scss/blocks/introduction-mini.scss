@@ -1,0 +1,54 @@
+.introduction-mini {
+  background-color: var(--color-sand-50);
+  color: var(--color-navy-900);
+
+  .container {
+    padding: 4.625rem 10rem 6.25rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__header {
+    max-width: 50%;
+  }
+
+  &__subheading {
+    margin: 0 0 1rem;
+  }
+
+  &__heading {
+    color: var(--color-navy-900);
+    font-family: var(--font-circular-reg);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  &__content {
+    align-content: end;
+    width: 50%;
+  }
+
+  &__text {
+    color: var(--color-sand-800);
+    font-size: 0.75rem;
+    line-height: 1.45;
+    margin: 0;
+  }
+}
+
+@media (width <= 760px) {
+  .introduction-mini {
+    .container {
+      padding: 1.875rem 0.978rem;
+      gap: 1.5rem;
+      grid-template-columns: 1fr;
+    }
+
+    &__content {
+      max-width: 100%;
+    }
+  }
+}

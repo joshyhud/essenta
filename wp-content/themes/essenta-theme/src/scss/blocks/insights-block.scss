@@ -1,0 +1,185 @@
+.insights-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-beige-400);
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 3.875rem 5rem;
+    margin: inherit;
+
+    .insights-cta {
+      align-items: flex-end;
+    }
+  }
+
+  .insights-posts-nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-bottom: 64px;
+    margin-right: 77px;
+
+    .insights-posts-navigation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      padding: 9px;
+      border-radius: 50%;
+      border: 1px solid var(--color-sand-600);
+      background: none;
+      cursor: pointer;
+      position: relative;
+
+      &:after {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M0.833496 5.83301L5.8335 0.833008L10.8335 5.83301" stroke="%23050817" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transform: rotate(-90deg);
+      }
+
+      &.next:after {
+        transform: rotate(90deg);
+      }
+
+      &.slick-disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+    }
+  }
+
+  .insights-posts {
+    padding: 0 0 0 5rem;
+
+    .insights-posts-wrapper {
+      .slick-track {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .slick-slide {
+        display: flex;
+        height: auto;
+        align-items: stretch;
+        width: 25vw;
+        margin: 0 8px;
+
+        &:first-child {
+          width: 40vw;
+        }
+
+        @media (width<=980px) {
+          width: auto;
+          &:first-child {
+            width: auto;
+          }
+        }
+      }
+
+      a {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        cursor: pointer;
+
+        .insights-post {
+          position: relative;
+          display: flex;
+          width: 100%;
+          height: 100%;
+          flex-direction: column;
+          gap: 1rem;
+          .insight-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+          }
+          .insights-post-thumbnail {
+            height: 340px;
+            overflow: hidden;
+            border-radius: 5px;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              transition: transform 0.3s ease;
+            }
+          }
+          .insights-post-content {
+            width: 90%;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            gap: 24px;
+
+            .insights-post-title {
+              min-height: 6ch;
+            }
+
+            .insights-post-readmore {
+              margin-top: auto;
+            }
+          }
+
+          &:hover {
+            .insights-post-thumbnail {
+              img {
+                transform: scale(1.05);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (width <= 980px) {
+  .insights-block {
+    .container {
+      padding: 3.875rem 1rem;
+      order: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .insights-posts-nav {
+      position: static;
+      order: 2;
+      justify-content: flex-start;
+      padding: 0 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .insights-posts {
+      order: 3;
+      padding: 0 1rem;
+
+      .insights-posts-wrapper a .insights-post {
+        .insights-post-content {
+          gap: 1rem;
+          .insights-post-title {
+            min-height: auto;
+          }
+        }
+      }
+    }
+  }
+}

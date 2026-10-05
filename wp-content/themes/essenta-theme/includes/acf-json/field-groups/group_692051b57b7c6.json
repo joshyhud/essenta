@@ -25,6 +25,28 @@
             "admin_only": 0
         },
         {
+            "key": "field_6aaa798cdb820",
+            "label": "Footer Contact Form",
+            "name": "footer_contact_form",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Add Contact form 7 shortcode here to show form in footer",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "visual",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "admin_only": 0
+        },
+        {
             "key": "field_6a916ff9a54c8",
             "label": "Company footer Locations",
             "name": "company_footer_locations",
@@ -515,5 +537,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787917325
+    "modified": 1789557190
 }

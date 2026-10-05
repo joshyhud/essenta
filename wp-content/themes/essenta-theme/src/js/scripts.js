@@ -1,3 +1,277 @@
+window.essentaInitOfficeMaps = function () {
+  var mapElements = document.querySelectorAll(".js-office-locations-map");
+  var mapStyles = [
+    {
+      featureType: "all",
+      elementType: "labels",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "administrative",
+      elementType: "geometry.fill",
+      stylers: [{ color: "#273259" }],
+    },
+    {
+      featureType: "administrative",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#0f1c47" }],
+    },
+    {
+      featureType: "landscape",
+      elementType: "geometry.fill",
+      stylers: [{ color: "#27335b" }],
+    },
+    { featureType: "poi", elementType: "all", stylers: [{ color: "#2c3966" }] },
+    {
+      featureType: "road",
+      elementType: "geometry.fill",
+      stylers: [{ color: "#0f1c47" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "all",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "water",
+      elementType: "all",
+      stylers: [{ color: "#0f1c47" }, { visibility: "on" }],
+    },
+  ];
+  var markerAnimations = new WeakMap();
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function fadeMarker(marker, targetOpacity, delay) {
+    var currentAnimation = markerAnimations.get(marker);
+    if (currentAnimation) {
+      window.clearTimeout(currentAnimation.timer);
+      window.cancelAnimationFrame(currentAnimation.frame);
+    }
+
+    if (reduceMotion.matches) {
+      marker.setOpacity(targetOpacity);
+      return;
+    }
+
+    var animation = { frame: 0, timer: 0 };
+    markerAnimations.set(marker, animation);
+
+    animation.timer = window.setTimeout(function () {
+      var currentOpacity = marker.getOpacity();
+      var startOpacity =
+        typeof currentOpacity === "number" ? currentOpacity : 0;
+      var startTime = performance.now();
+
+      function updateOpacity(currentTime) {
+        var progress = Math.min((currentTime - startTime) / 500, 1);
+        var easedProgress = 1 - Math.pow(1 - progress, 3);
+        marker.setOpacity(
+          startOpacity + (targetOpacity - startOpacity) * easedProgress,
+        );
+
+        if (progress < 1) {
+          animation.frame = window.requestAnimationFrame(updateOpacity);
+        } else {
+          markerAnimations.delete(marker);
+        }
+      }
+
+      animation.frame = window.requestAnimationFrame(updateOpacity);
+    }, delay || 0);
+  }
+
+  mapElements.forEach(function (mapElement) {
+    if (mapElement.dataset.initialized === "true") return;
+
+    var markerElements = mapElement.querySelectorAll(
+      ".office-locations__marker",
+    );
+    var pinIconUrl = mapElement.dataset.pinIcon;
+    var officeBounds = new google.maps.LatLngBounds();
+    var isMobileMap = window.matchMedia("(max-width: 780px)").matches;
+    var map = new google.maps.Map(mapElement, {
+      center: { lat: 51.5072, lng: -0.1276 },
+      fullscreenControl: false,
+      mapTypeControl: false,
+      minZoom: isMobileMap ? 0 : 3,
+      restriction: {
+        latLngBounds: {
+          east: 180,
+          north: 85,
+          south: -60,
+          west: -180,
+        },
+        strictBounds: !isMobileMap,
+      },
+      styles: mapStyles,
+      streetViewControl: false,
+      zoom: 6,
+    });
+    var stage = mapElement.closest(".office-locations__stage");
+    var drawer = stage.querySelector(".office-locations__drawer");
+    var closeButton = stage.querySelector(".office-locations__close");
+    var toggles = stage.querySelectorAll(".office-locations__toggle");
+    var details = stage.querySelectorAll(".office-locations__details");
+    var officeMarkers = {};
+    var partnerMarkers = [];
+    var drawerTimer;
+
+    function resetViewport() {
+      var officeIndexes = Object.keys(officeMarkers);
+      var isMobile = window.matchMedia("(max-width: 780px)").matches;
+
+      if (officeIndexes.length === 1) {
+        map.setCenter(officeMarkers[officeIndexes[0]].position);
+        map.setZoom(isMobile ? 4 : 6);
+        return;
+      }
+
+      if (officeIndexes.length > 1) {
+        var padding = 48;
+
+        if (isMobile) {
+          var intro = stage.querySelector(".office-locations__intro");
+          var legend = stage.querySelector(".office-locations__legend");
+          padding = {
+            top: intro ? intro.offsetTop + intro.offsetHeight + 32 : 64,
+            right: 64,
+            bottom: legend ? stage.clientHeight - legend.offsetTop + 32 : 64,
+            left: 64,
+          };
+        }
+
+        map.fitBounds(officeBounds, padding);
+      }
+    }
+
+    function closeDrawer() {
+      clearTimeout(drawerTimer);
+      drawer.classList.remove("is-open");
+      drawer.setAttribute("aria-hidden", "true");
+      drawer.setAttribute("inert", "");
+      toggles.forEach(function (toggle) {
+        toggle.classList.remove("is-active");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+      details.forEach(function (detail) {
+        detail.hidden = true;
+      });
+      resetViewport();
+    }
+
+    function selectOffice(locationIndex) {
+      var office = officeMarkers[locationIndex];
+      if (!office) return;
+
+      clearTimeout(drawerTimer);
+      map.panTo(office.position);
+      map.setZoom(6);
+
+      toggles.forEach(function (toggle) {
+        var isActive = toggle.dataset.locationIndex === locationIndex;
+        toggle.classList.toggle("is-active", isActive);
+        toggle.setAttribute("aria-expanded", String(isActive));
+      });
+      details.forEach(function (detail) {
+        detail.hidden = detail.dataset.locationIndex !== locationIndex;
+      });
+
+      drawerTimer = setTimeout(function () {
+        drawer.classList.add("is-open");
+        drawer.setAttribute("aria-hidden", "false");
+        drawer.removeAttribute("inert");
+      }, 300);
+    }
+
+    drawer.setAttribute("inert", "");
+
+    markerElements.forEach(function (markerElement) {
+      var isOffice = markerElement.dataset.locationType === "office";
+      var position = {
+        lat: Number(markerElement.dataset.lat),
+        lng: Number(markerElement.dataset.lng),
+      };
+      var marker = new google.maps.Marker({
+        clickable: isOffice,
+        icon: isOffice
+          ? {
+              anchor: new google.maps.Point(12, 22),
+              scaledSize: new google.maps.Size(36, 36),
+              url: pinIconUrl,
+            }
+          : {
+              fillColor: "#00a2aa",
+              fillOpacity: 1,
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 5,
+              strokeColor: "#00a2aa",
+              strokeWeight: 0,
+            },
+        map: map,
+        opacity: isOffice ? 1 : 0,
+        position: position,
+        title: isOffice ? markerElement.dataset.title : "",
+      });
+
+      if (isOffice) {
+        marker.addListener("click", function () {
+          selectOffice(markerElement.dataset.locationIndex);
+        });
+
+        officeMarkers[markerElement.dataset.locationIndex] = {
+          marker: marker,
+          position: position,
+        };
+      } else {
+        partnerMarkers.push(marker);
+      }
+
+      if (isOffice) {
+        officeBounds.extend(position);
+      }
+    });
+
+    toggles.forEach(function (toggle) {
+      toggle.addEventListener("click", function () {
+        selectOffice(toggle.dataset.locationIndex);
+      });
+    });
+
+    closeButton.addEventListener("click", closeDrawer);
+    map.addListener("click", closeDrawer);
+    stage.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeDrawer();
+        toggles[0]?.focus();
+      }
+    });
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        var isVisible = entries[0].intersectionRatio >= 0.15;
+        partnerMarkers.forEach(function (marker, markerIndex) {
+          fadeMarker(
+            marker,
+            isVisible ? 1 : 0,
+            isVisible ? markerIndex * 45 : 0,
+          );
+        });
+      },
+      { threshold: [0, 0.15] },
+    );
+    observer.observe(stage);
+
+    resetViewport();
+
+    mapElement.dataset.initialized = "true";
+  });
+};
+
 // Wrap consecutive images in blog posts into a masonry grid
 jQuery(document).ready(function ($) {
   var $content = $("body.single .container.contained");
@@ -96,7 +370,7 @@ jQuery(document).ready(function ($) {
   function handleFooterDetails() {
     const footerDetails = $(".footer-details-wrapper");
 
-    if (window.innerWidth > 768) {
+    if (window.innerWidth > 980) {
       // Desktop: Always keep open and prevent closing
       footerDetails.each(function () {
         this.open = true;
@@ -106,18 +380,16 @@ jQuery(document).ready(function ($) {
       $(".footer-details-wrapper summary")
         .off("click.footerToggle")
         .on("click.footerToggle", function (e) {
-          if (window.innerWidth > 768) {
+          if (window.innerWidth > 980) {
             e.preventDefault();
             e.stopPropagation();
           }
         });
     } else {
-      // Mobile: Remove click prevention and close all initially
       $(".footer-details-wrapper summary").off("click.footerToggle");
 
-      // Close all on mobile by default
       footerDetails.each(function () {
-        this.open = false;
+        this.open = Boolean(this.closest(".footer-contact"));
       });
     }
   }
@@ -214,143 +486,205 @@ jQuery(document).ready(function ($) {
     $("#main-product-image").attr("src", newImageSrc).attr("alt", newImageAlt);
   });
 
-  //mobile menu functions
+  // Mobile menu drawer
   var $drawer = $("#mm-drawer");
   var $toggle = $(".mm-toggle");
   var $overlay = $(".mm-overlay");
   var $close = $drawer.find(".mm-close");
-  var $panels = $drawer.find(".mm-panels");
 
-  if (!$drawer.length || !$toggle.length || !$overlay.length || !$panels.length)
-    return;
+  if ($drawer.length && $toggle.length && $overlay.length) {
+    var menuContent = $drawer.find(".mm-menu-content").get(0);
+    var rootMenu = menuContent
+      ? menuContent.querySelector(".mega-menu")
+      : null;
+    var panelItems = [];
 
-  var panelStack = ["root"];
+    if (rootMenu) {
+      panelItems = Array.from(rootMenu.children).filter(function (item) {
+        return item.matches(".mega-menu-item-has-children") &&
+          item.querySelector(":scope > ul.mega-sub-menu");
+      });
 
-  function setActivePanel(panelId) {
-    var $all = $panels.find(".mm-panel");
-    $all.removeClass("mm-panel--active mm-panel--left");
+      panelItems.forEach(function (item) {
+        var link = item.querySelector(":scope > a.mega-menu-link");
+        var submenu = item.querySelector(":scope > ul.mega-sub-menu");
 
-    var $active = $panels.find(".mm-panel[data-panel='" + panelId + "']");
-    if (!$active.length) return;
+        if (!link || !submenu) return;
 
-    // mark previous as left (nice slide-back feel)
-    if (panelStack.length > 1) {
-      var prevId = panelStack[panelStack.length - 2];
-      $panels
-        .find(".mm-panel[data-panel='" + prevId + "']")
-        .addClass("mm-panel--left");
-    }
+        link.setAttribute("aria-expanded", "false");
+        link.setAttribute("aria-haspopup", "true");
+        submenu.setAttribute("aria-hidden", "true");
+        submenu.inert = true;
 
-    $active.addClass("mm-panel--active");
-  }
+        var backItem = document.createElement("li");
+        backItem.className = "mm-panel-back-item";
 
-  function openMenu() {
-    $drawer.addClass("is-open").attr("aria-hidden", "false");
-    $overlay.prop("hidden", false);
-    $("body").addClass("mm-locked");
-    $toggle.attr("aria-expanded", "true");
-  }
+        var backButton = document.createElement("button");
+        backButton.className = "mm-panel-back";
+        backButton.type = "button";
+        backButton.setAttribute("aria-label", "Back to " + link.textContent.trim());
 
-  function closeMenu() {
-    $drawer.removeClass("is-open").attr("aria-hidden", "true");
-    $overlay.prop("hidden", true);
-    $("body").removeClass("mm-locked");
-    $toggle.attr("aria-expanded", "false");
+        var backLabel = document.createElement("span");
+        backLabel.textContent = link.textContent.trim();
+        backButton.appendChild(backLabel);
+        backItem.appendChild(backButton);
+        submenu.insertBefore(backItem, submenu.firstChild);
 
-    panelStack = ["root"];
-    setActivePanel("root");
-  }
+        var firstMenuItem = submenu.querySelector(
+          ".mega-menu-item:not(.mega-menu-column):not(.nav-cta)",
+        );
+        if (firstMenuItem) {
+          firstMenuItem.classList.add("mm-panel-first-item");
+        }
 
-  $toggle.on("click", openMenu);
-  $overlay.on("click", closeMenu);
-  $close.on("click", closeMenu);
+        if (/expertise/i.test(link.textContent)) {
+          submenu
+            .querySelectorAll(".mega-menu-column")
+            .forEach(function (column, index) {
+              var columnMenu = column.querySelector(
+                ":scope > ul.mega-sub-menu",
+              );
+              var firstLink = columnMenu
+                ? columnMenu.querySelector(":scope > li > a.mega-menu-link")
+                : null;
 
-  function makePanel(id, title, $submenuUL) {
-    var $panel = $("<div/>", { class: "mm-panel", "data-panel": id });
+              if (!columnMenu || !firstLink) return;
 
-    var $back = $("<button/>", {
-      class: "mm-back",
-      type: "button",
-      html: "<span>‹</span> Back",
-    });
-    $back.on("click", function () {
-      if (panelStack.length > 1) panelStack.pop();
-      setActivePanel(panelStack[panelStack.length - 1]);
-    });
-
-    var $list = $submenuUL.clone(true, true);
-    $list.addClass("mm-submenu");
-
-    $panel.append($back, $list);
-    $panels.append($panel);
-
-    return $panel;
-  }
-
-  // Converts a list's direct children to "row + chevron", recursively for new panels.
-  function convertList($ul) {
-    $ul.children("li").each(function () {
-      var $li = $(this);
-      var $a = $li.children("a").first();
-      var $submenu = $li.children("ul").first();
-
-      if (!$a.length || !$submenu.length) return;
-
-      var panelId = "p-" + Math.random().toString(16).slice(2);
-      makePanel(panelId, $.trim($a.text()), $submenu);
-
-      // Build row: [link navigates] [chevron opens submenu]
-      var $row = $("<div/>", { class: "mm-row" });
-      var $link = $a.clone(true, true); // keep navigation
-      var $next = $("<button/>", {
-        class: "mm-next",
-        type: "button",
-        text: "›",
-      }).attr("aria-label", "Open " + $.trim($a.text()) + " submenu");
-
-      $next.on("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        var currentId =
-          $panels.find(".mm-panel--active").data("panel") || "root";
-        if (panelStack[panelStack.length - 1] !== currentId)
-          panelStack.push(currentId);
-
-        panelStack.push(panelId);
-        setActivePanel(panelId);
-
-        // Convert nested items inside this panel once
-        var $newPanel = $panels.find(".mm-panel[data-panel='" + panelId + "']");
-        var $newUL = $newPanel.find("ul").first();
-
-        if ($newUL.length && !$newUL.data("converted")) {
-          $newUL.data("converted", 1);
-          convertList($newUL);
+              var category = firstLink.textContent.match(
+                /\b(B2C|B2B|Functions)\b/i,
+              );
+              var labels = ["B2C", "B2B", "Functions"];
+              var accordion = document.createElement("button");
+              accordion.className = "mm-accordion-toggle";
+              accordion.type = "button";
+              accordion.setAttribute("aria-expanded", "false");
+              accordion.textContent = category
+                ? category[0]
+                : labels[index] || firstLink.textContent.trim();
+              column.classList.add("mm-expertise-accordion");
+              column.insertBefore(accordion, columnMenu);
+            });
         }
       });
 
-      $row.append($link, $next);
+      menuContent.addEventListener(
+        "click",
+        function (event) {
+          var backButton = event.target.closest(".mm-panel-back");
+          if (backButton && menuContent.contains(backButton)) {
+            event.preventDefault();
+            event.stopPropagation();
+            var panelItem = backButton.closest(".mm-panel-back-item")
+              .parentElement.parentElement;
+            var backParentLink = panelItem.querySelector(
+              ":scope > a.mega-menu-link",
+            );
+            menuContent.classList.remove("has-open-panel");
+            menuContent.scrollLeft = 0;
+            backParentLink.focus({ preventScroll: true });
+            resetMobilePanels();
+            return;
+          }
 
-      // Replace li contents with row and remove submenu at this level
-      $li.empty().append($row);
+          var accordionButton = event.target.closest(".mm-accordion-toggle");
+          if (accordionButton && menuContent.contains(accordionButton)) {
+            event.preventDefault();
+            event.stopPropagation();
+            var accordion = accordionButton.closest(".mm-expertise-accordion");
+            var isExpanded = accordion.classList.toggle("is-expanded");
+            accordionButton.setAttribute("aria-expanded", String(isExpanded));
+            return;
+          }
+
+          var parentLink = event.target.closest(
+            ".mega-menu > li.mega-menu-item-has-children > a.mega-menu-link",
+          );
+          if (
+            !parentLink ||
+            !rootMenu ||
+            parentLink.parentElement.parentElement !== rootMenu
+          ) {
+            return;
+          }
+
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          panelItems.forEach(function (item) {
+            item.classList.remove("mm-panel-open");
+            var submenu = item.querySelector(":scope > ul.mega-sub-menu");
+            submenu.setAttribute("aria-hidden", "true");
+            submenu.inert = true;
+            item
+              .querySelector(":scope > a.mega-menu-link")
+              .setAttribute("aria-expanded", "false");
+          });
+
+          var activeItem = parentLink.parentElement;
+          var activeSubmenu = activeItem.querySelector(
+            ":scope > ul.mega-sub-menu",
+          );
+          activeItem.classList.add("mm-panel-open");
+          parentLink.setAttribute("aria-expanded", "true");
+          activeSubmenu.setAttribute("aria-hidden", "false");
+          activeSubmenu.inert = false;
+          menuContent.classList.add("has-open-panel");
+          menuContent.scrollLeft = 0;
+          activeSubmenu
+            .querySelector(".mm-panel-back")
+            .focus({ preventScroll: true });
+        },
+        true,
+      );
+    }
+
+    var resetMobilePanels = function () {
+      panelItems.forEach(function (item) {
+        item.classList.remove("mm-panel-open");
+        var submenu = item.querySelector(":scope > ul.mega-sub-menu");
+        submenu.setAttribute("aria-hidden", "true");
+        submenu.inert = true;
+        item
+          .querySelector(":scope > a.mega-menu-link")
+          .setAttribute("aria-expanded", "false");
+      });
+
+      if (menuContent) {
+        menuContent.classList.remove("has-open-panel");
+        menuContent
+          .querySelectorAll(".mm-expertise-accordion")
+          .forEach(function (item) {
+            item.classList.remove("is-expanded");
+            item
+              .querySelector(".mm-accordion-toggle")
+              .setAttribute("aria-expanded", "false");
+          });
+      }
+    };
+
+    var openMenu = function () {
+      resetMobilePanels();
+      $drawer.addClass("is-open").attr("aria-hidden", "false");
+      $overlay.prop("hidden", false);
+      $("body").addClass("mm-locked");
+      $toggle.attr("aria-expanded", "true");
+    };
+
+    var closeMenu = function () {
+      resetMobilePanels();
+      $drawer.removeClass("is-open").attr("aria-hidden", "true");
+      $overlay.prop("hidden", true);
+      $("body").removeClass("mm-locked");
+      $toggle.attr("aria-expanded", "false");
+      $toggle.trigger("focus");
+    };
+
+    $toggle.on("click", openMenu);
+    $overlay.on("click", closeMenu);
+    $close.on("click", closeMenu);
+    $(document).on("keydown", function (event) {
+      if (event.key === "Escape" && $drawer.hasClass("is-open")) closeMenu();
     });
   }
-
-  // Init from root panel's UL
-  var $rootPanel = $panels.find(".mm-panel[data-panel='root']");
-  var $rootUL = $rootPanel.find("ul").first();
-
-  if (!$rootUL.length) return;
-
-  $rootUL.data("converted", 1);
-  convertList($rootUL);
-  setActivePanel("root");
-
-  // ESC closes
-  $(document).on("keydown", function (e) {
-    if (e.key === "Escape" && $drawer.hasClass("is-open")) closeMenu();
-  });
 
   //Article Slider
   // Initialize Slick slider for mobile
@@ -384,37 +718,579 @@ jQuery(document).ready(function ($) {
   });
 
   // End of jQuery Ready
-
-  
 });
 
 // Ensure the DOM is fully loaded before running the hero video script
-document.addEventListener('DOMContentLoaded', () => {
-
-  document.querySelectorAll('.homepage-hero-image').forEach((hero) => {
-    const video = hero.querySelector('.homepage-hero-video');
-    const playButton = hero.querySelector('.homepage-hero-play');
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".homepage-hero-image").forEach((hero) => {
+    const video = hero.querySelector(".homepage-hero-video");
+    const playButton = hero.querySelector(".homepage-hero-play");
 
     if (!video || !playButton) {
       return;
     }
 
-    playButton.addEventListener('click', (event) => {
+    playButton.addEventListener("click", (event) => {
       event.stopPropagation();
 
       video.play();
     });
 
-    video.addEventListener('play', () => {
-      playButton.style.display = 'none';
+    // Let clicking the video itself toggle play/pause, alongside the
+    // native controls.
+    video.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
     });
 
-    video.addEventListener('pause', () => {
-      playButton.style.display = 'flex';
+    video.addEventListener("play", () => {
+      playButton.style.display = "none";
     });
 
-    video.addEventListener('ended', () => {
-      playButton.style.display = 'flex';
+    video.addEventListener("pause", () => {
+      playButton.style.display = "flex";
     });
+
+    video.addEventListener("ended", () => {
+      playButton.style.display = "flex";
+    });
+  });
+
+  // Scroll-jack the hero video: intercept scroll input to animate the video
+  // from its start size to fullscreen (overlapping the hero content), then
+  // release the jack once fully expanded so the page scrolls normally.
+  // Scrolling back up to the top re-engages the jack in reverse (no replay).
+  document
+    .querySelectorAll(".homepage-hero-image-wrapper.has-scroll-video")
+    .forEach((wrapper) => {
+      const heroSection = wrapper.closest(".homepage-hero");
+      const video = wrapper.querySelector(".homepage-hero-video");
+
+      if (!heroSection || !video) {
+        return;
+      }
+
+      const isMobile = () => window.innerWidth <= 980;
+      const growPxDistance = 900;
+      const navOffset = 120;
+
+      const startBorderRadius = 5;
+      let startTop = 0;
+      let startLeft = 0;
+      let startWidth = 0;
+      let startHeight = 0;
+      let bottomOffsetInHero = 0;
+      let topOffsetInHero = 0;
+      let reverseStartRect = null;
+
+      // collapsed | expanding | released | collapsing
+      let phase = "collapsed";
+      let progress = 0;
+
+      function resetWrapper() {
+        wrapper.style.position = "";
+        wrapper.style.top = "";
+        wrapper.style.left = "";
+        wrapper.style.width = "";
+        wrapper.style.height = "";
+        wrapper.style.borderRadius = "";
+      }
+
+      function measure() {
+        resetWrapper();
+        const rect = wrapper.getBoundingClientRect();
+        const heroRect = heroSection.getBoundingClientRect();
+        startTop = rect.top;
+        startLeft = rect.left;
+        startWidth = rect.width;
+        startHeight = rect.height;
+        // Scroll-position independent: same regardless of current scrollY
+        bottomOffsetInHero = rect.top - heroRect.top + rect.height;
+        // Where the viewport-relative navOffset lands relative to the hero,
+        // so the absolute release state lines up with the fixed rect exactly
+        topOffsetInHero = navOffset - heroRect.top;
+      }
+
+      function lockScroll() {
+        // Compensate for the scrollbar disappearing so locking doesn't
+        // shift the viewport width and fire a resize event mid-gesture.
+        const scrollbarWidth =
+          window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.overflow = "hidden";
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+      function unlockScroll() {
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
+      }
+
+      function applyProgress(p) {
+        const vw = window.innerWidth;
+        const bottomFixed = startTop + startHeight;
+
+        // Height lags slightly behind width so it visibly grows a touch slower
+        const heightP = Math.pow(p, 1.3);
+
+        const left = startLeft * (1 - p);
+        const width = startWidth + (vw - startWidth) * p;
+        const top = startTop + (navOffset - startTop) * heightP;
+        const height = bottomFixed - top;
+
+        // Fixed positioning takes it out of flow so it can grow in place
+        // and overlap the hero content above it as it expands.
+        wrapper.style.position = "fixed";
+        wrapper.style.top = `${top}px`;
+        wrapper.style.left = `${left}px`;
+        wrapper.style.width = `${width}px`;
+        wrapper.style.height = `${height}px`;
+        wrapper.style.borderRadius = `${startBorderRadius * (1 - p)}px`;
+      }
+
+      function applyReleasedStyles() {
+        // Match the fully-expanded rect exactly so it scrolls away
+        // naturally with the page instead of staying fixed forever.
+        // Scroll-position independent (unlike startTop + startHeight).
+        wrapper.style.position = "absolute";
+        wrapper.style.top = `${topOffsetInHero}px`;
+        wrapper.style.left = "0";
+        wrapper.style.width = "100%";
+        wrapper.style.height = `${bottomOffsetInHero - topOffsetInHero}px`;
+        wrapper.style.borderRadius = "0px";
+      }
+
+      function applyReverseProgress(p) {
+        if (!reverseStartRect) {
+          applyProgress(p);
+          return;
+        }
+
+        const initialTop = startTop - window.scrollY;
+        const initialLeft = startLeft;
+        const initialWidth = startWidth;
+        const initialHeight = startHeight;
+
+        wrapper.style.position = "fixed";
+        wrapper.style.top = `${
+          initialTop + (reverseStartRect.top - initialTop) * p
+        }px`;
+        wrapper.style.left = `${
+          initialLeft + (reverseStartRect.left - initialLeft) * p
+        }px`;
+        wrapper.style.width = `${
+          initialWidth + (reverseStartRect.width - initialWidth) * p
+        }px`;
+        wrapper.style.height = `${
+          initialHeight + (reverseStartRect.height - initialHeight) * p
+        }px`;
+        wrapper.style.borderRadius = `${startBorderRadius * (1 - p)}px`;
+      }
+
+      function releaseJack() {
+        phase = "released";
+        unlockScroll();
+        video.play();
+        applyReleasedStyles();
+      }
+
+      function collapse() {
+        phase = "collapsed";
+        progress = 0;
+        reverseStartRect = null;
+        unlockScroll();
+        resetWrapper();
+
+        video.pause();
+        video.currentTime = 0;
+      }
+
+      function resetAtTop() {
+        if (
+          isMobile() ||
+          window.scrollY > 0 ||
+          phase === "expanding" ||
+          phase === "collapsing"
+        ) {
+          return;
+        }
+
+        phase = "collapsed";
+        progress = 0;
+        unlockScroll();
+        resetWrapper();
+        video.pause();
+        video.currentTime = 0;
+        measure();
+      }
+
+      function isHeroInView() {
+        const rect = heroSection.getBoundingClientRect();
+        return rect.bottom > 0 && rect.top < window.innerHeight;
+      }
+
+      function handleWheel(event) {
+        if (isMobile()) {
+          return;
+        }
+
+        if (phase === "released") {
+          // Re-engage in reverse while the released hero is still visible.
+          if (isHeroInView() && event.deltaY < 0) {
+            event.preventDefault();
+            reverseStartRect = wrapper.getBoundingClientRect();
+            lockScroll();
+            phase = "collapsing";
+            progress = 1;
+            applyReverseProgress(progress);
+          }
+          return;
+        }
+
+        if (phase === "collapsed") {
+          if (window.scrollY > 0 || event.deltaY <= 0) {
+            return;
+          }
+          event.preventDefault();
+          lockScroll();
+          phase = "expanding";
+          progress = Math.min(progress + event.deltaY / growPxDistance, 1);
+          applyProgress(progress);
+          if (progress >= 1) {
+            releaseJack();
+          }
+          return;
+        }
+
+        if (phase === "expanding") {
+          event.preventDefault();
+          progress = Math.min(
+            Math.max(progress + event.deltaY / growPxDistance, 0),
+            1,
+          );
+          applyReverseProgress(progress);
+
+          if (progress >= 1) {
+            releaseJack();
+          } else if (progress <= 0) {
+            collapse();
+          }
+          return;
+        }
+
+        if (phase === "collapsing") {
+          event.preventDefault();
+          progress = Math.min(
+            Math.max(progress + event.deltaY / growPxDistance, 0),
+            1,
+          );
+          applyProgress(progress);
+
+          if (progress <= 0) {
+            collapse();
+          } else if (progress >= 1) {
+            releaseJack();
+          }
+        }
+      }
+
+      measure();
+
+      // A restored lower-page load keeps the video at its original size.
+      // The animation only becomes active again after returning to the top
+      // and starting a new downward scroll.
+
+      window.addEventListener("resize", () => {
+        // Locking body scroll can hide the scrollbar and fire a resize event
+        // mid-gesture; only re-measure when at rest so it doesn't corrupt
+        // the in-flight animation and cause the size to jump.
+        if (phase === "collapsed") {
+          measure();
+        }
+      });
+      window.addEventListener("wheel", handleWheel, { passive: false });
+      window.addEventListener("scroll", resetAtTop, { passive: true });
+
+      // Stop playback once the hero has scrolled fully out of view
+      const videoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              // Leaving the hero always returns it to the initial, paused
+              // state. This also handles pages loaded below the hero.
+              collapse();
+            }
+          });
+        },
+        { threshold: 0 },
+      );
+
+      videoObserver.observe(heroSection);
+    });
+
+  function updateFooterDetails() {
+    const details = document.querySelectorAll(".footer-details-wrapper");
+
+    details.forEach((item) => {
+      if (window.innerWidth <= 980) {
+        item.setAttribute("name", "detail-item");
+      } else {
+        item.removeAttribute("name");
+        item.open = true;
+      }
+    });
+  }
+
+  updateFooterDetails();
+
+  window.addEventListener("resize", updateFooterDetails);
+
+  document.querySelectorAll("[data-team-filters]").forEach((filters) => {
+    const directory = filters.closest(".team-archive__directory");
+    const cards = Array.from(directory.querySelectorAll(".team-archive__card"));
+    const emptyMessage = directory.querySelector("[data-team-empty]");
+    const visibleCountElement = filters.querySelector(
+      "[data-team-visible-count]",
+    );
+    const locationFilter = filters.querySelector(
+      '[data-team-filter="location"]',
+    );
+    const departmentFilter = filters.querySelector(
+      '[data-team-filter="department"]',
+    );
+
+    function cardHasTerm(card, taxonomy, term) {
+      if (!term) return true;
+      return card.dataset[taxonomy].split(" ").includes(term);
+    }
+
+    function filterTeamMembers() {
+      let visibleCount = 0;
+
+      cards.forEach((card, index) => {
+        const isVisible =
+          cardHasTerm(card, "teamLocation", locationFilter.value) &&
+          cardHasTerm(card, "teamDepartment", departmentFilter.value);
+
+        if (isVisible) {
+          card.hidden = false;
+          card.style.transitionDelay = `${Math.min(0.2, index * 0.03)}s`;
+
+          requestAnimationFrame(() => {
+            card.classList.remove("is-filtered-out");
+          });
+
+          visibleCount += 1;
+        } else {
+          card.style.transitionDelay = "0s";
+          card.classList.add("is-filtered-out");
+
+          window.setTimeout(() => {
+            if (card.classList.contains("is-filtered-out")) {
+              card.hidden = true;
+            }
+          }, 450);
+        }
+      });
+
+      emptyMessage.hidden = visibleCount !== 0;
+      visibleCountElement.textContent = visibleCount;
+    }
+
+    locationFilter.addEventListener("change", filterTeamMembers);
+    departmentFilter.addEventListener("change", filterTeamMembers);
+  });
+
+  document.querySelectorAll("[data-team-drawer]").forEach((drawerShell) => {
+    const drawer = drawerShell.querySelector(".team-archive__drawer");
+    const drawerContent = drawerShell.querySelector(
+      "[data-team-drawer-content]",
+    );
+    const triggers = document.querySelectorAll(
+      `[data-team-profile][aria-controls="${drawer.id}"]`,
+    );
+    const closeButtons = drawerShell.querySelectorAll(
+      "[data-team-drawer-close]",
+    );
+    let activeTrigger = null;
+    let closeTimer;
+
+    function closeDrawer() {
+      clearTimeout(closeTimer);
+      drawerShell.classList.remove("is-open");
+      document.body.classList.remove("team-drawer-open");
+      triggers.forEach((trigger) =>
+        trigger.setAttribute("aria-expanded", "false"),
+      );
+
+      closeTimer = window.setTimeout(() => {
+        drawerShell.hidden = true;
+        drawerContent.replaceChildren();
+      }, 450);
+
+      activeTrigger?.focus();
+      activeTrigger = null;
+    }
+
+    function openDrawer(trigger) {
+      const profileTemplate = document.getElementById(
+        trigger.dataset.teamProfile,
+      );
+      if (!profileTemplate) return;
+
+      clearTimeout(closeTimer);
+      drawerContent.replaceChildren(profileTemplate.content.cloneNode(true));
+      triggers.forEach((item) => item.setAttribute("aria-expanded", "false"));
+      trigger.setAttribute("aria-expanded", "true");
+      activeTrigger = trigger;
+      drawerShell.hidden = false;
+      document.body.classList.add("team-drawer-open");
+
+      requestAnimationFrame(() => {
+        drawerShell.classList.add("is-open");
+        drawer.focus();
+      });
+    }
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => openDrawer(trigger));
+      trigger.addEventListener("keydown", (event) => {
+        if (trigger.tagName === "BUTTON") return;
+        if (event.key !== "Enter" && event.key !== " ") return;
+
+        event.preventDefault();
+        openDrawer(trigger);
+      });
+    });
+    closeButtons.forEach((button) =>
+      button.addEventListener("click", closeDrawer),
+    );
+
+    drawerShell.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeDrawer();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = Array.from(
+        drawer.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => !element.closest("[hidden]"));
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  });
+
+  // Toggle read more for the homepage header
+
+  document.querySelectorAll(".expand").forEach((container) => {
+    const originalContent = container.innerHTML;
+    const fullText = container.textContent.trim();
+    const words = fullText.split(/\s+/);
+    const wordLimit = 30;
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+
+    if (!fullText || words.length <= wordLimit) {
+      return;
+    }
+
+    const truncatedText = words.slice(0, wordLimit).join(" ") + "...";
+
+    // Create the Read more button
+    const toggle = document.createElement("button");
+
+    toggle.type = "button";
+    toggle.className = "text-expand-toggle";
+    toggle.textContent = "Read more";
+    toggle.setAttribute("aria-expanded", "false");
+
+    function showCollapsedContent() {
+      const text = document.createElement("p");
+      text.textContent = truncatedText;
+      text.appendChild(toggle);
+      container.replaceChildren(text);
+      toggle.textContent = "Read more";
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
+    function showExpandedContent() {
+      container.innerHTML = originalContent;
+      container.appendChild(toggle);
+      toggle.textContent = "Read less";
+      toggle.setAttribute("aria-expanded", "true");
+    }
+
+    function setMobileState() {
+      if (mobileQuery.matches) {
+        showCollapsedContent();
+
+        // Allow the browser to calculate the collapsed height
+        container.style.maxHeight = `${container.scrollHeight}px`;
+
+        requestAnimationFrame(() => {
+          container.classList.remove("is-expanded");
+        });
+      } else {
+        container.classList.remove("is-expanded");
+        container.style.maxHeight = "none";
+
+        container.innerHTML = originalContent;
+      }
+    }
+
+    function expand() {
+      // Get current collapsed height
+      container.style.maxHeight = `${container.scrollHeight}px`;
+
+      // Change content
+      showExpandedContent();
+
+      // Force browser to calculate the new height
+      requestAnimationFrame(() => {
+        container.style.maxHeight = `${container.scrollHeight}px`;
+        container.classList.add("is-expanded");
+      });
+    }
+
+    function collapse() {
+      // Set current expanded height first
+      container.style.maxHeight = `${container.scrollHeight}px`;
+
+      requestAnimationFrame(() => {
+        showCollapsedContent();
+
+        requestAnimationFrame(() => {
+          container.style.maxHeight = `${container.scrollHeight}px`;
+          container.classList.remove("is-expanded");
+        });
+      });
+    }
+
+    toggle.addEventListener("click", () => {
+      if (container.classList.contains("is-expanded")) {
+        collapse();
+      } else {
+        expand();
+      }
+    });
+
+    setMobileState();
+    mobileQuery.addEventListener("change", setMobileState);
   });
 });

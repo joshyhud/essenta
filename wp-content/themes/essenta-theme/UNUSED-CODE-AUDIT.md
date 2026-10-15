@@ -34,6 +34,14 @@ This is a static source audit, not a runtime/CMS database audit. Saved page-buil
 - Gulp `lintJS` did not pass: it reports 20 existing ESLint errors in `src/js/scripts.js` (undefined Google Maps global, indentation, and quote-style diagnostics). No JavaScript source changes were made as part of this documentation audit.
 - No CMS/runtime tests were run.
 
+### Subsequent slider consolidation verification
+
+- `minifyJS` and `minifySliders` both pass; their source maps match current sources and Slick calls occur only in the slider bundle.
+- The new slider source passes ESLint without warnings. The general source still has the 20 unrelated lint errors recorded above.
+- PHP syntax checks pass for setup and all current templates.
+- The local homepage loads the slider bundle once and works across desktop/mobile/desktop transitions without JavaScript exceptions or nested Slick tracks.
+- A browser fixture using the built minified bundle passes 102 assertions covering repeated-block controls/dots, exact responsive boundaries and re-entry, sectors reflow, USP navigation, modal opening/Escape, and continuous statistics animation. The fixture is not a substitute for testing every CMS page.
+
 ## Suggested cleanup order
 
 1. Check live and legacy CMS content for the unused-looking block and hero selectors, then remove confirmed-obsolete SCSS.

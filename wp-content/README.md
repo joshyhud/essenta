@@ -229,7 +229,9 @@ execution. `gulp watch` watches both JavaScript bundles.
 When adding sliders, keep PHP responsible for markup/data and add the behavior
 to the shared slider source. Scope arrows/dots and event handlers to the owning
 block, and use the shared initialization helper to skip empty or initialized
-elements. Test repeated blocks and desktop/mobile transitions. Build just the
+elements. Use the shared teardown helper for responsive removal; it cancels
+Slick's pending resize callback before unslicking. Test repeated blocks and
+desktop/mobile transitions. Build just the
 slider bundle with `npx --no-install gulp minifySliders` from the theme directory.
 
 ---

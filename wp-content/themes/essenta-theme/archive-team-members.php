@@ -245,9 +245,9 @@ $get_filter_term_slugs = static function ($terms, $taxonomy) {
                                 </div>
                             <?php endif; ?>
 
-                            <a class="btn primary team-archive__profile-cta" href="/contact">
+                            <!-- <a class="btn primary team-archive__profile-cta" href="/contact">
                                 <?php esc_html_e('Talk to an expert', 'essenta-theme'); ?>
-                            </a>
+                            </a> -->
                         </div>
                     </div>
 

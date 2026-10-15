@@ -8,38 +8,43 @@ if (!defined('ABSPATH')) {
  */
 
 // Save JSON for custom post types
-function my_acf_save_post_type( $path ) {
+function my_acf_save_post_type($path)
+{
     $path = get_stylesheet_directory() . '/includes/acf-json/post-types';
     return $path;
 }
-add_filter( 'acf/settings/save_json/type=acf-post-type', 'my_acf_save_post_type' );
+add_filter('acf/settings/save_json/type=acf-post-type', 'my_acf_save_post_type');
 
 // Save JSON for field groups
-function my_acf_save_field_group( $path ) {
+function my_acf_save_field_group($path)
+{
     $path = get_stylesheet_directory() . '/includes/acf-json/field-groups';
     return $path;
 }
-add_filter( 'acf/settings/save_json/type=acf-field-group', 'my_acf_save_field_group' );
+add_filter('acf/settings/save_json/type=acf-field-group', 'my_acf_save_field_group');
 
 // Save JSON for taxonomies
-function my_acf_save_taxonomy( $path ) {
+function my_acf_save_taxonomy($path)
+{
     $path = get_stylesheet_directory() . '/includes/acf-json/taxonomies';
     return $path;
 }
-add_filter( 'acf/settings/save_json/type=acf-taxonomy', 'my_acf_save_taxonomy' );
+add_filter('acf/settings/save_json/type=acf-taxonomy', 'my_acf_save_taxonomy');
 
 // Save JSON for options pages
-function my_acf_save_options_pages( $path ) {
+function my_acf_save_options_pages($path)
+{
     $path = get_stylesheet_directory() . '/includes/acf-json/options-pages';
     return $path;
 }
-add_filter( 'acf/settings/save_json/type=acf-ui-options-page', 'my_acf_save_options_pages' );
+add_filter('acf/settings/save_json/type=acf-ui-options-page', 'my_acf_save_options_pages');
 
 /**
  * Filter for loading ACF JSON from multiple subfolders.
  */
-function my_acf_json_load_point( $path ) {
-	// Remove the original path (optional).
+function my_acf_json_load_point($path)
+{
+    // Remove the original path (optional).
     unset($path[0]);
     $theme_dir = get_stylesheet_directory();
 
@@ -51,55 +56,99 @@ function my_acf_json_load_point( $path ) {
 
     return $path;
 }
-add_filter( 'acf/settings/load_json', 'my_acf_json_load_point' );
+add_filter('acf/settings/load_json', 'my_acf_json_load_point');
+
+/**
+ * Read the browser Maps key from server-side configuration.
+ */
+function essenta_get_google_maps_api_key()
+{
+    $key = defined('ESSENTA_GOOGLE_MAPS_API_KEY')
+        ? ESSENTA_GOOGLE_MAPS_API_KEY
+        : getenv('ESSENTA_GOOGLE_MAPS_API_KEY');
+
+    if ($key === false) {
+        $environment_file = dirname(rtrim(ABSPATH, '/\\')) . '/.env';
+
+        if (file_exists($environment_file)) {
+            if (!is_readable($environment_file)) {
+                throw new RuntimeException('The site .env file is not readable.');
+            }
+
+            $environment_values = parse_ini_file($environment_file, false, INI_SCANNER_RAW);
+            if ($environment_values === false) {
+                throw new RuntimeException('The site .env file could not be parsed.');
+            }
+
+            $key = $environment_values['ESSENTA_GOOGLE_MAPS_API_KEY'] ?? '';
+            if (!is_string($key)) {
+                throw new RuntimeException('ESSENTA_GOOGLE_MAPS_API_KEY must be a string.');
+            }
+        }
+    }
+
+    $key = apply_filters('essenta_google_maps_api_key', $key);
+
+    return is_string($key) ? trim($key) : '';
+}
+
+add_action('admin_notices', function () {
+    if (!current_user_can('manage_options') || essenta_get_google_maps_api_key() !== '') {
+        return;
+    }
+
+    echo '<div class="notice notice-error"><p>' . esc_html__(
+        'Google Maps is not configured. Set ESSENTA_GOOGLE_MAPS_API_KEY in server configuration or the .env file above the WordPress directory to enable office maps and ACF map fields.',
+        'essenta-theme'
+    ) . '</p></div>';
+});
 
 /**
  * Provide Google Maps credentials to ACF's admin map fields.
  */
-function essenta_acf_google_maps_api( $api ) {
-    $api['key'] = apply_filters(
-        'essenta_google_maps_api_key',
-        'AIzaSyAW0GJXmU70GtFN4p8eyw1ujFSSXhlJRY8'
-    );
+function essenta_acf_google_maps_api($api)
+{
+    $api['key'] = essenta_get_google_maps_api_key();
 
     return $api;
 }
-add_filter( 'acf/fields/google_map/api', 'essenta_acf_google_maps_api' );
+add_filter('acf/fields/google_map/api', 'essenta_acf_google_maps_api');
 
 /**
  * Filter to prevent fields with 'admin_only' setting from displaying to non-admins.
  */
-function admin_only_prepare_field( $field ) {
+function admin_only_prepare_field($field)
+{
     // Bail early if no 'admin_only' setting or if set to false.
-    if ( empty( $field['admin_only'] ) ) {
+    if (empty($field['admin_only'])) {
         return $field;
     }
 
     // Prevent field from displaying if current user is not an admin.
-    if ( ! current_user_can( 'manage_options' ) ) {
+    if (! current_user_can('manage_options')) {
         return false;
     }
 
     // Return the original field otherwise.
     return $field;
 }
-add_filter( 'acf/prepare_field', 'admin_only_prepare_field' );
+add_filter('acf/prepare_field', 'admin_only_prepare_field');
 
 
 /**
  * Filter to add 'Admin Only' setting to ACF field groups.
  */
-add_filter( 'acf/field_group/additional_field_settings_tabs', function ( $tabs ) {
+add_filter('acf/field_group/additional_field_settings_tabs', function ($tabs) {
     $tabs['admin-settings'] = 'Admin Settings';
 
     return $tabs;
-} );
+});
 
 
 /**
  * Filter to render 'Admin Only' setting in ACF field group settings.
  */
-add_action( 'acf/field_group/render_field_settings_tab/admin-settings', function ( $field ) {
+add_action('acf/field_group/render_field_settings_tab/admin-settings', function ($field) {
     acf_render_field_setting(
         $field,
         array(
@@ -111,21 +160,23 @@ add_action( 'acf/field_group/render_field_settings_tab/admin-settings', function
         ),
         true
     );
-} );
+});
 
 /**
  * B9 Custom ACF Fields
  */
 
 // Register a custom field type for a visual separator.
-if( function_exists('acf_register_field_type') ) :
+if (function_exists('acf_register_field_type')) :
 
-    class acf_field_separator extends acf_field {
+    class acf_field_separator extends acf_field
+    {
 
         /**
          * Constructor.
          */
-        public function __construct() {
+        public function __construct()
+        {
             // Field name (will be used in the code)
             $this->name = 'separator';
             // Field label (displayed in the admin)
@@ -144,7 +195,8 @@ if( function_exists('acf_register_field_type') ) :
          *
          * @param array $field The field settings and values.
          */
-        public function render_field( $field ) {
+        public function render_field($field)
+        {
             echo '<hr />';
         }
 
@@ -154,7 +206,8 @@ if( function_exists('acf_register_field_type') ) :
          *
          * @param array $field The field settings.
          */
-        public function render_field_settings( $field ) {
+        public function render_field_settings($field)
+        {
             // No additional settings
         }
 
@@ -162,7 +215,8 @@ if( function_exists('acf_register_field_type') ) :
          * (Optional) Load value.
          * Not needed because this field doesn’t store any value.
          */
-        public function load_value( $value, $post_id, $field ) {
+        public function load_value($value, $post_id, $field)
+        {
             return $value;
         }
 
@@ -170,20 +224,22 @@ if( function_exists('acf_register_field_type') ) :
          * (Optional) Update value.
          * Not needed because this field doesn’t store any value.
          */
-        public function update_value( $value, $post_id, $field ) {
+        public function update_value($value, $post_id, $field)
+        {
             return $value;
         }
     }
 
     // Register the field after ACF has initialized its translations.
-    add_action( 'acf/init', function () {
-        acf_register_field_type( 'acf_field_separator' );
-    } );
+    add_action('acf/init', function () {
+        acf_register_field_type('acf_field_separator');
+    });
 
 endif;
 
 
-function adm_add_wysiwyg_styles($toolbars) {
+function adm_add_wysiwyg_styles($toolbars)
+{
 
     foreach ($toolbars as &$toolbar) {
         $toolbar[1][] = 'styleselect';
@@ -194,7 +250,8 @@ function adm_add_wysiwyg_styles($toolbars) {
 
 add_filter('acf/fields/wysiwyg/toolbars', 'adm_add_wysiwyg_styles');
 
-function adm_wysiwyg_styles($init) {
+function adm_wysiwyg_styles($init)
+{
 
     $init['style_formats'] = wp_json_encode([
         [

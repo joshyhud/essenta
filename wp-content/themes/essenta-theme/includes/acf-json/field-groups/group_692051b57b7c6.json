@@ -514,6 +514,83 @@
             "prepend": "",
             "append": "",
             "admin_only": 0
+        },
+        {
+            "key": "field_6ace29f210381",
+            "label": "Partner Logos",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "admin_only": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6ace2a0310382",
+            "label": "Partner Logos 1",
+            "name": "partner_logos_1",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min": "",
+            "max": "",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "insert": "append",
+            "preview_size": "medium",
+            "admin_only": 0
+        },
+        {
+            "key": "field_6ace2a0f10383",
+            "label": "Partner Logos 2",
+            "name": "partner_logos_2",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min": "",
+            "max": "",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "insert": "append",
+            "preview_size": "medium",
+            "admin_only": 0
         }
     ],
     "location": [
@@ -537,5 +614,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789557190
+    "modified": 1791896091
 }

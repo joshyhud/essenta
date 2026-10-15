@@ -30,7 +30,7 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
             <?php endif; ?>
 
             <?php if ($intro_text) : ?>
-                <div class="introduction-block__text">
+                <div class="introduction-block__text expand">
                     <?php echo wp_kses_post($intro_text); ?>
                 </div>
             <?php endif; ?>
@@ -120,40 +120,3 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
 
     </div>
 </section>
-
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $('.statistics-slider--slick').slick({
-            slidesToShow: 2.75,
-            slidesToScroll: 1,
-            infinite: false,
-            dots: false,
-            arrows: false,
-            adaptiveHeight: false,
-            responsive: [{
-                    breakpoint: 980,
-                    settings: {
-                        slidesToShow: 2.2,
-                    }
-                },
-                {
-                    breakpoint: 420,
-                    settings: {
-                        slidesToShow: 2.2,
-                    }
-
-                }
-            ]
-        });
-
-        $('.testimonials-slider').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            infinite: false,
-            dots: true,
-            arrows: false,
-            appendDots: $('.slider-nav.testimonials .slider-dots'),
-            adaptiveHeight: false
-        });
-    });
-</script>

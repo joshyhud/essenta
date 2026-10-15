@@ -19,6 +19,7 @@
 
 # htaccess
 .htaccess
+.env
 
 # Configuration
 wp-config.php

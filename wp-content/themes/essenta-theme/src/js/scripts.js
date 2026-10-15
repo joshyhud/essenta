@@ -404,88 +404,6 @@ jQuery(document).ready(function ($) {
     resizeTimer = setTimeout(handleFooterDetails, 250);
   });
 
-  //Product page caorousel
-  // Initialize Slick Carousel with navigation
-  $("#main-product-image").slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    asNavFor: ".product-slick-carousel",
-  });
-
-  $(".product-slick-carousel").slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    asNavFor: "#main-product-image",
-    dots: false,
-    centerMode: true,
-    focusOnSelect: true,
-    arrows: false,
-    infinite: true,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-    ],
-  });
-
-  // accordion carousel mobile
-  $(".carousel-mobile-items").slick({
-    infinite: true,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    dots: false,
-    arrows: false,
-    pauseOnHover: true,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  });
-
-  //top bar mobile carousel
-
-  // $(".top-details").slick({
-  //   infinite: true,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  //   autoplay: true,
-  //   autoplaySpeed: 5000,
-  //   dots: false,
-  //   arrows: false,
-  //   pauseOnHover: true,
-  //   settings: "unslick",
-  //   responsive: [
-  //     {
-  //       breakpoint: 768,
-  //       settings: "slick",
-  //     },
-  //   ],
-  // });
-
-  // Gallery item click handler
-  $(".gallery-item").on("click", function () {
-    var newImageSrc = $(this).data("full");
-    var newImageAlt = $(this).find("img").attr("alt");
-
-    $("#main-product-image").attr("src", newImageSrc).attr("alt", newImageAlt);
-  });
-
   // Mobile menu drawer
   var $drawer = $("#mm-drawer");
   var $toggle = $(".mm-toggle");
@@ -686,351 +604,47 @@ jQuery(document).ready(function ($) {
     });
   }
 
-  //Article Slider
-  // Initialize Slick slider for mobile
-  $(".articles-slider").slick({
-    dots: true,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    autoplay: false,
-    responsive: [
-      {
-        breakpoint: 9999,
-        settings: "unslick",
-      },
-      {
-        breakpoint: 980,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          dots: true,
-          arrows: true,
-          infinite: false,
-          prevArrow: $(".slider-nav.articles .slick-prev"),
-          nextArrow: $(".slider-nav.articles .slick-next"),
-          appendDots: $(".slider-nav.articles .slider-dots"),
-        },
-      },
-    ],
-  });
-
   // End of jQuery Ready
 });
 
-// Ensure the DOM is fully loaded before running the hero video script
+// Hero video: clicking the inline video (or play button) opens it in a modal
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".homepage-hero-image").forEach((hero) => {
-    const video = hero.querySelector(".homepage-hero-video");
-    const playButton = hero.querySelector(".homepage-hero-play");
-
-    if (!video || !playButton) {
+  document.querySelectorAll(".homepage-hero-image.has-video").forEach((hero) => {
+    const modal = document.getElementById(hero.dataset.heroVideoModal);
+    if (!modal) {
       return;
     }
 
-    playButton.addEventListener("click", (event) => {
-      event.stopPropagation();
+    const modalVideo = modal.querySelector(".homepage-hero-video-modal-video");
 
-      video.play();
+    function openModal() {
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      modalVideo.currentTime = 0;
+      modalVideo.play().catch(() => {});
+    }
+
+    function closeModal() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      modalVideo.pause();
+      modalVideo.currentTime = 0;
+    }
+
+    hero.addEventListener("click", openModal);
+
+    modal.querySelectorAll("[data-hero-video-modal-close]").forEach((el) => {
+      el.addEventListener("click", closeModal);
     });
 
-    // Let clicking the video itself toggle play/pause, alongside the
-    // native controls.
-    video.addEventListener("click", (event) => {
-      event.stopPropagation();
-
-      if (video.paused) {
-        video.play();
-      } else {
-        video.pause();
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("is-open")) {
+        closeModal();
       }
-    });
-
-    video.addEventListener("play", () => {
-      playButton.style.display = "none";
-    });
-
-    video.addEventListener("pause", () => {
-      playButton.style.display = "flex";
-    });
-
-    video.addEventListener("ended", () => {
-      playButton.style.display = "flex";
     });
   });
-
-  // Scroll-jack the hero video: intercept scroll input to animate the video
-  // from its start size to fullscreen (overlapping the hero content), then
-  // release the jack once fully expanded so the page scrolls normally.
-  // Scrolling back up to the top re-engages the jack in reverse (no replay).
-  document
-    .querySelectorAll(".homepage-hero-image-wrapper.has-scroll-video")
-    .forEach((wrapper) => {
-      const heroSection = wrapper.closest(".homepage-hero");
-      const video = wrapper.querySelector(".homepage-hero-video");
-
-      if (!heroSection || !video) {
-        return;
-      }
-
-      const isMobile = () => window.innerWidth <= 980;
-      const growPxDistance = 900;
-      const navOffset = 120;
-
-      const startBorderRadius = 5;
-      let startTop = 0;
-      let startLeft = 0;
-      let startWidth = 0;
-      let startHeight = 0;
-      let bottomOffsetInHero = 0;
-      let topOffsetInHero = 0;
-      let reverseStartRect = null;
-
-      // collapsed | expanding | released | collapsing
-      let phase = "collapsed";
-      let progress = 0;
-
-      function resetWrapper() {
-        wrapper.style.position = "";
-        wrapper.style.top = "";
-        wrapper.style.left = "";
-        wrapper.style.width = "";
-        wrapper.style.height = "";
-        wrapper.style.borderRadius = "";
-      }
-
-      function measure() {
-        resetWrapper();
-        const rect = wrapper.getBoundingClientRect();
-        const heroRect = heroSection.getBoundingClientRect();
-        startTop = rect.top;
-        startLeft = rect.left;
-        startWidth = rect.width;
-        startHeight = rect.height;
-        // Scroll-position independent: same regardless of current scrollY
-        bottomOffsetInHero = rect.top - heroRect.top + rect.height;
-        // Where the viewport-relative navOffset lands relative to the hero,
-        // so the absolute release state lines up with the fixed rect exactly
-        topOffsetInHero = navOffset - heroRect.top;
-      }
-
-      function lockScroll() {
-        // Compensate for the scrollbar disappearing so locking doesn't
-        // shift the viewport width and fire a resize event mid-gesture.
-        const scrollbarWidth =
-          window.innerWidth - document.documentElement.clientWidth;
-        document.body.style.overflow = "hidden";
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
-      }
-
-      function unlockScroll() {
-        document.body.style.overflow = "";
-        document.body.style.paddingRight = "";
-      }
-
-      function applyProgress(p) {
-        const vw = window.innerWidth;
-        const bottomFixed = startTop + startHeight;
-
-        // Height lags slightly behind width so it visibly grows a touch slower
-        const heightP = Math.pow(p, 1.3);
-
-        const left = startLeft * (1 - p);
-        const width = startWidth + (vw - startWidth) * p;
-        const top = startTop + (navOffset - startTop) * heightP;
-        const height = bottomFixed - top;
-
-        // Fixed positioning takes it out of flow so it can grow in place
-        // and overlap the hero content above it as it expands.
-        wrapper.style.position = "fixed";
-        wrapper.style.top = `${top}px`;
-        wrapper.style.left = `${left}px`;
-        wrapper.style.width = `${width}px`;
-        wrapper.style.height = `${height}px`;
-        wrapper.style.borderRadius = `${startBorderRadius * (1 - p)}px`;
-      }
-
-      function applyReleasedStyles() {
-        // Match the fully-expanded rect exactly so it scrolls away
-        // naturally with the page instead of staying fixed forever.
-        // Scroll-position independent (unlike startTop + startHeight).
-        wrapper.style.position = "absolute";
-        wrapper.style.top = `${topOffsetInHero}px`;
-        wrapper.style.left = "0";
-        wrapper.style.width = "100%";
-        wrapper.style.height = `${bottomOffsetInHero - topOffsetInHero}px`;
-        wrapper.style.borderRadius = "0px";
-      }
-
-      function applyReverseProgress(p) {
-        if (!reverseStartRect) {
-          applyProgress(p);
-          return;
-        }
-
-        const initialTop = startTop - window.scrollY;
-        const initialLeft = startLeft;
-        const initialWidth = startWidth;
-        const initialHeight = startHeight;
-
-        wrapper.style.position = "fixed";
-        wrapper.style.top = `${
-          initialTop + (reverseStartRect.top - initialTop) * p
-        }px`;
-        wrapper.style.left = `${
-          initialLeft + (reverseStartRect.left - initialLeft) * p
-        }px`;
-        wrapper.style.width = `${
-          initialWidth + (reverseStartRect.width - initialWidth) * p
-        }px`;
-        wrapper.style.height = `${
-          initialHeight + (reverseStartRect.height - initialHeight) * p
-        }px`;
-        wrapper.style.borderRadius = `${startBorderRadius * (1 - p)}px`;
-      }
-
-      function releaseJack() {
-        phase = "released";
-        unlockScroll();
-        video.play();
-        applyReleasedStyles();
-      }
-
-      function collapse() {
-        phase = "collapsed";
-        progress = 0;
-        reverseStartRect = null;
-        unlockScroll();
-        resetWrapper();
-
-        video.pause();
-        video.currentTime = 0;
-      }
-
-      function resetAtTop() {
-        if (
-          isMobile() ||
-          window.scrollY > 0 ||
-          phase === "expanding" ||
-          phase === "collapsing"
-        ) {
-          return;
-        }
-
-        phase = "collapsed";
-        progress = 0;
-        unlockScroll();
-        resetWrapper();
-        video.pause();
-        video.currentTime = 0;
-        measure();
-      }
-
-      function isHeroInView() {
-        const rect = heroSection.getBoundingClientRect();
-        return rect.bottom > 0 && rect.top < window.innerHeight;
-      }
-
-      function handleWheel(event) {
-        if (isMobile()) {
-          return;
-        }
-
-        if (phase === "released") {
-          // Re-engage in reverse while the released hero is still visible.
-          if (isHeroInView() && event.deltaY < 0) {
-            event.preventDefault();
-            reverseStartRect = wrapper.getBoundingClientRect();
-            lockScroll();
-            phase = "collapsing";
-            progress = 1;
-            applyReverseProgress(progress);
-          }
-          return;
-        }
-
-        if (phase === "collapsed") {
-          if (window.scrollY > 0 || event.deltaY <= 0) {
-            return;
-          }
-          event.preventDefault();
-          lockScroll();
-          phase = "expanding";
-          progress = Math.min(progress + event.deltaY / growPxDistance, 1);
-          applyProgress(progress);
-          if (progress >= 1) {
-            releaseJack();
-          }
-          return;
-        }
-
-        if (phase === "expanding") {
-          event.preventDefault();
-          progress = Math.min(
-            Math.max(progress + event.deltaY / growPxDistance, 0),
-            1,
-          );
-          applyReverseProgress(progress);
-
-          if (progress >= 1) {
-            releaseJack();
-          } else if (progress <= 0) {
-            collapse();
-          }
-          return;
-        }
-
-        if (phase === "collapsing") {
-          event.preventDefault();
-          progress = Math.min(
-            Math.max(progress + event.deltaY / growPxDistance, 0),
-            1,
-          );
-          applyProgress(progress);
-
-          if (progress <= 0) {
-            collapse();
-          } else if (progress >= 1) {
-            releaseJack();
-          }
-        }
-      }
-
-      measure();
-
-      // A restored lower-page load keeps the video at its original size.
-      // The animation only becomes active again after returning to the top
-      // and starting a new downward scroll.
-
-      window.addEventListener("resize", () => {
-        // Locking body scroll can hide the scrollbar and fire a resize event
-        // mid-gesture; only re-measure when at rest so it doesn't corrupt
-        // the in-flight animation and cause the size to jump.
-        if (phase === "collapsed") {
-          measure();
-        }
-      });
-      window.addEventListener("wheel", handleWheel, { passive: false });
-      window.addEventListener("scroll", resetAtTop, { passive: true });
-
-      // Stop playback once the hero has scrolled fully out of view
-      const videoObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) {
-              // Leaving the hero always returns it to the initial, paused
-              // state. This also handles pages loaded below the hero.
-              collapse();
-            }
-          });
-        },
-        { threshold: 0 },
-      );
-
-      videoObserver.observe(heroSection);
-    });
 
   function updateFooterDetails() {
     const details = document.querySelectorAll(".footer-details-wrapper");
@@ -1156,15 +770,20 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    triggers.forEach((trigger) => {
-      trigger.addEventListener("click", () => openDrawer(trigger));
-      trigger.addEventListener("keydown", (event) => {
-        if (trigger.tagName === "BUTTON") return;
-        if (event.key !== "Enter" && event.key !== " ") return;
-
-        event.preventDefault();
-        openDrawer(trigger);
-      });
+    document.addEventListener("click", (event) => {
+      const trigger = event.target.closest(
+        `[data-team-profile][aria-controls="${drawer.id}"]`,
+      );
+      if (trigger) openDrawer(trigger);
+    });
+    document.addEventListener("keydown", (event) => {
+      const trigger = event.target.closest(
+        `[data-team-profile][aria-controls="${drawer.id}"]`,
+      );
+      if (!trigger || trigger.tagName === "BUTTON") return;
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      openDrawer(trigger);
     });
     closeButtons.forEach((button) =>
       button.addEventListener("click", closeDrawer),
@@ -1197,14 +816,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Toggle read more for the homepage header
-
-  document.querySelectorAll(".expand").forEach((container) => {
-    const originalContent = container.innerHTML;
-    const fullText = container.textContent.trim();
+  // Keep the original nodes so expanding preserves event listeners and form state.
+  const expandableContainers = Array.from(
+    document.querySelectorAll(".expand"),
+  ).filter((container) => !container.parentElement.closest(".expand"));
+  expandableContainers.forEach((container) => {
+    const originalContent = Array.from(container.childNodes);
+    const fullText = (container.innerText || container.textContent).trim();
     const words = fullText.split(/\s+/);
     const wordLimit = 30;
     const mobileQuery = window.matchMedia("(max-width: 767px)");
+    const reducedMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+    let heightAnimation;
 
     if (!fullText || words.length <= wordLimit) {
       return;
@@ -1212,7 +837,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const truncatedText = words.slice(0, wordLimit).join(" ") + "...";
 
-    // Create the Read more button
     const toggle = document.createElement("button");
 
     toggle.type = "button";
@@ -1220,77 +844,86 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.textContent = "Read more";
     toggle.setAttribute("aria-expanded", "false");
 
+    if (container.id) {
+      toggle.setAttribute("aria-controls", container.id);
+    }
+
     function showCollapsedContent() {
-      const text = document.createElement("p");
+      const text = document.createElement("span");
       text.textContent = truncatedText;
-      text.appendChild(toggle);
-      container.replaceChildren(text);
+      container.replaceChildren(text, toggle);
+      container.classList.remove("is-expanded");
       toggle.textContent = "Read more";
       toggle.setAttribute("aria-expanded", "false");
     }
 
     function showExpandedContent() {
-      container.innerHTML = originalContent;
+      container.replaceChildren(...originalContent);
       container.appendChild(toggle);
+      container.classList.add("is-expanded");
       toggle.textContent = "Read less";
       toggle.setAttribute("aria-expanded", "true");
     }
 
     function setMobileState() {
+      if (heightAnimation) {
+        heightAnimation.cancel();
+        heightAnimation = null;
+      }
+
       if (mobileQuery.matches) {
         showCollapsedContent();
-
-        // Allow the browser to calculate the collapsed height
-        container.style.maxHeight = `${container.scrollHeight}px`;
-
-        requestAnimationFrame(() => {
-          container.classList.remove("is-expanded");
-        });
       } else {
         container.classList.remove("is-expanded");
-        container.style.maxHeight = "none";
-
-        container.innerHTML = originalContent;
+        container.replaceChildren(...originalContent);
       }
     }
 
-    function expand() {
-      // Get current collapsed height
-      container.style.maxHeight = `${container.scrollHeight}px`;
-
-      // Change content
-      showExpandedContent();
-
-      // Force browser to calculate the new height
-      requestAnimationFrame(() => {
-        container.style.maxHeight = `${container.scrollHeight}px`;
-        container.classList.add("is-expanded");
-      });
-    }
-
-    function collapse() {
-      // Set current expanded height first
-      container.style.maxHeight = `${container.scrollHeight}px`;
-
-      requestAnimationFrame(() => {
-        showCollapsedContent();
-
-        requestAnimationFrame(() => {
-          container.style.maxHeight = `${container.scrollHeight}px`;
-          container.classList.remove("is-expanded");
-        });
-      });
-    }
-
     toggle.addEventListener("click", () => {
+      const startHeight = container.getBoundingClientRect().height;
+      const hadFocus = document.activeElement === toggle;
+
+      if (heightAnimation) {
+        heightAnimation.cancel();
+        heightAnimation = null;
+      }
+
       if (container.classList.contains("is-expanded")) {
-        collapse();
+        showCollapsedContent();
       } else {
-        expand();
+        showExpandedContent();
+      }
+
+      if (hadFocus) {
+        toggle.focus({ preventScroll: true });
+      }
+
+      const endHeight = container.getBoundingClientRect().height;
+
+      if (!reducedMotionQuery.matches && startHeight !== endHeight) {
+        const animation = container.animate(
+          [
+            { height: `${startHeight}px`, boxSizing: "border-box", overflow: "hidden" },
+            { height: `${endHeight}px`, boxSizing: "border-box", overflow: "hidden" },
+          ],
+          { duration: 350, easing: "cubic-bezier(0.4, 0, 0.2, 1)" },
+        );
+        heightAnimation = animation;
+        animation.onfinish = () => {
+          if (heightAnimation === animation) {
+            heightAnimation = null;
+          }
+        };
       }
     });
 
     setMobileState();
     mobileQuery.addEventListener("change", setMobileState);
+    reducedMotionQuery.addEventListener("change", () => {
+      if (reducedMotionQuery.matches && heightAnimation) {
+        heightAnimation.cancel();
+        heightAnimation = null;
+      }
+    });
   });
 });

@@ -112,8 +112,9 @@
     .team-members-slider {
       margin: 0 -0.5rem;
 
-      .slick-list {
-        overflow: hidden;
+      &:focus-visible {
+        outline: 2px solid var(--color-sand-700);
+        outline-offset: 3px;
       }
 
       .slick-track {
@@ -123,10 +124,10 @@
       .slick-slide {
         display: flex;
         height: auto;
-        margin: 0 0.5rem;
+        min-width: 0;
+        padding: 0 0.5rem;
 
-        > div {
-          display: flex;
+        > .team-card {
           width: 100%;
         }
       }

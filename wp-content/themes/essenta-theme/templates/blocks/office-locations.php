@@ -37,13 +37,9 @@ foreach ($offices->posts as $office) :
     );
 endforeach;
 $offices = $offices->posts;
+$google_maps_api_key = essenta_get_google_maps_api_key();
 
-if ($office_locations) {
-    $google_maps_api_key = apply_filters(
-        'essenta_google_maps_api_key',
-        'AIzaSyAW0GJXmU70GtFN4p8eyw1ujFSSXhlJRY8'
-    );
-
+if ($office_locations && $google_maps_api_key !== '') {
     wp_enqueue_script(
         'essenta-google-maps',
         add_query_arg(
@@ -63,7 +59,7 @@ if ($office_locations) {
 
 <section class="office-locations">
     <div class="container">
-        <?php if ($office_locations) : ?>
+        <?php if ($office_locations && $google_maps_api_key !== '') : ?>
             <div class="office-locations__stage">
                 <div
                     class="office-locations__map js-office-locations-map"
@@ -101,7 +97,7 @@ if ($office_locations) {
                 </div>
 
                 <div class="office-locations__legend" aria-label="Map legend">
-                    <div><span class="office-locations__legend-role" aria-hidden="true"></span>Roles delivered</div>
+                    <div><span class="office-locations__legend-role" aria-hidden="true"></span>Recent client locations</div>
                     <div><img class="office-locations__legend-office" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin-teal.svg'); ?>" alt="">Office locations</div>
                 </div>
 
@@ -146,6 +142,8 @@ if ($office_locations) {
                     <?php endforeach; ?>
                 </aside>
             </div>
+        <?php elseif ($office_locations) : ?>
+            <p class="office-locations__empty"><?php esc_html_e('The office map is currently unavailable.', 'essenta-theme'); ?></p>
         <?php else : ?>
             <p class="office-locations__empty">No office locations are currently available.</p>
         <?php endif; ?>

@@ -18,9 +18,6 @@ require_once('functions/components.php');
 // Registers custom post types like Testimonials and FAQs
 require_once('functions/cpt.php');
 
-// Registers and manages theme navigation menus
-require_once('functions/menu.php');
-
 // FacetWP integration functions
 if (class_exists('FacetWP')) {
   require_once('functions/facetwp.php');

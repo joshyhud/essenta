@@ -46,35 +46,3 @@ $statistics_cards = get_sub_field('statistics_cards');
         <?php endif; ?>
     </div>
 </section>
-
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        // Your JavaScript code here
-
-        $(window).resize(function() {
-
-            if ($(window).width() <= 980) {
-                $('.statistics-module__grid').slick({
-                    slidesToShow: 2.2,
-                    slidesToScroll: 1,
-                    infinite: false,
-                    dots: false,
-                    arrows: false,
-                    adaptiveHeight: false,
-                    responsive: [{
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 1.2,
-                        }
-
-                    }]
-                });
-            } else {
-                if ($('.statistics-module__grid').hasClass('slick-initialized')) {
-                    $('.statistics-module__grid').slick('unslick');
-                }
-            }
-        });
-        $(window).trigger('resize');
-    });
-</script>

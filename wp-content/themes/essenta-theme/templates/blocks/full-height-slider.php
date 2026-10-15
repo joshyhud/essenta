@@ -36,38 +36,3 @@ $full_height_slides = get_sub_field('full_height_slides');
         </div>
     <?php endif; ?>
 </section>
-
-<script>
-    jQuery(document).ready(function($) {
-        $('.full-height-slider-block').each(function() {
-            var $block = $(this);
-            var $slider = $block.find('.full-height-slider');
-            var $navButtons = $block.find('.full-height-slider-nav .slide-type-btn');
-
-            $slider.slick({
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                swipe: false,
-                autoplay: true,
-                autoplaySpeed: 4000,
-                pauseOnHover: false,
-                pauseOnFocus: false,
-                fade: true,
-                arrows: false,
-                dots: false,
-                infinite: true,
-                adaptiveHeight: false,
-                speed: 800
-            });
-
-            $navButtons.on('click', function() {
-                var slideIndex = parseInt($(this).data('slide-index'), 10);
-                $slider.slick('slickGoTo', slideIndex);
-            });
-
-            $slider.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-                $navButtons.removeClass('active').filter('[data-slide-index="' + nextSlide + '"]').addClass('active');
-            });
-        });
-    });
-</script>

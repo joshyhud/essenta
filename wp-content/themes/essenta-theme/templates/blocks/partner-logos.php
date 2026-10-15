@@ -3,8 +3,8 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 $partner_logos_heading = get_sub_field('partner_logos_heading');
-$partner_logos_one = get_sub_field('partner_logos_carousel_one');
-$partner_logos_two = get_sub_field('partner_logos_carousel_two');
+$partner_logos_one = get_field('partner_logos_1', 'option');
+$partner_logos_two = get_field('partner_logos_2', 'option');
 
 ?>
 
@@ -35,51 +35,3 @@ $partner_logos_two = get_sub_field('partner_logos_carousel_two');
         <?php endif; ?>
     </div>
 </section>
-
-
-<script>
-    jQuery(document).ready(function($) {
-        $('.partner-logos .partner-logos-slider--forward').slick({
-            slidesToShow: 6,
-            slidesToScroll: 1,
-            arrows: false,
-            dots: false,
-            infinite: true,
-            autoplay: true,
-            autoplaySpeed: 0,
-            speed: 6000,
-            cssEase: 'linear',
-            pauseOnHover: false,
-            pauseOnFocus: false,
-            variableWidth: true,
-            responsive: [{
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 3
-                }
-            }]
-        });
-
-        // rtl + variableWidth breaks slick's track rendering, so mirror direction with CSS instead
-        $('.partner-logos .partner-logos-slider--reverse').slick({
-            slidesToShow: 6,
-            slidesToScroll: 1,
-            arrows: false,
-            dots: false,
-            infinite: true,
-            autoplay: true,
-            autoplaySpeed: 0,
-            speed: 6000,
-            cssEase: 'linear',
-            pauseOnHover: false,
-            pauseOnFocus: false,
-            variableWidth: true,
-            responsive: [{
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 3
-                }
-            }]
-        });
-    });
-</script>

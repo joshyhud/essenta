@@ -123,7 +123,7 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
 
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-        var $statisticsSliders = $('.statistics-slider--slick');
+        var $statisticsSliders = $('.statistics-slider--slick').not('.slick-initialized');
 
         $statisticsSliders.slick({
             slidesToShow: 2.75,
@@ -161,11 +161,44 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
 
         $statisticsSliders.each(function() {
             var $slider = $(this);
+            var slick = $slider.slick('getSlick');
             var isPaused = false;
-            var track;
-            var trackTransition;
+            var animation;
+            var completeAnimation;
 
             $slider.attr('tabindex', '0');
+
+            // Keep Slick's slide lifecycle, but pause the animation itself, not just autoplay.
+            slick.animateSlide = function(targetLeft, callback) {
+                var track = slick.$slideTrack[0];
+                var startTransform = window.getComputedStyle(track).transform;
+                var startLeft = new DOMMatrixReadOnly(startTransform).m41;
+
+                if (animation) {
+                    animation.cancel();
+                }
+
+                slick.setCSS(targetLeft);
+                animation = track.animate([
+                    { transform: startTransform },
+                    { transform: track.style.transform }
+                ], {
+                    duration: Math.abs(targetLeft - startLeft) / slick.slideWidth * slick.options.speed,
+                    easing: 'linear'
+                });
+
+                completeAnimation = function() {
+                    animation.cancel();
+                    animation = null;
+                    completeAnimation = null;
+                    callback();
+                };
+                animation.onfinish = completeAnimation;
+
+                if (isPaused) {
+                    animation.pause();
+                }
+            };
 
             function pauseSlider() {
                 if (isPaused) {
@@ -175,14 +208,13 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
                 isPaused = true;
                 $slider.slick('slickPause');
 
-                track = $slider.find('.slick-track')[0];
-                trackTransition = track.style.transition;
-                track.style.transform = window.getComputedStyle(track).transform;
-                track.style.transition = 'none';
+                if (animation) {
+                    animation.pause();
+                }
             }
 
             function resumeSlider() {
-                if ($slider.is(':hover') || $slider.find(':focus').length) {
+                if ($slider.is(':hover, :focus') || $slider.find(':focus').length) {
                     return;
                 }
 
@@ -190,11 +222,28 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
                     return;
                 }
 
-                track.style.transition = trackTransition;
-                $slider.slick('slickPlay');
                 isPaused = false;
+                if (animation) {
+                    animation.play();
+                }
+                $slider.slick('slickPlay');
+                if (animation) {
+                    slick.autoPlayClear();
+                }
             }
 
+            $slider.on('setPosition', function() {
+                if (completeAnimation) {
+                    completeAnimation();
+                }
+            });
+            $slider.on('destroy', function() {
+                if (animation) {
+                    animation.cancel();
+                    animation = null;
+                    completeAnimation = null;
+                }
+            });
             $slider.on('mouseenter focusin', pauseSlider);
             $slider.on('mouseleave', resumeSlider);
             $slider.on('focusout', function(event) {

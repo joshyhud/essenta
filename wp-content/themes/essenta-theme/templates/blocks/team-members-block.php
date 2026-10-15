@@ -98,7 +98,7 @@ $drawer_id = $uid . '-profile-drawer';
     </div>
 
     <div class="team-members-block__slider-wrapper">
-      <div class="team-members-slider">
+      <div class="team-members-slider" tabindex="0" role="region" aria-label="<?php esc_attr_e('Team members', 'essenta-theme'); ?>">
         <?php while ($team_members->have_posts()): $team_members->the_post(); ?>
           <?php $member = get_post(); ?>
 
@@ -254,9 +254,9 @@ $drawer_id = $uid . '-profile-drawer';
             </div>
           <?php endif; ?>
 
-          <a class="btn primary team-archive__profile-cta" href="/contact">
+          <!-- <a class="btn primary team-archive__profile-cta" href="/contact">
             <?php esc_html_e('Talk to an expert', 'essenta-theme'); ?>
-          </a>
+          </a> -->
         </div>
       </div>
 
@@ -297,32 +297,28 @@ $drawer_id = $uid . '-profile-drawer';
 
 <script>
   jQuery(document).ready(function($) {
-    $('#<?php echo esc_js($uid); ?> .team-members-slider').slick({
+    const $block = $('#<?php echo esc_js($uid); ?>');
+    const $slider = $block.find('.team-members-slider');
+
+    $slider.slick({
       slidesToShow: 3.5,
       slidesToScroll: 1,
-      draggable: true,
-      swipe: true,
-      touchThreshold: 10,
-
-      speed: 450,
-      cssEase: 'ease-out',
-
-      waitForAnimate: false,
       arrows: true,
       dots: false,
       infinite: false,
-      adaptiveHeight: false,
-      prevArrow: $('#<?php echo esc_js($uid); ?> .team-members-block__prev'),
-      nextArrow: $('#<?php echo esc_js($uid); ?> .team-members-block__next'),
+      prevArrow: $block.find('.team-members-block__prev'),
+      nextArrow: $block.find('.team-members-block__next'),
       responsive: [{
         breakpoint: 1200,
         settings: {
-          slidesToShow: 2.5
+          slidesToShow: 2.5,
+          slidesToScroll: 1
         }
       }, {
         breakpoint: 700,
         settings: {
-          slidesToShow: 1.35
+          slidesToShow: 1.35,
+          slidesToScroll: 1
         }
       }]
     });

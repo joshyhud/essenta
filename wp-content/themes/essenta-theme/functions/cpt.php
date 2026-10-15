@@ -347,7 +347,7 @@ function create_expertise_cpt()
     'show_in_admin_bar' => true,
     'show_in_nav_menus' => true,
     'can_export' => true,
-    'has_archive' => true,
+    'has_archive' => false,
     'rewrite' => array(
       'slug' => 'expertise',
       'with_front' => false,

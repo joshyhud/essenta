@@ -15,10 +15,87 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PGXPHSFK');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <?php if (is_front_page()) : ?>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "@id": "https://essentadevedev.wpenginepowered.com/#organization",
+                "name": "Essenta",
+                "legalName": "Essenta Partners",
+                "url": "https://essentadevedev.wpenginepowered.com/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "@id": "https://essentadevedev.wpenginepowered.com/#logo",
+                    "url": "https://essentadevedev.wpenginepowered.com/wp-content/uploads/2026/08/Primary_Blue-3.svg",
+                    "caption": "Essenta"
+                },
+                "image": {
+                    "@id": "https://essentadevedev.wpenginepowered.com/#logo"
+                },
+                "description": "Essenta is a senior-led executive search, interim leadership and leadership advisory firm partnering with investors, boards and leadership teams across the UK and US.",
+                "sameAs": [
+                    "https://www.linkedin.com/company/essenta-partners/"
+                ],
+                "email": "enquiries@essentapartners.com",
+                "telephone": "+44 203 819 3680",
+                "contactPoint": [{
+                    "@type": "ContactPoint",
+                    "contactType": "sales",
+                    "email": "enquiries@essentapartners.com",
+                    "telephone": "+44-203-819-3680",
+                    "areaServed": ["GB", "US"],
+                    "availableLanguage": ["en"]
+                }],
+                "address": [{
+                        "@type": "PostalAddress",
+                        "streetAddress": "77 Saint Martin's Lane",
+                        "addressLocality": "London",
+                        "postalCode": "WC2N 4AA",
+                        "addressCountry": "GB"
+                    },
+                    {
+                        "@type": "PostalAddress",
+                        "streetAddress": "287 Park Ave S, Suite 333",
+                        "addressLocality": "New York",
+                        "addressRegion": "NY",
+                        "postalCode": "10010",
+                        "addressCountry": "US"
+                    }
+                ]
+            }
+        </script>
+    <?php endif; ?>
+
 
 </head>
 
 <body <?php body_class(); ?>>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGXPHSFK"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <?php wp_body_open(); ?>
 
     <div class="site-wrapper">

@@ -30,7 +30,7 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
             <?php endif; ?>
 
             <?php if ($intro_text) : ?>
-                <div class="introduction-block__text">
+                <div class="introduction-block__text expand">
                     <?php echo wp_kses_post($intro_text); ?>
                 </div>
             <?php endif; ?>
@@ -123,10 +123,23 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
 
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-        $('.statistics-slider--slick').slick({
+        var $statisticsSliders = $('.statistics-slider--slick');
+
+        $statisticsSliders.slick({
             slidesToShow: 2.75,
             slidesToScroll: 1,
-            infinite: false,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 0,
+            speed: 10000,
+            cssEase: 'linear',
+            pauseOnHover: false,
+            pauseOnFocus: false,
+            draggable: true,
+            swipe: true,
+            swipeToSlide: true,
+            touchMove: true,
+            waitForAnimate: false,
             dots: false,
             arrows: false,
             adaptiveHeight: false,
@@ -144,6 +157,53 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
 
                 }
             ]
+        });
+
+        $statisticsSliders.each(function() {
+            var $slider = $(this);
+            var isPaused = false;
+            var track;
+            var trackTransition;
+
+            $slider.attr('tabindex', '0');
+
+            function pauseSlider() {
+                if (isPaused) {
+                    return;
+                }
+
+                isPaused = true;
+                $slider.slick('slickPause');
+
+                track = $slider.find('.slick-track')[0];
+                trackTransition = track.style.transition;
+                track.style.transform = window.getComputedStyle(track).transform;
+                track.style.transition = 'none';
+            }
+
+            function resumeSlider() {
+                if ($slider.is(':hover') || $slider.find(':focus').length) {
+                    return;
+                }
+
+                if (!isPaused) {
+                    return;
+                }
+
+                track.style.transition = trackTransition;
+                $slider.slick('slickPlay');
+                isPaused = false;
+            }
+
+            $slider.on('mouseenter focusin', pauseSlider);
+            $slider.on('mouseleave', resumeSlider);
+            $slider.on('focusout', function(event) {
+                if (event.relatedTarget && $slider[0].contains(event.relatedTarget)) {
+                    return;
+                }
+
+                window.setTimeout(resumeSlider, 0);
+            });
         });
 
         $('.testimonials-slider').slick({

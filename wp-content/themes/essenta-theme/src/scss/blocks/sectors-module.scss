@@ -44,13 +44,53 @@
   }
 
   .sectors-selection {
+    max-width: 1440px;
+    padding-left: 10rem;
     margin-top: clamp(2.5rem, 5vw, 4.5rem);
   }
 
   .sectors-grid {
     display: grid;
     gap: 0.75rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sectors-grid--slider {
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% + 0.75rem) * 3 / 7 - 0.75rem);
+    grid-template-columns: none;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    padding-bottom: 0.75rem;
+
+    .sectors-card {
+      scroll-snap-align: start;
+    }
+
+    &.slick-initialized {
+      display: block;
+      overflow: visible;
+      padding-bottom: 0;
+
+      .slick-track {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .sectors-column {
+        display: grid;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+        height: auto;
+        margin-right: 0.75rem;
+      }
+
+      .sectors-card {
+        height: 100%;
+      }
+    }
   }
 
   .sectors-card {
@@ -101,7 +141,7 @@
   .sectors-card__excerpt {
     color: var(--color-sand-800);
     display: -webkit-box;
-    font-size: 0.625rem;
+    font-size: 15px;
     line-height: 1.4;
     margin-top: 0.65rem;
     overflow: hidden;
@@ -140,20 +180,18 @@
   }
 }
 
-@media (width <= 1100px) {
-  .sectors-module {
-    .sectors-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-}
-
 @media (width <= 760px) {
   .sectors-module {
     padding: 0;
     .container {
       padding: 30px 0.978rem 37px;
     }
+
+    .sectors-selection {
+      padding: 30px 0.978rem 37px !important;
+      margin-top: clamp(2.5rem, 5vw, 4.5rem);
+    }
+
     .sectors-inner {
       gap: 1rem;
       grid-template-columns: 1fr;
@@ -169,32 +207,13 @@
       margin-top: 0.5rem;
     }
 
-    .sectors-grid {
-      grid-template-columns: 1fr;
+    .sectors-grid--slider {
+      grid-template-rows: 1fr;
+      grid-auto-columns: calc((100% + 0.75rem) / 1.25 - 0.75rem);
 
-      &.slick-initialized {
-        display: block;
-
-        .slick-track {
-          display: flex;
-          align-items: stretch;
-        }
-
-        .slick-slide {
-          display: flex;
-          height: auto;
-          margin-right: 0.75rem;
-
-          > div {
-            display: flex;
-            width: 100%;
-          }
-        }
-
-        .sectors-card {
-          height: auto;
-          width: 100%;
-        }
+      &.slick-initialized .sectors-card {
+        height: auto;
+        margin-right: 0.75rem;
       }
     }
 

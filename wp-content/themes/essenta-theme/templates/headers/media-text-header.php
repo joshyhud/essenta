@@ -50,7 +50,9 @@ $media_cta_secondary = get_sub_field('header_secondary_cta');
             <?php if ($media_heading_intro_text) : ?>
                 <div class="media-text-right content">
 
-                    <?php echo wp_kses_post($media_heading_intro_text); ?>
+                    <div class="expand">
+                        <?php echo wp_kses_post($media_heading_intro_text); ?>
+                    </div>
                     <div class="media-header-ctas">
                         <?php if ($media_cta) { ?>
                             <a href="<?php echo esc_url($media_cta['url']); ?>" class="btn primary"><?php echo esc_html($media_cta['title']); ?></a>

@@ -14,6 +14,11 @@
         gap: 28px;
       }
 
+      &__text {
+        color: var(--color-sand-800);
+        line-height: normal;
+      }
+
       &__statistics {
         width: 50%;
         display: flex;
@@ -91,10 +96,11 @@
             padding: 20px 30px 40px;
 
             .testimonial-text {
+              color: var(--color-navy-900);
               font-family: var(--font-circular-reg);
-              font-size: clamp(1.125rem, 2vw, 1.25rem);
+              font-size: 15px;
               font-weight: 400;
-              line-height: 24px;
+              line-height: 22px;
               margin-bottom: 28px;
             }
 

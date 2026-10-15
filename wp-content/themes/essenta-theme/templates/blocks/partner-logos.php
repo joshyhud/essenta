@@ -3,8 +3,8 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 $partner_logos_heading = get_sub_field('partner_logos_heading');
-$partner_logos_one = get_sub_field('partner_logos_carousel_one');
-$partner_logos_two = get_sub_field('partner_logos_carousel_two');
+$partner_logos_one = get_field('partner_logos_1', 'option');
+$partner_logos_two = get_field('partner_logos_2', 'option');
 
 ?>
 

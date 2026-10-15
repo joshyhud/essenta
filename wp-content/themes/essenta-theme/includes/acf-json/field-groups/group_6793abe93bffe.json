@@ -24,6 +24,60 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_6aa964c36a934",
+                            "label": "Partner Logo image",
+                            "name": "partner_logo_image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "",
+                            "allow_in_bindings": 0,
+                            "preview_size": "thumbnail",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_6aa9675edf513",
+                            "label": "Partner Logo image",
+                            "name": "partner_logo_image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "",
+                            "allow_in_bindings": 0,
+                            "preview_size": "thumbnail",
+                            "admin_only": 0
+                        },
+                        {
                             "key": "field_6925ade634446",
                             "label": "Layout",
                             "name": "",
@@ -855,52 +909,6 @@
                                     "allow_in_bindings": 0,
                                     "admin_only": 0,
                                     "parent_repeater": "field_692ed5035557c"
-                                },
-                                {
-                                    "key": "field_6abd1ee141834",
-                                    "label": "scrolling_content_stat_text",
-                                    "name": "scrolling_content_stat_text",
-                                    "aria-label": "",
-                                    "type": "text",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "default_value": "",
-                                    "maxlength": "",
-                                    "allow_in_bindings": 0,
-                                    "placeholder": "",
-                                    "prepend": "",
-                                    "append": "",
-                                    "admin_only": 0,
-                                    "parent_repeater": "field_692ed5035557c"
-                                },
-                                {
-                                    "key": "field_6abd1ef441835",
-                                    "label": "scrolling_content_stat",
-                                    "name": "scrolling_content_stat",
-                                    "aria-label": "",
-                                    "type": "text",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "default_value": "",
-                                    "maxlength": "",
-                                    "allow_in_bindings": 0,
-                                    "placeholder": "",
-                                    "prepend": "",
-                                    "append": "",
-                                    "admin_only": 0,
-                                    "parent_repeater": "field_692ed5035557c"
                                 }
                             ]
                         }
@@ -1241,7 +1249,7 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_6abd2ddb2908f",
+                            "key": "field_6ace55a8a8d07",
                             "label": "CTA Background Colour",
                             "name": "cta_background_colour",
                             "aria-label": "",
@@ -1381,64 +1389,6 @@
                             "placeholder": "",
                             "prepend": "",
                             "append": "",
-                            "admin_only": 0
-                        },
-                        {
-                            "key": "field_6aa964a86a933",
-                            "label": "Partner Logos Carousel one",
-                            "name": "partner_logos_carousel_one",
-                            "aria-label": "",
-                            "type": "gallery",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "return_format": "array",
-                            "library": "all",
-                            "min": "",
-                            "max": "",
-                            "min_width": "",
-                            "min_height": "",
-                            "min_size": "",
-                            "max_width": "",
-                            "max_height": "",
-                            "max_size": "",
-                            "mime_types": "",
-                            "insert": "append",
-                            "preview_size": "thumbnail",
-                            "admin_only": 0
-                        },
-                        {
-                            "key": "field_6aa9675edf512",
-                            "label": "Partner Logos Carousel Two",
-                            "name": "partner_logos_carousel_two",
-                            "aria-label": "",
-                            "type": "gallery",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "return_format": "array",
-                            "library": "all",
-                            "min": "",
-                            "max": "",
-                            "min_width": "",
-                            "min_height": "",
-                            "min_size": "",
-                            "max_width": "",
-                            "max_height": "",
-                            "max_size": "",
-                            "mime_types": "",
-                            "insert": "append",
-                            "preview_size": "thumbnail",
                             "admin_only": 0
                         }
                     ],
@@ -3242,5 +3192,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790783753
+    "modified": 1791907991
 }

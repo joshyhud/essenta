@@ -101,7 +101,7 @@ if ($office_locations) {
                 </div>
 
                 <div class="office-locations__legend" aria-label="Map legend">
-                    <div><span class="office-locations__legend-role" aria-hidden="true"></span>Roles delivered</div>
+                    <div><span class="office-locations__legend-role" aria-hidden="true"></span>Recent client locations</div>
                     <div><img class="office-locations__legend-office" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin-teal.svg'); ?>" alt="">Office locations</div>
                 </div>
 

@@ -149,6 +149,48 @@ This theme uses Gulp to manage assets. The following tasks are included:
 
 ---
 
+## Homepage Hero Video
+
+On desktop (above 980px), scrolling down expands the homepage hero video into
+full view. It starts playing and holds that view for three seconds before normal
+page scrolling resumes. Scroll input during the pause is not queued; scroll
+again after the pause to continue. Scrolling upward cancels the pause immediately
+and reverses the expansion. Mobile retains normal scrolling without the pause.
+The duration is controlled by `fullViewPauseMs` in `src/js/scripts.js`.
+
+## Mobile Expandable Content
+
+Add `class="expand"` to a text container (for example, a `div`, `p`, or
+`section`) to show the first 30 words followed by `...` and a **Read more**
+button at viewport widths of 767px or below. Shorter content is left unchanged.
+
+**Read more** restores the original content, including its HTML, event listeners,
+and form state; **Read less** returns to the plain-text preview. At 768px and
+above, the full original content is shown without a toggle. Returning to mobile
+resets the preview. The toggle inherits the container's font and colour.
+Expanding and collapsing animate the container's height over 350ms, unless the
+visitor has enabled reduced motion. The container returns to its natural height
+after the animation so content is not left clipped.
+
+Apply the class to the outermost container you want to shorten; nested `.expand`
+elements are covered by that outer container rather than creating extra toggles.
+
+## Sectors Module
+
+The sectors module displays up to four cards in a two-column grid (at most two
+rows) on desktop. When the combined number of queried and manual
+sectors exceeds four, it becomes a two-row Slick slider with two full columns
+and approximately a third of the next column visible. Cards fill each column
+from top to bottom in their original list order.
+
+Swipe or drag to move one two-card column at a time, without arrows or dots.
+On mobile (760px and below), all lists use a single-row Slick slider showing
+1.25 cards and moving one card at a time. Resizing across the breakpoint
+rebuilds the layout using the original cards.
+The focused module also accepts Left/Right arrow keys. Each slider stops at the
+end of its list and respects reduced-motion preferences. Without JavaScript,
+the horizontal list still scrolls natively.
+
 ## Development Workflow
 
 1. **Set Up**:

@@ -1,0 +1,21 @@
+.expand > .text-expand-toggle {
+  display: none;
+  padding: 0 0 0 2px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-transform: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  @media (max-width: 767px) {
+    display: inline-block;
+  }
+}
+
+.expand > span {
+  color: var(--color-sand-800);
+  line-height: normal;
+}

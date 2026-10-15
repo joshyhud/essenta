@@ -6,7 +6,11 @@ Template Post Type: page
 
 get_header();
 
-$paged = max(1, get_query_var('paged'), get_query_var('page'));
+$hub_url = get_permalink();
+// Keep directory pagination out of WordPress's page and single-post rewrite routes.
+$paged = isset($_GET['cs_page'])
+    ? max(1, absint(wp_unslash($_GET['cs_page'])))
+    : max(1, get_query_var('paged'), get_query_var('page'));
 // Prefixed params: "expertise" is already a query var for the expertise post type.
 $selected_region = isset($_GET['cs_region']) ? sanitize_title(wp_unslash($_GET['cs_region'])) : '';
 $selected_expertise = isset($_GET['cs_expertise']) ? sanitize_title(wp_unslash($_GET['cs_expertise'])) : '';
@@ -69,7 +73,7 @@ $get_first_stat = static function ($post_id) {
 
     <section class="casestudy-hub__directory">
         <div class="casestudy-hub__container">
-            <form class="casestudy-hub__filters" method="get" action="<?php echo esc_url(get_permalink()); ?>">
+            <form class="casestudy-hub__filters" method="get" action="<?php echo esc_url($hub_url); ?>">
                 <div class="casestudy-hub__filter">
                     <label class="screen-reader-text" for="casestudy-region-filter"><?php esc_html_e('Filter by region', 'essenta-theme'); ?></label>
                     <select id="casestudy-region-filter" name="cs_region" onchange="this.form.submit()">
@@ -160,8 +164,14 @@ $get_first_stat = static function ($post_id) {
 
             <?php
             $pagination = paginate_links(array(
+                'base' => add_query_arg('cs_page', '%#%', $hub_url),
+                'format' => '',
                 'total' => $case_studies->max_num_pages,
                 'current' => $paged,
+                'add_args' => array_filter(array(
+                    'cs_region' => $selected_region,
+                    'cs_expertise' => $selected_expertise,
+                )),
                 'prev_text' => '<span class="screen-reader-text">' . esc_html__('Previous page', 'essenta-theme') . '</span>',
                 'next_text' => '<span class="screen-reader-text">' . esc_html__('Next page', 'essenta-theme') . '</span>',
                 'prev_next' => true,

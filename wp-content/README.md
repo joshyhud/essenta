@@ -149,6 +149,20 @@ This theme uses Gulp to manage assets. The following tasks are included:
 
 ---
 
+## Google Maps API Key
+
+Copy [`.env.example`](../.env.example) to `.env` one directory above the public
+WordPress directory (`app/.env` locally), then set
+`ESSENTA_GOOGLE_MAPS_API_KEY="YOUR_RESTRICTED_BROWSER_KEY"`. Keep this file private
+and out of Git; provision it separately on each server. The tracked theme loader
+in [`functions/acf.php`](./themes/essenta-theme/functions/acf.php) supplies the key
+to both office maps and ACF map fields; no `wp-config.php` changes are needed.
+A server environment variable overrides the file, and an existing WordPress
+constant overrides both. The file supports quoted INI-style entries, not shell
+expansion. Without a key, maps are unavailable and administrators see a warning.
+Browser Maps keys remain publicly visible in network requests: restrict the key
+to your domains and required APIs in Google Cloud, and rotate previously exposed keys.
+
 ## Homepage Hero Video
 
 On desktop (above 980px), scrolling down expands the homepage hero video into

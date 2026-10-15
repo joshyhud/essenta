@@ -6,6 +6,21 @@ Static review of the maintained theme source, including PHP templates and hooks,
 
 This is not a runtime/CMS database audit. No live page-builder values, external plugin callers, or production theme state were inspected. A missing source reference is therefore reported as a candidate, not proof that removal is safe.
 
+## Function check: `functions/helpers.php`
+
+Checked each named function in [`helpers.php`](./functions/helpers.php) against WordPress/plugin hook registrations and theme-wide call sites.
+
+| Function(s) | Result | Evidence |
+|---|---|---|
+| `my_excerpt_length()`, `new_excerpt_more()` | Hooked; not unused | Registered with the WordPress `excerpt_length` and `excerpt_more` filters in [`helpers.php`](./functions/helpers.php#L11-L19). |
+| `theme_yith_wcwl_update_wishlist_count()` | Hooked and requested by theme code | Registered for logged-in and public AJAX requests; the inline script requests the matching `yith_wcwl_update_wishlist_count` action in [`helpers.php`](./functions/helpers.php#L44-L68). |
+| `theme_yith_wcwl_live_header_count()` | Hooked; not unused | Registered on `wp_enqueue_scripts` in [`helpers.php`](./functions/helpers.php#L55-L57). |
+| `bn_search_by_sku_and_keywords()`, `bn_search_distinct_for_sku()` | Hooked; not unused | Registered with the `posts_search` and `posts_distinct` filters in [`helpers.php`](./functions/helpers.php#L183-L185) and [`helpers.php`](./functions/helpers.php#L246-L248). |
+| `get_visitor_country_calling_code()`, `populate_gravity_forms_country_calling_code()` | Called through a Gravity Forms filter; not unused | The population callback is registered for `gform_field_value_country_calling_code` and calls the lookup function in [`helpers.php`](./functions/helpers.php#L320-L333). |
+| `theme_clear_wishlist()` | Registered endpoint, but no in-theme request found; verify before removal | Registered for both authenticated and public AJAX actions in [`helpers.php`](./functions/helpers.php#L94-L97). A theme-wide source search found no JavaScript or other code sending the `theme_clear_wishlist` action. An external integration or client may still call the endpoint. |
+
+No named helper function was found without either an in-theme call site or a WordPress/plugin hook registration. The wishlist-clear endpoint is the only helper follow-up: check external callers and production usage before deciding whether to remove it.
+
 ## Candidates to verify before cleanup
 
 | Candidate | Evidence | Confidence | Before removing |

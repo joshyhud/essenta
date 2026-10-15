@@ -79,22 +79,3 @@ $case_study_stat_count = is_array($case_study_stats) ? count($case_study_stats) 
         </div>
     </div>
 </section>
-
-<?php if ($case_study_stat_count > 1) : ?>
-    <script>
-        jQuery(document).ready(function($) {
-            var $stats = $('.case-study-stats--slider');
-
-            if ($stats.length && $.fn.slick && !$stats.hasClass('slick-initialized')) {
-                $stats.slick({
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    arrows: false,
-                    dots: false,
-                    infinite: false,
-                    adaptiveHeight: false
-                });
-            }
-        });
-    </script>
-<?php endif; ?>

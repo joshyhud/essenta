@@ -10,9 +10,11 @@ const eslint = require("gulp-eslint");
 
 // File paths
 const paths = {
-  scss: ["./src/scss/**/*.scss", "!./src/scss/admin/**"], // All SCSS files except admin
+  scss: "./style.scss",
+  scssWatch: ["./style.scss", "./src/scss/**/*.scss", "!./src/scss/admin/**"],
   cssOutput: "./dist/css", // Destination folder for CSS
-  js: "./src/js/**/*.js", // All JS files
+  js: ["./src/js/**/*.js", "!./src/js/sliders.js"],
+  sliders: "./src/js/sliders.js",
   jsOutput: "./dist/js", // Destination folder for minified JS
   adminScss: "./src/scss/admin/**/*.scss", // All admin SCSS files
   images: "./src/images/**/*", // Placeholder for image paths
@@ -24,7 +26,7 @@ const paths = {
 // Compile SCSS to CSS, concatenate, and minify
 function compileSCSS() {
   return gulp
-    .src(paths.scss) // Source SCSS files excluding admin
+    .src(paths.scss)
     .pipe(sourcemaps.init()) // Initialize sourcemaps
     .pipe(sass().on("error", sass.logError)) // Compile SCSS
     .pipe(concat("style.css")) // Concatenate into a single file
@@ -59,6 +61,16 @@ function minifyJS() {
     .pipe(gulp.dest(paths.jsOutput)); // Output the final file
 }
 
+function minifySliders() {
+  return gulp
+    .src(paths.sliders)
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(rename({ suffix: ".min" }))
+    .pipe(sourcemaps.write("./"))
+    .pipe(gulp.dest(paths.jsOutput));
+}
+
 // Process and optimize images
 function processImages() {
   return gulp
@@ -76,7 +88,7 @@ function processFonts() {
 // Lint JavaScript
 function lintJS() {
   return gulp
-    .src(["./src/js/scripts.js"]) // Exclude minified files
+    .src(["./src/js/**/*.js"])
     .pipe(eslint()) // Run ESLint
     .pipe(eslint.format()) // Output linting results to the console
     .pipe(eslint.failAfterError()) // Fail task on linting error
@@ -88,9 +100,10 @@ function lintJS() {
 
 // Watch SCSS files for changes
 function watchFiles() {
-  gulp.watch(paths.scss, compileSCSS); // Watch and recompile on changes
+  gulp.watch(paths.scssWatch, compileSCSS); // Watch entry point and source modules
   gulp.watch(paths.adminScss, compileAdminSCSS); // Watch admin SCSS files and recompile on changes
   gulp.watch(paths.js, minifyJS); // Watch JS files and minify on changes
+  gulp.watch(paths.sliders, minifySliders);
   gulp.watch(paths.images, processImages); // Watch image files and process on changes
   gulp.watch(paths.fonts, processFonts); // Watch font files and process on changes
 }
@@ -101,6 +114,7 @@ const defaultTask = gulp.series(
     compileSCSS,
     compileAdminSCSS,
     minifyJS,
+    minifySliders,
     processImages,
     processFonts,
     lintJS
@@ -113,6 +127,7 @@ exports.default = defaultTask;
 exports.compile = compileSCSS;
 exports.processImages = processImages;
 exports.minifyJS = minifyJS;
+exports.minifySliders = minifySliders;
 exports.watch = watchFiles;
 exports.lintJS = lintJS;
 exports.compileAdminSCSS = compileAdminSCSS;

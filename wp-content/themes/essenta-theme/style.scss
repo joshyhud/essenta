@@ -1,59 +1,63 @@
-/* Browser Reset */
-@import "assets/scss/defaults/browserReset.scss";
-
-/* Styleguide Styling (Frontend and Backend) */
-@import "assets/scss/defaults/styleGuide.scss";
-
-/* Variables */
-@import "assets/scss/defaults/variables.scss";
-
-/* Typography */
-@import "assets/scss/defaults/typography.scss";
-
-/* Grid Layout */
-@import "assets/scss/defaults/grid-layout.scss";
-
-/*CF7*/
-@import "assets/scss/defaults/contact-form-seven.scss";
+/* Blocks */
+@use "src/scss/blocks/articles-block";
+@use "src/scss/blocks/card-grid-links";
+@use "src/scss/blocks/card-grid";
+@use "src/scss/blocks/casestudy-hub";
+@use "src/scss/blocks/contact-form";
+@use "src/scss/blocks/content-grid-block";
+@use "src/scss/blocks/cta-block";
+@use "src/scss/blocks/full-height-scrolling-content";
+@use "src/scss/blocks/full-height-slider";
+@use "src/scss/blocks/insights-block";
+@use "src/scss/blocks/introduction-block";
+@use "src/scss/blocks/introduction-mini";
+@use "src/scss/blocks/letterbox-image";
+@use "src/scss/blocks/media-text";
+@use "src/scss/blocks/office-information-block";
+@use "src/scss/blocks/office-locations";
+@use "src/scss/blocks/partner-logos";
+@use "src/scss/blocks/scrolling-text";
+@use "src/scss/blocks/sectors-module";
+@use "src/scss/blocks/services-block";
+@use "src/scss/blocks/single-column-text";
+@use "src/scss/blocks/statistics-module";
+@use "src/scss/blocks/team-archive";
+@use "src/scss/blocks/team-grid";
+@use "src/scss/blocks/team-members-block";
+@use "src/scss/blocks/testimonial-slider";
+@use "src/scss/blocks/text-bg-image";
+@use "src/scss/blocks/text-carousel";
+@use "src/scss/blocks/usp-module-large";
+@use "src/scss/blocks/video-module";
 
 /* Components */
-@import "assets/scss/components/header.scss";
-@import "assets/scss/components/footer.scss";
-@import "assets/scss/components/breadcrumbs.scss";
-@import "assets/scss/components/buttons.scss";
-@import "assets/scss/components/inputs.scss";
-@import "assets/scss/components/menu.scss";
-@import "assets/scss/components/cards.scss";
-@import "assets/scss/components/blog-header.scss";
-@import "assets/scss/components/blog-grid.scss";
-@import "assets/scss/components/archive-header.scss";
-@import "assets/scss/components/archive-insights.scss";
-@import "assets/scss/components/icon-sprites.scss";
-@import "assets/scss/components/404.scss";
+@use "src/scss/components/404" as error-page;
+@use "src/scss/components/archive-header";
+@use "src/scss/components/archive-insights";
+@use "src/scss/components/blog-grid";
+@use "src/scss/components/blog-header";
+@use "src/scss/components/blog-page";
+@use "src/scss/components/breadcrumbs";
+@use "src/scss/components/buttons";
+@use "src/scss/components/cards";
+@use "src/scss/components/footer";
+@use "src/scss/components/header";
+@use "src/scss/components/icon-sprites";
+@use "src/scss/components/inputs";
+@use "src/scss/components/menu";
+@use "src/scss/components/text-expand";
 
-/* Blocks/patterns */
-@import "assets/scss/blocks/hero.scss";
-@import "assets/scss/blocks/page-post-grid.scss";
-@import "assets/scss/blocks/icon-columns.scss";
-@import "assets/scss/blocks/testimonial-slider.scss";
-@import "assets/scss/blocks/testimonial-grid.scss";
-@import "assets/scss/blocks/two-column-text.scss";
-@import "assets/scss/blocks/contact-form.scss";
-@import "assets/scss/blocks/card-grid.scss";
-@import "assets/scss/blocks/card-grid-links.scss";
-@import "assets/scss/blocks/content-switcher.scss";
-@import "assets/scss/blocks/single-column-text.scss";
-@import "assets/scss/blocks/product-collections.scss";
-@import "assets/scss/blocks/usp-module-large.scss";
-@import "assets/scss/blocks/services-block.scss";
-
-@import "assets/scss/blocks/cta-block.scss";
-@import "assets/scss/blocks/introduction-block.scss";
-@import "assets/scss/blocks/media-text.scss";
-@import "assets/scss/blocks/full-height-slider.scss";
-@import "assets/scss/blocks/hero-headers/case-study-header.scss";
+/* Defaults */
+@use "src/scss/defaults/browserReset";
+@use "src/scss/defaults/contact-form-seven";
+@use "src/scss/defaults/grid-layouts";
+@use "src/scss/defaults/styleGuide";
+@use "src/scss/defaults/typography";
+@use "src/scss/defaults/variables";
 
 /* Hero Headers */
-@import "assets/scss/blocks/hero-headers/homepage-hero.scss";
-@import "assets/scss/blocks/hero-headers/cta-hero.scss";
-@import "assets/scss/blocks/hero-headers/media-text-header.scss";
+@use "src/scss/blocks/hero-headers/case-study-header";
+@use "src/scss/blocks/hero-headers/homepage-hero";
+@use "src/scss/blocks/hero-headers/media-text-header";
+
+// Admin styles are compiled separately from src/scss/admin into admin.min.css.

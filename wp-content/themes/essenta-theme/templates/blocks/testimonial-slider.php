@@ -63,17 +63,3 @@ if ($testimonial_total) : ?>
     </div>
   </section>
 <?php endif; ?>
-
-<script type="text/javascript">
-  jQuery(document).ready(function($) {
-    $('.testimonials-block-slider').slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      infinite: false,
-      dots: true,
-      arrows: false,
-      appendDots: $('.testimonials-block-slider-nav.testimonials .slider-dots'),
-      adaptiveHeight: false
-    });
-  });
-</script>

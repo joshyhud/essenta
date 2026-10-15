@@ -16,6 +16,13 @@ function add_theme_scripts()
   wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-latest.min.js', array(), null);
   // Enqueue script.js with version updating and dependency on jQuery
   wp_enqueue_script('main-script', get_stylesheet_directory_uri() . '/dist/js/scripts.min.js', array('jquery', 'accessible-slick-cdn-js'), $script_ver, true);
+  wp_enqueue_script(
+    'essenta-sliders',
+    get_stylesheet_directory_uri() . '/dist/js/sliders.min.js',
+    array('main-script', 'accessible-slick-cdn-js'),
+    filemtime(get_stylesheet_directory() . '/dist/js/sliders.min.js'),
+    true
+  );
 }
 add_action('wp_enqueue_scripts', 'add_theme_scripts');
 

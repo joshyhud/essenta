@@ -294,33 +294,3 @@ $drawer_id = $uid . '-profile-drawer';
   </template>
 <?php endwhile; ?>
 <?php wp_reset_postdata(); ?>
-
-<script>
-  jQuery(document).ready(function($) {
-    const $block = $('#<?php echo esc_js($uid); ?>');
-    const $slider = $block.find('.team-members-slider');
-
-    $slider.slick({
-      slidesToShow: 3.5,
-      slidesToScroll: 1,
-      arrows: true,
-      dots: false,
-      infinite: false,
-      prevArrow: $block.find('.team-members-block__prev'),
-      nextArrow: $block.find('.team-members-block__next'),
-      responsive: [{
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2.5,
-          slidesToScroll: 1
-        }
-      }, {
-        breakpoint: 700,
-        settings: {
-          slidesToShow: 1.35,
-          slidesToScroll: 1
-        }
-      }]
-    });
-  });
-</script>

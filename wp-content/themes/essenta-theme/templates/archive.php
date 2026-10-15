@@ -205,31 +205,6 @@ $archive_query = $GLOBALS['wp_query'];
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const allButton = document.querySelector('.archive-post-type-all');
-    const recentInsights = jQuery('.archive-recent-insights-grid');
-    const mobileQuery = window.matchMedia('(max-width: 768px)');
-
-    function syncRecentInsightsSlider(event) {
-      if (!recentInsights.length) {
-        return;
-      }
-
-      if (event.matches && !recentInsights.hasClass('slick-initialized')) {
-        recentInsights.slick({
-          slidesToShow: 1.1,
-          slidesToScroll: 1,
-          arrows: false,
-          dots: false,
-          infinite: false,
-          adaptiveHeight: true,
-        });
-      } else if (!event.matches && recentInsights.hasClass('slick-initialized')) {
-        recentInsights.slick('unslick');
-      }
-    }
-
-    syncRecentInsightsSlider(mobileQuery);
-    mobileQuery.addEventListener('change', syncRecentInsightsSlider);
-
     function renderPostTypeButtons() {
       const facet = document.querySelector('.archive-post-type-filters .facetwp-facet');
       const dropdown = facet ? facet.querySelector('.facetwp-dropdown') : null;

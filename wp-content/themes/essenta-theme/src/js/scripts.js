@@ -404,88 +404,6 @@ jQuery(document).ready(function ($) {
     resizeTimer = setTimeout(handleFooterDetails, 250);
   });
 
-  //Product page caorousel
-  // Initialize Slick Carousel with navigation
-  $("#main-product-image").slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    asNavFor: ".product-slick-carousel",
-  });
-
-  $(".product-slick-carousel").slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    asNavFor: "#main-product-image",
-    dots: false,
-    centerMode: true,
-    focusOnSelect: true,
-    arrows: false,
-    infinite: true,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-    ],
-  });
-
-  // accordion carousel mobile
-  $(".carousel-mobile-items").slick({
-    infinite: true,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    dots: false,
-    arrows: false,
-    pauseOnHover: true,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  });
-
-  //top bar mobile carousel
-
-  // $(".top-details").slick({
-  //   infinite: true,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  //   autoplay: true,
-  //   autoplaySpeed: 5000,
-  //   dots: false,
-  //   arrows: false,
-  //   pauseOnHover: true,
-  //   settings: "unslick",
-  //   responsive: [
-  //     {
-  //       breakpoint: 768,
-  //       settings: "slick",
-  //     },
-  //   ],
-  // });
-
-  // Gallery item click handler
-  $(".gallery-item").on("click", function () {
-    var newImageSrc = $(this).data("full");
-    var newImageAlt = $(this).find("img").attr("alt");
-
-    $("#main-product-image").attr("src", newImageSrc).attr("alt", newImageAlt);
-  });
-
   // Mobile menu drawer
   var $drawer = $("#mm-drawer");
   var $toggle = $(".mm-toggle");
@@ -685,37 +603,6 @@ jQuery(document).ready(function ($) {
       if (event.key === "Escape" && $drawer.hasClass("is-open")) closeMenu();
     });
   }
-
-  //Article Slider
-  // Initialize Slick slider for mobile
-  $(".articles-slider").slick({
-    dots: true,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    autoplay: false,
-    responsive: [
-      {
-        breakpoint: 9999,
-        settings: "unslick",
-      },
-      {
-        breakpoint: 980,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          dots: true,
-          arrows: true,
-          infinite: false,
-          prevArrow: $(".slider-nav.articles .slick-prev"),
-          nextArrow: $(".slider-nav.articles .slick-next"),
-          appendDots: $(".slider-nav.articles .slider-dots"),
-        },
-      },
-    ],
-  });
 
   // End of jQuery Ready
 });
@@ -926,62 +813,6 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         first.focus();
       }
-    });
-  });
-
-  document.querySelectorAll(".sectors-grid").forEach((grid) => {
-    const $grid = jQuery(grid);
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const cards = Array.from(grid.children);
-    const mobileQuery = window.matchMedia("(max-width: 760px)");
-
-    function syncSectorsSlider() {
-      if ($grid.hasClass("slick-initialized")) {
-        $grid.slick("unslick");
-      }
-      grid.replaceChildren(...cards);
-      const isSlider = mobileQuery.matches || cards.length > 4;
-      grid.classList.toggle("sectors-grid--slider", isSlider);
-      if (!isSlider) {
-        grid.removeAttribute("tabindex");
-        return;
-      }
-      grid.setAttribute("tabindex", "0");
-
-      if (!mobileQuery.matches) {
-        for (let index = 0; index < cards.length; index += 2) {
-          jQuery(cards.slice(index, index + 2)).wrapAll(
-            "<div class=\"sectors-column\"></div>",
-          );
-        }
-      }
-
-      $grid.slick({
-        rows: 0,
-        slidesToShow: mobileQuery.matches ? 1.25 : 7 / 3,
-        slidesToScroll: 1,
-        arrows: false,
-        dots: false,
-        infinite: false,
-        swipeToSlide: false,
-        draggable: true,
-        adaptiveHeight: false,
-        speed: reducedMotion.matches ? 0 : 350,
-      });
-    }
-    syncSectorsSlider();
-    mobileQuery.addEventListener("change", syncSectorsSlider);
-    reducedMotion.addEventListener("change", () => {
-      if ($grid.hasClass("slick-initialized")) {
-        $grid.slick("slickSetOption", "speed", reducedMotion.matches ? 0 : 350);
-      }
-    });
-    grid.addEventListener("keydown", (event) => {
-      if (!$grid.hasClass("slick-initialized") || event.target !== grid || !["ArrowLeft", "ArrowRight"].includes(event.key)) {
-        return;
-      }
-      event.preventDefault();
-      $grid.slick(event.key === "ArrowLeft" ? "slickPrev" : "slickNext");
     });
   });
 

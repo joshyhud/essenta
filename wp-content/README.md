@@ -1,22 +1,49 @@
-# WordPress Boilerplate Theme
+# Essenta local development
 
-This is a Wordpress boilerplate theme designed for developers to kickstart website projects. It includes a page builder, a hero header builder (managed via ACF fields), and a pre-configured Gulp workflow for compiling styles and scripts.
+This repository contains the Essenta WordPress theme and selected site files.
+It is not a complete site backup: WordPress core, local configuration, the
+database, uploads, and most plugins are excluded from Git. To reproduce the
+existing site, obtain an approved database/uploads export and the required
+plugin packages from the project maintainer.
+
+**Paths:** the Git root is the public WordPress directory (`app/public` in
+Local), not `wp-content`. This README lives inside `wp-content`. Unless stated
+otherwise, setup commands below start at the Git root.
+
+## Prerequisites
+
+- A local WordPress/PHP/database environment, such as Local, and Git.
+- Node.js and npm for theme assets. Node 22 and npm 11 are available in the
+  current development environment; the project does not pin a Node version.
+- ACF Pro, required for the theme's fields and templates. Its source is included
+  under `wp-content/plugins/advanced-custom-fields-pro`; obtain licensing/access
+  from the maintainer rather than adding credentials to Git.
+- The existing site's plugin list and configuration when restoring a backup.
+  Gravity Forms supplies forms, FacetWP supplies archive filters, and Yoast SEO
+  supplies optional breadcrumbs. These integrations require their own packages
+  and, where applicable, licenses and database configuration.
+
+**Known setup caveat:** the theme conditionally includes
+`functions/woocommerce/woocommerce-funcs.php` when WooCommerce is active, but that
+file is currently absent. Do not activate WooCommerce on a fresh setup until
+this dependency is resolved; an imported site with it active needs maintainer
+attention before loading the theme.
 
 ## Features
 
 - **Custom Templates**: Includes templates for pages, blocks, and headers.
-- **ACF Integration**: Uses Advanced Custom Fields Pro (v3+) for building hero headers and managing page content.
+- **ACF Integration**: Uses Advanced Custom Fields Pro for building hero headers and managing page content.
 - **SASS Support**: Modular styling with SASS organized by components and blocks.
 - **Gulp Workflow**: Automated tasks for compiling, minifying, and optimizing styles and scripts.
 - **Organized Structure**: Theme files organized with `src/` for source files and `dist/` for compiled assets.
-- **Custom Post Types**: Support for custom post types and taxonomies via ACF configuration.
+- **Custom Post Types**: Theme post types and taxonomies are registered in `functions/cpt.php`.
 
 ---
 
 ## File Structure
 
 ```
-|-- theme-folder/
+|-- wp-content/themes/essenta-theme/
     |-- includes/
         |-- acf-json/           # ACF field configurations
             |-- field-groups/   # ACF field group configurations
@@ -36,7 +63,6 @@ This is a Wordpress boilerplate theme designed for developers to kickstart websi
         |-- components.php      # Component helper functions
         |-- cpt.php             # Custom post types
         |-- helpers.php         # Utility helper functions
-        |-- menu.php            # Menu configuration
         |-- setup.php           # Theme setup functions
     |-- templates/              # Header and block templates
         |-- blocks/             # Block template files
@@ -49,50 +75,60 @@ This is a Wordpress boilerplate theme designed for developers to kickstart websi
 
 ## Initial Installation
 
-1. Start with a fresh blank WordPress installation either in WPLocal or on a local server.
-2. Navigate to the `wp-content` directory
-3. Create a .gitignore file locally and copy and paste the example from the repo.
-4. Create a Git remote with the following commands:
+1. Obtain the repository URL and correct base branch from the maintainer; do not
+   assume that every environment uses `main`.
+2. Create a local WordPress site and start its web/database services. For Local,
+   open the site's shell and navigate to `app/public`.
+3. If this directory is already the project checkout, use its existing Git
+   remote. Otherwise, back up the generated site first, then attach the
+   repository **from the public WordPress directory**:
 
    ```bash
    git init
+   git remote add origin REPOSITORY_URL
+   git fetch origin
+   git checkout -b BASE_BRANCH --track origin/BASE_BRANCH
    ```
+
+   Replace both placeholders before running. If Git reports conflicting local
+   or untracked files, stop and reconcile them with the backup; do not force a
+   checkout over an existing site. For a server without a generated site, clone
+   into an empty document root, then install the ignored WordPress core and
+   configure a local database.
+4. Create your working branch:
 
    ```bash
-   git remote add origin 
-   ```
-   
-5. Once remote added use Git fetch to pull all repo data. There will be multiple branches available (main, staging, etc.).
-
-   ```bash
-   git fetch
+   git checkout -b feature/YOUR-CHANGE
    ```
 
-6. Pull the main branch:
-
-   ```bash
-   git pull origin main
-   ```
-
-7. Make sure all code is correct and create a new branch to begin development:
-
-   ```bash
-   git checkout -b NEW-BRANCH-NAME
-   ```
-
-8. Activate the theme from the WordPress admin dashboard.
+5. For an existing-site setup, import an approved database export and copy its
+   uploads into `wp-content/uploads`. Use a WordPress-aware migration/search-
+   replace tool to change production URLs to the local URL (plain SQL string
+   replacement can corrupt serialized data). Keep exports and credentials out
+   of Git. Disable outbound email, payments, and external automations locally.
+   A fresh database can run the theme, but will not recreate the site's pages,
+   menus, options, forms, or FacetWP settings.
+6. Verify local database credentials and site URLs. `wp-config.php` is
+   environment-specific and ignored; never overwrite it with production secrets.
+   Install/activate the required plugins, then activate **Essenta** under
+   Appearance > Themes. See the WooCommerce caveat above.
+7. Build assets using the commands below. Configure the Google Maps key if
+   testing maps. Check ACF's Sync screen for any pending local JSON updates and
+   review them before syncing. Save Settings > Permalinks once after importing
+   or changing rewrite rules, and verify menu assignments and site options.
 
 ---
 
 ## Installing dependencies
 
-1. Navigate to the theme directory:
+1. From the public WordPress/Git root, navigate to the theme directory:
 
    ```bash
    cd wp-content/themes/essenta-theme
    ```
 
-2. Install Node.js dependencies:
+2. Install Node.js dependencies (the current repository ignores
+   `package-lock.json`, so `npm ci` is not a reliable fresh-checkout command):
 
    ```bash
    npm install
@@ -111,32 +147,66 @@ This theme uses Gulp to manage assets. The following tasks are included:
 
 ### Running Gulp
 
-1. Ensure you have Gulp CLI installed globally:
+Run commands from the theme directory. A global Gulp installation is not needed;
+`npx --no-install` uses the locally installed tool.
 
-   ```bash
-   npm install -g gulp-cli
-   ```
-
-2. Navigate to the theme directory:
+1. From the Git root, navigate to the theme directory (skip if already there):
 
    ```bash
    cd wp-content/themes/essenta-theme
    ```
 
-3. Run the default Gulp task:
+2. Build assets once, without a watcher:
 
    ```bash
-   gulp
+   npx --no-install gulp compile compileAdminSCSS minifyJS minifySliders processImages processFonts
    ```
 
-   This will:
+   This compiles frontend/admin CSS and JS, and copies images/fonts into `dist`.
+   Edit source in `src`, not generated `dist` files.
 
-   - Compile SASS to CSS.
-   - Minify CSS.
-   - Concatenate and optimize JavaScript.
-   - Watch for file changes.
+3. Start watching after the initial build:
 
-4. Gulp will continue running in the terminal, monitoring for changes to `.scss` and `.js` files. To stop, press `Ctrl + C`.
+   ```bash
+   npx --no-install gulp watch
+   ```
+
+   Leave this terminal running; stop it with `Ctrl+C`. The `watch` task does not
+   perform an initial build. The default `gulp` task builds, lints, then watches,
+   but existing lint errors may stop it before watching.
+
+4. Run JavaScript lint separately:
+
+   ```bash
+   npx --no-install gulp lintJS
+   ```
+
+   The last audit found existing Google Maps global, indentation, and quote
+   diagnostics. Lint failure is not evidence that dependencies need reinstalling.
+
+### Local smoke checks
+
+SCSS coverage: the theme-root `style.scss` is the frontend entry point, with
+explicit `@use` references alphabetised within its Blocks, Components, Defaults,
+and Hero Headers sections. Add new frontend SCSS modules there as well as under
+`src/scss`. Section order preserves the existing blocks/components/defaults/headers
+cascade. Gulp watches both the entry point and nested source files.
+`src/scss/admin/**` compiles separately into `admin.min.css` and must not be
+included in the frontend entry point. All 55 source files (54 frontend, one
+admin) are covered by the two builds.
+
+- Load the homepage, a normal page, an insight, and a custom-post-type page;
+  check for PHP errors, missing styles, and browser console errors.
+- Test the mobile menu, sliders, forms, archive filters, and office map where
+  the corresponding plugins/content are available. Use test-only form recipients.
+- Confirm `dist/css/style.min.css`, `dist/css/admin.min.css`, and
+  `dist/js/scripts.min.js` exist. If styles/scripts are missing, build first.
+- If maps fail, check the `.env` location and allowed local referrer in Google
+  Cloud. Frontend assets also require network access to jQuery, Slick, Google
+  Maps, and Adobe Fonts CDNs.
+- Review `git status` before committing; exclude secrets, exports, and local
+  configuration. Inspect generated asset changes according to the team's
+  deployment workflow.
 
 ---
 
@@ -144,8 +214,23 @@ This theme uses Gulp to manage assets. The following tasks are included:
 
 - **Templates**: Templates for pages and blocks can be found in the `templates/blocks/` folder.
 - **Headers**: Custom header files are located in the `templates/headers/` folder.
-- **ACF Pro Integration**: Hero headers and other builder fields are managed via Advanced Custom Fields Pro. Exported field groups are automatically synced from the `includes/acf-json/` directory.
+- **ACF Pro Integration**: Hero headers and other builder fields are managed via Advanced Custom Fields Pro. Local JSON is loaded from `includes/acf-json/`; review pending database synchronization in ACF rather than assuming it happens automatically.
 - **Dynamic Options Pages**: Options pages can be configured and exported via ACF Pro.
+
+## Slick sliders
+
+All theme Slick initialization and slider-specific interactions live in
+[`src/js/sliders.js`](./themes/essenta-theme/src/js/sliders.js), not inline in PHP.
+Gulp builds this separately into `dist/js/sliders.min.js` and its source map;
+the theme enqueues it once in the footer after the main script and Slick.
+The general `scripts.min.js` bundle excludes this source, avoiding duplicate
+execution. `gulp watch` watches both JavaScript bundles.
+
+When adding sliders, keep PHP responsible for markup/data and add the behavior
+to the shared slider source. Scope arrows/dots and event handlers to the owning
+block, and use the shared initialization helper to skip empty or initialized
+elements. Test repeated blocks and desktop/mobile transitions. Build just the
+slider bundle with `npx --no-install gulp minifySliders` from the theme directory.
 
 ---
 
@@ -165,12 +250,10 @@ to your domains and required APIs in Google Cloud, and rotate previously exposed
 
 ## Homepage Hero Video
 
-On desktop (above 980px), scrolling down expands the homepage hero video into
-full view. It starts playing and holds that view for three seconds before normal
-page scrolling resumes. Scroll input during the pause is not queued; scroll
-again after the pause to continue. Scrolling upward cancels the pause immediately
-and reverses the expansion. Mobile retains normal scrolling without the pause.
-The duration is controlled by `fullViewPauseMs` in `src/js/scripts.js`.
+The homepage header supports image or video media. Clicking a video opens a
+modal with playback controls; closing the modal pauses and resets the video.
+Markup lives in `templates/headers/homepage-header.php` and behavior in
+`src/js/scripts.js`. The current script does not implement a scroll-pause timer.
 
 ## Mobile Expandable Content
 
@@ -220,7 +303,9 @@ the horizontal list still scrolls natively.
 3. **Add Custom JavaScript**:
 
    - Add your scripts to `src/js/`.
-   - Gulp will concatenate and minify them into `dist/js/scripts.min.js`.
+   - Gulp concatenates general scripts into `dist/js/scripts.min.js`.
+   - Put Slick behavior in `src/js/sliders.js`, built separately as
+     `dist/js/sliders.min.js`.
 
 4. **Create Custom Templates**:
    - Create or modify templates in the `templates/blocks/` folder.

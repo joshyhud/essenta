@@ -73,38 +73,3 @@ $insights = new WP_Query(array(
         <button type="button" class="insights-posts-navigation next" aria-label="<?php esc_attr_e('Next', 'essenta-theme'); ?>"></button>
     </div>
 </section>
-
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $('.insights-posts-wrapper').slick({
-            variableWidth: true,
-            variableHeight: true,
-            slidesToShow: 3.2,
-            slidesToScroll: 1,
-            arrows: true,
-            infinite: false,
-            autoplay: false,
-            autoplaySpeed: 2000,
-            prevArrow: $('.insights-posts-navigation.prev'),
-            nextArrow: $('.insights-posts-navigation.next'),
-
-            responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 2.1,
-                        slidesToScroll: 1,
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        variableWidth: false,
-                        slidesToShow: 1.1,
-                        slidesToScroll: 1,
-                    }
-                }
-            ]
-        });
-
-    });
-</script>

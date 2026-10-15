@@ -11,6 +11,7 @@ $sitcky_left_content = get_sub_field('sticky_left_content');
 $sticky_left_cta = get_sub_field('sticky_left_cta');
 
 $scrolling_contents = get_sub_field('scrolling_contents');
+$scrolling_content_id = wp_unique_id('scrolling-content-');
 ?>
 
 <section class="full-height-scrolling-content">
@@ -76,7 +77,7 @@ $scrolling_contents = get_sub_field('scrolling_contents');
               $background_image_url = $case_study_image_url;
             }
 
-            $item_id = 'scrolling-content-item-' . $index;
+            $item_id = $scrolling_content_id . '-item-' . $index;
           ?>
 
             <div id="<?php echo esc_attr($item_id); ?>" class="scrolling-content-item <?php echo $video_url ? 'has-video' : ''; ?>">
@@ -141,107 +142,3 @@ $scrolling_contents = get_sub_field('scrolling_contents');
   </div>
   <?php echo $video_modals_html; ?>
 </section>
-
-<script>
-  jQuery(document).ready(function($) {
-    var $slider = $('.full-height-scrolling-content .scrolling-contents');
-    var sectionEl = document.querySelector('.full-height-scrolling-content');
-    var sectionInView = true;
-
-    function pauseAllVideos() {
-      $slider.find('.scrolling-content-video').each(function() {
-        this.pause();
-      });
-    }
-
-    function playActiveVideo() {
-      pauseAllVideos();
-      if (!sectionInView) return;
-      $slider.find('.slick-current .scrolling-content-video').each(function() {
-        this.play().catch(function() {});
-      });
-    }
-
-    $slider.on('init afterChange', playActiveVideo);
-
-    var mobileQuery = window.matchMedia('(max-width: 980px)');
-
-    function initSlider(isMobile) {
-      $slider.slick({
-        vertical: !isMobile,
-        verticalSwiping: !isMobile,
-        slidesToShow: isMobile ? 1.1 : 1,
-        slidesToScroll: 1,
-        arrows: !isMobile,
-        dots: false,
-        infinite: !isMobile,
-        centerMode: !isMobile,
-        adaptiveHeight: false,
-        prevArrow: $('.full-height-scrolling-content .scrolling-contents-prev'),
-        nextArrow: $('.full-height-scrolling-content .scrolling-contents-next')
-      });
-    }
-
-    function syncSliderOrientation(event) {
-      if ($slider.hasClass('slick-initialized')) {
-        $slider.slick('unslick');
-      }
-
-      initSlider(event.matches);
-    }
-
-    syncSliderOrientation(mobileQuery);
-    mobileQuery.addEventListener('change', syncSliderOrientation);
-
-    // Only autoplay the current slide's video while the section itself is on screen.
-    if (sectionEl && 'IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          sectionInView = entry.isIntersecting;
-          if (entry.isIntersecting) {
-            playActiveVideo();
-          } else {
-            pauseAllVideos();
-          }
-        });
-      }, {
-        threshold: 0.4
-      });
-      observer.observe(sectionEl);
-    }
-
-    var $openModal = null;
-
-    function closeModal($modal) {
-      $modal.removeClass('is-open').find('.scrolling-content-video-modal-video').each(function() {
-        this.pause();
-        this.currentTime = 0;
-      });
-      $openModal = null;
-      playActiveVideo();
-    }
-
-    $(document).on('click', '[data-video-modal-trigger]', function() {
-      var itemId = $(this).data('video-modal-trigger');
-      var $modal = $('#' + itemId + '-modal');
-      if (!$modal.length) return;
-
-      pauseAllVideos();
-      $openModal = $modal;
-      $modal.addClass('is-open').find('.scrolling-content-video-modal-video').each(function() {
-        this.currentTime = 0;
-        this.play().catch(function() {});
-      });
-    });
-
-    $(document).on('click', '[data-video-modal-close]', function() {
-      closeModal($(this).closest('[data-video-modal]'));
-    });
-
-    $(document).on('keydown', function(event) {
-      if (event.key === 'Escape' && $openModal) {
-        closeModal($openModal);
-      }
-    });
-  });
-</script>

@@ -41,7 +41,7 @@ $offices = $offices->posts;
 if ($office_locations) {
     $google_maps_api_key = apply_filters(
         'essenta_google_maps_api_key',
-        'AIzaSyAW0GJXmU70GtFN4p8eyw1ujFSSXhlJRY8'
+        'AIzaSyBvjxyUcPxIBbYx37EoU4iZ07lUBbRfqtM'
     );
 
     wp_enqueue_script(

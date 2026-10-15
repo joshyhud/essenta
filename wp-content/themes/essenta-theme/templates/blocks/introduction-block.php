@@ -165,6 +165,9 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
             var isPaused = false;
             var animation;
             var completeAnimation;
+            var touch;
+            var touchInteraction = false;
+            var isSettling = false;
 
             $slider.attr('tabindex', '0');
 
@@ -179,11 +182,14 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
                 }
 
                 slick.setCSS(targetLeft);
-                animation = track.animate([
-                    { transform: startTransform },
-                    { transform: track.style.transform }
+                animation = track.animate([{
+                        transform: startTransform
+                    },
+                    {
+                        transform: track.style.transform
+                    }
                 ], {
-                    duration: Math.abs(targetLeft - startLeft) / slick.slideWidth * slick.options.speed,
+                    duration: isSettling ? 250 : Math.abs(targetLeft - startLeft) / slick.slideWidth * slick.options.speed,
                     easing: 'linear'
                 });
 
@@ -191,11 +197,12 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
                     animation.cancel();
                     animation = null;
                     completeAnimation = null;
+                    isSettling = false;
                     callback();
                 };
                 animation.onfinish = completeAnimation;
 
-                if (isPaused) {
+                if (isPaused && !isSettling) {
                     animation.pause();
                 }
             };
@@ -213,8 +220,10 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
                 }
             }
 
-            function resumeSlider() {
-                if ($slider.is(':hover, :focus') || $slider.find(':focus').length) {
+            function resumeSlider(afterTouch) {
+                if (touch || (afterTouch !== true &&
+                    ((window.matchMedia('(hover: hover)').matches && $slider.is(':hover')) || $slider.is(':focus'))) ||
+                    $slider.find(':focus').length) {
                     return;
                 }
 
@@ -232,19 +241,114 @@ $selected_testimonials = get_sub_field('select_your_testimonials');
                 }
             }
 
+            function handleTouchStart(event) {
+                event.stopPropagation();
+                if (event.touches.length !== 1) {
+                    return;
+                }
+
+                touchInteraction = true;
+                pauseSlider();
+                touch = {
+                    x: event.touches[0].clientX,
+                    y: event.touches[0].clientY,
+                    left: new DOMMatrixReadOnly(window.getComputedStyle(slick.$slideTrack[0]).transform).m41,
+                    dragging: false,
+                    scrolling: false
+                };
+            }
+
+            function handleTouchMove(event) {
+                event.stopPropagation();
+                if (!touch || event.touches.length !== 1 || touch.scrolling) {
+                    return;
+                }
+
+                var deltaX = event.touches[0].clientX - touch.x;
+                var deltaY = event.touches[0].clientY - touch.y;
+
+                if (!touch.dragging) {
+                    if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < 5) {
+                        return;
+                    }
+                    if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                        touch.scrolling = true;
+                        return;
+                    }
+                    touch.dragging = true;
+                    if (animation) {
+                        animation.cancel();
+                        animation = null;
+                        completeAnimation = null;
+                    }
+                    slick.animating = false;
+                }
+
+                event.preventDefault();
+                slick.setCSS(Math.max(slick.getLeft(slick.slideCount),
+                    Math.min(slick.getLeft(-1), touch.left + deltaX)));
+            }
+
+            function handleTouchEnd(event) {
+                event.stopPropagation();
+                if (!touch || event.touches.length) {
+                    return;
+                }
+
+                var wasDragging = touch.dragging;
+                touch = null;
+                if (wasDragging) {
+                    var left = new DOMMatrixReadOnly(window.getComputedStyle(slick.$slideTrack[0]).transform).m41;
+                    var index = slick.currentSlide + Math.round((slick.getLeft(slick.currentSlide) - left) / slick.slideWidth);
+                    slick.swipeLeft = left;
+                    isSettling = true;
+                    slick.slideHandler(index);
+                }
+                resumeSlider(true);
+            }
+
+            // Capture touch gestures before Slick's in-flight animation guard blocks dragging.
+            $slider[0].addEventListener('touchstart', handleTouchStart, {
+                capture: true,
+                passive: true
+            });
+            $slider[0].addEventListener('touchmove', handleTouchMove, {
+                capture: true,
+                passive: false
+            });
+            $slider[0].addEventListener('touchend', handleTouchEnd, true);
+            $slider[0].addEventListener('touchcancel', handleTouchEnd, true);
+
             $slider.on('setPosition', function() {
                 if (completeAnimation) {
                     completeAnimation();
                 }
             });
             $slider.on('destroy', function() {
+                $slider[0].removeEventListener('touchstart', handleTouchStart, true);
+                $slider[0].removeEventListener('touchmove', handleTouchMove, true);
+                $slider[0].removeEventListener('touchend', handleTouchEnd, true);
+                $slider[0].removeEventListener('touchcancel', handleTouchEnd, true);
                 if (animation) {
                     animation.cancel();
                     animation = null;
                     completeAnimation = null;
                 }
             });
-            $slider.on('mouseenter focusin', pauseSlider);
+            $slider.on('pointerenter', function(event) {
+                if (event.originalEvent.pointerType === 'mouse') {
+                    touchInteraction = false;
+                    pauseSlider();
+                }
+            });
+            $slider.on('focusin', function(event) {
+                var capabilities = event.originalEvent && event.originalEvent.sourceCapabilities;
+                if (event.target === $slider[0] && ((capabilities && capabilities.firesTouchEvents) ||
+                    (touchInteraction && !event.target.matches(':focus-visible')))) {
+                    return;
+                }
+                pauseSlider();
+            });
             $slider.on('mouseleave', resumeSlider);
             $slider.on('focusout', function(event) {
                 if (event.relatedTarget && $slider[0].contains(event.relatedTarget)) {

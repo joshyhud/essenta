@@ -59,14 +59,36 @@ function my_acf_json_load_point($path)
 add_filter('acf/settings/load_json', 'my_acf_json_load_point');
 
 /**
+ * Read the browser Maps key from server-side configuration.
+ */
+function essenta_get_google_maps_api_key()
+{
+    $key = defined('ESSENTA_GOOGLE_MAPS_API_KEY')
+        ? ESSENTA_GOOGLE_MAPS_API_KEY
+        : getenv('ESSENTA_GOOGLE_MAPS_API_KEY');
+
+    $key = apply_filters('essenta_google_maps_api_key', $key);
+
+    return is_string($key) ? trim($key) : '';
+}
+
+add_action('admin_notices', function () {
+    if (!current_user_can('manage_options') || essenta_get_google_maps_api_key() !== '') {
+        return;
+    }
+
+    echo '<div class="notice notice-error"><p>' . esc_html__(
+        'Google Maps is not configured. Set ESSENTA_GOOGLE_MAPS_API_KEY in server configuration or wp-config.php to enable office maps and ACF map fields.',
+        'essenta-theme'
+    ) . '</p></div>';
+});
+
+/**
  * Provide Google Maps credentials to ACF's admin map fields.
  */
 function essenta_acf_google_maps_api($api)
 {
-    $api['key'] = apply_filters(
-        'essenta_google_maps_api_key',
-        'AIzaSyBvjxyUcPxIBbYx37EoU4iZ07lUBbRfqtM'
-    );
+    $api['key'] = essenta_get_google_maps_api_key();
 
     return $api;
 }

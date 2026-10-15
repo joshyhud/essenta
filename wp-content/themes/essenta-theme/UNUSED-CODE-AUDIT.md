@@ -2,48 +2,43 @@
 
 ## Scope and method
 
-Static review of the maintained theme source, including PHP templates and hooks, ACF local JSON, JavaScript, SCSS, and the asset build/enqueue path. `node_modules` and generated `dist` files were excluded from dead-code classification. The review followed the theme's dynamic ACF template routing and searched for in-theme call sites before classifying candidates.
+Updated 15 October 2026. Rechecked current theme source rather than carrying forward candidates from an earlier tree snapshot. The review covered PHP template routing, current ACF local JSON, named theme functions and WordPress/plugin hooks, all `src/scss` files, JavaScript selectors and callbacks, and Gulp build/enqueue wiring. `node_modules` and generated `dist` assets were not classified as source modules.
 
-This is not a runtime/CMS database audit. No live page-builder values, external plugin callers, or production theme state were inspected. A missing source reference is therefore reported as a candidate, not proof that removal is safe.
+This is a static source audit, not a runtime/CMS database audit. Saved page-builder values, page content with custom HTML, external plugin/child-theme callers, and deployed environments were not available. Unreferenced source is therefore a cleanup candidate pending those checks, not proof that deletion is safe.
 
-## Function check: `functions/helpers.php`
+## Current unused-code candidates
 
-Checked each named function in [`helpers.php`](./functions/helpers.php) against WordPress/plugin hook registrations and theme-wide call sites.
-
-| Function(s) | Result | Evidence |
-|---|---|---|
-| `my_excerpt_length()`, `new_excerpt_more()` | Hooked; not unused | Registered with the WordPress `excerpt_length` and `excerpt_more` filters in [`helpers.php`](./functions/helpers.php#L11-L19). |
-| `theme_yith_wcwl_update_wishlist_count()` | Hooked and requested by theme code | Registered for logged-in and public AJAX requests; the inline script requests the matching `yith_wcwl_update_wishlist_count` action in [`helpers.php`](./functions/helpers.php#L44-L68). |
-| `theme_yith_wcwl_live_header_count()` | Hooked; not unused | Registered on `wp_enqueue_scripts` in [`helpers.php`](./functions/helpers.php#L55-L57). |
-| `bn_search_by_sku_and_keywords()`, `bn_search_distinct_for_sku()` | Hooked; not unused | Registered with the `posts_search` and `posts_distinct` filters in [`helpers.php`](./functions/helpers.php#L183-L185) and [`helpers.php`](./functions/helpers.php#L246-L248). |
-| `get_visitor_country_calling_code()`, `populate_gravity_forms_country_calling_code()` | Called through a Gravity Forms filter; not unused | The population callback is registered for `gform_field_value_country_calling_code` and calls the lookup function in [`helpers.php`](./functions/helpers.php#L320-L333). |
-| `theme_clear_wishlist()` | Registered endpoint, but no in-theme request found; verify before removal | Registered for both authenticated and public AJAX actions in [`helpers.php`](./functions/helpers.php#L94-L97). A theme-wide source search found no JavaScript or other code sending the `theme_clear_wishlist` action. An external integration or client may still call the endpoint. |
-
-No named helper function was found without either an in-theme call site or a WordPress/plugin hook registration. The wishlist-clear endpoint is the only helper follow-up: check external callers and production usage before deciding whether to remove it.
-
-## Candidates to verify before cleanup
-
-| Candidate | Evidence | Confidence | Before removing |
+| Candidate | Evidence | Confidence | Verify before cleanup |
 |---|---|---:|---|
-| `templates/blocks/page-post-links.php`, `templates/blocks/tabled-content.php`, and `templates/blocks/map-block.php` | [`page-builder.php`](./page-builder.php#L12-L13) maps each `page_builder` layout name to a `templates/blocks/<layout>.php` file. None of the three corresponding layout names is present in the current `page_builder` layouts in [`group_6793abe93bffe.json`](./includes/acf-json/field-groups/group_6793abe93bffe.json), and there are no direct in-theme calls to these templates. | 9/10 that the current theme has no route to them | Check saved page-builder rows in the WordPress database and any older environment/export before deleting; legacy layout data may remain even if it is absent from the current ACF JSON. |
-| `src/scss/blocks/map-block.scss` and the map-specific implementation inside `templates/blocks/map-block.php` | The stylesheet selectors match only the map template. The template is not among the current configured page-builder layouts. Within the template, `$company_location` is assigned but never read; the markup contains a placeholder rather than an `.acf-map` element, while the embedded initializer searches only for `.acf-map`. | 8/10 for the map template/style being inactive; 10/10 for the unused local assignment | Treat these as part of the map-template decision above. Confirm there is no saved legacy map layout before removing the template and its stylesheet. |
-| `get_component_prefix()` and `get_background()` in `functions/components.php` | Both functions are defined, but searches found no in-theme call sites. | 8/10 for no in-theme use | Check for calls from custom plugins, child themes, snippets, or other code outside this theme before removal. |
-| `Custom_Nav_Walker` and `Mobile_Menu_Walker` in `functions/menu.php` | The classes have no in-theme instantiations. The theme's `wp_nav_menu()` calls in `header.php` and `footer.php` do not supply either walker. | 8/10 for no in-theme use | Check any external customization that may instantiate these globally defined classes. |
-| Commented `.top-details` Slick initialization in `src/js/scripts.js` | The block around line 463 is commented out and cannot execute. | 10/10 that this snippet is inert | Remove if it is no longer being kept as a reference; no runtime behavior changes either way. |
+| `src/scss/blocks/card-grid.scss`, `src/scss/blocks/card-grid-links.scss`, `src/scss/blocks/text-bg-image.scss` | Their block-specific selectors (`.card-grid-section`, `.card-grid-links-section`, `.text-background-image`, `.text-bg-image-card`) have no matching references in current PHP templates, JavaScript, or ACF JSON. These files are nevertheless included by the broad SCSS input glob in [`gulpfile.js`](./gulpfile.js#L13). | 8/10 for no theme-template usage | Check saved/custom HTML and any external content that emits these classes before removing the styles. |
+| `src/scss/blocks/hero-headers/full-width-header.scss`, `src/scss/blocks/hero-headers/minimal-header.scss`, `src/scss/blocks/hero-headers/contact-header.scss` | Their leading selectors (`.full-width-header`, `.minimal-header`, `.contact-hero`) have no matching PHP, JavaScript, or ACF references in the current theme. Other current hero styles do have matching template markup. | 8/10 for no theme-template usage | Check page content or external templates/plugins for these classes before removal. |
+| `templates/headers/service-page-header.php` and `src/scss/blocks/hero-headers/service-header.scss` | The header renderer routes ACF layout names dynamically in [`header-page-builder.php`](./header-page-builder.php#L12-L13). Current `header_pagebuilder` layouts in [`group_6756b163dfe21.json`](./includes/acf-json/field-groups/group_6756b163dfe21.json#L22) include `homepage_header`, `case_study_header`, `case_study_hub_header`, and `media_text_header`, but not `service_page_header`. The stylesheet's `.cta-header` rules match only the service header template in the current source. | 8/10 for no route from current ACF configuration | Check saved header-builder data in WordPress and older exports; legacy rows can still route to this template. |
+| Root `style.scss` and `stylesheet.php` | The active Gulp build reads `src/scss/**/*.scss` and `src/scss/admin/**/*.scss`, not root `style.scss`; that legacy file imports `assets/scss/...` paths rather than the current `src/scss` tree. `stylesheet.php` is a standalone styleguide HTML page, has no in-theme include/reference, and links to the old `b9-boilerplate` theme path. | 9/10 for not being part of the current theme build/render path | Verify the styleguide page is not visited directly by staff before deleting either file. |
+| `get_component_prefix()` and `get_background()` in `functions/components.php` | They are defined in the theme but have no in-theme call sites. | 8/10 for no in-theme use | Check plugins, snippets, child themes, and other code that may call globally available theme functions. |
+| Commented `.top-details` Slick block in `src/js/scripts.js` | The initialization block around line 463 is commented out and cannot execute. | 10/10 that this code is inert | Remove if it is no longer retained as a reference; removal does not change runtime behavior. |
 
-## Related wiring mismatch (not an unused-code deletion candidate)
+## Function and JavaScript checks
 
-- The current ACF `page_builder` configuration includes a `blockquote` layout, but there is no `templates/blocks/blockquote.php`. The dynamic loader will look for that template when the layout is rendered, so confirm whether the layout is still intended and needs a template.
+- In the current [`functions/helpers.php`](./functions/helpers.php), `my_excerpt_length()` and `new_excerpt_more()` are registered as WordPress filters; `get_visitor_country_calling_code()` is called by `populate_gravity_forms_country_calling_code()`, which is registered with Gravity Forms. No named helper function in this file was found without a call site or hook.
+- The other named functions in the active setup, ACF, CPT, and theme bootstrap code are wired to WordPress hooks, the admin tool, or callers in the theme. No additional unused PHP function was confirmed.
+- The theme has one maintained JavaScript source file, [`src/js/scripts.js`](./src/js/scripts.js), included by the Gulp JS glob and enqueued as `dist/js/scripts.min.js`. Its `essentaInitOfficeMaps` callback is referenced by `templates/blocks/office-locations.php`; it is not orphaned. No additional unreferenced JavaScript file or active script function was confirmed. Some selectors serve plugin-generated WooCommerce markup and were not treated as unused based only on the absence of theme-owned product templates.
+- The current SCSS pipeline concatenates all source SCSS files into one stylesheet, so file-level `@use`/`@import` references are not a reliable use test. The style candidates above are based on their selectors having no corresponding current theme markup/configuration, not on missing imports.
 
-## Findings not classified as unused
+## ACF/template mismatch (missing implementation, not unused code)
 
-- The source JavaScript is included by the Gulp build and the generated script path is enqueued by the theme. `essentaInitOfficeMaps` is passed as the Google Maps callback from `templates/blocks/office-locations.php`; it is not an orphan.
-- SCSS files are included through the build's SCSS glob rather than imported individually. A lack of `@use`/`@import` references alone is not evidence that a stylesheet is unused.
-- Other apparent dynamic entry points (WordPress hooks, ACF field definitions, and the registered post types) were retained as active unless a direct mismatch was found.
+- [`group_6793abe93bffe.json`](./includes/acf-json/field-groups/group_6793abe93bffe.json#L588) still defines a `blockquote` page-builder layout, but there is no `templates/blocks/blockquote.php`. The dynamic loader in [`page-builder.php`](./page-builder.php#L12-L13) will look for that file when the layout is rendered. Confirm whether the layout is still used and should have a renderer.
+- Earlier report candidates `templates/blocks/page-post-links.php`, `templates/blocks/tabled-content.php`, and `templates/blocks/map-block.php` are not present in the current theme tree and have not been carried forward as current files.
+
+## Build verification
+
+- Gulp `compile`, `compileAdminSCSS`, and `minifyJS` completed successfully and regenerated the frontend CSS, admin CSS, and frontend JS outputs.
+- Gulp `lintJS` did not pass: it reports 20 existing ESLint errors in `src/js/scripts.js` (undefined Google Maps global, indentation, and quote-style diagnostics). No JavaScript source changes were made as part of this documentation audit.
+- No CMS/runtime tests were run.
 
 ## Suggested cleanup order
 
-1. Verify the three absent ACF layouts against saved content and deployed environments; remove the corresponding templates and the map stylesheet only if confirmed unused.
-2. Confirm there are no external callers before removing the helper functions or navigation walker classes.
-3. Remove the inert commented Slick snippet if it is not being retained for reference.
-4. Decide whether the configured `blockquote` layout needs a rendering template.
+1. Check live and legacy CMS content for the unused-looking block and hero selectors, then remove confirmed-obsolete SCSS.
+2. Check for saved `service_page_header` rows and direct use of the styleguide page before removing those files.
+3. Check external callers before removing `get_component_prefix()` or `get_background()`.
+4. Decide whether the configured `blockquote` layout needs its missing renderer.
+5. Address the existing JavaScript lint diagnostics in a separate code-quality change.

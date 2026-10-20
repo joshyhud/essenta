@@ -92,3 +92,80 @@ function get_background($prefix = '', $lazyload = true)
 
 	return $bg_options;
 }
+
+function essenta_generate_letterbox_webp_sources($attachment_id)
+{
+	$source_path = get_attached_file($attachment_id);
+	$upload_dir = wp_get_upload_dir();
+	$uploads_base = trailingslashit(wp_normalize_path($upload_dir['basedir']));
+	$source_path = $source_path ? wp_normalize_path($source_path) : '';
+
+	if (!$source_path || !file_exists($source_path) || strpos($source_path, $uploads_base) !== 0) {
+		error_log(sprintf('Essenta letterbox WebP generation skipped for attachment %d: source image is missing or outside the uploads directory.', $attachment_id));
+		return false;
+	}
+
+	$variants = array(
+		'mobile' => array('width' => 768, 'height' => 300),
+		'desktop' => array('width' => 1920, 'height' => 470),
+	);
+	$source_mtime = filemtime($source_path);
+	$source_filename = pathinfo($source_path, PATHINFO_FILENAME);
+	$source_directory = dirname($source_path);
+	$sources = array();
+
+	foreach ($variants as $name => $dimensions) {
+		$webp_path = trailingslashit($source_directory) . $source_filename . '-letterbox-' . $attachment_id . '-' . $name . '.webp';
+
+		if (!file_exists($webp_path) || filemtime($webp_path) < $source_mtime) {
+			$editor = wp_get_image_editor($source_path);
+
+			if (is_wp_error($editor)) {
+				error_log(sprintf('Essenta letterbox WebP generation failed for attachment %d: %s', $attachment_id, $editor->get_error_message()));
+				return false;
+			}
+
+			$editor->set_quality(82);
+			$resize_result = $editor->resize($dimensions['width'], $dimensions['height'], true);
+
+			if (is_wp_error($resize_result)) {
+				error_log(sprintf('Essenta letterbox WebP resize failed for attachment %d: %s', $attachment_id, $resize_result->get_error_message()));
+				return false;
+			}
+
+			$save_result = $editor->save($webp_path, 'image/webp');
+
+			if (is_wp_error($save_result)) {
+				error_log(sprintf('Essenta letterbox WebP save failed for attachment %d: %s', $attachment_id, $save_result->get_error_message()));
+				return false;
+			}
+		}
+
+		$image_size = wp_getimagesize($webp_path);
+
+		if (!$image_size || $image_size['mime'] !== 'image/webp') {
+			error_log(sprintf('Essenta letterbox WebP output is invalid for attachment %d.', $attachment_id));
+			return false;
+		}
+
+		$relative_path = ltrim(substr(wp_normalize_path($webp_path), strlen($uploads_base)), '/');
+		$sources[$name] = array(
+			'url' => trailingslashit($upload_dir['baseurl']) . $relative_path,
+			'width' => (int) $image_size[0],
+		);
+	}
+
+	return $sources;
+}
+
+function essenta_generate_letterbox_webp_on_save($value)
+{
+	$attachment_id = absint($value);
+
+	if ($attachment_id) {
+		essenta_generate_letterbox_webp_sources($attachment_id);
+	}
+
+	return $value;
+}
+add_filter('acf/update_value/name=letterbox_image', 'essenta_generate_letterbox_webp_on_save');

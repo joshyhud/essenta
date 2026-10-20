@@ -40,7 +40,7 @@ $archive_query = $GLOBALS['wp_query'];
               <a href="<?php the_permalink(); ?>">
                 <div class="blog-card-image">
                   <?php if (has_post_thumbnail()) : ?>
-                    <?php the_post_thumbnail('large', array('loading' => 'lazy')); ?>
+                    <?php the_post_thumbnail('large', array('loading' => $recent_insights->current_post === 0 ? 'eager' : 'lazy')); ?>
                   <?php endif; ?>
                   <div class="blog-card-categories">
                     <?php $category = get_the_category(); ?>
@@ -107,9 +107,9 @@ $archive_query = $GLOBALS['wp_query'];
                     <?php
                     $thumb_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
                     if ($thumb_url) : ?>
-                      <?php the_post_thumbnail('full', array('loading' => 'lazy')); ?>
+                      <?php the_post_thumbnail('full', array('loading' => $archive_query->current_post === 0 ? 'eager' : 'lazy')); ?>
                     <?php else : ?>
-                      <img loading="lazy" src="<?php echo get_template_directory_uri() . '/src/images/product-placeholder.png'; ?>" alt="Placeholder Image">
+                      <img loading="<?php echo $archive_query->current_post === 0 ? 'eager' : 'lazy'; ?>" src="<?php echo get_template_directory_uri() . '/src/images/product-placeholder.png'; ?>" alt="Placeholder Image">
                     <?php endif; ?>
                     <div class="blog-card-categories">
                       <?php $category = get_the_category(); ?>

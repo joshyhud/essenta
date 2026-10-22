@@ -63,31 +63,33 @@ add_filter('acf/settings/load_json', 'my_acf_json_load_point');
  */
 function essenta_get_google_maps_api_key()
 {
-    $key = defined('ESSENTA_GOOGLE_MAPS_API_KEY')
-        ? ESSENTA_GOOGLE_MAPS_API_KEY
-        : getenv('ESSENTA_GOOGLE_MAPS_API_KEY');
+    // $key = defined('ESSENTA_GOOGLE_MAPS_API_KEY')
+    //     ? ESSENTA_GOOGLE_MAPS_API_KEY
+    //     : getenv('ESSENTA_GOOGLE_MAPS_API_KEY');
 
-    if ($key === false) {
-        $environment_file = dirname(rtrim(ABSPATH, '/\\')) . '/.env';
+    // if ($key === false) {
+    //     $environment_file = dirname(rtrim(ABSPATH, '/\\')) . '/.env';
 
-        if (file_exists($environment_file)) {
-            if (!is_readable($environment_file)) {
-                throw new RuntimeException('The site .env file is not readable.');
-            }
+    //     if (file_exists($environment_file)) {
+    //         if (!is_readable($environment_file)) {
+    //             throw new RuntimeException('The site .env file is not readable.');
+    //         }
 
-            $environment_values = parse_ini_file($environment_file, false, INI_SCANNER_RAW);
-            if ($environment_values === false) {
-                throw new RuntimeException('The site .env file could not be parsed.');
-            }
+    //         $environment_values = parse_ini_file($environment_file, false, INI_SCANNER_RAW);
+    //         if ($environment_values === false) {
+    //             throw new RuntimeException('The site .env file could not be parsed.');
+    //         }
 
-            $key = $environment_values['ESSENTA_GOOGLE_MAPS_API_KEY'] ?? '';
-            if (!is_string($key)) {
-                throw new RuntimeException('ESSENTA_GOOGLE_MAPS_API_KEY must be a string.');
-            }
-        }
-    }
+    //         $key = $environment_values['ESSENTA_GOOGLE_MAPS_API_KEY'] ?? '';
+    //         if (!is_string($key)) {
+    //             throw new RuntimeException('ESSENTA_GOOGLE_MAPS_API_KEY must be a string.');
+    //         }
+    //     }
+    // }
 
-    $key = apply_filters('essenta_google_maps_api_key', $key);
+    // $key = apply_filters('essenta_google_maps_api_key', $key);
+
+    $key = 'AIzaSyBvjxyUcPxIBbYx37EoU4iZ07lUBbRfqtM';
 
     return is_string($key) ? trim($key) : '';
 }

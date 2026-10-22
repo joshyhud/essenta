@@ -24,11 +24,11 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_6925ade634446",
-                            "label": "Layout",
-                            "name": "",
+                            "key": "field_6aa964c36a934",
+                            "label": "Partner Logo image",
+                            "name": "partner_logo_image",
                             "aria-label": "",
-                            "type": "tab",
+                            "type": "image",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -37,10 +37,18 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "placement": "top",
-                            "endpoint": 0,
-                            "admin_only": 0,
-                            "selected": 0
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "",
+                            "allow_in_bindings": 0,
+                            "preview_size": "thumbnail",
+                            "admin_only": 0
                         },
                         {
                             "key": "field_6aa9675edf513",
@@ -70,11 +78,11 @@
                             "admin_only": 0
                         },
                         {
-                            "key": "field_6aa964c36a934",
-                            "label": "Partner Logo image",
-                            "name": "partner_logo_image",
+                            "key": "field_6925ade634446",
+                            "label": "Layout",
+                            "name": "",
                             "aria-label": "",
-                            "type": "image",
+                            "type": "tab",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -83,18 +91,10 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "return_format": "array",
-                            "library": "all",
-                            "min_width": "",
-                            "min_height": "",
-                            "min_size": "",
-                            "max_width": "",
-                            "max_height": "",
-                            "max_size": "",
-                            "mime_types": "",
-                            "allow_in_bindings": 0,
-                            "preview_size": "thumbnail",
-                            "admin_only": 0
+                            "placement": "top",
+                            "endpoint": 0,
+                            "admin_only": 0,
+                            "selected": 0
                         },
                         {
                             "key": "field_69369e2e3642e",
@@ -572,6 +572,106 @@
                             "taxonomy": "",
                             "return_format": "object",
                             "multiple": 1,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "bidirectional": 0,
+                            "admin_only": 0,
+                            "ui": 1,
+                            "bidirectional_target": []
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_692dc48e7a571": {
+                    "key": "layout_692dc48e7a571",
+                    "name": "blockquote",
+                    "label": "Blockquote",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_692dc4977a573",
+                            "label": "Central or Left Aligned",
+                            "name": "central_or_left_aligned",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "central": "Centred Blockquote",
+                                "left": "Left Aligned Blockquote with Heading"
+                            },
+                            "default_value": false,
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "admin_only": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        },
+                        {
+                            "key": "field_692dc4a97a574",
+                            "label": "Left Aligned Heading",
+                            "name": "left_aligned_heading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_692dc4977a573",
+                                        "operator": "==",
+                                        "value": "left"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "admin_only": 0
+                        },
+                        {
+                            "key": "field_692dc4d8a4a98",
+                            "label": "Quotation",
+                            "name": "quotation",
+                            "aria-label": "",
+                            "type": "post_object",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "testimonial"
+                            ],
+                            "post_status": [
+                                "publish"
+                            ],
+                            "taxonomy": "",
+                            "return_format": "object",
+                            "multiple": 0,
                             "allow_null": 0,
                             "allow_in_bindings": 0,
                             "bidirectional": 0,
@@ -3092,5 +3192,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1792077836
+    "modified": 1792136604
 }

@@ -48,19 +48,6 @@ function enqueue_footer_gravity_form_assets()
 }
 add_action('wp_enqueue_scripts', 'enqueue_footer_gravity_form_assets', 20);
 
-function essenta_dequeue_gravity_forms_theme_styles_outside_contact()
-{
-  if (is_page('contact')) {
-    return;
-  }
-
-  wp_dequeue_style('gravity_forms_theme_framework');
-  wp_dequeue_style('gravity_forms_theme_foundation');
-  wp_dequeue_style('gravity_forms_theme_reset');
-  wp_dequeue_style('gravity_forms_orbital_theme');
-}
-add_action('wp_enqueue_scripts', 'essenta_dequeue_gravity_forms_theme_styles_outside_contact', 100);
-
 // Enqueue External Libraries
 function add_cdn_libraries()
 {
@@ -126,15 +113,6 @@ add_action('wp_enqueue_scripts', function () {
   // Remove classic-themes CSS for backwards compatibility for button blocks.
   wp_dequeue_style('classic-theme-styles');
 }, 20);
-
-// Dashicons are only used by the admin UI and the logged-in admin bar.
-function essenta_dequeue_dashicons_for_visitors()
-{
-  if (!is_user_logged_in()) {
-    wp_dequeue_style('dashicons');
-  }
-}
-add_action('wp_enqueue_scripts', 'essenta_dequeue_dashicons_for_visitors', 100);
 
 /****************************************************************
 End of disbale Gutenberg functions

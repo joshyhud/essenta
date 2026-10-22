@@ -106,7 +106,7 @@ $drawer_id = $uid . '-profile-drawer';
           $member_id       = $member->ID;
           $name            = get_the_title($member_id);
           $role            = get_field('job_role', $member_id);
-          $img             = get_the_post_thumbnail($member_id, 'full', array('loading' => $team_members->current_post === 0 ? 'eager' : 'lazy'));
+          $img             = get_the_post_thumbnail($member_id, 'full');
           $departments     = get_the_terms($member_id, 'department');
           $locations       = get_the_terms($member_id, 'team_location');
           ?>
@@ -208,7 +208,7 @@ $drawer_id = $uid . '-profile-drawer';
       <div class="team-archive__profile-header">
         <?php if (has_post_thumbnail()): ?>
           <div class="team-archive__profile-image">
-            <?php the_post_thumbnail('large', array('loading' => 'eager')); ?>
+            <?php the_post_thumbnail('large', array('loading' => 'lazy')); ?>
           </div>
         <?php endif; ?>
 

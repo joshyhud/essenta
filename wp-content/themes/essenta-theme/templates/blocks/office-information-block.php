@@ -48,7 +48,7 @@ $essenta_offices = new WP_Query(array(
                     <article class="office-information-block__office">
                         <?php if (has_post_thumbnail($office_id)) : ?>
                             <div class="office-information-block__office-image">
-                                <?php echo get_the_post_thumbnail($office_id, 'large', array('loading' => $essenta_offices->current_post === 0 ? 'eager' : 'lazy')); ?>
+                                <?php echo get_the_post_thumbnail($office_id, 'large', array('loading' => 'lazy')); ?>
                             </div>
                         <?php endif; ?>
                         <div class="office-information-block__office-details">

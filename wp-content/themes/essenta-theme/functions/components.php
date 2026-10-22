@@ -73,7 +73,7 @@ function get_background($prefix = '', $lazyload = true)
 			// Add lazyload attribute
 			$lazyload_attr = $lazyload ? ' loading="lazy"' : '';
 			// Add background image
-			$bg_options['bg_img'] = '<img class="bg-image ' . str_replace('_', '-', $prefix) . '-bg" src="' . esc_url($img_url) . '"' . $img_alt . $srcset_attr . $sizes_attr . $lazyload_attr . '>';
+			$bg_options['bg_img'] = '<img loading="lazy" class="bg-image ' . str_replace('_', '-', $prefix) . '-bg" src="' . esc_url($img_url) . '"' . $img_alt . $srcset_attr . $sizes_attr . $lazyload_attr . '>';
 
 		endwhile;
 	endif;

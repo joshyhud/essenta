@@ -80,17 +80,17 @@ $title = get_the_title($post_id);
           <div class="blog-header-share">
             <?php if (!empty($author_linkedin['url'])) : ?>
               <a class="blog-header-share-button" href="<?php echo esc_url($author_linkedin['url']); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr(sprintf(__('%s on LinkedIn', 'essenta-theme'), get_the_title($author))); ?>">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/dist/images/share-linkedin.svg'); ?>" width="16" height="16" alt="">
+                <img loading="lazy" src="<?php echo esc_url(get_template_directory_uri() . '/dist/images/share-linkedin.svg'); ?>" width="16" height="16" alt="">
               </a>
             <?php endif; ?>
             <?php if ($author_email_url) : ?>
               <a class="blog-header-share-button" href="<?php echo esc_url($author_email_url); ?>" aria-label="<?php echo esc_attr(sprintf(__('Email %s', 'essenta-theme'), get_the_title($author))); ?>">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/dist/images/share-email.svg'); ?>" width="16" height="16" alt="">
+                <img loading="lazy" src="<?php echo esc_url(get_template_directory_uri() . '/dist/images/share-email.svg'); ?>" width="16" height="16" alt="">
               </a>
             <?php endif; ?>
             <div class="blog-header-share-copy">
               <button class="blog-header-share-button" type="button" data-copy-link="<?php echo esc_url($permalink); ?>" aria-label="<?php esc_attr_e('Copy link', 'essenta-theme'); ?>">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/dist/images/share-link.svg'); ?>" width="16" height="16" alt="">
+                <img loading="lazy" src="<?php echo esc_url(get_template_directory_uri() . '/dist/images/share-link.svg'); ?>" width="16" height="16" alt="">
               </button>
               <span class="blog-header-share-popover" role="status" aria-live="polite" hidden><?php esc_html_e('URL copied', 'essenta-theme'); ?></span>
             </div>

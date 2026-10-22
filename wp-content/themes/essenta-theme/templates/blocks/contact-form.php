@@ -59,7 +59,7 @@ $contactOffices = new WP_Query(array(
                 <?php if ($officeAddress) : ?>
                   <div class="contact-form__office-row">
                     <div class="contact-form__icon">
-                      <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt="">
+                      <img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt="Location pin icon">
                     </div>
                     <address><a href="<?php echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($officeAddress)); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($officeAddress); ?></a></address>
                   </div>
@@ -68,7 +68,7 @@ $contactOffices = new WP_Query(array(
                 <?php if ($officePhone) : ?>
                   <div class="contact-form__office-row">
                     <div class="contact-form__icon">
-                      <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/phone-dark.svg'); ?>" alt="">
+                      <img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/phone-dark.svg'); ?>" alt="Phone icon">
                     </div>
                     <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $officePhone)); ?>"><?php echo esc_html($officePhone); ?></a>
                   </div>
@@ -77,7 +77,7 @@ $contactOffices = new WP_Query(array(
                 <?php if ($officeEmail) : ?>
                   <div class="contact-form__office-row">
                     <div class="contact-form__icon">
-                      <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/mail-dark.svg'); ?>" alt="">
+                      <img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/mail-dark.svg'); ?>" alt="Mail icon">
                     </div>
                     <a href="mailto:<?php echo esc_attr(antispambot($officeEmail)); ?>"><?php echo esc_html(antispambot($officeEmail)); ?></a>
                   </div>

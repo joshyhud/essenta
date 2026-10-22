@@ -55,7 +55,7 @@ $first_service = $services[0];
         <!-- The image starts with the first service and updates when another item opens. -->
         <div class="services-block__image-wrap">
             <?php if ($first_service['image']) : ?>
-                <img class="services-block__image" src="<?php echo esc_url($first_service['image']); ?>" alt="<?php echo esc_attr($first_service['title']); ?>">
+                <img loading="lazy" class="services-block__image" src="<?php echo esc_url($first_service['image']); ?>" alt="<?php echo esc_attr($first_service['title']); ?>">
             <?php endif; ?>
         </div>
 

@@ -142,7 +142,7 @@ $drawer_id = $uid . '-profile-drawer';
                   );
                   ?>
                   <p class="team-card__location">
-                    <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt="">
+                    <img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt="">
                     <span><?php echo $location_names[0]; ?></span>
                   </p>
                 <?php endif; ?>

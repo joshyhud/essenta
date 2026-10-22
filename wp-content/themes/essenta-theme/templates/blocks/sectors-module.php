@@ -134,7 +134,7 @@ $manual_sectors = get_sub_field('manual_sectors');
 
                                     <?php if ($sector_image) : ?>
                                         <div class="sectors-card__image">
-                                            <img
+                                            <img loading="lazy"
                                                 src="<?php echo esc_url($sector_image['url']); ?>"
                                                 alt="<?php echo esc_attr($sector_image['alt']); ?>"
                                                 loading="lazy" />

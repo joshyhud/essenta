@@ -28,7 +28,7 @@ $partner_logos_two = get_sub_field('partner_logos_2');
             <div class="partner-logos-slider partner-logos-slider--forward">
                 <?php foreach ($partner_logos_one_options as $partner_logo) : ?>
                     <div class="partner-logo">
-                        <img src="<?php echo esc_url($partner_logo['url']); ?>" alt="<?php echo esc_attr($partner_logo['alt']); ?>">
+                        <img loading="lazy" src="<?php echo esc_url($partner_logo['url']); ?>" alt="<?php echo esc_attr($partner_logo['alt']); ?>">
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -36,7 +36,7 @@ $partner_logos_two = get_sub_field('partner_logos_2');
             <div class="partner-logos-slider partner-logos-slider--forward">
                 <?php foreach ($partner_logos_one as $partner_logo) : ?>
                     <div class="partner-logo">
-                        <img src="<?php echo esc_url($partner_logo['url']); ?>" alt="<?php echo esc_attr($partner_logo['alt']); ?>">
+                        <img loading="lazy" src="<?php echo esc_url($partner_logo['url']); ?>" alt="<?php echo esc_attr($partner_logo['alt']); ?>">
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -45,7 +45,7 @@ $partner_logos_two = get_sub_field('partner_logos_2');
             <div class="partner-logos-slider partner-logos-slider--reverse">
                 <?php foreach ($partner_logos_two_options as $partner_logo_two) : ?>
                     <div class="partner-logo">
-                        <img src="<?php echo esc_url($partner_logo_two['url']); ?>" alt="<?php echo esc_attr($partner_logo_two['alt']); ?>">
+                        <img loading="lazy" src="<?php echo esc_url($partner_logo_two['url']); ?>" alt="<?php echo esc_attr($partner_logo_two['alt']); ?>">
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -53,7 +53,7 @@ $partner_logos_two = get_sub_field('partner_logos_2');
             <div class="partner-logos-slider partner-logos-slider--reverse">
                 <?php foreach ($partner_logos_two as $partner_logo_two) : ?>
                     <div class="partner-logo">
-                        <img src="<?php echo esc_url($partner_logo_two['url']); ?>" alt="<?php echo esc_attr($partner_logo_two['alt']); ?>">
+                        <img loading="lazy" src="<?php echo esc_url($partner_logo_two['url']); ?>" alt="<?php echo esc_attr($partner_logo_two['alt']); ?>">
                     </div>
                 <?php endforeach; ?>
             </div>

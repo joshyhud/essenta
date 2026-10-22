@@ -157,7 +157,7 @@ $case_studies = new WP_Query([
 
                                 <?php if ($client_logo): ?>
                                     <div class="scrolling-content-client-logo">
-                                        <img src="<?php echo esc_url($client_logo['url']); ?>" alt="<?php echo esc_attr($client_logo['alt']); ?>">
+                                        <img loading="lazy" src="<?php echo esc_url($client_logo['url']); ?>" alt="<?php echo esc_attr($client_logo['alt']); ?>">
                                     </div>
                                 <?php else: ?>
                                     <h3 class="scrolling-content-heading"><?php echo esc_html($client[0]->name); ?></h3>

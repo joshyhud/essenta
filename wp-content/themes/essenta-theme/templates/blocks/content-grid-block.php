@@ -54,7 +54,7 @@ $content_grid_item_count = is_array($content_grid_items) ? count($content_grid_i
 
         <div class="content-grid-image">
             <?php if ($content_image) : ?>
-                <img src="<?php echo esc_url($content_image['url']); ?>" alt="<?php echo esc_attr($content_image['alt']); ?>">
+                <img loading="lazy" src="<?php echo esc_url($content_image['url']); ?>" alt="<?php echo esc_attr($content_image['alt']); ?>">
             <?php endif; ?>
         </div>
 

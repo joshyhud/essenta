@@ -98,7 +98,7 @@ if ($office_locations && $google_maps_api_key !== '') {
 
                 <div class="office-locations__legend" aria-label="Map legend">
                     <div><span class="office-locations__legend-role" aria-hidden="true"></span>Recent client locations</div>
-                    <div><img class="office-locations__legend-office" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin-teal.svg'); ?>" alt="">Office locations</div>
+                    <div><img loading="lazy" class="office-locations__legend-office" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin-teal.svg'); ?>" alt="">Office locations</div>
                 </div>
 
                 <aside class="office-locations__drawer" aria-hidden="true" aria-label="Office details">
@@ -115,24 +115,24 @@ if ($office_locations && $google_maps_api_key !== '') {
                                 <?php echo esc_html($office_location['title']); ?><?php echo $office_location['country'] ? ', ' . esc_html($office_location['country']) : ''; ?>
                             </h2>
                             <?php if ($office_location['image']) : ?>
-                                <img class="office-locations__image" src="<?php echo esc_url($office_location['image']); ?>" alt="<?php echo esc_attr($office_location['title']); ?> office">
+                                <img loading="lazy" class="office-locations__image" src="<?php echo esc_url($office_location['image']); ?>" alt="<?php echo esc_attr($office_location['title']); ?> office">
                             <?php endif; ?>
                             <div class="office-locations__contact">
                                 <?php if ($office_location['address']) : ?>
                                     <div class="office-locations__contact-row">
-                                        <span class="office-locations__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt=""></span>
+                                        <span class="office-locations__contact-icon" aria-hidden="true"><img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/pin.svg'); ?>" alt=""></span>
                                         <address><a href="<?php echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($office_location['address'])); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($office_location['address']); ?></a></address>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($office_location['phone']) : ?>
                                     <div class="office-locations__contact-row">
-                                        <span class="office-locations__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/phone.svg'); ?>" alt=""></span>
+                                        <span class="office-locations__contact-icon" aria-hidden="true"><img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/phone.svg'); ?>" alt=""></span>
                                         <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $office_location['phone'])); ?>"><?php echo esc_html($office_location['phone']); ?></a>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($office_location['email']) : ?>
                                     <div class="office-locations__contact-row">
-                                        <span class="office-locations__contact-icon" aria-hidden="true"><img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/mail.svg'); ?>" alt=""></span>
+                                        <span class="office-locations__contact-icon" aria-hidden="true"><img loading="lazy" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/dist/images/mail.svg'); ?>" alt=""></span>
                                         <a href="mailto:<?php echo esc_attr($office_location['email']); ?>"><?php echo esc_html($office_location['email']); ?></a>
                                     </div>
                                 <?php endif; ?>

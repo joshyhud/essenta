@@ -112,6 +112,9 @@ add_action('wp_enqueue_scripts', function () {
 
   // Remove classic-themes CSS for backwards compatibility for button blocks.
   wp_dequeue_style('classic-theme-styles');
+
+  // Remove classic-themes CSS for backwards compatibility for button blocks.
+  wp_dequeue_style('dashicons');
 }, 20);
 
 /****************************************************************

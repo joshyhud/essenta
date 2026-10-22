@@ -51,7 +51,7 @@ $insights = new WP_Query(array(
                                     ?>
                                 </div>
                                 <?php if (has_post_thumbnail()) : ?>
-                                    <?php the_post_thumbnail('medium'); ?>
+                                    <?php the_post_thumbnail('medium', array('loading' => 'lazy')); ?>
                                 <?php endif; ?>
                             </div>
                             <div class="insights-post-content">

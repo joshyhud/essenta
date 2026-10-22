@@ -106,7 +106,7 @@ $drawer_id = $uid . '-profile-drawer';
           $member_id       = $member->ID;
           $name            = get_the_title($member_id);
           $role            = get_field('job_role', $member_id);
-          $img             = get_the_post_thumbnail($member_id, 'full');
+          $img             = get_the_post_thumbnail($member_id, 'full', array('loading' => 'lazy'));
           $departments     = get_the_terms($member_id, 'department');
           $locations       = get_the_terms($member_id, 'team_location');
           ?>

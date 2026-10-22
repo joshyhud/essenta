@@ -48,7 +48,7 @@ $title = get_the_title($post_id);
           <div class="blog-header-author">
             <?php if ($author instanceof WP_Post && has_post_thumbnail($author)) : ?>
               <div class="blog-header-author-image">
-                <?php echo get_the_post_thumbnail($author, 'thumbnail', array('alt' => esc_attr(get_the_title($author)))); ?>
+                <?php echo get_the_post_thumbnail($author, 'thumbnail', array('loading' => 'lazy', 'alt' => esc_attr(get_the_title($author)))); ?>
               </div>
             <?php endif; ?>
             <div class="blog-header-author-details">

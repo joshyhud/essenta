@@ -26,6 +26,12 @@ function add_theme_scripts()
 }
 add_action('wp_enqueue_scripts', 'add_theme_scripts');
 
+
+
+/// Only enqueue gravity form resources for contact page
+
+
+
 // Force-enqueue Gravity Forms CSS/JS for the footer contact form.
 // Gravity Forms only auto-enqueues its assets for forms found in the current
 // post's content, so the form embedded in the footer options field is never

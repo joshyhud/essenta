@@ -7,8 +7,18 @@
     <title><?php wp_title('|', true, 'right'); ?></title>
     <?php wp_head(); ?>
 
-    <!-- Adelle AdobeFont -->
-    <link rel="stylesheet" href="https://use.typekit.net/kxn1npi.css">
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="preconnect" href="https://p.typekit.net" crossorigin>
+
+    <link
+        rel="preload"
+        href="https://use.typekit.net/kxn1npi.css"
+        as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+
+    <noscript>
+        <link rel="stylesheet" href="https://use.typekit.net/kxn1npi.css">
+    </noscript>
 
     <!-- Google Tag Manager -->
     <script>

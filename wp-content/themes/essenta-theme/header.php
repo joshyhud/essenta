@@ -20,6 +20,24 @@
         <link rel="stylesheet" href="https://use.typekit.net/kxn1npi.css">
     </noscript>
 
+
+    <!-- Preload the Regular weight (Highest priority for body text) -->
+    <link
+        rel="preload"
+        href="<?php echo get_template_directory_uri(); ?>/dist/fonts/CircularXXWeb-Regular.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
+
+    <!-- Optional: Preload the Bold weight if your main above-the-fold heading uses it -->
+    <link
+        rel="preload"
+        href="<?php echo get_template_directory_uri(); ?>/dist/fonts/CircularXXWeb-Bold.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
+
+
     <!-- Google Tag Manager -->
     <script>
         (function(w, d, s, l, i) {

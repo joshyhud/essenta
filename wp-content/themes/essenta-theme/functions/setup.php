@@ -30,29 +30,51 @@ add_action('wp_enqueue_scripts', 'add_theme_scripts');
 
 /// Only enqueue gravity form resources for contact page
 
-
-
-// Force-enqueue Gravity Forms CSS/JS for the footer contact form.
-// Gravity Forms only auto-enqueues its assets for forms found in the current
-// post's content, so the form embedded in the footer options field is never
-// detected and its default styles/scripts are skipped on the front end.
-function enqueue_footer_gravity_form_assets()
+function restrict_gravity_forms_to_contact_page()
 {
-  if (!class_exists('GFForms') || !function_exists('get_field')) {
+  // If we are in the WordPress admin dashboard, do nothing
+  if (is_admin()) {
     return;
   }
 
-  $footer_form_content = get_field('footer_contact_form', 'option');
+  // CRITICAL CHECK: If it is NOT the 'contact' page, strip all assets
+  // This checks for the URL slug 'contact'. You can also use the Page ID (e.g., 123)
+  if (! is_page('contact')) {
 
-  if (empty($footer_form_content)) {
-    return;
-  }
+    // 1. Tell Gravity Forms' internal engine not to load styles
+    add_filter('gform_disable_css', '__return_true');
 
-  if (preg_match('/\[gravityform[^\]]*\bid=["\']?(\d+)["\']?/i', $footer_form_content, $matches)) {
-    gravity_form_enqueue_scripts((int) $matches[1], false);
+    // 2. Aggressively wipe the style handles from WordPress memory
+    $styles_to_kill = array(
+      'gform_theme_components',
+      'gform_theme_framework',
+      'gform_orbital_theme',
+      'gform_basic',
+      'gforms_reset_css',
+      'gforms_formsmain_css'
+    );
+
+    foreach ($styles_to_kill as $handle) {
+      wp_dequeue_style($handle);
+      wp_deregister_style($handle);
+    }
+
+    // 3. Wipe the core Gravity Forms scripts from memory
+    $scripts_to_kill = array(
+      'gform_gravityforms',
+      'gform_conditional_logic',
+      'gform_json'
+    );
+
+    foreach ($scripts_to_kill as $script_handle) {
+      wp_dequeue_script($script_handle);
+      wp_deregister_script($script_handle);
+    }
   }
 }
-add_action('wp_enqueue_scripts', 'enqueue_footer_gravity_form_assets', 20);
+// Run at template_redirect so WordPress has determined the current page identity
+add_action('template_redirect', 'restrict_gravity_forms_to_contact_page', 1);
+
 
 // Enqueue External Libraries
 function add_cdn_libraries()

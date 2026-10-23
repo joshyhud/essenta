@@ -3,18 +3,21 @@
   src:
     url("../../dist/fonts/CircularXXWeb-Regular.woff2") format("woff2"),
     url("../../dist/fonts/CircularXXWeb-Regular.woff") format("woff");
+  font-display: swap;
 }
 @font-face {
   font-family: "Circular-Medium";
   src:
     url("../../dist/fonts/CircularXXWeb-Medium.woff2") format("woff2"),
     url("../../dist/fonts/CircularXXWeb-Medium.woff") format("woff");
+  font-display: swap;
 }
 @font-face {
   font-family: "Circular-Bold";
   src:
     url("../../dist/fonts/CircularXXWeb-Bold.woff2") format("woff2"),
     url("../../dist/fonts/CircularXXWeb-Bold.woff") format("woff");
+  font-display: swap;
 }
 
 :root {

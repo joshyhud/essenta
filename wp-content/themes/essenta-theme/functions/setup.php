@@ -10,19 +10,17 @@ function add_theme_scripts()
   $style_ver = filemtime(get_stylesheet_directory() . '/dist/css/style.min.css');
   // Get latest update of Scripts
   $script_ver = filemtime(get_stylesheet_directory() . '/dist/js/scripts.min.js');
+  $slick_ver = filemtime(get_stylesheet_directory() . '/dist/js/slick.min.js');
+  $sliders_ver = filemtime(get_stylesheet_directory() . '/dist/js/sliders.min.js');
+
   // Enqueue style.css with version updating
   wp_enqueue_style('main_style', get_stylesheet_directory_uri() . '/dist/css/style.min.css', array(), $style_ver);
   // Enqueue latest version of jQuery
   wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-latest.min.js', array(), null);
   // Enqueue script.js with version updating and dependency on jQuery
-  wp_enqueue_script('main-script', get_stylesheet_directory_uri() . '/dist/js/scripts.min.js', array('jquery', 'accessible-slick-cdn-js'), $script_ver, true);
-  wp_enqueue_script(
-    'essenta-sliders',
-    get_stylesheet_directory_uri() . '/dist/js/sliders.min.js',
-    array('main-script', 'accessible-slick-cdn-js'),
-    filemtime(get_stylesheet_directory() . '/dist/js/sliders.min.js'),
-    true
-  );
+  wp_enqueue_script('main-script', get_stylesheet_directory_uri() . '/dist/js/scripts.min.js', array('jquery'), $script_ver, true);
+  wp_enqueue_script('main-slick', get_stylesheet_directory_uri() . '/dist/js/slick.min.js', array('jquery'), $slick_ver, true);
+  wp_enqueue_script('main-sliders', get_stylesheet_directory_uri() . '/dist/js/sliders.min.js', array('jquery'), $sliders_ver, true);
 }
 add_action('wp_enqueue_scripts', 'add_theme_scripts');
 
@@ -74,33 +72,6 @@ function restrict_gravity_forms_to_contact_page()
 }
 // Run at template_redirect so WordPress has determined the current page identity
 add_action('template_redirect', 'restrict_gravity_forms_to_contact_page', 1);
-
-
-// Enqueue External Libraries
-function add_cdn_libraries()
-{
-  // Enqueue a CSS file from a CDN
-  wp_enqueue_style(
-    'accessible-slick-cdn', // Handle name
-    'https://cdn.jsdelivr.net/npm/@accessible360/accessible-slick@1.0.1/slick/slick.min.css', // CDN URL
-    array(), // Dependencies
-  );
-
-  wp_enqueue_style(
-    'accessible-slick-theme-cdn', // Handle name
-    'https://cdn.jsdelivr.net/npm/@accessible360/accessible-slick@1.0.1/slick/accessible-slick-theme.min.css', // CDN URL
-    array(), // Dependencies
-  );
-
-  // Enqueue a JavaScript file from a CDN
-  wp_enqueue_script(
-    'accessible-slick-cdn-js', // Handle name
-    'https://cdn.jsdelivr.net/npm/@accessible360/accessible-slick@1.0.1/slick/slick.min.js', // CDN URL
-    array('jquery'), // Dependencies
-  );
-}
-add_action('wp_enqueue_scripts', 'add_cdn_libraries');
-
 
 // Remove WordPress's inline SVG's from the frontend
 remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');

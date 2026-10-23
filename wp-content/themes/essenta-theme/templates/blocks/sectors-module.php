@@ -93,6 +93,8 @@ $manual_sectors = get_sub_field('manual_sectors');
                                             'medium_large',
                                             array(
                                                 'loading' => 'lazy',
+                                                'width' => '264',
+                                                'height' => '264'
                                             )
                                         );
                                         ?>
@@ -135,6 +137,8 @@ $manual_sectors = get_sub_field('manual_sectors');
                                     <?php if ($sector_image) : ?>
                                         <div class="sectors-card__image">
                                             <img loading="lazy"
+                                                width="264"
+                                                height="264"
                                                 src="<?php echo esc_url($sector_image['url']); ?>"
                                                 alt="<?php echo esc_attr($sector_image['alt']); ?>"
                                                 loading="lazy" />

@@ -412,15 +412,15 @@ jQuery(document).ready(function ($) {
 
   if ($drawer.length && $toggle.length && $overlay.length) {
     var menuContent = $drawer.find(".mm-menu-content").get(0);
-    var rootMenu = menuContent
-      ? menuContent.querySelector(".mega-menu")
-      : null;
+    var rootMenu = menuContent ? menuContent.querySelector(".mega-menu") : null;
     var panelItems = [];
 
     if (rootMenu) {
       panelItems = Array.from(rootMenu.children).filter(function (item) {
-        return item.matches(".mega-menu-item-has-children") &&
-          item.querySelector(":scope > ul.mega-sub-menu");
+        return (
+          item.matches(".mega-menu-item-has-children") &&
+          item.querySelector(":scope > ul.mega-sub-menu")
+        );
       });
 
       panelItems.forEach(function (item) {
@@ -440,7 +440,10 @@ jQuery(document).ready(function ($) {
         var backButton = document.createElement("button");
         backButton.className = "mm-panel-back";
         backButton.type = "button";
-        backButton.setAttribute("aria-label", "Back to " + link.textContent.trim());
+        backButton.setAttribute(
+          "aria-label",
+          "Back to " + link.textContent.trim(),
+        );
 
         var backLabel = document.createElement("span");
         backLabel.textContent = link.textContent.trim();
@@ -609,42 +612,46 @@ jQuery(document).ready(function ($) {
 
 // Hero video: clicking the inline video (or play button) opens it in a modal
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".homepage-hero-image.has-video").forEach((hero) => {
-    const modal = document.getElementById(hero.dataset.heroVideoModal);
-    if (!modal) {
-      return;
-    }
-
-    const modalVideo = modal.querySelector(".homepage-hero-video-modal-video");
-
-    function openModal() {
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      modalVideo.currentTime = 0;
-      modalVideo.play().catch(() => {});
-    }
-
-    function closeModal() {
-      modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-      modalVideo.pause();
-      modalVideo.currentTime = 0;
-    }
-
-    hero.addEventListener("click", openModal);
-
-    modal.querySelectorAll("[data-hero-video-modal-close]").forEach((el) => {
-      el.addEventListener("click", closeModal);
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && modal.classList.contains("is-open")) {
-        closeModal();
+  document
+    .querySelectorAll(".homepage-hero-image.has-video")
+    .forEach((hero) => {
+      const modal = document.getElementById(hero.dataset.heroVideoModal);
+      if (!modal) {
+        return;
       }
+
+      const modalVideo = modal.querySelector(
+        ".homepage-hero-video-modal-video",
+      );
+
+      function openModal() {
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        modalVideo.currentTime = 0;
+        modalVideo.play().catch(() => {});
+      }
+
+      function closeModal() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+      }
+
+      hero.addEventListener("click", openModal);
+
+      modal.querySelectorAll("[data-hero-video-modal-close]").forEach((el) => {
+        el.addEventListener("click", closeModal);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal.classList.contains("is-open")) {
+          closeModal();
+        }
+      });
     });
-  });
 
   function updateFooterDetails() {
     const details = document.querySelectorAll(".footer-details-wrapper");
@@ -903,8 +910,16 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!reducedMotionQuery.matches && startHeight !== endHeight) {
         const animation = container.animate(
           [
-            { height: `${startHeight}px`, boxSizing: "border-box", overflow: "hidden" },
-            { height: `${endHeight}px`, boxSizing: "border-box", overflow: "hidden" },
+            {
+              height: `${startHeight}px`,
+              boxSizing: "border-box",
+              overflow: "hidden",
+            },
+            {
+              height: `${endHeight}px`,
+              boxSizing: "border-box",
+              overflow: "hidden",
+            },
           ],
           { duration: 350, easing: "cubic-bezier(0.4, 0, 0.2, 1)" },
         );

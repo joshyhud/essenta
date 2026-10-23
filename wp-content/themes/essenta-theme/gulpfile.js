@@ -15,6 +15,7 @@ const paths = {
   cssOutput: "./dist/css", // Destination folder for CSS
   js: ["./src/js/**/*.js", "!./src/js/sliders.js"],
   sliders: "./src/js/sliders.js",
+  slickJS: "./src/js/slick.js",
   jsOutput: "./dist/js", // Destination folder for minified JS
   adminScss: "./src/scss/admin/**/*.scss", // All admin SCSS files
   images: "./src/images/**/*", // Placeholder for image paths
@@ -71,6 +72,17 @@ function minifySliders() {
     .pipe(gulp.dest(paths.jsOutput));
 }
 
+// Minify slick JS
+function minifySlick() {
+  return gulp
+    .src(paths.slickJS)
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(rename({ suffix: ".min" }))
+    .pipe(sourcemaps.write("./"))
+    .pipe(gulp.dest(paths.jsOutput));
+}
+
 // Process and optimize images
 function processImages() {
   return gulp
@@ -104,6 +116,7 @@ function watchFiles() {
   gulp.watch(paths.adminScss, compileAdminSCSS); // Watch admin SCSS files and recompile on changes
   gulp.watch(paths.js, minifyJS); // Watch JS files and minify on changes
   gulp.watch(paths.sliders, minifySliders);
+  gulp.watch(paths.slickJS, minifySlick); // Watch slick JS and minify on changes
   gulp.watch(paths.images, processImages); // Watch image files and process on changes
   gulp.watch(paths.fonts, processFonts); // Watch font files and process on changes
 }
@@ -117,9 +130,9 @@ const defaultTask = gulp.series(
     minifySliders,
     processImages,
     processFonts,
-    lintJS
+    lintJS,
   ),
-  watchFiles
+  watchFiles,
 );
 
 // Export tasks

@@ -48,8 +48,7 @@ $hero_cta_link = get_sub_field('homepage_cta');
     <div class="homepage-hero-image-wrapper">
       <div class="homepage-hero-image">
         <?php if ($hero_image && $hero_image['type'] === 'image'): ?>
-          <img loading="lazy"
-            loading="lazy"
+          <img fetchpriority="high"
             src="<?php echo esc_url($hero_image['url']); ?>"
             alt="<?php echo esc_attr($hero_image['alt']); ?>">
         <?php endif; ?>

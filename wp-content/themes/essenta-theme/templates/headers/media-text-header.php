@@ -39,7 +39,7 @@ $media_cta_secondary = get_sub_field('header_secondary_cta');
             </div>
             <div class="media-text-right image">
                 <?php if (!empty($media_image)): ?>
-                    <img width="562" height="436" src="<?php echo esc_url($media_image['url']); ?>" alt="<?php echo esc_attr($media_image['alt']); ?>" />
+                    <img fetchpriority="high" width="562" height="436" src="<?php echo esc_url($media_image['url']); ?>" alt="<?php echo esc_attr($media_image['alt']); ?>" />
                 <?php endif; ?>
             </div>
         <?php else: ?>
